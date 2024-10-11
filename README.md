@@ -1,4 +1,4 @@
-<title>>Bientôt de retour !</title>
+<h1>Bientôt de retour !</h1>
 <article>
     <div>
         <p>Le site est en maintenance. En attendant, vous pouvez me contacter <a href="mailto:clement.barriere@etu.u-bordeaux.fr">par mail</a> ou via <a href="https://github.com/B-a-r-r">mon profil GitHub</a>.</p>
