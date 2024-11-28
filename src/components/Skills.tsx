@@ -1,10 +1,9 @@
-import React from 'react'
-
 function Skills() {
   return (
-    <div>
-      
-    </div>
+    <section id='features'
+      className=""
+    >
+    </section>
   )
 }
 

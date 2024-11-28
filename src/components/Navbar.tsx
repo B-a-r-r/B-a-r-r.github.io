@@ -1,42 +1,45 @@
 import { useState } from "react"
-import { close, logo, menu} from '../assets';
-import { navLinks, navLinksSeperator } from "../constants";
+import { close, menu, menu_down_arrow} from '../assets';
+import { navLinks, languages } from "../constants";
+import styles from "../style";
 
 function Navbar() {
   const [toggle, setToggle] = useState(false);
 
   return (
-    <div className="w-full flex py-6 justify-between items-center navbar">
+    <section id="navbar"
+      className=
+      {`
+        ${styles.flexStart}
+        w-full
+        navbar 
+        color-secondary
+        m-1
+        ml-2
+      `}
+    >
 
-      {/* <img 
-        src={logo} 
-        alt="my-logo" 
-        className="w-[124px] h-[32px]" 
-      /> */}
-
-      <ul className="
-        list-none 
-        sm:flex hidden 
-        justify-around
-        items-center 
-        flex-1
-        bg-black
-        p-4" 
+      <ul id="navbar-items"
+        className="
+          list-none 
+          sm:flex hidden 
+          py-3
+          px-6" 
         /* NB: hide the list on small screens */
       >
         {
           navLinks.map((nav, index) => (
             <>
               <li 
-                key={nav.id} 
+                key={nav.id + " " + index} 
                 className=
                 {`
-                    font-poppins 
-                    font-normal 
+                    font-secondary-regular
                     cursor-pointer 
-                    text-[16px] 
+                    text-[22px] 
                     ${index === navLinks.length-1 ? 'mr-0' : 'mr-4' /* if it's the last element, remove the margin right */}
-                    text-white
+                    text-black
+                    pr-4
                 `}
               >
                 <a href={`#${nav.id}`}>
@@ -44,19 +47,6 @@ function Navbar() {
                 </a>
 
               </li>
-              
-              {/* add a separator after each element except the last one */}
-              {/* {index === navLinks.length-1 ? null :
-                <li 
-                  key={navLinksSeperator(index).id} 
-                  className="
-                    text-white
-                    font-poppins
-                    mr-4"
-                > 
-                  {navLinksSeperator(index).title}
-                </li>
-              } */}
             </>
           ))
         }
@@ -71,7 +61,8 @@ function Navbar() {
           onClick={() => setToggle((prev) => !prev)}
         />
 
-        <div className=
+        <div id="mobile-menu"
+          className=
           {`
               ${toggle ? 'flex' : 'hidden'}
               p-6
@@ -91,7 +82,7 @@ function Navbar() {
             {
               navLinks.map((nav, index) => (
                 <li 
-                  key={nav.id} 
+                  key={nav.id + " " + index} 
                   className=
                   {`
                       font-poppins 
@@ -112,11 +103,66 @@ function Navbar() {
               ))
             }
           </ul>
+          
+        </div>
+
+      </div>
+
+      <div id="navbar-params"
+        className=
+        {`
+          ${styles.flexEnd}
+          flex-row
+        `}
+      >
+
+        {/* <ThemeSwitch /> */}
+
+        <div id="language-menu"
+          className=
+          {`
+            ${styles.flexEnd}
+            flex-row
+          `}
+        >
+
+          <ul className=
+            {`
+              list-none 
+              ${styles.flexCenter}
+            `}
+          >
+            {
+              languages.map((lang) => (
+                <li 
+                  key={lang.id} 
+                  className=
+                  {`
+                      font-secondary-regular
+                      cursor-pointer 
+                      text-[16px] 
+                      text-black
+                      mr-10
+                  `}
+                >
+                  {lang.label}
+                </li>
+              ))
+            }
+          </ul>
+
+          <img 
+            src={menu_down_arrow} 
+            alt="menu-down-arrow" 
+            className="object-contain" 
+            onClick={() => {return true}}
+          />
 
         </div>
 
       </div>
-    </div>
+      
+    </section>
   )
 }
 
