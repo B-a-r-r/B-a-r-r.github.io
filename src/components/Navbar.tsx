@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { close, menu, menu_down_arrow} from '../assets';
+import { close_icon, menu_burger_icon, menu_down_arrow} from '../assets';
 import { navLinks, languages } from "../constants";
 import styles from "../style";
 
@@ -21,6 +21,7 @@ function Navbar() {
 
       <ul id="navbar-items"
         className="
+          space-x-7
           list-none 
           sm:flex hidden 
           py-3
@@ -31,15 +32,15 @@ function Navbar() {
           navLinks.map((nav, index) => (
             <>
               <li 
-                key={nav.id + " " + index} 
+                key={nav.id} 
                 className=
                 {`
                     font-secondary-regular
+                    tracking-wider
                     cursor-pointer 
-                    text-[22px] 
+                    text-[30px] 
                     ${index === navLinks.length-1 ? 'mr-0' : 'mr-4' /* if it's the last element, remove the margin right */}
-                    text-black
-                    pr-4
+
                 `}
               >
                 <a href={`#${nav.id}`}>
@@ -55,7 +56,7 @@ function Navbar() {
       <div className="sm:hidden flex flex-1 justify-end items-center" /* show the burger menu on small screens */>
 
         <img 
-          src={toggle ? close : menu} 
+          src={toggle ? close_icon : menu_burger_icon} 
           alt="burger-menu" 
           className="w-[28px] h-[28px] object-contain" 
           onClick={() => setToggle((prev) => !prev)}
@@ -82,7 +83,7 @@ function Navbar() {
             {
               navLinks.map((nav, index) => (
                 <li 
-                  key={nav.id + " " + index} 
+                  key={nav.id} 
                   className=
                   {`
                       font-poppins 

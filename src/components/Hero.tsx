@@ -29,8 +29,9 @@ const Hero = () => (
             className=
             {`
               ${styles.flexStart}
-              flex-row 
-              w-full"
+              flex-col 
+              w-full
+              mb-[50px]"
             `}
           >
             <h1 className="
@@ -81,14 +82,21 @@ const Hero = () => (
             </p>
 
       </div>
+      
+      <div id="image-container"
+        className=
+        {`
+        `}
+      >
 
-      <img src={sysiphus} 
-        alt="Sysiphus" 
-        className="
-          object-contain
-          flex-1
-          mt-10"
-      />
+        <img src={sysiphus} 
+          alt="Sysiphus" 
+          className="
+            object-contain
+            mt-10"
+        />
+
+      </div>
 
   </section>
 )
