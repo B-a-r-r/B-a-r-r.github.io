@@ -17,7 +17,6 @@ function App() {
         className=
         {`
           ${styles.flexCenter}
-          clear-start
         `}
       > 
       
@@ -25,42 +24,41 @@ function App() {
 
       </div>
 
-      <div id="hero-container"
-        className=
-        {`
-          ${styles.paddingX}
-          ${styles.flexStart}
-          ${styles.boxWidth}
-          z-[1]
-        `}
-      >
-
-        <Hero />
-
-      </div>
-
       <div id="content-container" 
         className=
         {`
-          ${styles.paddingX} 
-          ${styles.flexStart}
-          ${styles.boxWidth}
+          ${styles.flexCenter}
+          flex-col
         `}
       >
-        <div id="content-container"
+
+        <div id="hero-container"
           className=
           {`
-            ${styles.boxWidth}
+            z-[1]
           `}
         >
 
-          <About />
-          <Projects /> 
-          <Skills />
-          <Form />
-          <Footer />
+          <Hero />
 
         </div>
+
+        <About />
+        <Projects /> 
+        <Skills />
+        <Form />
+
+      </div>
+
+      <div id="footer-container"
+        className=
+        {`
+          ${styles.flexCenter}
+        `}
+      > 
+      
+        <Footer />
+
       </div>
 
     </div>

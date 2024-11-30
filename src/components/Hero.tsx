@@ -10,6 +10,7 @@ const Hero = () => (
       ${layout.section}
       ${styles.flexCenter}
       bg-transparent
+
     `}
   >
 
@@ -35,23 +36,21 @@ const Hero = () => (
             `}
           >
             <h1 className="
-              flex-1 
               font-primary-regular
-              ss:text-[72px]
-              text-[80px]
-              tracking-[0.1em]
+              text-[72px]
+              tracking-[0.1em] 
               color-primary
               leading-[86.4px]"
             >
 
               Clément <br/> 
-              <p className="
+              <a className="
                 font-primary-bold 
                 text-[96px]
                 tracking-wide"
               > 
                 BARRIÈRE
-              </p>
+              </a>
               <br className="sm:block hidden"/> {" "}
 
             </h1>
@@ -61,7 +60,7 @@ const Hero = () => (
             <hr className=
               {`
                 self-end
-                color-tertiary
+                bg-[--light-color-tertiary]
                 w-[65%]
                 h-[5px]
                 m-9
@@ -89,11 +88,12 @@ const Hero = () => (
         `}
       >
 
-        <img src={sysiphus} 
+        <img id="hero-image"
+          src={sysiphus} 
           alt="Sysiphus" 
+          style={{maxWidth: "100%"}}
           className="
-            object-contain
-            mt-10"
+            object-contain"
         />
 
       </div>

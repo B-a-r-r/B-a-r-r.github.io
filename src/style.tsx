@@ -12,7 +12,7 @@ const styles = {
   flexEnd: "flex justify-between items-end",
 
   /* On small devices, the horizontal and vertical gap between elements is larger. */
-  paddingX: "sm:px-16 px-6",
+  paddingX: "sm:px-16 px-[20px]",
   paddingY: "sm:py-16 py-6",
   padding: "sm:px-16 px-6 sm:py-12 py-4",
 

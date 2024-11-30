@@ -11,7 +11,7 @@ module.exports = {
         dimBlue: "rgba(9, 151, 124, 0.1)",
       },
       fontFamily: {
-        poppins: ["Poppins", "sans-serif"],
+        poppins: ["Montserrat", "sans-serif"],
       },
     },
     screens: {
@@ -23,5 +23,5 @@ module.exports = {
       xl: "1700px",
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-hamburgers')],
 };
