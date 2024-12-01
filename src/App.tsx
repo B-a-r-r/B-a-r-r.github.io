@@ -8,7 +8,7 @@ function App() {
       className=
       {`
         w-full 
-        overflow-hidden 
+        overflow-hidden
         color-primary
       `}
     >
@@ -27,15 +27,17 @@ function App() {
       <div id="content-container" 
         className=
         {`
+          w-full
           ${styles.flexCenter}
           flex-col
+          px-[120px]
         `}
       >
 
         <div id="hero-container"
           className=
           {`
-            z-[1]
+            w-full
           `}
         >
 
@@ -43,7 +45,17 @@ function App() {
 
         </div>
 
-        <About />
+        <div id="about-container"
+          className=
+          {`
+            ${styles.boxWidth}
+          `}
+        >
+
+          <About />
+        
+        </div>
+
         <Projects /> 
         <Skills />
         <Form />

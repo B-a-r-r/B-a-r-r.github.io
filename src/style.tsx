@@ -23,7 +23,7 @@ const styles = {
   
   export const layout = {
     /* From medium screen size, elements are displayed in row and not column. */
-    section: `flex md:flex-row flex-col ${styles.paddingY}`,
+    section: `flex md:flex-row flex-col mt-[70px]`,
     /* The oposite */
     sectionReverse: `flex md:flex-row flex-col-reverse ${styles.paddingY}`,
   

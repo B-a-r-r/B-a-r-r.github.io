@@ -23,5 +23,6 @@ module.exports = {
       xl: "1700px",
     },
   },
-  plugins: [require('tailwind-hamburgers')],
+  plugins: [
+      /*require('tailwindcss-plugins/tailwind-hamburgers')*/],
 };

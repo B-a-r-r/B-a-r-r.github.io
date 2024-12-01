@@ -28,6 +28,7 @@ const SwitchButton = () => {
                 bg-[--light-color-quaternary]
                 after:absolute 
                 after:left-0 
+                after:-bottom-1
                 after:h-5
                 after:w-5
                 after:rounded-full 

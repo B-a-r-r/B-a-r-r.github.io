@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { close_icon, menu_burger_icon} from '../assets';
 import { navLinks, languages } from "../constants";
 import DropdownButton from "./DropdownButton";
 import SwitchButton from "./SwitchButton";
@@ -21,7 +20,7 @@ function Navbar() {
         py-4
         ${styles.flexStart}
         color-secondary
-        text-[20px]
+        text-[22px]
       `}
     >
 
@@ -68,32 +67,26 @@ function Navbar() {
           /* show the burger menu on small screens */
       >
 
-        <img 
-          src={toggleBurger ? close_icon : menu_burger_icon} 
-          alt="burger-menu" 
-          className="w-[28px] h-[28px] object-contain" 
+        <div className=
+          {`
+            tham 
+            tham-e-spin 
+            tham-w-6
+            tham-active: ${toggleBurger}
+          `}
           onClick={() => setToggleBurger((prev) => !prev)}
-        />
-
-        {/* <div class="tham tham-e-squeeze tham-w-6">
-          <div class="tham-box">
-            <div class="tham-inner" />
+        >
+          <div className="tham-box">
+            <div className="tham-inner" />
           </div>
         </div>
-          
-        <script>
-        const tham = document.querySelector(".tham");
-          
-        tham.addEventListener('click', () => {
-          tham.classList.toggle('tham-active');
-        }); */}
 
         <div id="navbar-mobile-meu-items"
           className=
           {`
               ${toggleBurger ? 'flex' : 'hidden'}
               p-6
-              bg-black-gradient
+              bg-black
               absolute
               top-20
               right-0
@@ -102,6 +95,7 @@ function Navbar() {
               min-w-[140px]
               rounded-[10px]
               sidebar
+              z-[10]
           `}
         >
 

@@ -48,7 +48,7 @@
 
 .font-primary-regular {
   font-family: var(--font-primary);
-  font-weight: 400;
+  font-weight: 350;
   font-style: normal;
 }
 
@@ -60,7 +60,7 @@
 
 .font-primary-bold {
   font-family: var(--font-primary);
-  font-weight: 700;
+  font-weight: 800;
   font-style: normal;
 }
 
