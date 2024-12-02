@@ -12,7 +12,7 @@ const styles = {
   flexEnd: "flex justify-between items-end",
 
   /* On small devices, the horizontal and vertical gap between elements is larger. */
-  paddingX: "sm:px-16 px-6",
+  paddingX: "sm:px-16 px-[20px]",
   paddingY: "sm:py-16 py-6",
   padding: "sm:px-16 px-6 sm:py-12 py-4",
 
@@ -23,7 +23,7 @@ const styles = {
   
   export const layout = {
     /* From medium screen size, elements are displayed in row and not column. */
-    section: `flex md:flex-row flex-col ${styles.paddingY}`,
+    section: `flex md:flex-row flex-col mt-[70px]`,
     /* The oposite */
     sectionReverse: `flex md:flex-row flex-col-reverse ${styles.paddingY}`,
   

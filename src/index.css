@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@300;400;600&family=Montserrat:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -15,7 +16,7 @@
 
   /* App light theme colors */
   --light-color-primary: #F1F1F1;
-  --light-color-secondary: #ECECEC;
+  --light-color-secondary: #EEEEEE;
   --light-color-tertiary: #428E5B;
   --light-color-quaternary: #3D3E3C;
   --light-color-quinary: #4F4F4F;
@@ -23,6 +24,7 @@
   /* App font families */
   --font-primary: "Montserrat", sans-serif;
   --font-secondary: "Hind Vadodara", sans-serif;
+  --font-tertiary: "Kanit", sans-serif;
 }
 
 * {
@@ -46,7 +48,7 @@
 
 .font-primary-regular {
   font-family: var(--font-primary);
-  font-weight: 400;
+  font-weight: 350;
   font-style: normal;
 }
 
@@ -58,7 +60,7 @@
 
 .font-primary-bold {
   font-family: var(--font-primary);
-  font-weight: 700;
+  font-weight: 800;
   font-style: normal;
 }
 
@@ -78,6 +80,24 @@
 .font-secondary-semibold {
   font-family: var(--font-secondary);
   font-weight: 600;
+  font-style: normal;
+}
+
+.font-tertiary-light {
+  font-family: var(--font-tertiary);
+  font-weight: 200;
+  font-style: normal;
+}
+
+.font-tertiary-regular {
+  font-family: var(--font-tertiary);
+  font-weight: 300;
+  font-style: normal;
+}
+
+.font-tertiary-semibold {
+  font-family: var(--font-tertiary);
+  font-weight: 400;
   font-style: normal;
 }
 
@@ -141,13 +161,7 @@
 
 .color-secondary {
   background: var(--light-color-secondary);
-  opacity: 60%;
-  color: var(--light-color-quaternary);
-}
-
-.color-tertiary {
-  background: var(--light-color-tertiary);
-  color: var(--light-color-tertiary);
+  color: var(--light-color-quaternary); 
 }
 
 .color-quaternary {

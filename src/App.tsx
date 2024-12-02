@@ -8,7 +8,7 @@ function App() {
       className=
       {`
         w-full 
-        overflow-hidden 
+        overflow-hidden
         color-primary
       `}
     >
@@ -17,7 +17,6 @@ function App() {
         className=
         {`
           ${styles.flexCenter}
-          clear-start
         `}
       > 
       
@@ -25,29 +24,28 @@ function App() {
 
       </div>
 
-      <div id="hero-container"
-        className=
-        {`
-          ${styles.paddingX}
-          ${styles.flexStart}
-          ${styles.boxWidth}
-          z-[1]
-        `}
-      >
-
-        <Hero />
-
-      </div>
-
       <div id="content-container" 
         className=
         {`
-          ${styles.paddingX} 
-          ${styles.flexStart}
-          ${styles.boxWidth}
+          w-full
+          ${styles.flexCenter}
+          flex-col
+          px-[120px]
         `}
       >
-        <div id="content-container"
+
+        <div id="hero-container"
+          className=
+          {`
+            w-full
+          `}
+        >
+
+          <Hero />
+
+        </div>
+
+        <div id="about-container"
           className=
           {`
             ${styles.boxWidth}
@@ -55,13 +53,25 @@ function App() {
         >
 
           <About />
-          <Retex />
-          <Projects /> 
-          <Skills />
-          <Form />
-          <Footer />
-
+        
         </div>
+
+          <Retex />
+        <Projects /> 
+        <Skills />
+        <Form />
+
+      </div>
+
+      <div id="footer-container"
+        className=
+        {`
+          ${styles.flexCenter}
+        `}
+      > 
+      
+        <Footer />
+
       </div>
 
     </div>

@@ -1,35 +1,38 @@
 import { useState } from "react"
-import { close_icon, menu_burger_icon, menu_down_arrow} from '../assets';
 import { navLinks, languages } from "../constants";
+import DropdownButton from "./DropdownButton";
+import SwitchButton from "./SwitchButton";
 import styles from "../style";
 
 function Navbar() {
-  const [toggle, setToggle] = useState(false);
+  const [toggleBurger, setToggleBurger] = useState(false);
+  const [toggleLang, setToggleLang] = useState(false);
+  const [selectedLang, setSelectedLang] = useState('FR'.toUpperCase());
+  const [currentNavigation, setCurrentNavigation] = useState('about');
 
   return (
+
     <section id="navbar"
       className=
       {`
-        ${styles.flexStart}
         w-full
-        navbar 
+        px-10
+        py-4
+        ${styles.flexStart}
         color-secondary
-        m-1
-        ml-2
+        text-[22px]
       `}
     >
 
       <ul id="navbar-items"
         className="
-          space-x-7
+          space-x-10
           list-none 
-          sm:flex hidden 
-          py-3
-          px-6" 
+          sm:flex hidden"
         /* NB: hide the list on small screens */
       >
         {
-          navLinks.map((nav, index) => (
+          navLinks.map((nav) => (
             <>
               <li 
                 key={nav.id} 
@@ -37,13 +40,14 @@ function Navbar() {
                 {`
                     font-secondary-regular
                     tracking-wider
-                    cursor-pointer 
-                    text-[30px] 
-                    ${index === navLinks.length-1 ? 'mr-0' : 'mr-4' /* if it's the last element, remove the margin right */}
-
+                    cursor-pointer
+                    hover:text-[--light-color-tertiary]
+                    ${nav.id === currentNavigation ? 'text-[--light-color-tertiary]' : ""}
                 `}
               >
-                <a href={`#${nav.id}`}>
+                <a href={`#${nav.id}`}
+                  onClick={() => setCurrentNavigation(nav.id)}
+                >
                   {nav.title}
                 </a>
 
@@ -53,21 +57,36 @@ function Navbar() {
         }
       </ul>
 
-      <div className="sm:hidden flex flex-1 justify-end items-center" /* show the burger menu on small screens */>
+      <div id="navbar-mobile-menu-container"
+        className="
+          sm:hidden 
+          flex 
+          flex-1 
+          justify-end 
+          items-center" 
+          /* show the burger menu on small screens */
+      >
 
-        <img 
-          src={toggle ? close_icon : menu_burger_icon} 
-          alt="burger-menu" 
-          className="w-[28px] h-[28px] object-contain" 
-          onClick={() => setToggle((prev) => !prev)}
-        />
+        <div className=
+          {`
+            tham 
+            tham-e-spin 
+            tham-w-6
+            tham-active: ${toggleBurger}
+          `}
+          onClick={() => setToggleBurger((prev) => !prev)}
+        >
+          <div className="tham-box">
+            <div className="tham-inner" />
+          </div>
+        </div>
 
-        <div id="mobile-menu"
+        <div id="navbar-mobile-meu-items"
           className=
           {`
-              ${toggle ? 'flex' : 'hidden'}
+              ${toggleBurger ? 'flex' : 'hidden'}
               p-6
-              bg-black-gradient
+              bg-black
               absolute
               top-20
               right-0
@@ -76,6 +95,7 @@ function Navbar() {
               min-w-[140px]
               rounded-[10px]
               sidebar
+              z-[10]
           `}
         >
 
@@ -109,55 +129,82 @@ function Navbar() {
 
       </div>
 
-      <div id="navbar-params"
+      <div id="navbar-options"
         className=
         {`
-          ${styles.flexEnd}
-          flex-row
+          ${styles.flexCenter}
+          text-[16px]
+          font-primary-regular
+          space-x-10
         `}
       >
 
-        {/* <ThemeSwitch /> */}
+        <SwitchButton />
 
-        <div id="language-menu"
+        <div id="selected-lang"
           className=
           {`
             ${styles.flexEnd}
             flex-row
+            cursor-pointer
           `}
+          onClick={() => setToggleLang((prev) => !prev)}
         >
 
-          <ul className=
+          <div id="lang-dropdown-container"
+            className=
             {`
-              list-none 
               ${styles.flexCenter}
+              relative
             `}
           >
-            {
-              languages.map((lang) => (
-                <li 
-                  key={lang.id} 
-                  className=
-                  {`
-                      font-secondary-regular
-                      cursor-pointer 
-                      text-[16px] 
-                      text-black
-                      mr-10
-                  `}
-                >
-                  {lang.label}
-                </li>
-              ))
-            }
-          </ul>
+            <DropdownButton placeholder={selectedLang} />
+          
+            <div id="lang-dropdown-items"
+              className=
+              {`
+                ${toggleLang ? 'flex' : 'hidden'}
+                z-[10]
+                absolute
+                top-0
+                px-4
+                mr-2
+                bg-[--light-color-secondary]
+                rounded-[7px]
+                shadow gray-600 
+              `}
+            >
+            
+              <ul className=
+                {`
+                  list-none
+                  flex-col
+                  leading-8
+                `}
+              >
+                {
+                  languages
+                  .sort(function(a) { return a.label === selectedLang ? -1 : 1; })
+                  .map((lang) => (
+                    <li 
+                      key={lang.id} 
+                      className=
+                      {`
+                          cursor-pointer
+                          hover:text-[--light-color-tertiary]
+                          z-[1]
+                      `}
+                      onClick={() => setSelectedLang(lang.label)}
+                    >
+                      {lang.label}
+                    </li>
+                  ))
+                }
+              </ul>
 
-          <img 
-            src={menu_down_arrow} 
-            alt="menu-down-arrow" 
-            className="object-contain" 
-            onClick={() => {return true}}
-          />
+            </div>
+
+          </div>
 
         </div>
 

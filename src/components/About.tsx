@@ -1,10 +1,32 @@
-import React from 'react'
+import { layout } from "../style"
+import styles from "../style"
+import { about_portrait } from "../assets"
 
 function About() {
   return (
-    <div>
+    <section id="about"
+      className=
+      {`
+        ${layout.section}
+        ${styles.flexCenter}
+      `}
+    >
+    
+      <div id="about-image-coontainer"
+        className=
+        {`
+          ${layout.sectionImg}
+        `}
+      >
       
-    </div>
+        <img 
+          src={about_portrait}
+          alt="Portrait of the author"
+        />
+
+      </div>
+
+    </section>
   )
 }
 

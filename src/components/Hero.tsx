@@ -1,104 +1,156 @@
 import { layout } from "../style"
 import styles from "../style"
 import { sysiphus } from "../assets"
+import { socialMedia } from "../constants"
 
-const Hero = () => (
-  <section 
-    id="hero" 
-    className=
-    {`
-      ${layout.section}
-      ${styles.flexCenter}
-      bg-transparent
-    `}
-  >
+const Hero = () => {
+  // const adjustFontSize = (elementId: string, coeff: number) => {
+  //   const elementFontSize: string | undefined = document.getElementById(elementId)?.style.fontSize.split("px")[0];
+  //   console.log(elementFontSize);
+  //   console.log(Math.round(parseInt(elementFontSize || "0") * coeff).toString());
+  //   return (Math.round(parseInt(elementFontSize || "0") * coeff)).toString();
+  // }
 
-      <div id="hero-items"
-        className=
-        {`
-          flex-1
-          ${styles.flexStart}
-          flex-col
-          xl:px-0
-          sm:px-16
-          px-6
-        `}
-      >
-          
-          <div id="hero-heading"
-            className=
-            {`
-              ${styles.flexStart}
-              flex-col 
-              w-full
-              mb-[50px]"
-            `}
-          >
-            <h1 className="
-              flex-1 
-              font-primary-regular
-              ss:text-[72px]
-              text-[80px]
-              tracking-[0.1em]
-              color-primary
-              leading-[86.4px]"
+  return (
+    <section 
+      id="hero" 
+      className=
+      {`
+        ${layout.section}
+        ${styles.flexCenter}
+        relative
+        bg-transparent
+        md:space-x-[130px]
+        2xl:space-x-[100px]
+        
+      `}
+    >
+
+        <div id="hero-text"
+          className=
+          {`
+            relative
+            w-1/3
+            flex-1
+            ${styles.flexStart}
+            flex-col
+            xl:px-0
+            mb-[270px]
+          `}
+        >
+            
+            <div id="hero-heading"
+              className=
+              {`
+                ${styles.flexStart}
+                flex-col 
+                w-full
+                mt-[20px]
+                mb-[50px]"
+              `}
+              style={{fontSize: "64px"}}
             >
+              <h1 className="
+                font-primary-regular
+                tracking-[0.09em] 
+                color-primary
+                leading-[72.4px]"
+              >
 
-              Clément <br/> 
-              <p className="
-                font-primary-bold 
-                text-[96px]
-                tracking-wide"
-              > 
-                BARRIÈRE
-              </p>
-              <br className="sm:block hidden"/> {" "}
+                Clément <br/> 
+                <a className=
+                  {`
+                    font-primary-bold 
+                    text-[80px]
+                    tracking-wider
+                  `}
+                > 
+                  BARRIÈRE
+                </a>
+                <br className="sm:block hidden"/> {" "}
 
-            </h1>
+              </h1>
 
-          </div>
+            </div>
 
             <hr className=
               {`
-                self-end
-                color-tertiary
-                w-[65%]
-                h-[5px]
-                m-9
-                mt-5
-                mb-8
-                border-0
+                absolute
+                bg-[--light-color-tertiary]
+                w-[300px]
+                h-[3px]
+                bottom-[125px]
+                left-[135px]
+                border-[0px]
               `}
             />
 
             <p className=
               {`
                 ${styles.paragraph}
+                text-[36px]
                 max-w-[470px]
+                mt-[70px]
               `}
             >
               Junior developer <br/>
               and creator.
             </p>
 
-      </div>
-      
-      <div id="image-container"
-        className=
-        {`
-        `}
-      >
+        </div>
+        
+        <div id="hero-image-container"
+          className=
+          {`
+            w-full
+            ${styles.flexCenter}
+            
+          `}
+        >
 
-        <img src={sysiphus} 
-          alt="Sysiphus" 
-          className="
-            object-contain
-            mt-10"
-        />
+          <img id="hero-image"
+            src={sysiphus} 
+            alt="Sysiphus" 
+            className=
+            {`
+              w-[700px]
+            `}
+          />
 
-      </div>
+        </div>
 
-  </section>
-)
+        <div id="hero-socials"
+          className=
+          {`
+            ${styles.flexEnd}
+            flex-row
+            absolute
+            bottom-0
+            right-0
+          `}
+        >
+          {
+            socialMedia.map((social) => {
+              return (
+                <a key={social.id} 
+                  href={social.link}
+                  className=
+                  {`
+                    ${styles.flexCenter}
+                    w-[50px]
+                    h-[50px]
+                  `}
+                >
+                  <img src={social.icon} alt={social.id} />
+                </a>
+              )
+            })
+          }
+
+        </div>
+
+    </section>
+  )
+}
 
 export default Hero

@@ -6,8 +6,10 @@ import menu_down_arrow from "./menu_down_arrow.png";
 import github_icon from "./github_icon.svg";
 import mail_icon from "./mail_icon.svg";
 import sysiphus from "./sysiphus.png";
+import about_portrait from "./about_portrait.png";
 
 export {
+  about_portrait,
   menu_down_arrow,
   menu_burger_icon,
   close_icon,
