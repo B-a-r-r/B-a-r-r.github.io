@@ -6,5 +6,6 @@ import Form from "./Form";
 import Projects from "./Projects";
 import Skills from "./Skills";
 import ParticlesEffect from "./ParticlesEffect";
+import Retex from "./Retex.tsx";
 
-export { Navbar, Hero, About, Footer, Form, Projects, Skills, ParticlesEffect };
+export { Navbar, Hero, About, Footer, Form, Projects, Skills, ParticlesEffect, Retex };

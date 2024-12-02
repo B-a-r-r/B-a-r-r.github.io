@@ -1,5 +1,5 @@
 import styles from "./style";
-import { Navbar, Hero, About, Footer, Form, Projects, Skills } from "./components";
+import { Navbar, Hero, About, Footer, Form, Projects, Skills,Retex } from "./components";
 
 function App() {
   return (
@@ -55,6 +55,7 @@ function App() {
         >
 
           <About />
+          <Retex />
           <Projects /> 
           <Skills />
           <Form />
