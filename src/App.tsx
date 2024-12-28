@@ -1,5 +1,5 @@
 import styles from "./style";
-import { Navbar, Hero, About, Footer, Form, ProjectsCarrousel, Skills, Retex } from "./components";
+import { Navbar, Hero, About, Footer, Form, ProjectsCarrousel, Skills } from "./components";
 
 function App() {
   return (
@@ -67,8 +67,7 @@ function App() {
           `}
         >
 
-          <ProjectsCarrousel /> 
-          xx
+          <ProjectsCarrousel />
         
         </div>
 

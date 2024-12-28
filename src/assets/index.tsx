@@ -8,6 +8,7 @@ import mail_icon from "./mail_icon.svg";
 import sysiphus from "./sysiphus.png";
 import about_portrait from "./about_portrait.jpg";
 import sysiphus_rotated from "./sysiphus_rotated.png";
+import atlas_pi from "./atlas_pi.png";
 
 export {
   about_portrait,
@@ -20,4 +21,5 @@ export {
   mail_icon,
   sysiphus,
   sysiphus_rotated,
+  atlas_pi,
 };

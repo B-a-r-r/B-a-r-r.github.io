@@ -113,3 +113,30 @@ export const socialMedia = [
     link: "https://www.linkedin.com/clement-barriere",
   },
 ];
+
+export const sliderProjects = [
+  {
+    id: "1",
+    title: "LEMON",
+    content: "Towa is a web application that allows you to create and share your own content. It is a platform that allows you to create and share your own content. It is a platform that allows you to create and share your own content. It is a platform that allows you to create and share your own content.",
+    tags: ["React", "Node.js", "Express", "MongoDB"],
+  },
+  {
+    id: "2",
+    title: "Ornag",
+    content: "Towa is a web application that allows you to create and share your own content. It is a platform that allows you to create and share your own content. It is a platform that allows you to create and share your own content. It is a platform that allows you to create and share your own content.",
+    tags: ["React", "Node.js", "Express", "MongoDB"],
+  },
+  {
+    id: "3",
+    title: "Mango",
+    content: "Towa is a web application that allows you to create and share your own content. It is a platform that allows you to create and share your own content. It is a platform that allows you to create and share your own content. It is a platform that allows you to create and share your own content.",
+    tags: ["React", "Node.js", "Express", "MongoDB"],
+  },
+  {
+    id: "4",
+    title: "Ivory",
+    content: "Towa is a web application that allows you to create and share your own content. It is a platform that allows you to create and share your own content. It is a platform that allows you to create and share your own content. It is a platform that allows you to create and share your own content.",
+    tags: ["React", "Node.js", "Express", "MongoDB"],
+  }
+];

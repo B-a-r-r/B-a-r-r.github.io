@@ -8,5 +8,6 @@ import Skills from "./Skills";
 import ParticlesEffect from "./ParticlesEffect";
 import Retex from "./Retex.tsx";
 import DropdownButton from "./DropdownButton";
+import Card from "./Card";
 
-export { Navbar, Hero, About, Footer, Form, ProjectsCarrousel, Skills, ParticlesEffect, Retex, DropdownButton };
+export { Card, Navbar, Hero, About, Footer, Form, ProjectsCarrousel, Skills, ParticlesEffect, Retex, DropdownButton };
