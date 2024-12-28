@@ -1,15 +1,9 @@
 import { layout } from "../style"
 import styles from "../style"
-import { sysiphus } from "../assets"
+import { sysiphus_rotated } from "../assets"
 import { socialMedia } from "../constants"
 
 const Hero = () => {
-  // const adjustFontSize = (elementId: string, coeff: number) => {
-  //   const elementFontSize: string | undefined = document.getElementById(elementId)?.style.fontSize.split("px")[0];
-  //   console.log(elementFontSize);
-  //   console.log(Math.round(parseInt(elementFontSize || "0") * coeff).toString());
-  //   return (Math.round(parseInt(elementFontSize || "0") * coeff)).toString();
-  // }
 
   return (
     <section 
@@ -17,12 +11,10 @@ const Hero = () => {
       className=
       {`
         ${layout.section}
-        ${styles.flexCenter}
+        ${styles.flexStart}
         relative
         bg-transparent
-        md:space-x-[130px]
-        2xl:space-x-[100px]
-        
+        overflow-visible
       `}
     >
 
@@ -30,12 +22,10 @@ const Hero = () => {
           className=
           {`
             relative
-            w-1/3
             flex-1
             ${styles.flexStart}
             flex-col
-            xl:px-0
-            mb-[270px]
+            xxl:mt-20 sm:mt-0 md:mt-0 lg:mt-0 2xl:mt-0 
           `}
         >
             
@@ -44,9 +34,7 @@ const Hero = () => {
               {`
                 ${styles.flexStart}
                 flex-col 
-                w-full
-                mt-[20px]
-                mb-[50px]"
+                w-full"
               `}
               style={{fontSize: "64px"}}
             >
@@ -61,7 +49,7 @@ const Hero = () => {
                 <a className=
                   {`
                     font-primary-bold 
-                    text-[80px]
+                    xxl:text-[80px]
                     tracking-wider
                   `}
                 > 
@@ -87,8 +75,7 @@ const Hero = () => {
 
             <p className=
               {`
-                ${styles.paragraph}
-                text-[36px]
+                ${styles.subtitle}
                 max-w-[470px]
                 mt-[70px]
               `}
@@ -102,18 +89,19 @@ const Hero = () => {
         <div id="hero-image-container"
           className=
           {`
-            w-full
-            ${styles.flexCenter}
-            
           `}
         >
 
           <img id="hero-image"
-            src={sysiphus} 
+            src={sysiphus_rotated} 
             alt="Sysiphus" 
             className=
             {`
-              w-[700px]
+              absolute
+              w-[60%]
+              object-contain
+              -right-16
+              -top-28
             `}
           />
 

@@ -174,7 +174,7 @@
   color: var(--light-color-secondary);
 }
 
-body, #root {
+.root, #root {
   background: var(--color-primary);
   color: var(--color-quaternary);
   font-family: var(--font-primary);
@@ -182,4 +182,8 @@ body, #root {
 
 .background-image {
   background-image: url("./assets/stary_night_forest.jpg");
+}
+
+strong {
+  color: var(--light-color-tertiary); 
 }

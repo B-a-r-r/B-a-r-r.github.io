@@ -1,5 +1,5 @@
 import styles from "./style";
-import { Navbar, Hero, About, Footer, Form, Projects, Skills,Retex } from "./components";
+import { Navbar, Hero, About, Footer, Form, ProjectsCarrousel, Skills, Retex } from "./components";
 
 function App() {
   return (
@@ -28,9 +28,10 @@ function App() {
         className=
         {`
           w-full
+          h-full
           ${styles.flexCenter}
           flex-col
-          px-[120px]
+          px-[15%]
         `}
       >
 
@@ -38,6 +39,7 @@ function App() {
           className=
           {`
             w-full
+            h-full
           `}
         >
 
@@ -48,16 +50,29 @@ function App() {
         <div id="about-container"
           className=
           {`
-            ${styles.boxWidth}
+            w-full
+            h-full
           `}
         >
 
           <About />
         
         </div>
+        
+        <div id="projects-carrousel-container"
+          className=
+          {`
+            w-full
+            h-full
+          `}
+        >
 
-          <Retex />
-        <Projects /> 
+          <ProjectsCarrousel /> 
+          xx
+        
+        </div>
+
+        
         <Skills />
         <Form />
 
@@ -70,7 +85,7 @@ function App() {
         `}
       > 
       
-        <Footer />
+        {/* <Footer /> */}
 
       </div>
 

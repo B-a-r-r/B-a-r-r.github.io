@@ -5,22 +5,29 @@ import SwitchButton from "./SwitchButton";
 import styles from "../style";
 
 function Navbar() {
-  const [toggleBurger, setToggleBurger] = useState(false);
+  const [toggleBurger, setToggleBurger] = useState(true);
   const [toggleLang, setToggleLang] = useState(false);
   const [selectedLang, setSelectedLang] = useState('FR'.toUpperCase());
   const [currentNavigation, setCurrentNavigation] = useState('about');
 
+  const tham = document.querySelector(".tham");
+  if (tham) {
+    tham.addEventListener('click', () => {
+      tham.classList.toggle('tham-active');
+    });
+  }
+
   return (
 
-    <section id="navbar"
+    <nav id="navbar"
       className=
       {`
         w-full
-        px-10
-        py-4
+        items-center
+        px-[5%]
+        py-[0.8%]
         ${styles.flexStart}
-        color-secondary
-        text-[22px]
+        ${styles.navbartext}
       `}
     >
 
@@ -39,7 +46,7 @@ function Navbar() {
                 className=
                 {`
                     font-secondary-regular
-                    tracking-wider
+                    tracking-widest
                     cursor-pointer
                     hover:text-[--light-color-tertiary]
                     ${nav.id === currentNavigation ? 'text-[--light-color-tertiary]' : ""}
@@ -72,14 +79,16 @@ function Navbar() {
             tham 
             tham-e-spin 
             tham-w-6
-            tham-active: ${toggleBurger}
+            tham-active:true
           `}
           onClick={() => setToggleBurger((prev) => !prev)}
         >
-          <div className="tham-box">
-            <div className="tham-inner" />
+
+          <div className="tham tham-e-squeeze tham-w-6">
+            <div className="tham-box">
+              <div className="tham-inner" />
+            </div>
           </div>
-        </div>
 
         <div id="navbar-mobile-meu-items"
           className=
@@ -109,7 +118,6 @@ function Navbar() {
                       font-poppins 
                       font-normal 
                       cursor-pointer 
-                      text-[16px] 
                       ${index === navLinks.length-1 ? 'mr-0' : 'mr-10'} 
                       text-white
                       mb-4
@@ -127,13 +135,14 @@ function Navbar() {
           
         </div>
 
+        </div>
       </div>
 
       <div id="navbar-options"
         className=
         {`
           ${styles.flexCenter}
-          text-[16px]
+          ${styles.navbartext}
           font-primary-regular
           space-x-10
         `}
@@ -164,6 +173,7 @@ function Navbar() {
               className=
               {`
                 ${toggleLang ? 'flex' : 'hidden'}
+                xxl:text-[130%] lg:text-[130%] md:text-[130%] text-[20%]
                 z-[10]
                 absolute
                 top-0
@@ -179,7 +189,7 @@ function Navbar() {
                 {`
                   list-none
                   flex-col
-                  leading-8
+                  xxl:leading-8  lg:leading-10 md:leading-8 sm:leading-7 leading-6
                 `}
               >
                 {
@@ -209,9 +219,9 @@ function Navbar() {
         </div>
 
       </div>
-      
-    </section>
-  )
+
+    </nav>
+  ) 
 }
 
 export default Navbar

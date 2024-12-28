@@ -1,9 +1,32 @@
 const styles = {
   /* Maximum width for extra large screens; elements don't extend themselves over 1280px.*/   
-  boxWidth: "xl:max-w-[1280px] w-full",
+  boxWidth: "xxl:max-w-[1280px] w-full",
 
-  heading2: "font-primary-bold xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] leading-[66.8px] w-full",
-  paragraph: "font-secondary-light color-primary text-[40px] leading-[40px] tracking-wide",
+  navbartext: " \
+    xxl:text-[150%]  lg:text-[140%]  md:text-[160%]  sm:text-[140%] \
+    color-secondary",
+  
+  heading2: " \
+    font-primary-bold \
+    xxl:text-[230%]  \
+    leading-[50px]  \
+    w-full  \
+    tracking-wider  \
+    mb-8",
+  
+  subtitle: " \
+    font-primary-regular  \
+    color-primary  \
+    xxl:text-[200%]  \
+    leading-[40px]  \
+    tracking-wide", 
+  
+  paragraph: " \
+    font-primary-regular \
+    color-primary  \
+    xxl:text-[180%]  \
+    leading-[40px]  \
+    tracking-wide", 
 
   /* Elements are centered => |A B C| */
   flexCenter: "flex justify-center items-center",
@@ -23,7 +46,7 @@ const styles = {
   
   export const layout = {
     /* From medium screen size, elements are displayed in row and not column. */
-    section: `flex md:flex-row flex-col mt-[70px]`,
+    section: `flex md:flex-row flex-col mt-[70px] mb-[100px] h-[80vh]`,
     /* The oposite */
     sectionReverse: `flex md:flex-row flex-col-reverse ${styles.paddingY}`,
   
@@ -32,6 +55,11 @@ const styles = {
     
     /* Espacially for sections just giving information, elements are displayed in column. */
     sectionInfo: `flex-1 ${styles.flexStart} flex-col`,
+
+    responsiveNavbar: `
+      xxl:text-[220%]
+      xxl:px-[3%]
+      xxl:py-[1%]`,
   };
   
   export default styles;
