@@ -1,7 +1,7 @@
 import { layout } from "../style"
 import styles from "../style"
 import { sysiphus_rotated } from "../assets"
-import { socialMedia } from "../constants"
+import { socialMedia } from "../data"
 
 const Hero = () => {
 

@@ -1,67 +1,149 @@
-import { sliderProjects } from "../constants"
+import { Project } from "../data/types"
+import { sliderProjects } from "../data"
 import Card from "./Card"
 import styles from "../style"
-import { layout } from "../style"
-import { atlas_pi } from "../assets"
+import { atlas_pi, menu_down_arrow } from "../assets"
+import { ReactNode, useEffect, useState } from "react"
 
 
-function ProjectsCarrousel() {
+const ProjectsCarrousel = () => {
+
+  const [cards] = useState<Array<ReactNode>>([])
+
+  const [currentCard, setCurrentCard] = useState<ReactNode>(cards[cards.length - 1])
+
+  const isFront = (id: number, all: Array<Project>) => {
+    return id === all[all.length - 1].id
+  }
+
+  const previousCard = () => {
+  }
+
+  const nextCard = () => {
+    
+  }
+  
+  sliderProjects.map((project: Project) => {
+    cards.push(
+      <Card
+        key={project.id}
+        id={project.id}
+        title={project.title}
+        content={project.content}
+        tags={project.tags}
+      />
+    )
+  });
+  console.log(cards)
+
   return (
     <section id='carrousel-section'
       className={`
-        w-full
+        relative
+        w-full 
         h-screen
-        ${layout.section}
+        flex
+        flex-col
+        justify-center
+        items-center
       `}
     >
       <div id="heap-container"
         className={`
           relative
           w-full
-          h-full
+          ${styles.flexCenter}
           overflow-visible
-          flex
-          justify-self-center
-          self-center
-          flex-col
         `}
       >
 
-        {sliderProjects.map((project, index, all) => (
-          <div id={`card-container-${index}`}
-            className={`
-              absolute
-              w-[90%]
-            `}
-          >
-            <Card
-              id={project.id}
-              title={project.title}
-              content={project.content}
-              tags={project.tags}
-            />
-          </div>
-        ))}
+        {cards.map((card: ReactNode, index: number, all: Array<ReactNode>) => {
+          return (
+            <div id={`card-container-${index}`}
+              className={`
+                bg-transparent
+                ${""}//isFront(project.id, sliderProjects) ? 'relative' : 'absolute'}
+                z-[${all.length - index}]
+              `}
+            >
+              {card}
+            </div>
+          )
+        })}
 
       </div>
+      
+      <img id="atlas-pi"
+        src={atlas_pi}
+        alt="atlas"
+        className={`
+          object-cover
+          xxl:w-[400px]
+          h-auto
+          absolute
+          top-0
+          right-0
+        `}
+      />
 
-      <div id="image-container"
+      <div id="controls-container"
         className={`
           relative
-          ${styles.flexStart}
+          w-full
+          flex
+          items-center
+          justify-center
+          flex-row
+          space-x-10
         `}
       >
 
-        <img id="atlas-pi"
-          src={atlas_pi}
-          alt="atlas"
-          className={`
-            object-contain
-            w-fit
-            h-[100%]
-            z-10
-          `}
-        />
+            <button id="prev-button"
+              className={`
+                ronded-full
+                justify-center
+                align-center
+                color-primary
+              `}
+              onClick={previousCard}
+            > 
+              <img id="icon-previous" 
+                src={menu_down_arrow} 
+                alt="previous"
+                className={`
+                  object-cover
+                  rotate-90
+                `}
+              /> 
+            </button>
+
+            <button id="projects-button"
+              className={`
+                rounded-md
+                color-quaternary
+                px-6
+                py-2
+              `}
+            > Browse<br/>projects </button>
+
+            <button id="next-button"
+              className={`
+                ronded-full
+                justify-center
+                align-center
+                color-primary
+              `}
+            > 
+            <img id="icon-next" 
+              src={menu_down_arrow} 
+              alt="next"
+              className={`
+                object-cover
+                -rotate-90
+              `}
+              onClick={nextCard}
+            /> 
+          </button>
 
       </div>
 

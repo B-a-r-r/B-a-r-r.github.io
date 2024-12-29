@@ -28,12 +28,6 @@ const styles = {
     leading-[40px]  \
     tracking-wide", 
 
-  cardHeading: " \
-    font-primary-bold \
-    xxl:text-[150%] lg:w-[140%] \
-    py-[6%]  \
-    tracking-widest",
-
   /* Elements are centered => |A B C| */
   flexCenter: "flex justify-center items-center",
   /* Elements are aligned from left to right => |A B C  | */

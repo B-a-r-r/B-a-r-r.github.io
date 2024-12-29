@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { navLinks, languages } from "../constants";
+import { navLinks, languages } from "../data";
 import DropdownButton from "./DropdownButton";
 import SwitchButton from "./SwitchButton";
 import styles from "../style";

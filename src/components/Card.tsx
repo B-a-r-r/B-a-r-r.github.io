@@ -1,85 +1,88 @@
-import styles from '../style'
+import { Project } from '../data/types';
 
-interface CardProps {
-    id: string;
-    title: string;
-    content: string;
-    tags: string[];
-}
-  
-const Card: React.FC<CardProps> = ({ id, title, content, tags }) => {
+const Card = ({id, title, content, tags}: Project) => {
     return ( 
-        <div id={id}
+        <div id={`card-${id as unknown as string}`}
             className={`
-                w-full
-                h-full
+                xxl:w-[400px]
+                xxl:h-[500px]
                 color-primary
                 flex
                 flex-col
                 shadow-md
                 rounded-md
-                px-[8%]
+                overflow-hidden
             `}
         >
 
             <header id="card-header"
                 className={`
                     w-full
-                    h-full
+                    h-[15%]
                     color-secondary
                     cursor-pointer
+                    px-[8%]
                 `}
             >
 
                 <h1 id="card-title"
                     className={`
-                        ${styles.cardHeading}
+                        font-primary-bold
+                        xxl:text-[150%] lg:w-[140%]
+                        py-[6%] 
+                        tracking-widest"
                     `}
                 >
-                    {title}
+                    {title.length > 30 ?
+                    title.slice(0, 30) + '...' :
+                    title}
                 </h1>
 
             </header>
 
-            <div id='card-body'
+            <p id="card-text"
                 className={`
                     w-full
-                    ${styles.flexCenter}
-                    flex-col
-                    space-y-6
-                    py-[6%]
-                    xxl:text-[150%] lg:text-[100%]
+                    h-[70%]
+                    px-[8%]
+                    py-[5%]
+                    font-primary-regular
+                    xxl:text-[130%]
+                    cursor-pointer
+                    overflow-hidden
                 `}
             >
+                {content.length > 300 ?
+                content.slice(0, 300) + '...' :
+                content}
+            </p>
 
-                <p id="card-text"
-                    className={`
-                        cursor-pointer
-                    `}
-                >
-                    {content}
-                </p>
-
-                <div id='card-tags'
-                    className={`
-                        w-full
-                        flex
-                        flex-row
-                        space-x-[5%]
-                    `}
-                >
-                    {tags.map((tag) => (
+            <div id='card-tags'
+                className={`
+                    w-full
+                    h-[15%]
+                    flex-row
+                    px-[8%]
+                    py-[5%]
+                    space-x-4
+                    items-center
+                    justify-start
+                `}
+            >
+                {tags.map((tag, index) => {
+                    if (index < 3) return (
                         <a id={`tag-${tag}`}
                             className={`
+                                font-primary-regular
+                                xxl:text-[120%] 
                                 text-[--light-color-tertiary]
                                 cursor-pointer
                             `}
                         >
                             {tag}
                         </a>
-                    ))}
-                </div>
-
+                    );
+                })}
             </div>
 
         </div>
