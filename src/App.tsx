@@ -32,6 +32,7 @@ function App() {
           ${styles.flexCenter}
           flex-col
           px-[15%]
+          overflow-visible
         `}
       >
 
@@ -64,6 +65,7 @@ function App() {
           {`
             w-full
             h-full
+            overflow-visible
           `}
         >
 

@@ -11,31 +11,29 @@ const Card: React.FC<CardProps> = ({ id, title, content, tags }) => {
     return ( 
         <div id={id}
             className={`
-                absolute
-                w-[40%]
-                h-fit
+                w-full
+                h-full
                 color-primary
                 flex
                 flex-col
                 shadow-md
                 rounded-md
-                overflow-hidden
+                px-[8%]
             `}
         >
 
             <header id="card-header"
                 className={`
                     w-full
+                    h-full
                     color-secondary
-                    ${styles.flexStart}
-                    ${styles.cardHeading}
-                    px-[8%]
                     cursor-pointer
                 `}
             >
 
                 <h1 id="card-title"
                     className={`
+                        ${styles.cardHeading}
                     `}
                 >
                     {title}
@@ -49,14 +47,13 @@ const Card: React.FC<CardProps> = ({ id, title, content, tags }) => {
                     ${styles.flexCenter}
                     flex-col
                     space-y-6
-                    px-[8%]
                     py-[6%]
+                    xxl:text-[150%] lg:text-[100%]
                 `}
             >
 
                 <p id="card-text"
                     className={`
-                        text-[150%]
                         cursor-pointer
                     `}
                 >
@@ -68,7 +65,7 @@ const Card: React.FC<CardProps> = ({ id, title, content, tags }) => {
                         w-full
                         flex
                         flex-row
-                        space-x-8
+                        space-x-[5%]
                     `}
                 >
                     {tags.map((tag) => (

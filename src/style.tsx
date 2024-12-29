@@ -30,8 +30,8 @@ const styles = {
 
   cardHeading: " \
     font-primary-bold \
-    xxl:text-[150%]  \
-    leading-[75px]  \
+    xxl:text-[150%] lg:w-[140%] \
+    py-[6%]  \
     tracking-widest",
 
   /* Elements are centered => |A B C| */

@@ -1,5 +1,6 @@
 import { sliderProjects } from "../constants"
 import Card from "./Card"
+import styles from "../style"
 import { layout } from "../style"
 import { atlas_pi } from "../assets"
 
@@ -13,24 +14,33 @@ function ProjectsCarrousel() {
         ${layout.section}
       `}
     >
-      <div id="cards-container"
+      <div id="heap-container"
         className={`
           relative
           w-full
           h-full
-          flex
-          flex-row
           overflow-visible
+          flex
+          justify-self-center
+          self-center
+          flex-col
         `}
       >
 
-        {sliderProjects.map((project) => (
-          <Card
-            id={project.id}
-            title={project.title}
-            content={project.content}
-            tags={project.tags}
-          />
+        {sliderProjects.map((project, index, all) => (
+          <div id={`card-container-${index}`}
+            className={`
+              absolute
+              w-[90%]
+            `}
+          >
+            <Card
+              id={project.id}
+              title={project.title}
+              content={project.content}
+              tags={project.tags}
+            />
+          </div>
         ))}
 
       </div>
@@ -38,6 +48,7 @@ function ProjectsCarrousel() {
       <div id="image-container"
         className={`
           relative
+          ${styles.flexStart}
         `}
       >
 
@@ -45,9 +56,8 @@ function ProjectsCarrousel() {
           src={atlas_pi}
           alt="atlas"
           className={`
-            absolute
-            top-0
-            right-0
+            object-contain
+            w-fit
             h-[100%]
             z-10
           `}

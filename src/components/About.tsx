@@ -26,7 +26,7 @@ function About() {
         className=
         {`
           object-contain
-          xxl:w-[400px]
+          xxl:w-[400px] xl:w-4 lg:w-[400px]
           rounded-[1%]
         `}
       />
