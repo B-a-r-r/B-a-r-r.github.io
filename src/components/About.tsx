@@ -1,4 +1,3 @@
-import { layout } from "../style"
 import styles from "../style"
 import { about_portrait } from "../assets"
 
@@ -7,7 +6,7 @@ function About() {
     <section id="about"
       className=
       {`
-        ${layout.section}
+        ${styles.section}
         justify-center
         space-x-28
       `}

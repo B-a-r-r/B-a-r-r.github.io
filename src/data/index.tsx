@@ -1,5 +1,5 @@
 import { linkedin_icon, mail_icon, github_icon } from "../assets";
-import { language, NavLink, Project, SocialMedia } from "./types";
+import { Language, NavLink, Project, SocialMedia, SubtitleMessage } from "./types";
 
 export const navLinks: Array<NavLink> = [
   {
@@ -20,7 +20,7 @@ export const navLinks: Array<NavLink> = [
   },
 ];
 
-export const languages: Array<language> = [
+export const languages: Array<Language> = [
   {
     id: "english",
     label: "EN",
@@ -73,5 +73,16 @@ export const sliderProjects: Array<Project> = [
     title: "Ivory",
     content: "Towa is a web application that allows you to create and share your own content. Program a pathfinding algorithm for a bot, in a Java board.  Program a pathfinding algorithm for a bot, in a Java board.  Program a pathfinding algorithm for a bot, in a Java board.  Program a pathfinding algorithm for a bot, fjspiofsfjsof jshpiofhsipfhishifhi",
     tags: ["React", "Node.js"],
+  }
+];
+
+export const subtitleMessages: Array<SubtitleMessage> = [
+  {
+    id: 1,
+    content: "Junior developer and creator.",
+  },
+  {
+    id: 2,
+    content: "Currently studying artificial life !",
   }
 ];

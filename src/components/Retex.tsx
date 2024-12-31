@@ -1,5 +1,4 @@
 import styles from "../style"
-import { layout } from "../style"
 
 const Retex = () => {
   return (

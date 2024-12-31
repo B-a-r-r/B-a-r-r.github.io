@@ -2,16 +2,13 @@ import { Project } from '../data/types';
 
 const Card = ({id, title, content, tags}: Project) => {
     return ( 
-        <div id={`card-${id as unknown as string}`}
+        <div id={id as unknown as string}
             className={`
-                xxl:w-[400px]
-                xxl:h-[500px]
+                w-full
+                h-full
                 color-primary
                 flex
                 flex-col
-                shadow-md
-                rounded-md
-                overflow-hidden
             `}
         >
 
@@ -71,7 +68,8 @@ const Card = ({id, title, content, tags}: Project) => {
             >
                 {tags.map((tag, index) => {
                     if (index < 3) return (
-                        <a id={`tag-${tag}`}
+                        <a key={index}
+                            id={`tag-${tag}`}
                             className={`
                                 font-primary-regular
                                 xxl:text-[120%] 

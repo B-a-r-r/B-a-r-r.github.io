@@ -10,7 +10,7 @@ interface Project {
     title: string;
   }
   
-  interface language {
+  interface Language {
     id: string;
     label: string;
   }
@@ -21,4 +21,9 @@ interface Project {
     link: string;
   }
 
-  export type { Project, NavLink, language, SocialMedia };
+  interface SubtitleMessage {
+    id: number;
+    content: string;
+  }
+
+  export type { Project, NavLink, Language, SocialMedia, SubtitleMessage };

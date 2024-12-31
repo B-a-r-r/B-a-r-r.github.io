@@ -5,13 +5,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#00040f",
-        secondary: "#00f6ff",
-        dimWhite: "rgba(255, 255, 255, 0.7)",
-        dimBlue: "rgba(9, 151, 124, 0.1)",
+        light_color_primary: "#F1F1F1",
+        light_color_secondary: "#EEEEEE",
+        light_color_tertiary: "#428E5B",
+        light_color_quaternary: "#3D3E3C",
+        light_color_quinary: "#4F4F4F",
       },
       fontFamily: {
-        poppins: ["Montserrat", "sans-serif"],
+        montserrat: ["Montserrat", "sans-serif"],
+        hind_vadodara: ["Hind Vadodara", "sans-serif"],
+        kanit: ["Kanit", "sans-serif"],
       },
     },
     screens: {

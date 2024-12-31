@@ -1,5 +1,5 @@
 import styles from "./style";
-import { Navbar, Hero, About, Footer, Form, ProjectsCarrousel, Skills } from "./components";
+import { Navbar, Hero, About, Footer, ProjectsSlider, Skills } from "./components";
 
 function App() {
   return (
@@ -7,7 +7,8 @@ function App() {
     <div id='app-container' 
       className=
       {`
-        w-full 
+        ${styles.boxWidth}
+        ${styles.sizeFull}
         overflow-hidden
         color-primary
       `}
@@ -16,7 +17,8 @@ function App() {
       <div id="navbar-container"
         className=
         {`
-          ${styles.flexCenter}
+          flex 
+          ${styles.contentCenter}
         `}
       > 
       
@@ -27,11 +29,10 @@ function App() {
       <div id="content-container" 
         className=
         {`
-          w-full
-          h-full
-          ${styles.flexCenter}
-          flex-col
-          px-[15%]
+          ${styles.sizeFull}
+          ${styles.flexCol}
+          ${styles.contentCenter}
+          px-[12%]
           overflow-visible
         `}
       >
@@ -39,8 +40,7 @@ function App() {
         <div id="hero-container"
           className=
           {`
-            w-full
-            h-full
+            ${styles.sizeFull}
           `}
         >
 
@@ -51,8 +51,7 @@ function App() {
         <div id="about-container"
           className=
           {`
-            w-full
-            h-full
+            ${styles.sizeFull}
           `}
         >
 
@@ -63,30 +62,36 @@ function App() {
         <div id="projects-carrousel-container"
           className=
           {`
-            w-full
-            h-full
+            ${styles.sizeFull}
             overflow-visible
           `}
         >
 
-          <ProjectsCarrousel />
+          <ProjectsSlider />
         
         </div>
 
-        
-        <Skills />
-        <Form />
+        <div id="skills-container"
+          className=
+          {`
+            ${styles.sizeFull}
+          `}
+        >
+
+          <Skills />
+
+        </div>
 
       </div>
 
       <div id="footer-container"
         className=
         {`
-          ${styles.flexCenter}
+          flex ${styles.contentCenter}
         `}
       > 
       
-        {/* <Footer /> */}
+        <Footer />
 
       </div>
 
