@@ -1,5 +1,5 @@
 import styles from "./style";
-import { Navbar, Hero, About, Footer, ProjectsSlider, Skills } from "./components";
+import { Navbar, Hero, About, Footer, ProjectsSlider, Skills, Contact } from "./components";
 
 function App() {
   return (
@@ -41,6 +41,7 @@ function App() {
           className=
           {`
             ${styles.sizeFull}
+            xxl:px-[5%]
           `}
         >
 
@@ -79,6 +80,17 @@ function App() {
         >
 
           <Skills />
+
+        </div>
+
+        <div id="contact-container"
+          className=
+          {`
+            ${styles.sizeFull}
+          `}
+        >
+
+          <Contact />
 
         </div>
 

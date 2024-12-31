@@ -1,6 +1,6 @@
 const styles = {
   /* Maximum width for extra large screens; elements don't extend themselves over 1280px.*/   
-  boxWidth: "xxl:max-w-[1280px] w-full",
+  boxWidth: "xxl:max-w-[2400px]",
 
   heading2: " \
     font-primary-bold \
@@ -9,6 +9,12 @@ const styles = {
     w-full  \
     tracking-wider  \
     mb-8",
+  
+  line: " \
+    bg-[--light-color-tertiary] \
+    w-2/3 \
+    h-[3.5px] \
+    border-[0px]",
   
   subtitle: " \
     font-primary-regular  \
@@ -41,7 +47,7 @@ const styles = {
   sizeFit: "w-fit h-fit",
 
   /* From medium screen size, elements are displayed in row and not column. */
-  section: `py-[12%]`,
+  section: `pt-[12%]`,
 };
   
 export default styles;

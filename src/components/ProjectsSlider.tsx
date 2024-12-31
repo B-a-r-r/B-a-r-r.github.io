@@ -2,14 +2,11 @@ import { Project } from "../data/types"
 import { sliderProjects } from "../data"
 import Card from "./Card"
 import styles from "../style"
-import { atlas_pi, menu_down_arrow } from "../assets"
+import { coreImages, menuIcons } from "../assets"
 import React, { ReactNode, useEffect, useState } from "react"
+import { randomNumberBetween } from "../utils"
 
 const ProjectsSlider = () => {
-
-  const randomNumberBetween = (min: number, max: number) => {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
 
   const initCards = () => {
     const slides: Array<ReactNode> = [];
@@ -106,12 +103,10 @@ const ProjectsSlider = () => {
     <section id='projects-slider'
       className={`
         relative
-        w-full 
-        h-screen
-        flex
-        flex-col
-        justify-center
-        items-center
+        ${styles.sizeScreen}
+        ${styles.flexCol}
+        ${styles.contentCenter}
+        ${styles.section}
       `}
     >
       <div id="cards-stack-container"
@@ -133,7 +128,7 @@ const ProjectsSlider = () => {
       </div>
       
       <img id="atlas-pi"
-        src={atlas_pi}
+        src={coreImages.atlas_pi}
         alt="atlas"
         className={`
           object-cover
@@ -167,7 +162,7 @@ const ProjectsSlider = () => {
               onClick={() => setCards(previousCard)}
             > 
               <img id="icon-previous" 
-                src={menu_down_arrow} 
+                src={menuIcons.menu_down_arrow} 
                 alt="previous"
                 className={`
                   object-cover
@@ -195,7 +190,7 @@ const ProjectsSlider = () => {
               onClick={() => setCards(nextCard)}
             > 
             <img id="icon-next" 
-              src={menu_down_arrow} 
+              src={menuIcons.menu_down_arrow} 
               alt="next"
               className={`
                 object-cover

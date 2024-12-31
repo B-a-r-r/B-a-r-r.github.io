@@ -1,5 +1,5 @@
-import { linkedin_icon, mail_icon, github_icon } from "../assets";
-import { Language, NavLink, Project, SocialMedia, SubtitleMessage } from "./types";
+import { socialsIcons, skillsIcons } from "../assets";
+import { Language, NavLink, Project, SocialMedia, SubtitleMessage, Bio, Skill } from "./types";
 
 export const navLinks: Array<NavLink> = [
   {
@@ -34,17 +34,17 @@ export const languages: Array<Language> = [
 export const socialMedia: Array<SocialMedia> = [
   {
     id: "mail",
-    icon: mail_icon,
+    icon: socialsIcons.mail_icon,
     link: "mailto:clement.barriere@etu.u-bordeaux.fr",
   },
   {
     id: "github",
-    icon: github_icon,
+    icon: socialsIcons.github_icon,
     link: "https://github.com/B-a-r-r",
   },
   {
     id: "linkedin",
-    icon: linkedin_icon,
+    icon: socialsIcons.linkedin_icon,
     link: "https://www.linkedin.com/clement-barriere",
   },
 ];
@@ -53,25 +53,25 @@ export const sliderProjects: Array<Project> = [
   {
     id: 1,
     title: "LEMON",
-    content: "Towa is a web application that allows you to create and share your own content. Program a pathfinding algorithm for a bot, in a Java board. ",
+    content: "Towa is a lang application that allows you to create and share your own content. Program a pathfinding algorithm for a bot, in a Java board. ",
     tags: ["React", "Node.js", "Express", "MongoDB"],
   },
   {
     id: 2,
     title: "Ornag",
-    content: "Towa is a web application that allows you to create and share your own content.",
+    content: "Towa is a lang application that allows you to create and share your own content.",
     tags: ["React", "Node.js", "Express", "MongoDB"],
   },
   {
     id: 3,
     title: "Mango",
-    content: "Towa is a web application that allows you to create and share your own content.",
+    content: "Towa is a lang application that allows you to create and share your own content.",
     tags: ["React", "Node.js", "Express", "MongoDB"],
   },
   {
     id: 4,
     title: "Ivory",
-    content: "Towa is a web application that allows you to create and share your own content. Program a pathfinding algorithm for a bot, in a Java board.  Program a pathfinding algorithm for a bot, in a Java board.  Program a pathfinding algorithm for a bot, in a Java board.  Program a pathfinding algorithm for a bot, fjspiofsfjsof jshpiofhsipfhishifhi",
+    content: "Towa is a lang application that allows you to create and share your own content. Program a pathfinding algorithm for a bot, in a Java board.  Program a pathfinding algorithm for a bot, in a Java board.  Program a pathfinding algorithm for a bot, in a Java board.  Program a pathfinding algorithm for a bot, fjspiofsfjsof jshpiofhsipfhishifhi",
     tags: ["React", "Node.js"],
   }
 ];
@@ -85,4 +85,99 @@ export const subtitleMessages: Array<SubtitleMessage> = [
     id: 2,
     content: "Currently studying artificial life !",
   }
+];
+
+export const bioText: Array<Bio> = [
+  {
+    id: 1,
+    title: "Make it clean,<br/> make it better.",
+    content: "I am a 19yo <strong>junior developer</strong> and creator, mainly interest in developing clean and intelligent solutions to specific needs. \
+            <br/><br/> \
+            <strong>Programming</strong> is for me a mean to express my creativity, and enhance my versatility. I’ve been passionate about it since I was 14yo. Today I am developing my own applications and automation tools. \
+            <br/><br/>   \
+            Until 2026, I will be doing a <strong>bachelor’s degree</strong> in computer science at the University and Technology Institue of Bordeaux, France."
+  }
+];
+
+export const skills: Array<Skill> = [
+  {
+    id: 1,
+    label: "React",
+    icon: skillsIcons.react_icon,
+    category: "lang",
+    subcategory: "web",
+    framework: null,
+  },
+  {
+    id: 2,
+    label: "Docker",
+    icon: skillsIcons.docker_icon,
+    category: "tools",
+    subcategory: null,
+    framework: null,
+  },
+  {
+    id: 3,
+    label: "Java",
+    icon: skillsIcons.java_icon,
+    category: "lang",
+    subcategory: "backend",
+    framework: null,
+  },
+  {
+    id: 4,
+    label: "TypeScript",
+    icon: skillsIcons.typescript_icon,
+    category: "lang",
+    subcategory: "web",
+    framework: null,
+  },
+  {
+    id: 5,
+    label: "Git",
+    icon: skillsIcons.git_icon,
+    category: "tools",
+    subcategory: null,
+    framework: null,
+  },
+  {
+    id: 6,
+    label: "Go",
+    icon: skillsIcons.go_icon,
+    category: "lang",
+    subcategory: "backend",
+    framework: null,
+  },
+  {
+    id: 7,
+    label: "Python",
+    icon: skillsIcons.python_icon,
+    category: "lang",
+    subcategory: "backend",
+    framework: null,
+  },
+  {
+    id: 8,
+    label: "VSCode",
+    icon: skillsIcons.vscode_icon,
+    category: "tools",
+    subcategory: null,
+    framework: null,
+  },
+  {
+    id: 9,
+    label: "Tailwind",
+    icon: skillsIcons.tailwind_icon,
+    category: "lang",
+    subcategory: "web",
+    framework: null,
+  },
+  {
+    id: 10,
+    label: "Markdown",
+    icon: skillsIcons.markdown_icon,
+    category: "tools",
+    subcategory: null,
+    framework: null,
+  },
 ];

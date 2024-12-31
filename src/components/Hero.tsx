@@ -1,5 +1,5 @@
 import styles from "../style"
-import { sysiphus_rotated } from "../assets"
+import { coreImages } from "../assets"
 import { socialMedia, subtitleMessages } from "../data"
 import { SocialMedia, SubtitleMessage } from "../data/types"
 import { useEffect, useState } from "react"
@@ -81,9 +81,7 @@ const Hero = () => {
               <hr className=
                 {`
                   absolute
-                  bg-[--light-color-tertiary]
-                  w-2/3
-                  h-[3.5px]
+                  ${styles.line}
                   -bottom-4
                   left-1/4
                 `}
@@ -110,14 +108,14 @@ const Hero = () => {
         >
 
           <img id="hero-image"
-            src={sysiphus_rotated} 
+            src={coreImages.sysiphus_rotated} 
             alt="Sysiphus" 
             className=
             {`
               absolute
-              w-[95%]
+              xxl:w-[80%] lg:w-[95%]
               object-cover
-              -bottom-3
+              -top-11
               right-0
             `}
           />

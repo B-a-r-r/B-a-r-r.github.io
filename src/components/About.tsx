@@ -1,67 +1,71 @@
 import styles from "../style"
-import { about_portrait } from "../assets"
+import { coreImages } from "../assets"
+import { bioText } from "../data"
+import DOMPurify from "dompurify"
 
-function About() {
+const About = () => {
   return (
     <section id="about"
       className=
       {`
         ${styles.section}
+        ${styles.sizeScreen}
+        ${styles.flexRow}
         justify-center
         space-x-28
       `}
     >
     
-    <div id="portrait-container"
-      className=
-      {`
-        relative
-      `}
-    >
-
-      <img 
-        src={about_portrait}
-        alt="Portrait of the author"
+      <span id="portrait-container"
         className=
         {`
-          object-contain
-          xxl:w-[400px] xl:w-4 lg:w-[400px]
-          rounded-[1%]
+          ${styles.sizeFit}
+          ${styles.flexCol}
+          ${styles.contentEndAll}
+          relative
+          top-0
+          left-0
         `}
-      />
+      >
+        
+          <img 
+            src={coreImages.about_portrait}
+            alt="Portrait of the author"
+            className=
+            {`
 
-      <hr className=
-        {`
-          absolute
-          bg-[--light-color-tertiary]
-          w-[300px]
-          h-[3px]
-          border-[0px]
-          top-[55%]
-          left-[135px]
-        `}
-      />
+              object-cover
+              xxl:w-[65%] lg:w-[28%]
+              rounded-[1%]
+            `}
+          />
 
-    </div>
+          <hr className=
+            {`
+              absolute
+              ${styles.line}
+            `}
+          />
+
+      </span>
 
       <div id="about-text"
         className=
         {`
-          w-1/2
+          ${styles.sizeFull}
+          ${styles.flexCol}
+          ${styles.contentStartY}
+          overflow-hidden
         `}
       >
 
-        <h2 className={styles.heading2}>
-          Make it clean,<br/>make it better. {/*I code therefore I am.*/}
-        </h2>
+        <h2 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(bioText[0].title)}}
+          className={styles.heading2}
+        />
 
-        <p className={styles.paragraph}>
-          I am a 19yo <strong>junior developer</strong> and creator, mainly interest in developing clean and intelligent solutions to specific needs.
-          <br/><br/>
-          <strong>Programming</strong> is for me a mean to express my creativity, and enhance my versatility. I’ve been passionate about it since I was 14yo. Today I am developing my own applications and automation tools.
-          <br/><br/>  
-          Until 2026, I will be doing a <strong>bachelor’s degree</strong> in computer science at the University and Technology Institue of Bordeaux, France. 
-        </p>
+        <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(bioText[0].content)}}
+        className={styles.paragraph}
+        />
 
       </div>
 

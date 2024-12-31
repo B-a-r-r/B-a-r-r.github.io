@@ -1,5 +1,5 @@
 import styles from '../style'
-import { menu_down_arrow } from '../assets'
+import { menuIcons } from '../assets'
 import { useState } from 'react';
 import { languages } from '../data/index';
 import { Language } from '../data/types';
@@ -32,7 +32,7 @@ const DropdownLang = () => {
                 {selectedLang}
                 
                 <img 
-                    src={menu_down_arrow} 
+                    src={menuIcons.menu_down_arrow} 
                     alt="menu-down-arrow" 
                     className=
                     {`

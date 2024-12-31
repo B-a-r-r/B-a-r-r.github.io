@@ -26,4 +26,19 @@ interface Project {
     content: string;
   }
 
-  export type { Project, NavLink, Language, SocialMedia, SubtitleMessage };
+  interface Bio {
+    id: number;
+    title: string;
+    content: string;
+  }
+
+  interface Skill {
+    id: number;
+    label: string;
+    icon: string;
+    category: string;
+    subcategory: string | null;
+    framework: string | null;
+  }
+
+  export type { Project, NavLink, Language, SocialMedia, SubtitleMessage, Bio, Skill };

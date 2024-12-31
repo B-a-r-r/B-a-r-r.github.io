@@ -30,6 +30,10 @@ body, .root, #root {
   font-size: 20px;
   color: var(--color-quaternary);
   font-family: var(--font-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 strong {
@@ -142,5 +146,19 @@ strong {
 
   100% {
     transform: translateY(0);
+  }
+}
+
+@keyframes skill-icon-motion {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(200%, 100%, 0);
+  }
+
+  100% {
+    transform: translate3d(500%, 40%, 0);
   }
 }
