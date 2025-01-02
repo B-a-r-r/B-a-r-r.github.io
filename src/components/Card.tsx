@@ -1,4 +1,4 @@
-import { Project } from '../data/types';
+import {Project} from '../data/types';
 
 const Card = ({id, title, content, tags}: Project) => {
     return ( 
@@ -22,7 +22,7 @@ const Card = ({id, title, content, tags}: Project) => {
                 `}
             >
 
-                <h1 id="card-title"
+                <h3 id="card-title"
                     className={`
                         font-primary-bold
                         xxl:text-[150%] lg:w-[140%]
@@ -33,7 +33,7 @@ const Card = ({id, title, content, tags}: Project) => {
                     {title.length > 30 ?
                     title.slice(0, 30) + '...' :
                     title}
-                </h1>
+                </h3>
 
             </header>
 

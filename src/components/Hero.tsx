@@ -1,41 +1,49 @@
 import styles from "../style"
 import { coreImages } from "../assets"
-import { socialMedia, subtitleMessages } from "../data"
-import { SocialMedia, SubtitleMessage } from "../data/types"
+import { socialMedia } from "../data/constants"
+import { subtitleMessages } from "../data/contents"
+import { SocialMedia } from "../data/types"
 import { useEffect, useState } from "react"
+import DOMPurify from "dompurify"
 
 const Hero = () => {
   const [displayText, setDisplayText] = useState('');
   const [currentMessage, setCurrentMessage] = useState(0);
   
   useEffect(() => {
-    const text = subtitleMessages[currentMessage].content;
-    let i = 0;
-    const typingInterval = setInterval(() => {
-      if (i < text.length) {
-        setDisplayText(prevText => prevText + text.charAt(i));
-        i++;
+    const message: string = subtitleMessages[currentMessage].content;
+    let index = 0;
+    let text = '';
+    let interval = setInterval(() => {
+      if (index === message.length) {
+        clearInterval(interval);
+        setTimeout(() => {
+          interval = setInterval(() => {
+            if (index === 0) {
+              clearInterval(interval);
+              setCurrentMessage((currentMessage + 1) % subtitleMessages.length);
+            } else {
+              index--;
+              text = message.substring(0, index);
+              setDisplayText(text);
+            }
+          }, 1);
+        }, 4000);
       } else {
-        clearInterval(typingInterval);
+        index++;
+        text = message.substring(0, index);
+        setDisplayText(text);
       }
     }, 50);
-
-    return () => {
-      clearInterval(typingInterval);
-    };
+    return () => clearInterval(interval);
   }, [currentMessage]);
-
-  setInterval(() => {
-    setDisplayText('');
-    setCurrentMessage((prev) => (prev + 1) % subtitleMessages.length);
-  }, 5000);
 
   return (
     <section 
       id="hero" 
       className=
       {`
-        ${styles.sizeScreen}
+        ${styles.sizeFull}
         ${styles.section}
         ${styles.flexRow}
         bg-transparent
@@ -89,13 +97,18 @@ const Hero = () => {
 
             </div>
 
-            <p className=
+            <p dangerouslySetInnerHTML={
+                {__html: DOMPurify.sanitize(
+                  displayText[displayText.length-1] === "<" ?
+                  displayText.substring(0, displayText.length-1)
+                  : displayText
+                )}
+              }
+              className=
               {`
                 lg:text-[130%]
               `}
-            >
-              {displayText}
-            </p>
+            />
 
         </div>
         
@@ -108,7 +121,7 @@ const Hero = () => {
         >
 
           <img id="hero-image"
-            src={coreImages.sysiphus_rotated} 
+            src={coreImages.sysiphus} 
             alt="Sysiphus" 
             className=
             {`

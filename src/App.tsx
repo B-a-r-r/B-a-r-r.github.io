@@ -15,11 +15,7 @@ function App() {
     >
 
       <div id="navbar-container"
-        className=
-        {`
-          flex 
-          ${styles.contentCenter}
-        `}
+        className={``}
       > 
       
         <Navbar />
@@ -31,7 +27,6 @@ function App() {
         {`
           ${styles.sizeFull}
           ${styles.flexCol}
-          ${styles.contentCenter}
           px-[12%]
           overflow-visible
         `}
@@ -40,7 +35,7 @@ function App() {
         <div id="hero-container"
           className=
           {`
-            ${styles.sizeFull}
+            ${styles.sizeScreen}
             xxl:px-[5%]
           `}
         >
@@ -52,7 +47,7 @@ function App() {
         <div id="about-container"
           className=
           {`
-            ${styles.sizeFull}
+            ${styles.sizeScreen}
           `}
         >
 
@@ -63,7 +58,7 @@ function App() {
         <div id="projects-carrousel-container"
           className=
           {`
-            ${styles.sizeFull}
+            ${styles.sizeScreen}
             overflow-visible
           `}
         >
@@ -75,7 +70,7 @@ function App() {
         <div id="skills-container"
           className=
           {`
-            ${styles.sizeFull}
+            ${styles.sizeScreen}
           `}
         >
 
@@ -86,7 +81,7 @@ function App() {
         <div id="contact-container"
           className=
           {`
-            ${styles.sizeFull}
+            ${styles.sizeScreen}
           `}
         >
 
@@ -97,10 +92,7 @@ function App() {
       </div>
 
       <div id="footer-container"
-        className=
-        {`
-          flex ${styles.contentCenter}
-        `}
+        className={``}
       > 
       
         <Footer />

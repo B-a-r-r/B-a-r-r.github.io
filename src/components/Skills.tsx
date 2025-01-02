@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react'
 import styles from '../style'
 import { Skill } from '../data/types'
-import { skills } from '../data'
+import { skills } from '../data/contents'
 import { randomNumberBetween } from '../utils'
 
 const Skills = () => {
@@ -63,7 +63,7 @@ const Skills = () => {
     <section id='skills'
       className=
       {`
-        ${styles.sizeScreen}
+        ${styles.sizeFull}
         ${styles.section}
         ${styles.flexCol}
         ${styles.contentCenter}

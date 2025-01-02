@@ -149,7 +149,7 @@ strong {
   }
 }
 
-@keyframes skill-icon-motion {
+/* @keyframes skill-icon-motion {
   0% {
     transform: translate3d(0, 0, 0);
   }
@@ -160,5 +160,106 @@ strong {
 
   100% {
     transform: translate3d(500%, 40%, 0);
+  }
+} */
+
+@keyframes card-change-position {
+  
+}
+
+@keyframes card-reach-top {
+  from {
+    transform: translate3d(0,0,0);
+  }
+
+  to {
+    transform: translateX(10%, 1%, 10);
+  }
+}
+
+@keyframes card-top-to-bottom {
+  0% {
+    z-index: 10;
+    opacity: 100;
+    transform: translateX(0);
+  }
+
+  25% {
+    opacity: 100;
+    transform: translateX(1%);
+  }
+
+  50% {
+    opacity: 80;
+  }
+
+  70% {
+    z-index: 5;
+    opacity: 50;
+  }
+
+  80% {
+    z-index: 2;
+    opacity: 20;
+    transform: translate3d(-30%, 0, 0);
+  }
+
+  100% {
+    z-index: 0;
+    opacity: 100;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+
+@keyframes card-apparition {
+  from {
+    opacity: 0;
+  }
+
+  33% {
+    opacity: 80;
+    transform: rotate(2deg);
+  }
+
+  66% {
+    opacity: 90;
+    transform: rotate(calc(-2deg));
+  }
+
+  to {
+    opacity: 100;
+    transform: rotate(0deg);
+  }
+  
+}
+
+@keyframes cards-stack-apparition {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 100;
+  }
+} 
+
+@keyframes fade-out {
+  0% {
+    opacity: 100;
+  }
+
+  100% {
+    opacity: 0;
   }
 }

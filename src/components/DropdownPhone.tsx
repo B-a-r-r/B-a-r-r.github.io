@@ -1,15 +1,15 @@
 import styles from '../style'
 import { menuIcons } from '../assets'
 import { useState } from 'react';
-import { languages } from '../data/constants';
-import { Language } from '../data/types';
+import { countryPhoneCodes } from '../data/constants';
+import { CountryPhoneCode } from '../data/types';
 
-const DropdownLang = () => {
-    const [toggleLang, setToggleLang] = useState(false);
-    const [selectedLang, setSelectedLang] = useState('FR');
+const DropdownPhone = () => {
+    const [toggleMenu, setToggleMenu] = useState(false);
+    const [selectedCode, setSelectedCode] = useState('+33');
 
     return (
-        <div id="lang-dropdown-container"
+        <div id="phone-dropdown-container"
             className=
             {`
                 ${styles.flexRow}
@@ -17,7 +17,7 @@ const DropdownLang = () => {
                 relative
                 font-tertiary-regular
             `}
-            onClick={() => setToggleLang((prev) => !prev)}
+            onClick={() => setToggleMenu((prev) => !prev)}
         >
             <button 
                 id="dropdown-button"
@@ -29,25 +29,25 @@ const DropdownLang = () => {
                     cursor-pointer
                 `}
             >
-                {selectedLang}
+                {selectedCode}
                 
                 <img 
-                    src={menuIcons.chevron_icon} 
+                    src={menuIcons.menu_down_arrow} 
                     alt="menu-down-arrow" 
                     className=
                     {`
                         object-cover 
-                        w-4
-                        rounded-full
+                        ml-1
+                        ${styles.sizeFit}
                     `}
                 />
 
             </button>
         
-            <div id="lang-dropdown-items"
+            <div id="phone-dropdown-items"
                 className=
                 {`
-                    ${toggleLang ? 'block' : 'hidden'}
+                    ${toggleMenu ? 'block' : 'hidden'}
                     z-[10]
                     absolute
                     px-4
@@ -58,11 +58,11 @@ const DropdownLang = () => {
                     -top-1
                 `}
                 style={{
-                    animation: `lang-dropdown-menu 0.5s 1 ${toggleLang ? 'forwards' : 'reverte'}`,
+                    animation: `phone-dropdown-menu 0.5s 1 ${toggleMenu ? 'forwards' : 'reverte'}`,
                 }}
             >
             
-                <ul id='lang-list'
+                <ul id='phone-id-list'
                     className=
                     {`
                         list-none
@@ -70,24 +70,20 @@ const DropdownLang = () => {
                         xxl:leading-8 lg:leading-9 
                     `}
                 >
-                {
-                    languages
-                    .sort(function(a) { return a.label === selectedLang ? -1 : 1; })
-                    .map((lang: Language) => (
+                    {countryPhoneCodes.map((code: CountryPhoneCode) => (
                         <li 
-                            key={lang.id} 
+                            key={`code.id-${code.code}`} 
                             className=
                             {`
                                 cursor-pointer
                                 hover:text-[--light-color-tertiary]
                                 z-[1]
                             `}
-                            onClick={() => setSelectedLang(lang.symbol.toUpperCase())}
+                            onClick={() => setSelectedCode(code.code)}
                         >
-                            {lang.symbol.toUpperCase()}
+                            {code.code}
                         </li>
-                    ))
-                }
+                    ))}
                 </ul>
 
             </div>
@@ -96,4 +92,4 @@ const DropdownLang = () => {
     )
 }
 
-export default DropdownLang
+export default DropdownPhone

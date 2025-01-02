@@ -27,5 +27,5 @@ module.exports = {
       xxl: "1900px",
     },
   },
-  plugins: [require('tailwind-hamburgers')],
+  plugins: [require('dompurify')()],
 };

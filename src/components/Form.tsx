@@ -1,7 +1,7 @@
-import React from 'react'
 import styles from '../style'
+import DropdownPhone from './DropdownPhone'
 
-function Form() {
+const Form = () => {
   return (
     <form id='contact-form'
       className=
@@ -9,27 +9,123 @@ function Form() {
         ${styles.flexCol}
         ${styles.sizeFull}
         ${styles.contentCenter}
+        font-primary-regular
         color-secondary
+        p-4
+        space-y-4
       `}
     >
       <h2 id='form-title'
         className=
         {`
-          ${styles.heading2}
+          ${styles.sizeFull}
+          ${styles.contentStartAll}
+          font-primary-bold
+          lg:text-[180%]
+          tracking-wider
+          leading-10
         `}
       > Feel free<br/>to contact me  </h2>
         
-      <div id="names-info">Names</div>
+      <div id="names-info"
+        className=
+        {`
+          ${styles.flexRow}
+          ${styles.sizeFull}
+          ${styles.contentCenter}
+          space-x-2
+        `}
+      >
+        <input type="text" 
+          id="name" 
+          name="name" 
+          placeholder="Name" 
+          required 
+          className=
+          {`
+            ${styles.sizeFull}
+            color-primary
+            rounded-md
+          `}
+        />
+        <input type="text" 
+          id="surname" 
+          name="surname" 
+          placeholder="Surname" 
+          required 
+          className=
+          {`
+            ${styles.sizeFull}
+            color-primary
+            rounded-md
+          `}
+        />
+      </div>
 
-      <label id="email-label" htmlFor="email">Email</label>
+      <input type="email"
+        id="email"
+        name="email"
+        placeholder="Email"
+        required
+        className=
+        {`
+          ${styles.sizeFull}
+          color-primary
+          rounded-md
+        `}
+      />
 
-      <div id="phone-info">Phone</div>
+      <div id="phone-info"
+        className=
+        {`
+          ${styles.flexRow}
+          ${styles.sizeFull}
+          ${styles.contentCenter}
+          space-x-2
+        `}
+      >
+        <DropdownPhone />
 
-      <label id="message-info">Message</label>
+        <input type="tel"
+          id="phone"
+          name="phone"
+          placeholder="Phone"
+          required
+          className=
+          {`
+            ${styles.sizeFull}
+            color-primary
+            rounded-md
+          `}
+        />
+      </div>
 
-      <label id="indication-label">Submit</label>
+      <input type="text" 
+        id="message-content"
+        name="message"
+        placeholder="Message..."
+        required
+        className=
+        {`
+          ${styles.sizeFull}
+          color-primary
+          rounded-md
+        `}
+      />
 
-      <button type="submit">Submit</button>
+      <label id="indication-label"
+        className=''
+      ><strong>*</strong>: mendatory information</label>
+
+      <button type="submit"
+        className=
+        {`
+          rounded-md
+          color-quaternary
+          py-[2px]
+          px-2
+        `}
+      >Submit</button>
 
     </form>
   )

@@ -1,6 +1,6 @@
 import styles from "../style"
 import { coreImages } from "../assets"
-import { bioText } from "../data"
+import { bioText } from "../data/contents"
 import DOMPurify from "dompurify"
 
 const About = () => {
@@ -8,8 +8,8 @@ const About = () => {
     <section id="about"
       className=
       {`
+        ${styles.sizeFull}
         ${styles.section}
-        ${styles.sizeScreen}
         ${styles.flexRow}
         justify-center
         space-x-28
@@ -29,7 +29,7 @@ const About = () => {
       >
         
           <img 
-            src={coreImages.about_portrait}
+            src={coreImages.portrait}
             alt="Portrait of the author"
             className=
             {`

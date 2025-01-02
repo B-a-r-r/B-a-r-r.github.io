@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { navLinks } from "../data";
+import { useState } from "react";
+import { navLinks } from "../data/constants";
 import DropdownLang from "./DropdownLang";
 import SwitchButton from "./SwitchButton";
 import styles from "../style";
@@ -40,14 +40,14 @@ const Navbar = () => {
                     tracking-widest
                     cursor-pointer
                     hover:text-[--light-color-tertiary]
-                    ${nav.id === currentNavigation ? 'text-[--light-color-tertiary]' : ""}
+                    ${nav.label.toLowerCase() === currentNavigation ? 'text-[--light-color-tertiary]' : ""}
                 `}
               >
                 <a key={nav.id}
                   href={`#${nav.id}`}
-                  onClick={() => setCurrentNavigation(nav.id)}
+                  onClick={() => setCurrentNavigation(nav.label.toLowerCase())}
                 >
-                  {nav.title}
+                  {nav.label}
                 </a>
 
               </li>
@@ -104,7 +104,7 @@ const Navbar = () => {
                 >
 
                   <a href={`#${nav.id}`}>
-                    {nav.title}
+                    {nav.label}
                   </a>
 
                 </li>

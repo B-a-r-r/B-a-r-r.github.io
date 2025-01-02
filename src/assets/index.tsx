@@ -1,7 +1,8 @@
-import menu_burger_icon from "./menu_icons/menu_burger_icon.svg";
-import close_icon from "./menu_icons/close_menu_icon.svg";
+import burger_menu_icon from "./menu_icons/burger_menu.svg";
+import close_menu_icon from "./menu_icons/close_menu.svg";
 import arrow_up from "./menu_icons/arrow_up.svg";
-import menu_down_arrow from "./menu_icons/menu_down_arrow.png";
+import chevron_icon from "./menu_icons/chevron_icon.svg";
+import double_chevrons_icon from "./menu_icons/double_chevrons_icon.svg";
 
 import linkedin_icon from "./socials_icons/linkedin_icon.svg";
 import github_icon from "./socials_icons/github_icon.svg";
@@ -18,17 +19,17 @@ import python_icon from "./skills_icons/python_icon.svg";
 import tailwind_icon from "./skills_icons/tailwind_icon.svg";
 import markdown_icon from "./skills_icons/markdown_icon.svg";
 
-import sysiphus from "./sysiphus.png";
-import about_portrait from "./about_portrait.jpg";
-import sysiphus_rotated from "./sysiphus_rotated.png";
-import atlas_pi from "./atlas_pi.png";
+import portrait from "./about_portrait.jpg";
+import sysiphus from "./sysiphus_rotated.png";
+import atlas from "./atlas_pi.png";
 
 export const menuIcons = {
   
-  menu_down_arrow,
-  menu_burger_icon,
-  close_icon,
+  burger_menu_icon,
+  close_menu_icon,
+  chevron_icon,
   arrow_up,
+  double_chevrons_icon,
 
 };
 
@@ -57,9 +58,8 @@ export const skillsIcons = {
 
 export const coreImages = {
 
-  about_portrait,
+  portrait,
   sysiphus,
-  sysiphus_rotated,
-  atlas_pi,
+  atlas,
 
 };
