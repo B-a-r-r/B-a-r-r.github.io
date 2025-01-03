@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useState } from 'react'
 import styles from '../style'
 import { Skill } from '../data/types'
 import { skills } from '../data/contents'
-import { randomNumberBetween } from '../utils'
+import { getSkillsCategories, getSkillsSubcategories, randomNumberBetween } from '../utils'
 
 const Skills = () => {
   const [selectedTab, setSelectedTab] = useState<string>('lang')
@@ -53,10 +53,45 @@ const Skills = () => {
     return skillsNodes
   }
 
+
+  const drawSkillsTree = () => {
+    const canvas = document.getElementById('skills-icons-pool') as HTMLCanvasElement
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+    
+    const startPoint: number = (() => {
+      const tabFrom: HTMLElement | null = document.getElementById(selectedTab+'-button')
+      if (tabFrom) {
+        return tabFrom.offsetLeft + tabFrom.offsetWidth / 2
+      }
+      return canvas.width / 2
+    })();
+
+    const subTrees: Array<Array<Skill>> = (
+      getSkillsSubcategories(selectedTab).map((cat: string) => (
+        skills.filter((skill: Skill) => skill.category === selectedTab && skill.subcategory === cat)
+      ))
+    )
+
+    
+  }
+
+  async function drawSkillsSubtree(
+      subtree: Array<Skill>, 
+      startPoint: number, 
+      ctx: CanvasRenderingContext2D,
+      maxX: number,
+      maxY: number,
+  ) {
+    return
+  }
+
   const [skillsNodes, setSkillsNodes] = useState(getSkillsNodes)
 
   useEffect(() => {
     setSkillsNodes(getSkillsNodes)
+    drawSkillsTree()
   }, [selectedTab])
 
   return (
@@ -65,6 +100,7 @@ const Skills = () => {
       {`
         ${styles.sizeFull}
         ${styles.section}
+        mt-0
         ${styles.flexCol}
         ${styles.contentCenter}
       `}
@@ -81,11 +117,7 @@ const Skills = () => {
       >
 
         <button id="lang-button"
-          className=
-          {`
-            p-4
-            border-2
-          `}
+          className={``}
           onClick={() => setSelectedTab('lang')}
         > Languages 
           <hr id='lib-hr'
@@ -97,11 +129,7 @@ const Skills = () => {
         </button>
 
         <button id="tools-button"
-          className=
-          {`
-            p-4
-            border-2
-          `}
+          className={``}
           onClick={() => setSelectedTab('tools')}
         > Tools 
           <hr id='lib-hr'
@@ -113,11 +141,7 @@ const Skills = () => {
         </button>
 
         <button id="lib-button"
-          className=
-          {`
-            p-4
-            border-2
-          `}
+          className={``}
           onClick={() => setSelectedTab('lib')}
         > Libraries 
           <hr id='lib-hr'
@@ -130,7 +154,7 @@ const Skills = () => {
 
       </div>
       
-      <div id="skills-icons-pool"
+      <canvas id="skills-icons-pool"
         className=
         {`
           ${styles.sizeFull}
@@ -138,12 +162,7 @@ const Skills = () => {
           relative
           bg-transparent
         `}
-      >
-        
-        {skillsNodes}
-
-      </div>
-
+      />
     </section>
   )
 }

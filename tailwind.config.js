@@ -27,5 +27,5 @@ module.exports = {
       xxl: "1900px",
     },
   },
-  plugins: [require('dompurify')()],
+  plugins: [require('dompurify'), require('react-router'), require('react-i18next')],
 };

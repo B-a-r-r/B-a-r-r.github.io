@@ -1,16 +1,14 @@
-import styles from "./style";
-import { Navbar, Hero, About, Footer, ProjectsSlider, Skills, Contact } from "./components";
+import styles from "../style";
+import { Navbar, Hero, About, Footer, ProjectsSlider, Skills, Contact } from "../components";
 
-function App() {
+const Home = () => {
+
   return (
 
     <div id='app-container' 
       className=
       {`
-        ${styles.boxWidth}
-        ${styles.sizeFull}
-        overflow-hidden
-        color-primary
+        ${styles.page}
       `}
     >
 
@@ -35,7 +33,7 @@ function App() {
         <div id="hero-container"
           className=
           {`
-            ${styles.sizeScreen}
+            ${styles.sizeFull}
             xxl:px-[5%]
           `}
         >
@@ -47,23 +45,11 @@ function App() {
         <div id="about-container"
           className=
           {`
-            ${styles.sizeScreen}
+            ${styles.sizeFull}
           `}
         >
 
           <About />
-        
-        </div>
-        
-        <div id="projects-carrousel-container"
-          className=
-          {`
-            ${styles.sizeScreen}
-            overflow-visible
-          `}
-        >
-
-          <ProjectsSlider />
         
         </div>
 
@@ -74,8 +60,20 @@ function App() {
           `}
         >
 
-          <Skills />
+          {/* <Skills /> */}
 
+        </div>
+
+        <div id="projects-carrousel-container"
+          className=
+          {`
+            ${styles.sizeFull}
+            overflow-visible
+          `}
+        >
+
+          <ProjectsSlider />
+        
         </div>
 
         <div id="contact-container"
@@ -103,4 +101,4 @@ function App() {
   );
 };
 
-export default App;
+export default Home;

@@ -133,12 +133,9 @@ const ProjectsSlider = () => {
     >
       <div id="cards-stack-container"
         className={`
-          w-full
-          h-full
-          aspect-[2/3]
-          perspective-[100px]
-          perspective-origin-[center 50%]
-          transform-[preserve-3d]
+          ${styles.sizeFull}
+          ${styles.flexRow}
+          ${styles.contentStartAll}
           relative
         `}
       >
@@ -147,33 +144,29 @@ const ProjectsSlider = () => {
           card
         ))}
 
+        <img id="atlas-pi"
+          src={coreImages.atlas}
+          alt="atlas"
+          className={`
+            object-cover
+            xxl:w-[400px]
+            h-auto
+            absolute
+            top-0
+            right-0
+          `}
+        />
       </div>
-      
-      <img id="atlas-pi"
-        src={coreImages.atlas}
-        alt="atlas"
-        className={`
-          object-cover
-          xxl:w-[400px]
-          h-auto
-          absolute
-          top-0
-          right-0
-        `}
-      />
 
       <div id="controls-container"
         className={`
-          absolute
           w-full
-          flex
-          items-center
-          justify-center
-          flex-row
+          h-[10%px]
+          ${styles.flexRow}
+          ${styles.contentStartX}
           space-x-10
         `}
       >
-
             <button id="prev-button"
               className={`
                 ronded-full
@@ -195,12 +188,16 @@ const ProjectsSlider = () => {
 
             <button id="projects-button"
               className={`
+                w-[150px]
                 rounded-md
                 color-quaternary
-                px-6
+                px-3
                 py-2
+                font-primary-semibold
+                lg:text-[60%]
+                tracking-widest
               `}
-            > Browse<br/>projects </button>
+            > Browse<br/>all projects </button>
 
             <button id="next-button"
               className={`
@@ -220,7 +217,6 @@ const ProjectsSlider = () => {
               `}
             /> 
           </button>
-
       </div>
 
     </section>

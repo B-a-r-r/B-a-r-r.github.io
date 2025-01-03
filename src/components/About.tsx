@@ -12,49 +12,39 @@ const About = () => {
         ${styles.section}
         ${styles.flexRow}
         justify-center
+        relative
         space-x-28
       `}
     >
-    
-      <span id="portrait-container"
+        
+      <img 
+        src={coreImages.portrait}
+        alt="Portrait of the author"
         className=
         {`
+          object-cover
           ${styles.sizeFit}
-          ${styles.flexCol}
-          ${styles.contentEndAll}
-          relative
-          top-0
-          left-0
+          xxl:w-[65%] lg:w-[50%]
+          rounded-[1%]
         `}
-      >
-        
-          <img 
-            src={coreImages.portrait}
-            alt="Portrait of the author"
-            className=
-            {`
+      />
 
-              object-cover
-              xxl:w-[65%] lg:w-[28%]
-              rounded-[1%]
-            `}
-          />
-
-          <hr className=
-            {`
-              absolute
-              ${styles.line}
-            `}
-          />
-
-      </span>
+      <hr className=
+        {`
+          absolute
+          ${styles.line}
+          w-[25%]
+          bottom-44
+          -left-5
+        `}
+      />
 
       <div id="about-text"
         className=
         {`
-          ${styles.sizeFull}
+          ${styles.sizeFit}
           ${styles.flexCol}
-          ${styles.contentStartY}
+          ${styles.contentStartAll}
           overflow-hidden
         `}
       >

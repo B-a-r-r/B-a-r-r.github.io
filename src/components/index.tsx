@@ -10,5 +10,22 @@ import Retex from "./Retex.tsx";
 import DropdownLang from "./DropdownLang.tsx";
 import Card from "./Card";
 import Contact from "./Contact";
+import SearchBar from "./SearchBar";
+import SortingBar from "./SortingBar.tsx";
 
-export { Card, Navbar, Hero, About, Footer, Form, ProjectsSlider, Skills, ParticlesEffect, Retex, DropdownLang, Contact };
+export { 
+    Card, 
+    Navbar, 
+    Hero, 
+    About, 
+    Footer, 
+    Form, 
+    ProjectsSlider, 
+    Skills, 
+    ParticlesEffect, 
+    Retex, 
+    DropdownLang, 
+    Contact,
+    SearchBar,
+    SortingBar
+};

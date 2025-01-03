@@ -1,3 +1,5 @@
+import { NavLink } from "react-router";
+
 export interface Project {
   id: number;
   title: string;
@@ -68,4 +70,32 @@ export interface Form {
   fields: string[];
   button: string;
   mendatoryFields: string[];
+}
+
+export interface ButtonProps {
+  id: number;
+  label: string;
+  link: string;
+}
+
+export interface SkillTree {
+  id: number;
+  structure: 
+  [  // Root (selected tab)
+    [  // Subtree °1 (category)
+      Skill[]  // Leaf (skill)
+    ]
+  ];
+}
+
+export interface NavBarPattern {
+  id: number;
+  route: string;
+  links: NavLink[];
+}
+
+export interface SortOption {
+  id: number;
+  label: string;
+  value: string;
 }

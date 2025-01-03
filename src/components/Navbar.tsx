@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { navLinks } from "../data/constants";
 import DropdownLang from "./DropdownLang";
 import SwitchButton from "./SwitchButton";
@@ -6,7 +6,21 @@ import styles from "../style";
 
 const Navbar = () => {
   const [toggleBurger, setToggleBurger] = useState(true);
-  const [currentNavigation, setCurrentNavigation] = useState('about');
+  const [currentNavigation, setCurrentNavigation] = useState('');
+
+  useEffect(() => {
+    const currentRoute = navLinks.filter((nav) => nav.route === window.location.pathname)[0];
+    const initialNavigation = currentRoute?.links.filter(
+      (nav) => nav.label.toLowerCase() === window.location.pathname.split('/')[1]
+    )[0]?.link;
+  
+    if (!initialNavigation) {
+      setCurrentNavigation(
+        currentRoute.links[0].label.toLowerCase()
+      );
+    }
+    else setCurrentNavigation(initialNavigation);
+  }, []);
 
   return (
     <nav id="navbar"
@@ -31,7 +45,9 @@ const Navbar = () => {
         /* NB: hide the list on small screens */
       >
         {
-          navLinks.map((nav) => (
+          navLinks
+          .filter((nav) => nav.route === window.location.pathname)[0].links
+          .map((nav) => (
             <>
               <li key={`${nav.id}-container`}
                 className=
@@ -44,7 +60,7 @@ const Navbar = () => {
                 `}
               >
                 <a key={nav.id}
-                  href={`#${nav.id}`}
+                  href={nav.link}
                   onClick={() => setCurrentNavigation(nav.label.toLowerCase())}
                 >
                   {nav.label}
@@ -104,7 +120,7 @@ const Navbar = () => {
                 >
 
                   <a href={`#${nav.id}`}>
-                    {nav.label}
+                    {nav.route}
                   </a>
 
                 </li>

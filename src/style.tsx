@@ -1,11 +1,11 @@
 const styles = {
-  /* Maximum width for extra large screens; elements don't extend themselves over 1280px.*/   
-  boxWidth: "xxl:max-w-[2400px]",
+
+  page: "w-screen h-screen overflow-hidden color-primary xxl:max-w-[2400px]",
 
   heading2: " \
     font-primary-bold \
-    xxl:text-[230%]  \
-    leading-[50px]  \
+    xxl:text-[230%] lg:text-[150%]  \
+    leading-8 \
     w-full  \
     tracking-wider  \
     mb-8",
@@ -26,15 +26,14 @@ const styles = {
   paragraph: " \
     font-primary-regular \
     color-primary  \
-    xxl:text-[180%]  \
-    leading-[40px]  \
+    xxl:text-[180%] lg:text-[110%]  \
+    leading-[170%]  \
     tracking-wide", 
 
-  /* Elements are centered => |A B C| */
-  contentCenter: "justify-center items-center",
   flexCol: "flex flex-col",
   flexRow: "flex flex-row",
-  /* Elements are aligned from left to right => |A B C  | */
+
+  contentCenter: "justify-center items-center",
   contentStartAll: "justify-start items-start",
   contentStartX: "justify-start items-center",
   contentStartY: "justify-center items-start",
@@ -46,8 +45,7 @@ const styles = {
   sizeScreen: "h-screen w-auto",
   sizeFit: "w-fit h-fit",
 
-  /* From medium screen size, elements are displayed in row and not column. */
-  section: `pt-[12%]`,
+  section: `my-[12%]`,
 };
   
 export default styles;

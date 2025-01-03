@@ -43,19 +43,21 @@ const Hero = () => {
       id="hero" 
       className=
       {`
-        ${styles.sizeFull}
-        ${styles.section}
+        ${styles.sizeScreen}
         ${styles.flexRow}
         bg-transparent
         overflow-visible
         font-primary-regular
         color-primary
         relative
+        mt-[12%]
+        pb-[12%]
       `}
     >
         <div id="hero-text"
           className=
           {`
+            ${styles.sizeFit}
             ${styles.flexCol}
             ${styles.contentStartAll}
             space-y-12
@@ -128,7 +130,7 @@ const Hero = () => {
               absolute
               xxl:w-[80%] lg:w-[95%]
               object-cover
-              -top-11
+              -top-14
               right-0
             `}
           />
@@ -140,9 +142,9 @@ const Hero = () => {
             ${styles.flexRow}
             ${styles.contentCenter}
             absolute
-            bottom-[14%]
+            bottom-[30%]
             right-0
-            space-x-2
+            space-x-3
           `}
         >
             {
@@ -158,6 +160,9 @@ const Hero = () => {
                       {`
                         object-cover
                         w-[100%]
+                        hover:scale-105
+                        transition-transform
+                        duration-200
                       `}
                     />
                   </a>

@@ -1,28 +1,62 @@
 import { socialsIcons } from "../assets";
-import { NavLink, Language, SocialMedia, Copyrigth, CountryPhoneCode, CreditMention, Form } from "./types";
+import { skills } from "./contents";
+import { Language, SocialMedia, Copyrigth, CountryPhoneCode, CreditMention, Form, ButtonProps, Skill, NavBarPattern, SortOption } from "./types";
 
-export const navLinks: Array<NavLink> = [
+export const navLinks: Array<NavBarPattern> = [
   {
     id: 1,
-    label: "About",
-    link: "#about",
+    route: '/',
+    links: [
+      {
+        id: 1,
+        label: "About",
+        link: "#about",
+      },
+      {
+        id: 2,
+        label: "Projects",
+        link: "projects",
+      },
+      {
+        id: 3,
+        label: "Contact",
+        link: "#contact",
+      }, 
+      {
+        id: 4,
+        label: "CV",
+        link: "cv.pdf",
+      },
+    ],
   },
   {
     id: 2,
-    label: "Projects",
-    link: "projects",
-  },
-  {
-    id: 3,
-    label: "Contact",
-    link: "#contact",
-  }, 
-  {
-    id: 4,
-    label: "CV",
-    link: "cv.pdf",
+    route: '/projects',
+    links: [
+      {
+        id: 1,
+        label: "Home",
+        link: "/",
+      },
+      {
+        id: 2,
+        label: "Projects",
+        link: "projects",
+      },
+      {
+        id: 3,
+        label: "Contact",
+        link: "home#contact",
+      }, 
+      {
+        id: 4,
+        label: "CV",
+        link: "cv.pdf",
+      },
+    ],
   },
 ];
+
 
 export const languages: Array<Language> = [
   {
@@ -93,5 +127,35 @@ export const formStructure: Array<Form> = [
     fields: [ "name", "email", "phone", "message" ],
     button: "Send",
     mendatoryFields: [ "name", "email", "message" ],
+  },
+];
+
+export const skillsButtons: Array<ButtonProps> = [];
+
+export const sortOptions: Array<SortOption> = [
+  {
+    id: 1,
+    label: "All",
+    value: "all",
+  },
+  {
+    id: 2,
+    label: "Web",
+    value: "web",
+  },
+  {
+    id: 5,
+    label: "Database",
+    value: "database",
+  },
+  {
+    id: 6,
+    label: "Software",
+    value: "Software",
+  },
+  {
+    id: 7,
+    label: "Algorithmic",
+    value: "algorithmic",
   },
 ];

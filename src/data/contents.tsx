@@ -36,6 +36,10 @@ export const subtitleMessages: Array<SubtitleMessage> = [
     {
       id: 2,
       content: "Currently studying<br/>artificial life !",
+    },
+    {
+      id: 3,
+      content: "Guedaguediguedagueda oh.",
     }
 ];
   
@@ -47,7 +51,7 @@ export const bioText: Array<Biography> = [
               <br/><br/> \
               <strong>Programming</strong> is for me a mean to express my creativity, and enhance my versatility. I’ve been passionate about it since I was 14yo. Today I am developing my own applications and automation tools. \
               <br/><br/>   \
-              Until 2026, I will be doing a <strong>bachelor’s degree</strong> in computer science at the University and Technology Institue of Bordeaux, France."
+              Until 2026, I will be preparing a <strong>bachelor’s degree</strong> in computer science at the University and Technology Institue of Bordeaux, France."
     }
 ];
   
@@ -73,7 +77,7 @@ export const skills: Array<Skill> = [
       label: "Java",
       icon: skillsIcons.java_icon,
       category: "lang",
-      subcategory: "backend",
+      subcategory: "software",
       framework: null,
     },
     {
@@ -97,7 +101,7 @@ export const skills: Array<Skill> = [
       label: "Go",
       icon: skillsIcons.go_icon,
       category: "lang",
-      subcategory: "backend",
+      subcategory: "web",
       framework: null,
     },
     {
@@ -105,7 +109,7 @@ export const skills: Array<Skill> = [
       label: "Python",
       icon: skillsIcons.python_icon,
       category: "lang",
-      subcategory: "backend",
+      subcategory: "software",
       framework: null,
     },
     {
@@ -128,8 +132,8 @@ export const skills: Array<Skill> = [
       id: 10,
       label: "Markdown",
       icon: skillsIcons.markdown_icon,
-      category: "tools",
-      subcategory: null,
+      category: "lang",
+      subcategory: "text",
       framework: null,
     },
 ];

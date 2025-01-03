@@ -40,6 +40,22 @@ strong {
   color: var(--light-color-tertiary); 
 }
 
+button {
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 1%;
+}
+/* button hover */
+button:hover {
+  animation: smooth-button-gradient 2s linear;
+}
+
+input:focus, textarea:focus {
+  transition: all 0.1s ease-in-out;
+  border: 1px solid var(--light-color-tertiary);
+  outline: none;
+}
+
 /* App primary font */
 .font-primary-extralight {
   font-family: var(--font-primary);
@@ -133,6 +149,23 @@ strong {
 }
 
 /* App animations */
+@keyframes smooth-button-gradient {
+  from {
+    background: linear-gradient(
+      0deg,
+      var(--light-color-secondary), 33%, 
+      var(--light-color-primary));
+  }
+
+  to {
+    background: linear-gradient(
+      0deg, 
+      rgb(209, 209, 209), 1%, 
+      var(--light-color-secondary), 33%, 
+      var(--light-color-primary));
+  }
+}
+
 @keyframes lang-dropdown-menu {
   0% {
     visibility: hidden;
