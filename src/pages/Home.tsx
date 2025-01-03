@@ -2,13 +2,13 @@ import styles from "../style";
 import { Navbar, Hero, About, Footer, ProjectsSlider, Skills, Contact } from "../components";
 
 const Home = () => {
-
   return (
-
     <div id='app-container' 
       className=
       {`
         ${styles.page}
+        ${styles.flexCol}
+        color-primary
       `}
     >
 
@@ -67,7 +67,7 @@ const Home = () => {
         <div id="projects-carrousel-container"
           className=
           {`
-            ${styles.sizeFull}
+            ${styles.sizeScreen}
             overflow-visible
           `}
         >
@@ -86,16 +86,17 @@ const Home = () => {
           <Contact />
 
         </div>
+        <div id="footer-container"
+          className={`
+          `}
+        > 
+        
+          <Footer />
 
+        </div>
       </div>
 
-      <div id="footer-container"
-        className={``}
-      > 
-      
-        <Footer />
-
-      </div>
+     
 
     </div>
   );

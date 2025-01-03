@@ -5,6 +5,7 @@ export interface Project {
   title: string;
   content: string;
   tags: string[];
+  img: string | null;
 }
   
 export interface NavLink {

@@ -1,11 +1,11 @@
 const styles = {
 
-  page: "w-screen h-screen overflow-hidden color-primary xxl:max-w-[2400px]",
+  page: "w-full h-full color-primary ",
 
   heading2: " \
     font-primary-bold \
     xxl:text-[230%] lg:text-[150%]  \
-    leading-8 \
+    xxl:leading-10 leading-8 \
     w-full  \
     tracking-wider  \
     mb-8",

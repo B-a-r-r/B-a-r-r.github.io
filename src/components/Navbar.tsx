@@ -33,7 +33,7 @@ const Navbar = () => {
         ${styles.flexRow}
         ${styles.contentStartX}
         color-secondary
-        xxl:text-[130%]  xl:text-[115%]  lg:text-[110%]
+        xxl:text-[125%]  xl:text-[115%]  lg:text-[110%]
       `}
     >
 
@@ -138,7 +138,7 @@ const Navbar = () => {
           ${styles.flexRow}
           ${styles.contentEndX}
           font-primary-regular
-          space-x-7
+          space-x-[2.5%]
         `}
       >
 

@@ -72,8 +72,8 @@ const Hero = () => {
             >
               <h1 className="
                 tracking-[0.06em]
-                leading-[72.4px]
-                lg:text-[300%]"
+                xxl:leading-[90px] leading-[72.4px]
+                xxl:text-[400%] lg:text-[300%]"
               >
                 Clément <br/> 
                 <a className=
@@ -108,7 +108,7 @@ const Hero = () => {
               }
               className=
               {`
-                lg:text-[130%]
+                xxl:text-[160%] lg:text-[130%]
               `}
             />
 
@@ -128,9 +128,9 @@ const Hero = () => {
             className=
             {`
               absolute
-              xxl:w-[80%] lg:w-[95%]
+              xxl:w-[90%] lg:w-[95%]
               object-cover
-              -top-14
+              xxl:-top-[12%] -top-14
               right-0
             `}
           />
@@ -159,7 +159,7 @@ const Hero = () => {
                       className=
                       {`
                         object-cover
-                        w-[100%]
+                        xxl:w-[50px] w-[100%]
                         hover:scale-105
                         transition-transform
                         duration-200

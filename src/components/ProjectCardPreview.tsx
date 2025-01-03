@@ -1,17 +1,16 @@
 import {Project} from '../data/types';
+import styles from '../style';
 
-const Card = ({id, title, content, tags}: Project) => {
+const ProjectCardPreview = ({id, title, content, tags}: Project) => {
     return ( 
+
         <div id={id as unknown as string}
             className={`
-                w-full
-                h-full
+                ${styles.sizeFull}
                 color-primary
-                flex
-                flex-col
+                ${styles.flexCol}
             `}
         >
-
             <header id="card-header"
                 className={`
                     w-full
@@ -87,4 +86,4 @@ const Card = ({id, title, content, tags}: Project) => {
     );
 }
 
-export default Card;
+export default ProjectCardPreview;

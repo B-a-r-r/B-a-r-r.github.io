@@ -63,3 +63,7 @@ export const coreImages = {
   atlas,
 
 };
+
+export const projectsImages = {
+  
+}

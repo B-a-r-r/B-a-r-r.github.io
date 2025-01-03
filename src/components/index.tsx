@@ -8,13 +8,15 @@ import Skills from "./Skills";
 import ParticlesEffect from "./ParticlesEffect";
 import Retex from "./Retex.tsx";
 import DropdownLang from "./DropdownLang.tsx";
-import Card from "./Card";
+import ProjectCardPreview from "./ProjectCardPreview.tsx";
+import ProjectCard from "./ProjectCard.tsx";
 import Contact from "./Contact";
-import SearchBar from "./SearchBar";
+import {SearchEngine} from "./SearchEngine.tsx";
 import SortingBar from "./SortingBar.tsx";
 
 export { 
-    Card, 
+    ProjectCardPreview, 
+    ProjectCard,
     Navbar, 
     Hero, 
     About, 
@@ -26,6 +28,6 @@ export {
     Retex, 
     DropdownLang, 
     Contact,
-    SearchBar,
+    SearchEngine,
     SortingBar
 };

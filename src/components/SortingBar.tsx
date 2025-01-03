@@ -2,25 +2,24 @@ import { useEffect, useState } from "react"
 import styles from "../style"
 import { sortOptions } from "../data/constants"
 import { SortOption } from "../data/types"
+import { KeywordToMatch } from "./SearchEngine"
 
 const SortingBar = () => {
-    const [selectedSortOptions, setSelectedSortOptions] = useState(
-        sortOptions.filter((option) => option.value === "all")
-    )
+    const { toMatch, SetToMatch } = KeywordToMatch()
 
     return (
     <div id="sorting-bar-container"
         className=
         {`
-            w-full
+            w-fit
             h-fit
             ${styles.flexRow}
-            ${styles.contentCenter}
+            ${styles.contentStartX}
         `}
     >
         {sortOptions.map((option, index) => (
             <button key={index}
-                onClick={() => setSelectedSortOptions([...selectedSortOptions, option])}
+                onClick={() => SetToMatch([...toMatch, option.value])}
                 className=
                 {`
                     px-4

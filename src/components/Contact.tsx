@@ -14,13 +14,23 @@ const Contact = () => {
         ${styles.contentCenter}
       `}
     >
-        <Form />
+        <div id='form-container'
+            className=
+            {`
+              w-2/5
+              h-full
+              ${styles.contentCenter}
+            `}
+        >
+          <Form />
+        </div>
 
         <div id='contact-info'
             className=
             {`
+              w-fit
+              h-full
               ${styles.flexCol}
-              ${styles.sizeFull}
               ${styles.contentCenter}
             `}
         >

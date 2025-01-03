@@ -24,7 +24,7 @@ const About = () => {
         {`
           object-cover
           ${styles.sizeFit}
-          xxl:w-[65%] lg:w-[50%]
+          xxl:w-[55%] lg:w-[50%]
           rounded-[1%]
         `}
       />
@@ -34,8 +34,8 @@ const About = () => {
           absolute
           ${styles.line}
           w-[25%]
-          bottom-44
-          -left-5
+          bottom-[43%]
+          -left-[11%]
         `}
       />
 

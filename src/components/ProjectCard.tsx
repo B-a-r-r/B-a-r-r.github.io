@@ -1,0 +1,106 @@
+import { coreImages } from '../assets';
+import {Project} from '../data/types';
+import styles from '../style';
+
+const ProjectCard = ({id, title, content, tags, img}: Project) => {
+    return ( 
+        <div
+            className=
+            {`
+                ${styles.sizeFull}
+                ${styles.flexRow}
+            `}
+        >
+            <img 
+                src={img ? img : coreImages.portrait}
+                alt="project image"
+                className={`
+                    object-cover
+                    w-3/6
+                    h-full
+                `}
+            />
+
+            <div id={id as unknown as string}
+                className={`
+                    ${styles.sizeFull}
+                    color-primary
+                    ${styles.flexCol}
+                `}
+            >
+                <header id="card-header"
+                    className={`
+                        w-full
+                        h-[15%]
+                        color-secondary
+                        cursor-pointer
+                        px-[8%]
+                    `}
+                >
+
+                    <h3 id="card-title"
+                        className={`
+                            font-primary-bold
+                            xxl:text-[150%] lg:w-[140%]
+                            py-[6%] 
+                            tracking-widest"
+                        `}
+                    >
+                        {title.length > 30 ?
+                        title.slice(0, 30) + '...' :
+                        title}
+                    </h3>
+
+                </header>
+
+                <p id="card-text"
+                    className={`
+                        w-full
+                        h-[70%]
+                        px-[8%]
+                        py-[5%]
+                        font-primary-regular
+                        xxl:text-[130%]
+                        cursor-pointer
+                        overflow-hidden
+                    `}
+                >
+                    {content.length > 300 ?
+                    content.slice(0, 300) + '...' :
+                    content}
+                </p>
+
+                <div id='card-tags'
+                    className={`
+                        w-full
+                        h-[15%]
+                        flex-row
+                        px-[8%]
+                        py-[5%]
+                        space-x-4
+                        items-center
+                        justify-start
+                    `}
+                >
+                    {tags.map((tag, index) => {
+                        if (index < 3) return (
+                            <a key={index}
+                                id={`tag-${tag}`}
+                                className={`
+                                    font-primary-regular
+                                    xxl:text-[120%] 
+                                    text-[--light-color-tertiary]
+                                    cursor-pointer
+                                `}
+                            >
+                                {tag}
+                            </a>
+                        );
+                    })}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default ProjectCard;

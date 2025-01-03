@@ -1,30 +1,34 @@
-import { skillsIcons } from "../assets";
+import { coreImages, skillsIcons } from "../assets";
 import { Project, SubtitleMessage, Biography, Skill } from "./types";
 
-export const sliderProjects: Array<Project> = [
+export const projects: Array<Project> = [
     {
       id: 1,
       title: "LEMON",
       content: "Towa is a lang application that allows you to create and share your own content. Program a pathfinding algorithm for a bot, in a Java board. ",
       tags: ["React", "Node.js", "Express", "MongoDB"],
+      img: null,
     },
     {
       id: 2,
       title: "Ornag",
       content: "Towa is a lang application that allows you to create and share your own content.",
       tags: ["React", "Node.js", "Express", "MongoDB"],
+      img: null,
     },
     {
       id: 3,
       title: "Mango",
       content: "Towa is a lang application that allows you to create and share your own content.",
       tags: ["React", "Node.js", "Express", "MongoDB"],
+      img: null,
     },
     {
       id: 4,
       title: "Ivory",
       content: "Towa is a lang application that allows you to create and share your own content. Program a pathfinding algorithm for a bot, in a Java board.  Program a pathfinding algorithm for a bot, in a Java board.  Program a pathfinding algorithm for a bot, in a Java board.  Program a pathfinding algorithm for a bot, fjspiofsfjsof jshpiofhsipfhishifhi",
       tags: ["React", "Node.js"],
+      img: null,
     }
 ];
   

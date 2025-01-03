@@ -32,12 +32,11 @@ const DropdownPhone = () => {
                 {selectedCode}
                 
                 <img 
-                    src={menuIcons.menu_down_arrow} 
+                    src={menuIcons.chevron_icon} 
                     alt="menu-down-arrow" 
                     className=
                     {`
                         object-cover 
-                        ml-1
                         ${styles.sizeFit}
                     `}
                 />

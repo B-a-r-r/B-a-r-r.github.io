@@ -6,19 +6,23 @@ const Form = () => {
     <form id='contact-form'
       className=
       {`
-        ${styles.flexCol}
         ${styles.sizeFull}
+        ${styles.flexCol}
         ${styles.contentCenter}
         font-primary-regular
         color-secondary
-        p-4
+        px-8
+        py-6
         space-y-4
+        shadow-lg
+        border-2
       `}
     >
       <h2 id='form-title'
         className=
         {`
-          ${styles.sizeFull}
+          w-full
+          h-1/5
           ${styles.contentStartAll}
           font-primary-bold
           lg:text-[180%]
@@ -30,8 +34,9 @@ const Form = () => {
       <div id="names-info"
         className=
         {`
+          w-full
+          h-1/5
           ${styles.flexRow}
-          ${styles.sizeFull}
           ${styles.contentCenter}
           space-x-2
         `}
@@ -46,6 +51,7 @@ const Form = () => {
             ${styles.sizeFull}
             color-primary
             rounded-md
+            px-4
           `}
         />
         <input type="text" 
@@ -58,6 +64,7 @@ const Form = () => {
             ${styles.sizeFull}
             color-primary
             rounded-md
+            px-4
           `}
         />
       </div>
@@ -69,17 +76,20 @@ const Form = () => {
         required
         className=
         {`
-          ${styles.sizeFull}
+          w-full
+          h-1/5
           color-primary
           rounded-md
+          px-4
         `}
       />
 
       <div id="phone-info"
         className=
         {`
+          w-full
+          h-1/5
           ${styles.flexRow}
-          ${styles.sizeFull}
           ${styles.contentCenter}
           space-x-2
         `}
@@ -96,6 +106,7 @@ const Form = () => {
             ${styles.sizeFull}
             color-primary
             rounded-md
+            px-4
           `}
         />
       </div>
@@ -103,13 +114,13 @@ const Form = () => {
       <input type="text" 
         id="message-content"
         name="message"
-        placeholder="Message..."
         required
         className=
         {`
           ${styles.sizeFull}
           color-primary
           rounded-md
+          px-4
         `}
       />
 

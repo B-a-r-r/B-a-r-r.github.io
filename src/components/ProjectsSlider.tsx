@@ -1,6 +1,6 @@
 import { Project } from "../data/types"
-import { sliderProjects } from "../data/contents"
-import Card from "./Card"
+import { projects } from "../data/contents"
+import ProjectCardPreview from "./ProjectCardPreview"
 import styles from "../style"
 import { coreImages, menuIcons } from "../assets"
 import { ReactNode, useEffect, useRef, useState } from "react"
@@ -12,12 +12,12 @@ const ProjectsSlider = () => {
   const initCards = () => {
     const slides: Array<ReactNode> = [];
   
-    sliderProjects.map((project: Project, index: number, all: Project[]) => {
+    projects.map((project: Project, index: number, all: Project[]) => {
       slides.push(
         <div id={`card-container-${project.id}`}
               key={`${project.id}-container`}
               className={`
-                w-[400px]
+                w-[400px] 
                 h-[500px]
                 absolute
                 rounded-md
@@ -34,12 +34,13 @@ const ProjectsSlider = () => {
                 animation: `card-apparition 0.5s cubic-bezier(.54,.54,.57,.56) forwards`
               }}
         >
-          <Card
+          <ProjectCardPreview
             key={`card-${project.id}`}
             id={project.id}
             title={project.title}
             content={project.content}
             tags={project.tags}
+            img={project.img}
           />
         </div>
       )

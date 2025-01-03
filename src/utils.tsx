@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { skills } from "./data/contents";
 import { Skill } from "./data/types";
 

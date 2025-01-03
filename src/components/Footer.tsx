@@ -2,16 +2,15 @@ import styles from "../style"
 
 function Footer() {
   return (
-    <section 
+    <footer id="footer"
       className=
       {`
         w-full
-        items-center
         px-[5%]
         py-[2%]
         mt-[15%]
         ${styles.flexRow}
-        ${styles.contentStartAll}
+        ${styles.contentCenter}
         color-secondary
         xxl:text-[130%]  xl:text-[100%]  lg:text-[80%]
       `}
@@ -69,7 +68,7 @@ function Footer() {
       >
       </div>
 
-    </section>
+    </footer>
   )
 }
 
