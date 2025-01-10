@@ -1,21 +1,22 @@
-import Navbar from "./Navbar";
-import Hero from "./Hero";
-import About from "./About";
+import Navbar from "./Navbar.tsx";
+import Hero from "./sections/Hero";
+import About from "./sections/About";
 import Footer from "./Footer";
-import Form from "./Form";
-import ProjectsSlider from "./ProjectsSlider";
-import Skills from "./Skills";
+import Form from "./contact/Form";
+import ProjectsSlider from "./sections/ProjectsSlider";
+import Skills from "./sections/Skills";
 import ParticlesEffect from "./ParticlesEffect";
-import Retex from "./Retex.tsx";
-import DropdownLang from "./DropdownLang.tsx";
-import ProjectCardPreview from "./ProjectCardPreview.tsx";
-import ProjectCard from "./ProjectCard.tsx";
-import Contact from "./Contact";
-import {SearchEngine} from "./SearchEngine.tsx";
-import SortingBar from "./SortingBar.tsx";
+import Retex from "./sections/Retex.tsx";
+import DropdownLang from "./dropdowns/DropdownLang.tsx";
+import ProjectCard from "./cards/ProjectCard.tsx";
+import Card from "./cards/Card.tsx";
+import Contact from "./sections/Contact";
+import Searchbar from "./search/Searchbar.tsx";
+import Sortingbar from "./search/Sortingbar.tsx";
+import {SearchEngine} from "./search/SearchEngine.tsx";
 
 export { 
-    ProjectCardPreview, 
+    Card, 
     ProjectCard,
     Navbar, 
     Hero, 
@@ -28,6 +29,7 @@ export {
     Retex, 
     DropdownLang, 
     Contact,
+    Searchbar,
+    Sortingbar,
     SearchEngine,
-    SortingBar
 };

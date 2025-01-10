@@ -1,14 +1,21 @@
-import {Project} from '../data/types';
-import styles from '../style';
+import { cardContentMaxLength, cardTitleMaxLength } from '../../data/constants';
+import styles from '../../style';
+import DOMPurify from 'dompurify';
 
-const ProjectCardPreview = ({id, title, content, tags}: Project) => {
-    return ( 
+type CardProps = {
+    title: string;
+    content: string;
+    tags: string[];
+}
 
-        <div id={id as unknown as string}
+const Card = ({title, content, tags}: CardProps) => {
+    return (
+        <div id={`card-${title}`}
             className={`
                 ${styles.sizeFull}
-                color-primary
                 ${styles.flexCol}
+                color-primary
+                aspect-[16/9]
             `}
         >
             <header id="card-header"
@@ -16,24 +23,23 @@ const ProjectCardPreview = ({id, title, content, tags}: Project) => {
                     w-full
                     h-[15%]
                     color-secondary
-                    cursor-pointer
                     px-[8%]
                 `}
             >
-
                 <h3 id="card-title"
                     className={`
                         font-primary-bold
                         xxl:text-[150%] lg:w-[140%]
                         py-[6%] 
                         tracking-widest"
+                        ${styles.paragraph}
                     `}
-                >
-                    {title.length > 30 ?
-                    title.slice(0, 30) + '...' :
-                    title}
-                </h3>
-
+                    dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(
+                        title.length > cardTitleMaxLength ?
+                        title.slice(0, cardTitleMaxLength) + '...' :
+                        title
+                    )}}
+                />
             </header>
 
             <p id="card-text"
@@ -44,46 +50,41 @@ const ProjectCardPreview = ({id, title, content, tags}: Project) => {
                     py-[5%]
                     font-primary-regular
                     xxl:text-[130%]
-                    cursor-pointer
                     overflow-hidden
+                    ${styles.paragraph}
                 `}
-            >
-                {content.length > 300 ?
-                content.slice(0, 300) + '...' :
-                content}
-            </p>
-
+                dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(
+                    content.length > cardContentMaxLength ?
+                    content.slice(0, cardContentMaxLength) + '...' :
+                    content
+                )}}
+            />
+                        
             <div id='card-tags'
                 className={`
                     w-full
                     h-[15%]
                     flex-row
                     px-[8%]
-                    py-[5%]
+                    py-[1%]
                     space-x-4
-                    items-center
-                    justify-start
                 `}
             >
                 {tags.map((tag, index) => {
-                    if (index < 3) return (
+                    return (
                         <a key={index}
                             id={`tag-${tag}`}
                             className={`
                                 font-primary-regular
                                 xxl:text-[120%] 
                                 text-[--light-color-tertiary]
-                                cursor-pointer
                             `}
-                        >
-                            {tag}
-                        </a>
+                        > {tag} </a>
                     );
                 })}
             </div>
-
         </div>
     );
 }
 
-export default ProjectCardPreview;
+export default Card

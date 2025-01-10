@@ -1,26 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { navLinks } from "../data/constants";
-import DropdownLang from "./DropdownLang";
+import DropdownLang from "./dropdowns/DropdownLang";
 import SwitchButton from "./SwitchButton";
 import styles from "../style";
+import { getCurrentNavigation } from "../utils";
 
+/**
+* @description This component renders the navigation bar of the website, from the info in the constants file.
+*/
 const Navbar = () => {
   const [toggleBurger, setToggleBurger] = useState(true);
-  const [currentNavigation, setCurrentNavigation] = useState('');
-
-  useEffect(() => {
-    const currentRoute = navLinks.filter((nav) => nav.route === window.location.pathname)[0];
-    const initialNavigation = currentRoute?.links.filter(
-      (nav) => nav.label.toLowerCase() === window.location.pathname.split('/')[1]
-    )[0]?.link;
-  
-    if (!initialNavigation) {
-      setCurrentNavigation(
-        currentRoute.links[0].label.toLowerCase()
-      );
-    }
-    else setCurrentNavigation(initialNavigation);
-  }, []);
+  const [currentNavigation, setCurrentNavigation] = useState(getCurrentNavigation());
 
   return (
     <nav id="navbar"
@@ -33,7 +23,8 @@ const Navbar = () => {
         ${styles.flexRow}
         ${styles.contentStartX}
         color-secondary
-        xxl:text-[125%]  xl:text-[115%]  lg:text-[110%]
+        test
+        xxl:text-[125%]  xl:text-[115%]  lg:text-[102%]
       `}
     >
 
@@ -42,7 +33,6 @@ const Navbar = () => {
           space-x-10
           list-none 
           sm:flex hidden"
-        /* NB: hide the list on small screens */
       >
         {
           navLinks
@@ -72,65 +62,6 @@ const Navbar = () => {
         }
       </ul>
 
-      <div id="navbar-mobile-menu-container"
-        className="
-          sm:hidden 
-          flex 
-          flex-1 
-          justify-end 
-          items-center" 
-          /* show the burger menu on small screens */
-      >
-        <img id="navbar-burger"
-          onClick={() => setToggleBurger((prev) => !prev)}
-        />
-
-        <div id="navbar-mobile-meu-items"
-          className=
-          {`
-              ${toggleBurger ? 'flex' : 'hidden'}
-              p-6
-              bg-black
-              absolute
-              top-20
-              right-0
-              mx-4
-              my-2
-              min-w-[140px]
-              rounded-[10px]
-              sidebar
-              z-[10]
-          `}
-        >
-
-          <ul className="list-none flex-col justify-end items-center flex-1">
-            {
-              navLinks.map((nav, index) => (
-                <li 
-                  key={nav.id} 
-                  className=
-                  {`
-                      font-poppins 
-                      font-normal 
-                      cursor-pointer 
-                      ${index === navLinks.length-1 ? 'mr-0' : 'mr-10'} 
-                      text-white
-                      mb-4
-                  `}
-                >
-
-                  <a href={`#${nav.id}`}>
-                    {nav.route}
-                  </a>
-
-                </li>
-              ))
-            }
-          </ul>
-          
-        </div>
-      </div>
-
       <div id="navbar-options"
         className=
         {`
@@ -138,7 +69,7 @@ const Navbar = () => {
           ${styles.flexRow}
           ${styles.contentEndX}
           font-primary-regular
-          space-x-[2.5%]
+          space-x-[3%]
         `}
       >
 

@@ -21,7 +21,13 @@ import markdown_icon from "./skills_icons/markdown_icon.svg";
 
 import portrait from "./about_portrait.jpg";
 import sysiphus from "./sysiphus_rotated.png";
-import atlas from "./atlas_pi.png";
+import hephaistos from "./hephaistos_nobg.png";
+
+import gpgtool_home from "./projects_images/gpgtool_home.png";
+import gpgtool_crypto_tool from "./projects_images/gpgtool_crypto_tool.png";
+import portfolio from "./projects_images/portfolio.jpg";
+
+import cv from "./documents/CV-informatique-2024-5.pdf";
 
 export const menuIcons = {
   
@@ -60,10 +66,20 @@ export const coreImages = {
 
   portrait,
   sysiphus,
-  atlas,
+  hephaistos
 
 };
 
 export const projectsImages = {
+  
+  gpgtool_home,
+  gpgtool_crypto_tool,
+  portfolio,
+
+}
+
+export const documents = {
+  
+  cv,
   
 }

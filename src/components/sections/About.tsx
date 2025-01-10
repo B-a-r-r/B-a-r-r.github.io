@@ -1,6 +1,6 @@
-import styles from "../style"
-import { coreImages } from "../assets"
-import { bioText } from "../data/contents"
+import styles from "../../style"
+import { coreImages } from "../../assets"
+import { bioText } from "../../data/contents"
 import DOMPurify from "dompurify"
 
 const About = () => {
@@ -16,15 +16,14 @@ const About = () => {
         space-x-28
       `}
     >
-        
       <img 
         src={coreImages.portrait}
-        alt="Portrait of the author"
+        alt="author-portrait"
         className=
         {`
           object-cover
           ${styles.sizeFit}
-          xxl:w-[55%] lg:w-[50%]
+          xxl:w-[55%] lg:w-[45%]
           rounded-[1%]
         `}
       />
@@ -34,8 +33,8 @@ const About = () => {
           absolute
           ${styles.line}
           w-[25%]
-          bottom-[43%]
-          -left-[11%]
+          xxl:bottom-[43%] lg:bottom-[41%]
+          xxl:-left-[11%] lg:-left-[14%]
         `}
       />
 
@@ -48,7 +47,6 @@ const About = () => {
           overflow-hidden
         `}
       >
-
         <h2 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(bioText[0].title)}}
           className={styles.heading2}
         />
@@ -56,9 +54,7 @@ const About = () => {
         <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(bioText[0].content)}}
         className={styles.paragraph}
         />
-
       </div>
-
     </section>
   )
 }

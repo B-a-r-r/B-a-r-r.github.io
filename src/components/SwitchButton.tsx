@@ -1,6 +1,15 @@
+import { useEffect, useState } from "react";
 import styles from "../style"
 
 const SwitchButton = () => {
+    const [toggleSwitch, setToggleSwitch] = useState(false);
+
+    useEffect(() => {
+        if (toggleSwitch) {
+            document.documentElement.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches);
+        }
+    }, [toggleSwitch]);
+
   return (
     <label id="switch-container"
         className=
@@ -16,6 +25,8 @@ const SwitchButton = () => {
             <input id="switch" 
                 type="checkbox" 
                 className="peer sr-only" 
+                checked={toggleSwitch}
+                onChange={() => setToggleSwitch(!toggleSwitch)}
             />
 
             <div id="switch-ruler"

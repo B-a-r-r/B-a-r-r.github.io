@@ -1,10 +1,11 @@
+
 const styles = {
 
   page: "w-full h-full color-primary ",
 
   heading2: " \
     font-primary-bold \
-    xxl:text-[230%] lg:text-[150%]  \
+    xxl:text-[230%] lg:text-[140%]  \
     xxl:leading-10 leading-8 \
     w-full  \
     tracking-wider  \
@@ -13,7 +14,7 @@ const styles = {
   line: " \
     bg-[--light-color-tertiary] \
     w-2/3 \
-    h-[3.5px] \
+    h-[3px] \
     border-[0px]",
   
   subtitle: " \
@@ -27,7 +28,7 @@ const styles = {
     font-primary-regular \
     color-primary  \
     xxl:text-[180%] lg:text-[110%]  \
-    leading-[170%]  \
+    leading-[150%]  \
     tracking-wide", 
 
   flexCol: "flex flex-col",
@@ -45,7 +46,8 @@ const styles = {
   sizeScreen: "h-screen w-auto",
   sizeFit: "w-fit h-fit",
 
-  section: `my-[12%]`,
+  section: `mb-[12%]`,
+  sectionContainer: `w-full h-full px-[12%] color-primary`,
 };
   
 export default styles;

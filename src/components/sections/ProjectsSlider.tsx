@@ -1,10 +1,10 @@
-import { Project } from "../data/types"
-import { projects } from "../data/contents"
-import ProjectCardPreview from "./ProjectCardPreview"
-import styles from "../style"
-import { coreImages, menuIcons } from "../assets"
+import { Project } from "../../data/dataTypes"
+import { projects } from "../../data/contents"
+import Card from "../cards/Card"
+import styles from "../../style"
+import { coreImages, menuIcons } from "../../assets"
 import { ReactNode, useEffect, useRef, useState } from "react"
-import { randomNumberBetween } from "../utils"
+import { randomNumberBetween } from "../../utils"
 
 const ProjectsSlider = () => {
 
@@ -14,11 +14,13 @@ const ProjectsSlider = () => {
   
     projects.map((project: Project, index: number, all: Project[]) => {
       slides.push(
-        <div id={`card-container-${project.id}`}
-              key={`${project.id}-container`}
+        <div id={`card-${project.id}-container`}
+              key={`card-${project.id}-container`}
               className={`
-                w-[400px] 
-                h-[500px]
+                ${styles.sizeFull}
+                max-h-[80%]
+                max-w-[90%]
+                aspect-[16/9]
                 absolute
                 rounded-md
                 overflow-hidden
@@ -34,13 +36,11 @@ const ProjectsSlider = () => {
                 animation: `card-apparition 0.5s cubic-bezier(.54,.54,.57,.56) forwards`
               }}
         >
-          <ProjectCardPreview
+          <Card
             key={`card-${project.id}`}
-            id={project.id}
             title={project.title}
             content={project.content}
             tags={project.tags}
-            img={project.img}
           />
         </div>
       )
@@ -126,40 +126,51 @@ const ProjectsSlider = () => {
     <section id='projects-slider'
       className={`
         relative
-        ${styles.sizeFull}
-        ${styles.flexCol}
+        ${styles.sizeScreen}
+        ${styles.flexRow}
         ${styles.contentCenter}
         ${styles.section}
+        space-x-[15%]
       `}
     >
+
       <div id="cards-stack-container"
         className={`
           ${styles.sizeFull}
           ${styles.flexRow}
-          ${styles.contentStartAll}
+          ${styles.contentEndX}
           relative
         `}
-      >
-
+      > 
         {cards.map((card: ReactNode) => (
           card
         ))}
 
-        <img id="atlas-pi"
-          src={coreImages.atlas}
-          alt="atlas"
-          className={`
-            object-cover
-            xxl:w-[400px]
-            h-auto
-            absolute
-            top-0
-            right-0
-          `}
-        />
       </div>
 
-      <div id="controls-container"
+      <div id="statue-container"
+        className=
+        {`
+          ${styles.sizeFull}
+          ${styles.flexCol}
+          ${styles.contentCenter}
+          relative
+        `}
+      >
+        <img id="atlas-pi"
+            src={coreImages.hephaistos}
+            alt={`Statue of Hephaistos`}
+            className={`
+              object-cover
+              xxl:w-[400px] lg:h-[600px]
+              absolute
+              bottom-0
+              left-0
+            `}
+          />
+      </div>
+
+      {/* <div id="controls-container"
         className={`
           w-full
           h-[10%px]
@@ -191,14 +202,21 @@ const ProjectsSlider = () => {
               className={`
                 w-[150px]
                 rounded-md
-                color-quaternary
                 px-3
                 py-2
                 font-primary-semibold
                 lg:text-[60%]
                 tracking-widest
               `}
-            > Browse<br/>all projects </button>
+              onClick={() => window.location.href = "/projects"}
+            > Browse<br/>all projects 
+              <hr id='lib-hr'
+                className=
+                {`
+                  ${styles.line}
+                `}
+              />
+            </button>
 
             <button id="next-button"
               className={`
@@ -218,7 +236,7 @@ const ProjectsSlider = () => {
               `}
             /> 
           </button>
-      </div>
+      </div> */}
 
     </section>
   )

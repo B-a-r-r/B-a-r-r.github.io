@@ -1,0 +1,40 @@
+import { useEffect, useState } from "react"
+import styles from "../../style"
+import { SortOption } from "../../data/dataTypes"
+
+const SortingBar = () => {
+    const [ toMatch, SetToMatch ] = useState<Array<keyof typeof SortOption>>([])
+
+    return (
+    <div id="sorting-bar-container"
+        className=
+        {`
+            ${styles.sizeFit}
+            ${styles.flexRow}
+        `}
+    >
+        {(Object.keys(SortOption) as Array<keyof typeof SortOption>)
+        .map((option, index) => (
+            <button key={index}
+                onClick={() => SetToMatch([...toMatch, option])}
+                className=
+                {`
+                    px-4
+                    py-1
+                    rounded-md
+                `}
+            > {option} 
+                <hr id='lib-hr'
+                    className=
+                    {`
+                    ${styles.line}
+                    `}
+                />
+            </button>
+        ))}
+        
+    </div>
+  )
+}
+
+export default SortingBar

@@ -1,8 +1,8 @@
-import styles from "../style"
-import { coreImages } from "../assets"
-import { socialMedia } from "../data/constants"
-import { subtitleMessages } from "../data/contents"
-import { SocialMedia } from "../data/types"
+import styles from "../../style"
+import { coreImages } from "../../assets"
+import { socialMedia, author } from "../../data/constants"
+import { subtitleMessages } from "../../data/contents"
+import { SocialMedia } from "../../data/dataTypes"
 import { useEffect, useState } from "react"
 import DOMPurify from "dompurify"
 
@@ -45,13 +45,12 @@ const Hero = () => {
       {`
         ${styles.sizeScreen}
         ${styles.flexRow}
-        bg-transparent
+        ${styles.section}
         overflow-visible
         font-primary-regular
         color-primary
         relative
-        mt-[12%]
-        pb-[12%]
+        mt-[11%]
       `}
     >
         <div id="hero-text"
@@ -60,7 +59,7 @@ const Hero = () => {
             ${styles.sizeFit}
             ${styles.flexCol}
             ${styles.contentStartAll}
-            space-y-12
+            space-y-[15%]
           `}
         >
             <div id="hero-heading"
@@ -71,19 +70,19 @@ const Hero = () => {
               `}
             >
               <h1 className="
-                tracking-[0.06em]
-                xxl:leading-[90px] leading-[72.4px]
-                xxl:text-[400%] lg:text-[300%]"
+                tracking-[0.04em]
+                xxl:leading-[90px] leading-[115%]
+                xxl:text-[400%] lg:text-[250%]"
               >
-                Clément <br/> 
+                {author.firstName} <br/> 
                 <a className=
                   {`
                     font-primary-bold 
                     lg:text-[120%]
-                    tracking-wider
+                    tracking-wide
                   `}
                 > 
-                  BARRIÈRE
+                  {author.lastName.toUpperCase()}
                 </a>
                 <br className="sm:block hidden"/> 
               </h1>
@@ -108,7 +107,7 @@ const Hero = () => {
               }
               className=
               {`
-                xxl:text-[160%] lg:text-[130%]
+                xxl:text-[160%] lg:text-[110%]
               `}
             />
 
@@ -128,14 +127,14 @@ const Hero = () => {
             className=
             {`
               absolute
-              xxl:w-[90%] lg:w-[95%]
+              xxl:w-[90%] lg:w-[90%]
               object-cover
-              xxl:-top-[12%] -top-14
+              xxl:-top-[12%] -top-[12%]
               right-0
             `}
           />
         </div>
-
+{/* 
         <div id="hero-social-media"
           className=
           {`
@@ -147,30 +146,29 @@ const Hero = () => {
             space-x-3
           `}
         >
-            {
-              socialMedia.map((social: SocialMedia) => {
+            {socialMedia.map((social: SocialMedia) => {
                 return (
                   <a key={social.id} 
                     href={social.link}
+                    id={`icon-${social.at}-container`}
                   >
-                    <img key={`icon-${social.id}`}
+                    <img key={`icon-${social.label}`}
                       src={social.icon} 
-                      alt={social.id} 
+                      alt={social.label} 
                       className=
                       {`
                         object-cover
                         xxl:w-[50px] w-[100%]
                         hover:scale-105
                         transition-transform
-                        duration-200
+                        duration-300
                       `}
                     />
                   </a>
                 )
-              })
-            }
+            })}
 
-        </div>
+        </div> */}
     </section>
   )
 }

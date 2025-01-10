@@ -1,7 +1,7 @@
-import styles from '../style'
-import Form from './Form'
-import { SocialMedia } from '../data/types'
-import { socialMedia } from '../data/constants'
+import styles from '../../style'
+import Form from '../contact/Form'
+import { SocialMedia } from '../../data/dataTypes'
+import { socialMedia } from '../../data/constants'
 
 const Contact = () => {
   return (
@@ -12,6 +12,7 @@ const Contact = () => {
         ${styles.section}
         ${styles.flexRow}
         ${styles.contentCenter}
+        space-x-[10%]
       `}
     >
         <div id='form-container'
@@ -20,6 +21,7 @@ const Contact = () => {
               w-2/5
               h-full
               ${styles.contentCenter}
+              overflow-hidden
             `}
         >
           <Form />
@@ -32,16 +34,18 @@ const Contact = () => {
               h-full
               ${styles.flexCol}
               ${styles.contentCenter}
+              space-y-[30%]
             `}
         >
           {socialMedia.map((social: SocialMedia) => (
-            <div key={`${social.id}-icon-container`}
-              id={`${social.id}-icon-container`}
+            <div key={`icon-${social.id}-container`}
+              id={`icon-${social.id}-container`}
               className=
               {`
                 ${styles.flexCol}
                 ${styles.contentStartAll}
                 ${styles.sizeFull}
+                space-y-[1%]
               `}
             >
               <a href={social.link}
@@ -51,34 +55,36 @@ const Contact = () => {
                   ${styles.contentStartX}
                 `}
               >
-                <img id={`${social.id}-icon`}
+                <img id={`icon-${social.id}`}
                     src={social.icon} 
-                    alt={social.id}
+                    alt={social.label}
                     className=
                     {`
                       ${styles.sizeFull}
                       object-cover
                       w-[50px]
+                      h-[50px]
                     `}
                 />
               </a>
-              <hr id={`${social.id}-line`}
+              <hr id={`line-${social.id}`}
                   className=
                   {`
                     ${styles.line}
+                    w-[20%]
+                    h-[2.5px]
                   `}
               />
-              <label id={`${social.id}-label`}
+              <label id={`label-${social.id}`}
                   className=
                   {`
                     w-full
                     ${styles.contentStartX}
                   `}
-              >{social.link}</label>
+              >{social.at}</label>
             </div>
           ))}
         </div>
-      
     </section>
   )
 }

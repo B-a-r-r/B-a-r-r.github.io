@@ -2,101 +2,78 @@ import styles from "../style";
 import { Navbar, Hero, About, Footer, ProjectsSlider, Skills, Contact } from "../components";
 
 const Home = () => {
+
   return (
     <div id='app-container' 
       className=
       {`
         ${styles.page}
         ${styles.flexCol}
-        color-primary
       `}
     >
-
       <div id="navbar-container"
         className={``}
       > 
-      
         <Navbar />
 
       </div>
 
-      <div id="content-container" 
+      <div id="hero-container"
         className=
         {`
-          ${styles.sizeFull}
-          ${styles.flexCol}
-          px-[12%]
+          ${styles.sectionContainer}
+          xxl:px-[17%]
+        `}
+      >
+        <Hero />
+      </div>
+
+      <div id="about-container"
+        className=
+        {`
+          ${styles.sectionContainer}
+        `}
+      >
+        <About />
+      </div>
+
+      <div id="skills-container"
+        className=
+        {`
+          ${styles.sectionContainer}
+        `}
+      >
+        {/* <Skills /> */}
+      </div>
+
+      <div id="projects-carrousel-container"
+        className=
+        {`
+          ${styles.sectionContainer}
           overflow-visible
         `}
       >
-
-        <div id="hero-container"
-          className=
-          {`
-            ${styles.sizeFull}
-            xxl:px-[5%]
-          `}
-        >
-
-          <Hero />
-
-        </div>
-
-        <div id="about-container"
-          className=
-          {`
-            ${styles.sizeFull}
-          `}
-        >
-
-          <About />
-        
-        </div>
-
-        <div id="skills-container"
-          className=
-          {`
-            ${styles.sizeScreen}
-          `}
-        >
-
-          {/* <Skills /> */}
-
-        </div>
-
-        <div id="projects-carrousel-container"
-          className=
-          {`
-            ${styles.sizeScreen}
-            overflow-visible
-          `}
-        >
-
-          <ProjectsSlider />
-        
-        </div>
-
-        <div id="contact-container"
-          className=
-          {`
-            ${styles.sizeScreen}
-          `}
-        >
-
-          <Contact />
-
-        </div>
-        <div id="footer-container"
-          className={`
-          `}
-        > 
-        
-          <Footer />
-
-        </div>
+        <ProjectsSlider />
       </div>
 
-     
+      <div id="contact-container"
+        className=
+        {`
+          ${styles.sectionContainer}
+        `}
+      >
+        <Contact />
+      </div>
+
+      <div id="footer-container"
+        className={`
+          w-full
+          h-fit
+          ${styles.contentEndAll}
+        `}
+      > 
+        <Footer />
+      </div>
 
     </div>
   );

@@ -1,8 +1,8 @@
 import { ReactNode, useEffect, useState } from 'react'
-import styles from '../style'
-import { Skill } from '../data/types'
-import { skills } from '../data/contents'
-import { getSkillsCategories, getSkillsSubcategories, randomNumberBetween } from '../utils'
+import styles from '../../style'
+import { Skill } from '../../data/dataTypes'
+import { skills } from '../../data/contents'
+import { randomNumberBetween } from '../../utils'
 
 const Skills = () => {
   const [selectedTab, setSelectedTab] = useState<string>('lang')
