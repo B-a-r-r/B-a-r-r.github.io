@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect } from "react"
 import styles from "../../style"
 import { SortOption } from "../../data/dataTypes"
+import { SearchContext } from "./SearchEngine";
 
 const SortingBar = () => {
-    const [ toMatch, SetToMatch ] = useState<Array<keyof typeof SortOption>>([])
+    const { toMatch, setToMatch } = useContext(SearchContext);
+
+    useEffect(() => {
+        console.log(toMatch);
+    }, [toMatch]);
 
     return (
     <div id="sorting-bar-container"
@@ -16,7 +21,7 @@ const SortingBar = () => {
         {(Object.keys(SortOption) as Array<keyof typeof SortOption>)
         .map((option, index) => (
             <button key={index}
-                onClick={() => SetToMatch([...toMatch, option])}
+                onClick={() => setToMatch([...toMatch, option])}
                 className=
                 {`
                     px-4

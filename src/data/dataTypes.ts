@@ -29,6 +29,10 @@ export enum SortOption {
   ALGORITHMIC = "Algorithmic",
 }
 
+export enum Errors {
+  NOT_FOUND = 404,
+}
+
 /**
  * Data strcuture to represent a project
  * @param id - unique identifier*
@@ -209,4 +213,14 @@ export interface NavbarPattern {
 export interface Author {
   firstName: string;
   lastName: string;
+}
+
+/**
+ * Data structure to represent an error message
+ * @param error - the caught error
+ * @param content - message to display
+ */
+export interface ErrorMessage {
+  error: Errors;
+  content: string;
 }

@@ -9,6 +9,8 @@ import {
   NavbarPattern, 
   Author,
   Country,
+  ErrorMessage,
+  Errors,
 } from "./dataTypes";
 
 
@@ -286,7 +288,20 @@ export const formStructure: Form = {
   mendatoryFields: [ "name", "email", "message" ],
 };
 
+/**
+ * Store information on the author of the app
+ */ 
 export const author: Author = {
   firstName: "Clément",
   lastName: "Barrière",
 };
+
+/**
+ * Store all the error messages for the app
+ */
+export const errorMessages: Array<ErrorMessage> = [
+  {
+    error: Errors.NOT_FOUND,
+    content: "The page you are trying to access does not exist.<br/>",
+  }
+];

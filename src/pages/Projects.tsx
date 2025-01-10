@@ -1,9 +1,26 @@
+import { useContext, useEffect, useState } from 'react'
 import { Footer, Navbar, ProjectCard, Searchbar, SearchEngine, Sortingbar } from '../components'
 import { projects } from '../data/contents'
-import { Project } from '../data/dataTypes'
 import styles from '../style'
+import { SearchContext } from '../components/search/SearchEngine'
 
 const Projects = () => {
+    const { toMatch } = useContext(SearchContext);
+    const [displayedProjects, setDisplayedProjects] = useState(projects);
+
+    useEffect(() => {
+        console.log(toMatch);
+        setDisplayedProjects(
+            projects.filter((project) => 
+                toMatch.some((filter) => 
+                    project.title.includes(filter) ||
+                    project.content.includes(filter) ||
+                    project.tags.includes(filter) ||
+                    filter === "All"
+                )
+            )
+        )
+    }, [toMatch]);
 
     return (
         <SearchEngine>
@@ -57,7 +74,7 @@ const Projects = () => {
                             py-[10%]
                         `}
                     >
-                        {projects.map((project: Project, index: number, all: Project[]) => (
+                        {displayedProjects.map((project) => (
                             <div key={`card-${project.id}`}
                                 className=
                                 {`
@@ -84,6 +101,8 @@ const Projects = () => {
                                 />
                             </div>
                         ))}
+                                
+                        
                     </div>
                 </div>
 

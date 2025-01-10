@@ -1,18 +1,20 @@
-import { createContext, Dispatch, SetStateAction, useState, ReactNode } from "react";
-import { SortOption } from "../../data/dataTypes";
+import { createContext, useState, ReactNode } from "react";
 
-const SearchContext = createContext(
-  {} as { 
-    sortData: Array<SortOption>, 
-    setSortData: Dispatch<SetStateAction<SortOption[]>> 
-  }
-);
+interface SearchContextType {
+  toMatch: string[];
+  setToMatch: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+const SearchContext = createContext<SearchContextType>({
+  toMatch: ["All"],
+  setToMatch: () => {},
+});
 
 const SearchEngine = ({ children }: { children: ReactNode }) => {
-  const [sortData, setSortData] = useState<Array<SortOption>>([]);
+  const [toMatch, setToMatch] = useState<Array<string>>([]);
 
   return (
-    <SearchContext.Provider value={{ sortData, setSortData }}>
+    <SearchContext.Provider value={{ toMatch, setToMatch }}>
       {children}
     </SearchContext.Provider>
   )
