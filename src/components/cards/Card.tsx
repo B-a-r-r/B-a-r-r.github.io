@@ -1,4 +1,3 @@
-import { cardContentMaxLength, cardTitleMaxLength } from '../../data/constants';
 import styles from '../../style';
 import DOMPurify from 'dompurify';
 
@@ -6,78 +5,69 @@ type CardProps = {
     title: string;
     content: string;
     tags: string[];
+    additionalClasses?: string;
 }
 
-const Card = ({title, content, tags}: CardProps) => {
+const Card = ({title, content, tags, additionalClasses}: CardProps) => {
     return (
         <div id={`card-${title}`}
             className={`
                 ${styles.sizeFull}
                 ${styles.flexCol}
-                color-primary
-                aspect-[16/9]
+                color-scheme-primary
+                z-10
+                ${additionalClasses}
             `}
         >
             <header id="card-header"
                 className={`
                     w-full
-                    h-[15%]
-                    color-secondary
+                    h-fit
+                    color-scheme-secondary
                     px-[8%]
+                    py-[3%]
                 `}
             >
                 <h3 id="card-title"
                     className={`
                         font-primary-bold
-                        xxl:text-[150%] lg:w-[140%]
-                        py-[6%] 
                         tracking-widest"
-                        ${styles.paragraph}
+                        color-scheme-secondary
                     `}
-                    dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(
-                        title.length > cardTitleMaxLength ?
-                        title.slice(0, cardTitleMaxLength) + '...' :
-                        title
-                    )}}
+                    dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(title)}}
                 />
             </header>
 
             <p id="card-text"
                 className={`
                     w-full
-                    h-[70%]
+                    h-fit
                     px-[8%]
-                    py-[5%]
+                    py-[3%]
                     font-primary-regular
-                    xxl:text-[130%]
-                    overflow-hidden
-                    ${styles.paragraph}
                 `}
-                dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(
-                    content.length > cardContentMaxLength ?
-                    content.slice(0, cardContentMaxLength) + '...' :
-                    content
-                )}}
+                dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(content)}}
             />
                         
             <div id='card-tags'
                 className={`
                     w-full
-                    h-[15%]
+                    h-fit
                     flex-row
                     px-[8%]
                     py-[1%]
+                    mb-[1%]
                     space-x-4
                 `}
             >
-                {tags.map((tag, index) => {
+                {tags.slice(0, 3)
+                .map((tag, index) => {
                     return (
                         <a key={index}
                             id={`tag-${tag}`}
                             className={`
                                 font-primary-regular
-                                xxl:text-[120%] 
-                                text-[--light-color-tertiary]
+                                text-[--color-tertiary]
                             `}
                         > {tag} </a>
                     );

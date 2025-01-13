@@ -3,7 +3,13 @@ import styles from "../../style"
 import { SearchContext } from "./SearchEngine"
 
 const Searchbar = () => {
-    const { toMatch, setToMatch } = useContext(SearchContext);
+    const { setToMatch } = useContext(SearchContext);
+
+    const handleSearchTerms = (searchTerms: string) => {
+        setToMatch(
+            [...searchTerms.toUpperCase().split(' ').filter((term) => ! term.includes(' '))]
+        );
+    }
 
     return (
         <div id='search-bar-container'
@@ -22,7 +28,7 @@ const Searchbar = () => {
                 `}
                 onKeyDown={(e) => {
                     if (e.key === 'Enter') {
-                        setToMatch([...toMatch, e.currentTarget.value]);
+                        handleSearchTerms(e.currentTarget.value);
                     }
                 }}
             />

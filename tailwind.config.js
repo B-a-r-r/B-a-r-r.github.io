@@ -1,18 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
-  darkMode: 'class', 
   mode: "jit",
   theme: {
     extend: {
       colors: {
-        // une varibale 'test' qui change selon le theme
-        test: "bg-red-500",
-        color_primary: "#1A1A1A",
-        color_secondary: "#EEEEEE",
-        color_tertiary: "#428E5B",
-        color_quaternary: "#3D3E3C",
-        color_quinary: "#4F4F4F",
       },
     },
     fontFamily: {

@@ -1,5 +1,6 @@
 import styles from "../style";
-import { Navbar, Hero, About, Footer, ProjectsSlider, Skills, Contact } from "../components";
+import { Hero, About, ProjectsSlider, Skills, Contact } from "../components/sections";
+import { Navbar, Footer } from "../components";
 
 const Home = () => {
 
@@ -12,7 +13,10 @@ const Home = () => {
       `}
     >
       <div id="navbar-container"
-        className={``}
+        className={`
+          w-full
+          h-fit  
+        `}
       > 
         <Navbar />
 

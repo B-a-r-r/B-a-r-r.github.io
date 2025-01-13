@@ -1,12 +1,16 @@
-import styles from '../../style'
-import { menuIcons } from '../../assets'
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { countryPhoneCodes } from '../../data/constants';
 import Dropdown from './Dropdown';
+import {PhoneCodeContext} from '../contact/Form';
 
 const DropdownPhone = () => {
+    const { setPhoneCode } = useContext(PhoneCodeContext);
     const [toggleMenu, setToggleMenu] = useState(false);
     const [selectedCode, setSelectedCode] = useState('+33');
+
+    useEffect(() => {
+        setPhoneCode(selectedCode);
+    }, [selectedCode]);
 
     const phoneCodes = () => {
         return (
@@ -17,7 +21,7 @@ const DropdownPhone = () => {
                     className=
                     {`
                         cursor-pointer
-                        hover:text-[--light-color-tertiary]
+                        hover:text-[--color-tertiary]
                         z-[1]
                     `}
                     onClick={() => setSelectedCode(code.code)}

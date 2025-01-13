@@ -1,7 +1,7 @@
 
 const styles = {
 
-  page: "w-full h-full color-primary ",
+  page: "w-full h-full color-scheme-primary ",
 
   heading2: " \
     font-primary-bold \
@@ -12,21 +12,21 @@ const styles = {
     mb-8",
   
   line: " \
-    bg-[--light-color-tertiary] \
+    bg-[--color-tertiary] \
     w-2/3 \
     h-[3px] \
     border-[0px]",
   
   subtitle: " \
     font-primary-regular  \
-    color-primary  \
+    color-scheme-primary  \
     xxl:text-[200%]  \
     leading-[40px]  \
     tracking-wide", 
   
   paragraph: " \
     font-primary-regular \
-    color-primary  \
+    color-scheme-primary  \
     xxl:text-[180%] lg:text-[110%]  \
     leading-[150%]  \
     tracking-wide", 
@@ -47,7 +47,7 @@ const styles = {
   sizeFit: "w-fit h-fit",
 
   section: `mb-[12%]`,
-  sectionContainer: `w-full h-full px-[12%] color-primary`,
+  sectionContainer: `w-full h-full px-[12%] color-scheme-primary`,
 };
   
 export default styles;

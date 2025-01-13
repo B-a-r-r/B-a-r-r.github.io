@@ -22,11 +22,12 @@ export enum SkillSubcategorie {
  */
 export enum SortOption {
   ALL = "All",
-  DATE = "Date",
   WEB = "Web",
   DATABASE = "Database",
   SOFTWARE = "Software",
   ALGORITHMIC = "Algorithmic",
+  NEWEST = "Newest",
+  OLDEST = "Oldest",
 }
 
 export enum Errors {
@@ -47,6 +48,7 @@ export interface Project {
   content: string;
   tags: string[];
   img: string | null;
+  date: Date;
 }
 
 /**
@@ -93,7 +95,7 @@ export interface Language {
 export interface PhoneCode {
   id: number;
   country: Country;
-  code: string | null;
+  code: string;
 }
 
 /**
@@ -163,9 +165,15 @@ export interface Skill {
 export interface CreditMention {
   id: number;
   label: string | null;
-  contentRef: string;
+  contentRef: string | string[];
   author: string | null;
   link: string | null;
+}
+
+export interface sharedLink {
+  id: number;
+  label: string;
+  link: string;
 }
 
 /**
@@ -179,6 +187,22 @@ export interface Copyrigth {
 }
 
 /**
+ * Data structure to represent an email API used by a form
+ * @param id - unique identifier
+ * @param apiName - name of the email API
+ * @param serviceId - service id of the email API
+ * @param templateId - template id of the email API
+ * @param publicKey - public key of the email API
+ */
+export interface EmailAPI {
+  id: number;
+  apiName: string;
+  serviceId: string;
+  templateId: string;
+  publicKey: string;
+}
+
+/**
  * Data structure to represent a form pattern
  * @param id - unique identifier
  * @param title - title of the form
@@ -187,10 +211,12 @@ export interface Copyrigth {
  * @param mendatoryFields - list of the names for the mendatory fields
  */
 export interface Form {
-  id: number;
+  id: number | string;
   title: string;
   messageMinLength: number;
+  fields: string[];
   mendatoryFields: string[];
+  emailAPI: EmailAPI; 
 }
 
 /**

@@ -20,7 +20,7 @@ const Err404 = () => {
             ${styles.contentCenter}
             lg:text-[200%]
             rounded-md
-            color-secondary
+            color-primary
             px-[2%]
             py-[1%]
           `}
@@ -44,7 +44,7 @@ const Err404 = () => {
             text-[80%]
             rounded-lg
             border-2
-            hover:bg-[--light-color-tertiary]
+            hover:bg-[--light-color-secondary]
             px-[1%]
             py-[0.5%]
           `}

@@ -5,8 +5,13 @@ const SwitchButton = () => {
     const [toggleSwitch, setToggleSwitch] = useState(false);
 
     useEffect(() => {
+        const themeContainer = document.documentElement.classList;
         if (toggleSwitch) {
-            document.documentElement.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches);
+            themeContainer.remove("light");
+            themeContainer.add("dark");
+        } else if (!toggleSwitch) {
+            themeContainer.remove("dark");
+            themeContainer.add("light");
         }
     }, [toggleSwitch]);
 
@@ -22,37 +27,37 @@ const SwitchButton = () => {
             cursor-pointer
         `}
     >
-            <input id="switch" 
-                type="checkbox" 
-                className="peer sr-only" 
-                checked={toggleSwitch}
-                onChange={() => setToggleSwitch(!toggleSwitch)}
-            />
+        <input id="switch" 
+            type="checkbox" 
+            className="peer sr-only" 
+            checked={toggleSwitch}
+            onChange={() => setToggleSwitch(!toggleSwitch)}
+        />
 
-            <div id="switch-ruler"
-                className=
-                {`
-                    peer 
-                    xxl:h-4     xl:h-4      lg:h-3      md:h-4      h-3
-                    xxl:w-10     xl:w-10     lg:w-8     md:w-12     w-10
-                    rounded-full 
-                    bg-[--light-color-quaternary]
+        <div id="switch-ruler"
+            className=
+            {`
+                peer 
+                xxl:h-4     xl:h-4      lg:h-3      md:h-4      h-3
+                xxl:w-10     xl:w-10     lg:w-8     md:w-12     w-10
+                rounded-full 
+                bg-[--color-quaternary]
 
-                    after:absolute 
-                    after:-left-1
-                    xl:after:-bottom-1   lg:after:-bottom-1.    md:after:-bottom-1 
-                    xxl:after:h-6   xl:after:h-6    lg:after:h-5    md:after:h-5    after:h-5
-                    xxl:after:w-6   xl:after:w-6    lg:after:w-5    md:after:w-5    after:w-5
-                    after:rounded-full 
-                    after:bg-[--light-color-quaternary]
-                    after:transition-all 
-                    after:content-['']
+                after:absolute 
+                after:-left-1
+                xl:after:-bottom-1   lg:after:-bottom-1.    md:after:-bottom-1 
+                xxl:after:h-6   xl:after:h-6    lg:after:h-5    md:after:h-5    after:h-5
+                xxl:after:w-6   xl:after:w-6    lg:after:w-5    md:after:w-5    after:w-5
+                after:rounded-full 
+                after:bg-[--color-quaternary]
+                after:transition-all 
+                after:content-['']
 
-                    peer-checked:bg-[--light-color-quaternary]
-                    peer-checked:after:translate-x-full 
-                    peer-focus:ring-[--light-color-quaternary]
-                `}
-            />
+                peer-checked:bg-[--color-quaternary]
+                peer-checked:after:translate-x-full 
+                peer-focus:ring-[--color-quaternary]
+            `}
+        />
     </label>
   )
 }

@@ -1,5 +1,5 @@
 import styles from '../../style'
-import Form from '../contact/Form'
+import { Form } from '../contact'
 import { SocialMedia } from '../../data/dataTypes'
 import { socialMedia } from '../../data/constants'
 
@@ -12,7 +12,7 @@ const Contact = () => {
         ${styles.section}
         ${styles.flexRow}
         ${styles.contentCenter}
-        space-x-[10%]
+        space-x-[20%]
       `}
     >
         <div id='form-container'

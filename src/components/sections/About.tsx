@@ -33,8 +33,8 @@ const About = () => {
           absolute
           ${styles.line}
           w-[25%]
-          xxl:bottom-[43%] lg:bottom-[41%]
-          xxl:-left-[11%] lg:-left-[14%]
+          xxl:bottom-[43%] lg:bottom-[30%]
+          xxl:-left-[11%] lg:-left-[13%]
         `}
       />
 

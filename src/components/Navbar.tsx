@@ -22,7 +22,7 @@ const Navbar = () => {
         py-[1%]
         ${styles.flexRow}
         ${styles.contentStartX}
-        color-secondary
+        color-scheme-secondary
         test
         xxl:text-[125%]  xl:text-[115%]  lg:text-[102%]
       `}
@@ -45,12 +45,11 @@ const Navbar = () => {
                     font-secondary-regular
                     tracking-widest
                     cursor-pointer
-                    hover:text-[--light-color-tertiary]
-                    ${nav.label.toLowerCase() === currentNavigation ? 'text-[--light-color-tertiary]' : ""}
+                    hover:text-[--color-tertiary]
+                    ${nav.label.toLowerCase() === currentNavigation ? 'text-[--color-tertiary]' : ""}
                 `}
               >
-                <a key={nav.id}
-                  href={nav.link}
+                <a href={nav.link}
                   onClick={() => setCurrentNavigation(nav.label.toLowerCase())}
                 >
                   {nav.label}
@@ -78,7 +77,6 @@ const Navbar = () => {
         <DropdownLang />
 
       </div>
-
     </nav>
   ) 
 }

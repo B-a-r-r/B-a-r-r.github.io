@@ -17,7 +17,7 @@ const DropdownLang = () => {
                     className=
                     {`
                         cursor-pointer
-                        hover:text-[--light-color-tertiary]
+                        hover:text-[--color-tertiary]
                         z-[1]
                     `}
                     onClick={() => setSelectedLang(lang.country.symbol.toUpperCase())}

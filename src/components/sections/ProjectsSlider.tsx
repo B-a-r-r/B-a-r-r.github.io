@@ -1,62 +1,48 @@
 import { Project } from "../../data/dataTypes"
 import { projects } from "../../data/contents"
-import Card from "../cards/Card"
 import styles from "../../style"
 import { coreImages, menuIcons } from "../../assets"
-import { ReactNode, useEffect, useRef, useState } from "react"
+import { cloneElement, ReactElement, useEffect, useRef, useState } from "react"
 import { randomNumberBetween } from "../../utils"
+import { ProjectCard } from "../cards"
 
 const ProjectsSlider = () => {
 
+  const assignRotation = (index: number, all: number) => {
+    return(
+      index === all - 1 ? 0
+      : index % 2 === 0 ? index + randomNumberBetween(4, 9)
+      : `-${index + randomNumberBetween(2, 6)}`
+    )
+  }
+
   // Make a stack of cards from the projects
   const initCards = () => {
-    const slides: Array<ReactNode> = [];
+    const slides: Array<ReactElement> = [];
   
-    projects.map((project: Project, index: number, all: Project[]) => {
+    projects.slice(0,10).map((project: Project, index: number, all: Project[]) => {
       slides.push(
-        <div id={`card-${project.id}-container`}
-              key={`card-${project.id}-container`}
-              className={`
-                ${styles.sizeFull}
-                max-h-[80%]
-                max-w-[90%]
-                aspect-[16/9]
-                absolute
-                rounded-md
-                overflow-hidden
-                bg-transparent
-                shadow-lg
-              `}
-              style={{
-                rotate: `${
-                  index === all.length - 1 ? 0
-                  : index % 2 === 0 ? index + randomNumberBetween(4, 9)
-                  : `-${index + randomNumberBetween(2, 6)}`
-                }deg`,
-                animation: `card-apparition 0.5s cubic-bezier(.54,.54,.57,.56) forwards`
-              }}
-        >
-          <Card
-            key={`card-${project.id}`}
-            title={project.title}
-            content={project.content}
-            tags={project.tags}
-          />
-        </div>
+        <ProjectCard key={`card-${project.id}-container`}
+          project={project}
+          additionalStyles={{
+            rotate: `${assignRotation(index, all.length)}deg`,
+            animation: `card-apparition 0.5s cubic-bezier(.54,.54,.57,.56) forwards`
+          }}
+        />
       )
     });
   
     return slides;
   }
 
-  // State to manage the cards
-  const [cards, setCards] = useState<Array<ReactNode>>([]);
-  const animationEnded = useRef<boolean>(false);
+  // State to manage the cards 
+  const [cards, setCards] = useState<Array<ReactElement>>([]);
+  const apparitionEnded = useRef<boolean>(false);
   const topCardTrueAngle = useRef<number>(0);
 
   // This effect occurs only once, it allows to display the stack card by card
   useEffect(() => {
-    const initialCards: ReactNode[] = initCards();
+    const initialCards: ReactElement[] = initCards();
   
     let i = 0;
     const interval = setInterval(() => {
@@ -70,56 +56,91 @@ const ProjectsSlider = () => {
 
     return () => {
       clearInterval(interval);
-      setTimeout(() => animationEnded.current = true, 400*initialCards.length);
+      setTimeout(() => apparitionEnded.current = true, 400*initialCards.length);
     };
   }, []);
 
-  // This effect occurs when the cards are updated, to animate the cards according to their position
-  useEffect(() => {
-    if (animationEnded.current) {
-      const cardsContainer: HTMLElement | null = document.getElementById("cards-stack-container");
-      const cards: HTMLCollection | undefined = cardsContainer?.children;
-
-      if (cards) {
-        for (let i = 0; i < cards.length; i++) {
-          const card: HTMLElement = cards[i] as HTMLElement;
-          card.style.animation = 
-            i === 0 ? "card-top-to-bottom O.8s ease-in-out forwards"
-            : i != (cards.length - 1) ? "card-reach-top 2s cubic-bezier(.54,.54,.57,.56) forwards"
-            : "card-change-position 2s cubic-bezier(.54,.54,.57,.56) forwards";
-          
-          if (i === (cards.length - 1)) {
-            topCardTrueAngle.current = parseInt(card.style.rotate);
-            card.style.rotate = "0deg";
-          }
-          // if the last card in the stack comes from the top, it must retrieve its original angle
-          if (i === 0 && cards.length > 1
-              && parseInt(card.style.rotate) === 0) {
-            card.style.rotate = `${topCardTrueAngle.current}deg`;
-          }
+  // This funtion is called before updating the cards, to animate the cards according to their position
+  const adjustAnimations = (cardsCopy: ReactElement[], from?: "prev" | "next") => {
+    return(
+      cardsCopy.map((card, index) => {
+        switch (index) {
+          case 0:
+            return (
+              // console.log(`----- Card ${index} -----`),
+              // console.log("topCardTrueAngle:" + topCardTrueAngle.current),
+              // console.log("rotation to topCardTrueAngle. or" + assignRotation(index, cardsCopy.length) + "if 0."),
+              // console.log("current rotation:" + card.props.additionalStyles.rotate),
+              cloneElement(card, {
+                additionalStyles: {
+                  animation: `card-top-to-bottom 2s ease-in ${from === "prev" ? "reverse" : "forwards"}`,
+                  rotate: `${
+                    topCardTrueAngle.current !== 0 
+                    ? topCardTrueAngle.current : assignRotation(index, cardsCopy.length)
+                  }deg`
+                }
+              })
+            )
+          case cardsCopy.length - 1:
+            topCardTrueAngle.current = parseInt(card.props.additionalStyles.rotate.split("deg")[0]);
+            return (
+              // console.log(`----- Card ${index} -----`),
+              // console.log("Last card next time !"),
+              // console.log("topCardTrueAngle:" + topCardTrueAngle.current),
+              // console.log("rotation changed to 0deg."),
+              // console.log("current rotation:" + card.props.additionalStyles.rotate),
+              cloneElement(card, {
+                additionalStyles: {
+                  animation: "card-reach-top 2s cubic-bezier(.54,.54,.57,.56) forwards",
+                  rotate: "0deg"
+                }
+              })
+            )
+          case cardsCopy.length - 2:
+            return (
+              // console.log(`----- Card ${index} -----`),
+              // console.log(Top card next time !),
+              // console.log("topCardTrueAngle:" + topCardTrueAngle.current),
+              // console.log("the rotation still the same."),
+              // console.log("current rotation:" + card.props.additionalStyles.rotate),
+              cloneElement(card, {
+                additionalStyles: {
+                  animation: "card-change-position 2s cubic-bezier(.54,.54,.57,.56) forwards",
+                  rotate: `${card.props.additionalStyles.rotate}`
+                }
+              })
+            )
+          default:
+            return (
+              // console.log(`----- Card ${index} -----`),
+              // console.log("topCardTrueAngle:" + topCardTrueAngle.current),
+              // console.log("the rotation still the same."),
+              // console.log("current rotation:" + card.props.additionalStyles.rotate),
+              cloneElement(card, {
+                additionalStyles: {
+                  animation: "card-change-position 2s cubic-bezier(.54,.54,.57,.56) forwards",
+                  rotate: `${card.props.additionalStyles.rotate}`
+                }
+              })
+            )
         }
-      }
-    }
-  }, [cards]);
+      })
+    )
+  }
 
   const previousCard = () => {
-    const cardsCopy = [...cards];
-    const lastCard = cardsCopy[0];  
-    for (let i = 0; i < (cards.length - 1); i++) {
-      cardsCopy[i] = cardsCopy[i+1];
-    }
-    cardsCopy[cards.length - 1] = lastCard;
-    return cardsCopy;
+    if (cards.length <= 1) return;
+    const [last, ...rest] = [...cards];
+    setCards(adjustAnimations([...rest, last], "prev"));
   }
 
   const nextCard = () => {
+    if (cards.length <= 1) return;
     const cardsCopy = [...cards];
-    const topCard = cardsCopy[cardsCopy.length - 1];
-    for (let i = (cards.length - 1); i > 0; i--) {
-      cardsCopy[i] = cardsCopy[i-1];
+    const first = cardsCopy.pop();
+    if (first) {
+      setCards(adjustAnimations([first, ...cardsCopy], "next"));
     }
-    cardsCopy[0] = topCard;
-    return cardsCopy;
   }
 
   return (
@@ -130,7 +151,8 @@ const ProjectsSlider = () => {
         ${styles.flexRow}
         ${styles.contentCenter}
         ${styles.section}
-        space-x-[15%]
+        space-x-[5%]
+        overflow-hidden
       `}
     >
 
@@ -138,14 +160,70 @@ const ProjectsSlider = () => {
         className={`
           ${styles.sizeFull}
           ${styles.flexRow}
-          ${styles.contentEndX}
+          ${styles.contentCenter}
           relative
         `}
       > 
-        {cards.map((card: ReactNode) => (
+        {cards.map((card: ReactElement) => (
           card
         ))}
 
+        <button id="prev-button"
+          className={`
+            absolute
+            left-0
+            top-1/2
+            z-10
+          `}
+          onClick={previousCard}
+        > 
+          <img id="icon-previous" 
+            src={menuIcons.double_chevrons_icon} 
+            alt="previous"
+            className={`
+              object-cover
+              -rotate-90
+            `}
+          /> 
+        </button>
+
+        {/* <button id="projects-button"
+          className={`
+            font-primary-semibold
+            lg:text-[80%]
+            tracking-widest
+            absolute
+            bottom-5
+            opacity-50
+            text-center
+          `}
+          onClick={() => window.location.href = "/projects"}
+        > Browse all<br/>projects
+          <hr className=
+            {`
+              ${styles.line}
+            `}
+          />
+        </button> */}
+
+        <button id="next-button"
+          className={`
+            absolute
+            right-0
+            top-1/2
+            z-10
+          `}
+          onClick={nextCard}
+        > 
+          <img id="icon-next" 
+            src={menuIcons.double_chevrons_icon} 
+            alt="next"
+            className={`
+              object-cover
+              rotate-90
+            `}
+          /> 
+        </button>
       </div>
 
       <div id="statue-container"
@@ -157,87 +235,17 @@ const ProjectsSlider = () => {
           relative
         `}
       >
-        <img id="atlas-pi"
+        <img id="hephaistos-statue"
             src={coreImages.hephaistos}
             alt={`Statue of Hephaistos`}
             className={`
               object-cover
-              xxl:w-[400px] lg:h-[600px]
+              xxl:w-[400px] lg:h-[700px]
               absolute
-              bottom-0
               left-0
             `}
           />
       </div>
-
-      {/* <div id="controls-container"
-        className={`
-          w-full
-          h-[10%px]
-          ${styles.flexRow}
-          ${styles.contentStartX}
-          space-x-10
-        `}
-      >
-            <button id="prev-button"
-              className={`
-                ronded-full
-                justify-center
-                align-center
-                color-primary
-              `}
-              onClick={() => setCards(previousCard)}
-            > 
-              <img id="icon-previous" 
-                src={menuIcons.double_chevrons_icon} 
-                alt="previous"
-                className={`
-                  object-cover
-                  -rotate-90
-                `}
-              /> 
-            </button>
-
-            <button id="projects-button"
-              className={`
-                w-[150px]
-                rounded-md
-                px-3
-                py-2
-                font-primary-semibold
-                lg:text-[60%]
-                tracking-widest
-              `}
-              onClick={() => window.location.href = "/projects"}
-            > Browse<br/>all projects 
-              <hr id='lib-hr'
-                className=
-                {`
-                  ${styles.line}
-                `}
-              />
-            </button>
-
-            <button id="next-button"
-              className={`
-                ronded-full
-                justify-center
-                align-center
-                color-primary
-              `}
-              onClick={() => setCards(nextCard)}
-            > 
-            <img id="icon-next" 
-              src={menuIcons.double_chevrons_icon} 
-              alt="next"
-              className={`
-                object-cover
-                rotate-90
-              `}
-            /> 
-          </button>
-      </div> */}
-
     </section>
   )
 }

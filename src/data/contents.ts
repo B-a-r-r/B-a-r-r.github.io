@@ -5,7 +5,8 @@ import {
   Biography, 
   Skill, 
   SkillCategorie, 
-  SkillSubcategorie 
+  SkillSubcategorie,
+  sharedLink
 } from "./dataTypes";
 
 export const projects: Array<Project> = [
@@ -19,6 +20,7 @@ export const projects: Array<Project> = [
         also a command-line and an api interface for advanced users.",
       tags: ["OOP", "UI", "Cryptography"],
       img: projectsImages.gpgtool_crypto_tool,
+      date: new Date(2024, 9),
     },
     {
       id: 2,
@@ -31,6 +33,7 @@ export const projects: Array<Project> = [
         SQLAlchemy to manage the database.",
       tags: ["ORM", "Database", "Visualization"],
       img: null,
+      date: new Date(2024, 6),
     },
     {
       id: 3,
@@ -38,6 +41,7 @@ export const projects: Array<Project> = [
       content: "MiniShell is a replica of a Unix shell. Written in C, it allows you to run commands, even in background, manage files, and create scripts.",
       tags: ["OS", "Linux", "FOP"],
       img: null,
+      date: new Date(2024, 11),
     },
     {
       id: 4,
@@ -45,6 +49,7 @@ export const projects: Array<Project> = [
       content: "This website has been developed from scratch by myself, using Vite, React, Tailwind css and Typescript.",
       tags: ["Web", "UX", "EOP"],
       img: projectsImages.portfolio,
+      date: new Date(2025, 1),
     }
     
 ];
@@ -68,9 +73,10 @@ export const bioText: Array<Biography> = [
     {
       id: 1,
       title: "Make it clean,<br/> make it better.",
-      content: "I am a 19yo <strong>junior developer</strong> and creator, mainly interest in developing clean and intelligent solutions to specific needs. \
+      content: "I am a 19yo <strong>junior developer</strong> and creator, mainly interest in developing intelligent and helpful tools to specific needs. \
               <br/><br/> \
-              <strong>Programming</strong> is for me a mean to express my creativity, and enhance my versatility. I’ve been passionate about it since I was 14yo. Today I am developing my own applications and automation tools. \
+              <strong>Programming</strong> allows me to express my creativity, I like to make things clean and efficient, but also pleasent to use. \
+              I’ve been passionate about programming since I was 14yo, and my interest for various has built my <strong>versatility</strong>, which is my key strength.\
               <br/><br/>   \
               Until 2026, I will be preparing a <strong>bachelor’s degree</strong> in computer science at the University and Technology Institue of Bordeaux, France."
     }
@@ -133,4 +139,12 @@ export const skills: Array<Skill> = [
       subcategory: null,
       framework: null,
     },
+];
+
+export const sharedLinks: Array<sharedLink> = [
+  {
+    id: 1,
+    label: "Theo, generative AI developer",
+    link: "https://tcastillo.me",
+  },
 ];

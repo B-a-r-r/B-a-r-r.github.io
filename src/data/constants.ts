@@ -1,4 +1,4 @@
-import { socialsIcons, documents, coreImages } from "../assets";
+import { socialsIcons, documents, coreImages, menuIcons } from "../assets";
 import { 
   Language, 
   SocialMedia, 
@@ -11,13 +11,17 @@ import {
   Country,
   ErrorMessage,
   Errors,
+  EmailAPI,
 } from "./dataTypes";
 
 
 console.log('hello from constants.tsx');
 
 export const cardTitleMaxLength = 30;
-export const cardContentMaxLength = 500;
+export const cardContentMaxLength = 150;
+
+export const previewTitleMaxLength = 50;
+export const previewContentMaxLength = 500;
 
 /**
  * Store all the navigation links for each navbar patterns
@@ -255,38 +259,67 @@ export const countryPhoneCodes: Array<PhoneCode> = [
  */
 export const creditsMentions: Array<CreditMention> = [
   {
-      id: 1,
-      label: "Sisyphus sketch",
-      contentRef: coreImages.sysiphus,
-      author: null,
-      link: "https://www.google.com/search/about-this-image?img=H4sIAAAAAAAAAFMy5NLnePr3nIoAkwSjkoq5hZlJomlysm6KSWqyrolZkqWuhbllmm6SiamRpUmymZFxUgoAWMCsSTMAAAA&sa=X&ved=2ahUKEwjA-qCj4dqKAxUoVaQEHYJXNngQs6gLegQIDBAB",
+    id: 1,
+    label: "Original Sisyphus sketch",
+    contentRef: coreImages.sysiphus,
+    author: null,
+    link: "https://www.google.com/search/about-this-image?img=H4sIAAAAAAAAAFMy5NLnePr3nIoAkwSjkoq5hZlJomlysm6KSWqyrolZkqWuhbllmm6SiamRpUmymZFxUgoAWMCsSTMAAAA&sa=X&ved=2ahUKEwjA-qCj4dqKAxUoVaQEHYJXNngQs6gLegQIDBAB",
   },
   {
-      id: 2,
-      label: "Hephaistos sketch",
-      contentRef: coreImages.hephaistos,
-      author: null,
-      link: "https://fr.pinterest.com/pin/1080582504340139757/",
+    id: 2,
+    label: "Original Hephaistos sketch",
+    contentRef: coreImages.hephaistos,
+    author: null,
+    link: "https://fr.pinterest.com/pin/1080582504340139757/",
   },
+  {
+    id: 3,
+    label: "Menu and social medias icons",
+    contentRef: [
+      menuIcons.arrow_up, 
+      menuIcons.burger_menu_icon, 
+      menuIcons.chevron_icon, 
+      menuIcons.close_menu_icon, 
+      menuIcons.double_chevrons_icon,
+      socialsIcons.github_icon, 
+      socialsIcons.linkedin_icon, 
+      socialsIcons.mail_icon
+    ],
+    author: null,
+    link: "https://boxicons.com/",
+  },
+
 ];
 
 /**
  * Store the copyrigth mention for the app
  */
 export const copyrigthText: Copyrigth = {
-  label: "© 2021 Clément Barrière",
-  link: "",
+  label: `clemnarr.dev © 2025,<br/>by Clément Barrière,<br/>under CC BY 4.0`,
+  link: "https://creativecommons.org/licenses/by/4.0/",
+};
+
+const emailAPI: EmailAPI = {
+  id: 1,
+  apiName: "emailjs",
+  serviceId: "clembarr.dev_1234",
+  templateId: "clembarr.dev_contact",
+  publicKey: "XhGuv8Ll1Znl6NEuG",
 };
 
 /**
  * Store all the form patterns available for the app
  */
-export const formStructure: Form = {
-  id: 1,
-  title: "Feel free<br/>to contact me",
-  messageMinLength: 80,
-  mendatoryFields: [ "name", "email", "message" ],
-};
+export const formStructures: Array<Form> = [
+  {
+    id: "contact",
+    title: "Feel free<br/>to contact me",
+    messageMinLength: 80,
+    fields: [ "firstname", "lastname", "email", "phone", "message" ],
+    mendatoryFields: [ "name", "email", "message" ],
+    emailAPI: emailAPI,
+  }
+];
 
 /**
  * Store information on the author of the app

@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode } from "react";
+import { createContext, useState, ReactNode, useEffect, useRef } from "react";
 
 interface SearchContextType {
   toMatch: string[];
@@ -12,6 +12,21 @@ const SearchContext = createContext<SearchContextType>({
 
 const SearchEngine = ({ children }: { children: ReactNode }) => {
   const [toMatch, setToMatch] = useState<Array<string>>([]);
+  const youCanWork = useRef(true);
+
+  useEffect(() => {
+    if (youCanWork.current) {
+      if (toMatch.length > 1) {
+        setToMatch(
+          toMatch.filter((value, index) => toMatch.indexOf(value) === index)
+          .filter((value) => (value !== "ALL"))
+        );
+      } else if (toMatch.length === 0 || toMatch[0] === "") {
+        setToMatch(["ALL"]);
+      }
+    }
+    youCanWork.current = !youCanWork.current;
+  }, [toMatch]);
 
   return (
     <SearchContext.Provider value={{ toMatch, setToMatch }}>
