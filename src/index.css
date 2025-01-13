@@ -24,11 +24,11 @@
 
 .dark {
   /* App dark theme colors */
-  --color-primary: red;
-  --color-secondary: red;
-  --color-tertiary: red;
-  --color-quaternary: red;
-  --color-quinary: red;
+  --color-primary: #000000;
+  --color-secondary: #161616;
+  --color-tertiary: #e6e5e5;
+  --color-quaternary: #e6e5e5; /*#78f7a9;*/
+  --color-quinary: #397855;
 }
 
 /* App global styles */

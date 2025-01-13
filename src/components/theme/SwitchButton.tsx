@@ -1,17 +1,16 @@
-import { useEffect, useState } from "react";
-import styles from "../style"
+import { useContext, useEffect, useState } from "react";
+import styles from "../../style"
+import { ThemeContext } from "./ThemeEngine";
 
 const SwitchButton = () => {
+    const { setCurrentTheme } = useContext(ThemeContext);
     const [toggleSwitch, setToggleSwitch] = useState(false);
 
     useEffect(() => {
-        const themeContainer = document.documentElement.classList;
         if (toggleSwitch) {
-            themeContainer.remove("light");
-            themeContainer.add("dark");
-        } else if (!toggleSwitch) {
-            themeContainer.remove("dark");
-            themeContainer.add("light");
+            setCurrentTheme("dark");
+        } else {
+            setCurrentTheme("light");
         }
     }, [toggleSwitch]);
 

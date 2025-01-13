@@ -20,7 +20,7 @@ import tailwind_icon from "./skills_icons/tailwind_icon.svg";
 import markdown_icon from "./skills_icons/markdown_icon.svg";
 
 import portrait from "./about_portrait.jpg";
-import sysiphus from "./sysiphus_rotated.png";
+import sysiphus from "./sysiphus_rotated.svg";
 import hephaistos from "./hephaistos_nobg.png";
 
 import gpgtool_home from "./projects_images/gpgtool_home.png";

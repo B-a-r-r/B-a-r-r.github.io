@@ -2,10 +2,12 @@ import styles from "../../style"
 import { coreImages } from "../../assets"
 import { author } from "../../data/constants"
 import { subtitleMessages } from "../../data/contents"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import DOMPurify from "dompurify"
+import { ThemeContext } from "../theme/ThemeEngine"
 
 const Hero = () => {
+  const { currentTheme } = useContext(ThemeContext);
   const [displayText, setDisplayText] = useState('');
   const [currentMessage, setCurrentMessage] = useState(0);
   
@@ -123,9 +125,10 @@ const Hero = () => {
           `}
         >
 
-          <img id="hero-image"
-            src={coreImages.sysiphus} 
-            alt="Sysiphus" 
+          <object id="hero-image"
+            data={coreImages.sysiphus} 
+            type="image/svg+xml"
+            style={{fill: currentTheme === "dark" ? "white" : "black"}}
             className=
             {`
               absolute

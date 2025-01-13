@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { navLinks } from "../data/constants";
 import DropdownLang from "./dropdowns/DropdownLang";
-import SwitchButton from "./SwitchButton";
+import SwitchButton from "./theme/SwitchButton";
 import styles from "../style";
 import { getCurrentNavigation } from "../utils";
 
