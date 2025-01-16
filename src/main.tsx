@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import { Home, Err404, Projects } from './pages'
+import { Home, Err404, Projects, Retex } from './pages'
 import { BrowserRouter, Route, Routes } from 'react-router'
 import { ThemeEngine } from './components/theme'
 
@@ -15,7 +15,9 @@ createRoot(document.getElementById('root')!).render(
 
             <Route path="/projects" element={<Projects />} />
 
-            <Route path="*" element={<Err404 />} />
+            <Route path="/project/*" element={<Retex projectTitle={window.location.pathname.split("/")[2]} />} />
+
+            <Route path="/*" element={<Err404 />} />
             
         </Routes>
       </BrowserRouter>

@@ -221,7 +221,7 @@ input:focus, textarea:focus {
   }
 
   to {
-    transform: translateX(10%, 1%, 10);
+    rotate: 0deg;
   }
 }
 
@@ -247,7 +247,7 @@ input:focus, textarea:focus {
     transform: translate3d(200%, -30%, 0);
   }
 
-  58% {
+  45% {
     z-index: 0;
     opacity: 0;
     rotate: -10deg;

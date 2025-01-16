@@ -6,8 +6,20 @@ import {
   Skill, 
   SkillCategorie, 
   SkillSubcategorie,
-  sharedLink
+  sharedLink,
+  Retex
 } from "./dataTypes";
+
+export const retex: Array<Retex> = [
+  {
+    id: 1,
+    relatedProject: 'GPGtool',
+    specs: "",
+    notions: "",
+    tools: [],
+    img: [],    
+  }
+];
 
 export const projects: Array<Project> = [
     {
@@ -21,6 +33,7 @@ export const projects: Array<Project> = [
       tags: ["OOP", "UI", "Cryptography"],
       img: projectsImages.gpgtool_crypto_tool,
       date: new Date(2024, 9),
+      retex: retex.find((retex) => retex.relatedProject === 'GPGtool') || null,
     },
     {
       id: 2,
@@ -34,6 +47,7 @@ export const projects: Array<Project> = [
       tags: ["ORM", "Database", "Visualization"],
       img: null,
       date: new Date(2024, 6),
+      retex: null,
     },
     {
       id: 3,
@@ -42,6 +56,7 @@ export const projects: Array<Project> = [
       tags: ["OS", "Linux", "FOP"],
       img: null,
       date: new Date(2024, 11),
+      retex: null,
     },
     {
       id: 4,
@@ -50,8 +65,8 @@ export const projects: Array<Project> = [
       tags: ["Web", "UX", "EOP"],
       img: projectsImages.portfolio,
       date: new Date(2025, 1),
-    }
-    
+      retex: null,
+    }  
 ];
   
 export const subtitleMessages: Array<SubtitleMessage> = [

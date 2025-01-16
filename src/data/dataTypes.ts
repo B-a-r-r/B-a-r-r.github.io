@@ -35,6 +35,24 @@ export enum Errors {
 }
 
 /**
+ * Data structure to represent a retex
+ * @param id - unique identifier
+ * @param projet - project to which the retex is related
+ * @param specs - specifications of the project
+ * @param notions - notions used in the project
+ * @param tools - list of tools used in the project
+ * @param img - list of image urls to display in the retex 
+ */
+export interface Retex {
+  id: number;
+  relatedProject: string | null;
+  specs: string;
+  notions: string;
+  tools: Skill[];
+  img: string[];
+}
+
+/**
  * Data strcuture to represent a project
  * @param id - unique identifier*
  * @param title - title of the project
@@ -49,6 +67,7 @@ export interface Project {
   tags: string[];
   img: string | null;
   date: Date;
+  retex: Retex | null;
 }
 
 /**
@@ -227,7 +246,7 @@ export interface Form {
  */
 export interface NavbarPattern {
   id: number;
-  route: string;
+  route: string | string[];
   links: NavLink[];
 }
 

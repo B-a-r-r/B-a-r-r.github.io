@@ -29,7 +29,7 @@ export const previewContentMaxLength = 500;
 export const navLinks: Array<NavbarPattern> = [
   {
     id: 1,
-    route: '/',
+    route: '',
     links: [
       {
         id: 1,
@@ -55,7 +55,7 @@ export const navLinks: Array<NavbarPattern> = [
   },
   {
     id: 2,
-    route: '/projects',
+    route: ['projects', 'project'],
     links: [
       {
         id: 1,

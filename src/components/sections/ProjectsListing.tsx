@@ -78,6 +78,7 @@ const ProjectsListing = () => {
                     tags={project.tags}
                     img={project.img}
                     date={project.date}
+                    retex={project.retex}
                 />
             ))}
                     

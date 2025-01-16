@@ -65,60 +65,33 @@ const ProjectsSlider = () => {
     return(
       cardsCopy.map((card, index) => {
         switch (index) {
-          case 0:
+          case cardsCopy.length - 1:
             return (
-              // console.log(`----- Card ${index} -----`),
-              // console.log("topCardTrueAngle:" + topCardTrueAngle.current),
-              // console.log("rotation to topCardTrueAngle. or" + assignRotation(index, cardsCopy.length) + "if 0."),
-              // console.log("current rotation:" + card.props.additionalStyles.rotate),
               cloneElement(card, {
                 additionalStyles: {
-                  animation: `card-top-to-bottom 2s ease-in ${from === "prev" ? "reverse" : "forwards"}`,
+                  animation: `card-top-to-bottom 2s ease-in forwards`,
                   rotate: `${
                     topCardTrueAngle.current !== 0 
-                    ? topCardTrueAngle.current : assignRotation(index, cardsCopy.length)
+                    ? topCardTrueAngle.current : assignRotation(0, cardsCopy.length)
                   }deg`
                 }
               })
             )
-          case cardsCopy.length - 1:
+          case cardsCopy.length - 2:
             topCardTrueAngle.current = parseInt(card.props.additionalStyles.rotate.split("deg")[0]);
             return (
-              // console.log(`----- Card ${index} -----`),
-              // console.log("Last card next time !"),
-              // console.log("topCardTrueAngle:" + topCardTrueAngle.current),
-              // console.log("rotation changed to 0deg."),
-              // console.log("current rotation:" + card.props.additionalStyles.rotate),
               cloneElement(card, {
                 additionalStyles: {
-                  animation: "card-reach-top 2s cubic-bezier(.54,.54,.57,.56) forwards",
-                  rotate: "0deg"
-                }
-              })
-            )
-          case cardsCopy.length - 2:
-            return (
-              // console.log(`----- Card ${index} -----`),
-              // console.log(Top card next time !),
-              // console.log("topCardTrueAngle:" + topCardTrueAngle.current),
-              // console.log("the rotation still the same."),
-              // console.log("current rotation:" + card.props.additionalStyles.rotate),
-              cloneElement(card, {
-                additionalStyles: {
-                  animation: "card-change-position 2s cubic-bezier(.54,.54,.57,.56) forwards",
-                  rotate: `${card.props.additionalStyles.rotate}`
+                  animation: `transition all 0.5s ease-in-out forwards`,
+                  rotate: `0deg`
                 }
               })
             )
           default:
             return (
-              // console.log(`----- Card ${index} -----`),
-              // console.log("topCardTrueAngle:" + topCardTrueAngle.current),
-              // console.log("the rotation still the same."),
-              // console.log("current rotation:" + card.props.additionalStyles.rotate),
               cloneElement(card, {
                 additionalStyles: {
-                  animation: "card-change-position 2s cubic-bezier(.54,.54,.57,.56) forwards",
+                  animation: "",
                   rotate: `${card.props.additionalStyles.rotate}`
                 }
               })
@@ -130,16 +103,16 @@ const ProjectsSlider = () => {
 
   const previousCard = () => {
     if (cards.length <= 1) return;
-    const [last, ...rest] = [...cards];
-    setCards(adjustAnimations([...rest, last], "prev"));
+    const [last, ...rest] = adjustAnimations(cards, "prev");
+    setCards([last, ...rest]);
   }
 
   const nextCard = () => {
     if (cards.length <= 1) return;
-    const cardsCopy = [...cards];
+    const cardsCopy = adjustAnimations(cards, "next");
     const first = cardsCopy.pop();
     if (first) {
-      setCards(adjustAnimations([first, ...cardsCopy], "next"));
+      setCards([first, ...cardsCopy]);
     }
   }
 

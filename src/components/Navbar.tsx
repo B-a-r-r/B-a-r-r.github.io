@@ -36,8 +36,10 @@ const Navbar = () => {
       >
         {
           navLinks
-          .filter((nav) => nav.route === window.location.pathname)[0].links
-          .map((nav) => (
+          .filter(
+            (nav) => nav.route.includes(window.location.pathname.split('/')[1])
+            || nav.route === window.location.pathname.split('/')[1]
+          )[0].links.map((nav) => (
             <>
               <li key={`${nav.id}-container`}
                 className=

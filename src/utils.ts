@@ -18,7 +18,9 @@ export const randomNumberBetween = (min: number, max: number) => {
  * @returns the link to highlight in the navbar
  */
 export const getCurrentNavigation = () => {
-    const currentRoute: NavbarPattern = navLinks.filter((nav) => nav.route === window.location.pathname)[0];
+    const currentRoute: NavbarPattern = navLinks.filter(
+        (nav) => nav.route.includes(window.location.pathname.split('/')[1])
+    )[0];
 
     const correspondingNavigation: NavLink = currentRoute.links.filter(
         (navLink) => navLink.label.toLowerCase() === window.location.pathname.split('/')[1]
