@@ -1,4 +1,5 @@
 import { createContext, useState, ReactNode, useEffect } from "react";
+import { getLocalTheme } from "../../utils";
 
 interface ThemeContextType {
     currentTheme: string;
@@ -6,26 +7,28 @@ interface ThemeContextType {
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-    currentTheme: "light",
+    currentTheme: "",
     setCurrentTheme: () => {},
 });
 
 const ThemeEngine = ({ children }: { children: ReactNode }) => {
-    const [currentTheme, setCurrentTheme] = useState<string>("light");
+    const [currentTheme, setCurrentTheme] = useState<string>(getLocalTheme());
 
     useEffect(() => {
         if (currentTheme === "dark") {
             document.documentElement.classList.remove("light");
             document.documentElement.classList.add("dark");
+            localStorage.setItem("theme", "dark");
         } else {
             document.documentElement.classList.remove("dark");
             document.documentElement.classList.add("light");
+            localStorage.setItem("theme", "light");
         }
     }, [currentTheme]);
 
     return (
         <ThemeContext.Provider value={{ currentTheme, setCurrentTheme }}>
-        {children}
+            {children}
         </ThemeContext.Provider>
     )
 }

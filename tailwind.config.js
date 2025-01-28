@@ -4,13 +4,26 @@ module.exports = {
   mode: "jit",
   theme: {
     extend: {
-      colors: {
+      fontFamily: {
+        montserrat: ["Montserrat", "sans-serif"],
+        hind_vadodara: ["Hind Vadodara", "sans-serif"],
+        kanit: ["Kanit", "sans-serif"],
       },
-    },
-    fontFamily: {
-      montserrat: ["Montserrat", "sans-serif"],
-      hind_vadodara: ["Hind Vadodara", "sans-serif"],
-      kanit: ["Kanit", "sans-serif"],
+      fontSize: {
+        xxs: "80%",
+        xs: "90%",
+        sm: "95%",
+        base: "100%",
+        md: "105%",
+        lg: "110%",
+        xl: "120%",
+        "2xl": "130%",
+        "3xl": "150%",
+        "4xl": "180%",
+        "5xl": "200%",
+        "6xl": "250%",
+        "7xl": "300%",
+      },
     },
   },
   screens: {

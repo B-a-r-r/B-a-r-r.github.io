@@ -25,6 +25,10 @@ const Searchbar = () => {
                     px-4
                     py-1
                     rounded-md
+                    border-2
+                    transition-all
+                    duration-300
+                    ease-in-out
                 `}
                 onKeyDown={(e) => {
                     if (e.key === 'Enter') {

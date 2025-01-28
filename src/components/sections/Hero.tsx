@@ -5,14 +5,16 @@ import { subtitleMessages } from "../../data/contents"
 import { useContext, useEffect, useState } from "react"
 import DOMPurify from "dompurify"
 import { ThemeContext } from "../theme/ThemeEngine"
+import { LangContext } from "../language"
 
 const Hero = () => {
   const { currentTheme } = useContext(ThemeContext);
   const [displayText, setDisplayText] = useState('');
   const [currentMessage, setCurrentMessage] = useState(0);
+  const { currentLang } = useContext(LangContext);
   
   useEffect(() => {
-    const message: string = subtitleMessages[currentMessage].content;
+    const message: string = subtitleMessages[currentMessage].content[currentLang];
     let index = 0;
     let text = '';
     let interval = setInterval(() => {
@@ -132,7 +134,7 @@ const Hero = () => {
             className=
             {`
               absolute
-              xxl:w-[90%] lg:w-[92%]
+              xxl:w-[90%] lg:w-[100%]
               object-cover
               xxl:-top-[12%] top-[8%]
               right-0

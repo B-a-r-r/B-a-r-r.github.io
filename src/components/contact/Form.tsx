@@ -1,9 +1,10 @@
-import { useRef, useEffect, useState, createContext, FormEvent } from 'react';
+import { useRef, useEffect, useState, createContext, FormEvent, useContext } from 'react';
 import { formStructures } from '../../data/constants';
 import styles from '../../style'
 import DropdownPhone from '../dropdowns/DropdownPhone'
 import DOMPurify from 'dompurify';
 import emailjs from '@emailjs/browser'
+import { LangContext } from '../language';
 
 interface PhoneCodeContextType {
   phoneCode: string;
@@ -19,6 +20,7 @@ const Form = () => {
   const waitTime = useRef<number>(30000);
   const [canSubmit, setCanSubmit] = useState<boolean>(true);
   const requestCount = useRef<number>(0);
+  const { currentLang } = useContext(LangContext);
 
   const form = formStructures.filter((form) => form.id === "contact")[0];
   const [formFistName, setFormFirstName] = useState<string>('');
@@ -55,7 +57,7 @@ const Form = () => {
       return false;
     }
 
-    if (formMessage.length < form.messageMinLength) {
+    if (form.messageMinLength && formMessage.length < form.messageMinLength) {
       alert(`Your message is too short. It should contain at least ${form.messageMinLength} characters.`);
       return false;
     }
@@ -67,6 +69,7 @@ const Form = () => {
     e.preventDefault();
     if (!canSubmit) return;
     if (!validateForm()) return ;  
+    if (!form.emailAPI) return;
 
     if (requestCount.current > 3) {
       alert('You have reached the maximum number of requests allowed. \
@@ -86,10 +89,10 @@ const Form = () => {
     };
 
     emailjs
-      .send(form.emailAPI.serviceId, 
-        form.emailAPI.templateId, 
+      .send(form.emailAPI!.serviceId, 
+        form.emailAPI!.templateId, 
         templateParams,
-        form.emailAPI.publicKey
+        form.emailAPI!.publicKey
       ).then(() => {
           alert('Your message has been sent successfully!');
 
@@ -137,7 +140,7 @@ const Form = () => {
           leading-10
           mb-[17%]
         `}
-        dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(form.title)}}
+        dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(form.title[currentLang])}}
       />
         
       <div id="names-info"
@@ -157,7 +160,7 @@ const Form = () => {
           id="lastname" 
           name="lastname" 
           placeholder="Last name.." 
-          required={form.mendatoryFields.includes('lastname')}
+          required={form.mendatoryFields ? form.mendatoryFields.includes('lastname') : false}
           className=
           {`
             ${styles.sizeFull}
@@ -174,7 +177,7 @@ const Form = () => {
           id="fist_name" 
           name="firstname" 
           placeholder="First name.." 
-          required={form.mendatoryFields.includes('firstname')}
+          required={form.mendatoryFields ? form.mendatoryFields.includes('firstname') : false}
           className=
           {`
             ${styles.sizeFull}
@@ -186,8 +189,8 @@ const Form = () => {
           `}
           onChange={(e) => setFormFirstName(e.target.value)}
         />
-        {form.mendatoryFields.includes('name') 
-          ? <a key="names-asterisk" id="names-asterisk" className='absolute text-[--light-color-tertiary] top-0 -right-3'>*</a>
+        {form.mendatoryFields && form.mendatoryFields.includes('name') 
+          ? <a key="names-asterisk" id="names-asterisk" className='absolute text-[--color-tertiary] top-0 -right-3'>*</a>
           : ""
         }
       </div>
@@ -205,7 +208,7 @@ const Form = () => {
           id="email"
           name="email"
           placeholder="Email address.."
-          required={form.mendatoryFields.includes('email')}
+          required={form.mendatoryFields ? form.mendatoryFields.includes('email') : false}
           className=
           {`
             ${styles.sizeFull}
@@ -217,8 +220,8 @@ const Form = () => {
           `}
           onChange={(e) => setFormEmail(e.target.value)}
         />
-        {form.mendatoryFields.includes('email') 
-          ? <a key="email-asterisk" id="email-asterisk" className='absolute text-[--light-color-tertiary] self-end px-2'>*</a>
+        {form.mendatoryFields && form.mendatoryFields.includes('email') 
+          ? <a key="email-asterisk" id="email-asterisk" className='absolute text-[--color-tertiary] self-end px-2'>*</a>
           : ""
         }
       </div>
@@ -246,7 +249,7 @@ const Form = () => {
           id="phone"
           name="phone"
           placeholder="Phone number.."
-          required={form.mendatoryFields.includes('phone')}
+          required={form.mendatoryFields ? form.mendatoryFields.includes('phone') : false}
           className=
           {`
             ${styles.sizeFull}
@@ -258,8 +261,8 @@ const Form = () => {
           `}
           onChange={(e) => setFormPhone(phoneCode+' '+e.target.value)}
         />
-        {form.mendatoryFields.includes('phone') 
-          ? <a key="phone-asterisk" id="message-asterisk" className='absolute text-[--light-color-tertiary] self-end px-2'>*</a>
+        {form.mendatoryFields && form.mendatoryFields.includes('phone') 
+          ? <a key="phone-asterisk" id="message-asterisk" className='absolute text-[--color-tertiary] self-end px-2'>*</a>
           : ""
         }
       </div>
@@ -275,7 +278,7 @@ const Form = () => {
       >
         <textarea id="message"
           name="message"
-          required={form.mendatoryFields.includes('message')}
+          required={form.mendatoryFields ? form.mendatoryFields.includes('message') : false}
           className=
           {`
             ${styles.sizeFull}
@@ -291,13 +294,13 @@ const Form = () => {
           minLength={form.messageMinLength}
           onChange={(e) => setFormMessage(e.target.value)}
         />
-        {form.mendatoryFields.includes('message') 
-          ? <a key="message-asterisk" id="message-asterisk" className='absolute text-[--light-color-tertiary] self-end px-2'>*</a>
+        {form.mendatoryFields && form.mendatoryFields.includes('message') 
+          ? <a key="message-asterisk" id="message-asterisk" className='absolute text-[--color-tertiary] self-end px-2'>*</a>
           : ""
         }
       </div>
 
-      {form.mendatoryFields.length > 0 ?
+      {form.mendatoryFields && form.mendatoryFields.length > 0 ?
         <label id="indication-label"
           className=
           {`

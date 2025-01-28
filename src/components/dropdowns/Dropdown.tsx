@@ -97,9 +97,7 @@ const Dropdown = ({items, animationStyle, menuState, itemState, additionalStyles
                 >
                     {items}
                 </ul>
-
             </div>
-
         </div>
     )
 }

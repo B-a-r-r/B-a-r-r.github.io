@@ -1,67 +1,79 @@
+import { useContext } from 'react';
 import { coreImages } from '../../assets';
-import { previewContentMaxLength, previewTitleMaxLength } from '../../data/constants';
-import { retex } from '../../data/contents';
 import {Project} from '../../data/dataTypes';
 import styles from '../../style';
+import { LangContext } from '../language';
 import Card from './Card';
 
-const ProjectPreview = ({id, title, content, tags, img}: Project) => {
-    const formatedTitle = () => (
-        title.length > previewTitleMaxLength ?
-        title.slice(0, previewTitleMaxLength) + '...' :
-        title
-    )
+type ProjectPreviewProps = {
+    project: Project;
+    retexToggler: (retexTitle: string)=>void;
+}
 
-    const formatedContent = () => (
-        content.length > previewContentMaxLength ?
-        content.slice(0, previewContentMaxLength) + '...' :
-        content
-    )
+const ProjectPreview = ({project, retexToggler}: ProjectPreviewProps) => {
+    const { currentLang } = useContext(LangContext);
+    const retexExists = project.retex ? true : false;
 
     return (
-        <a href= {
-                retex.find((retex) => retex.relatedProject === title) ?
-                `/project/${title}` : "/projects"
-            }
+        <div id={`card-${project.title}-container`}
+            className=
+            {`
+                ${styles.flexCol}
+                w-[30%]
+                h-[500px]
+                rounded-md
+                shadow-lg
+                overflow-hidden
+                cursor-pointer
+                last:overflow-visible
+
+                hover:scale-105
+                transition-transform
+                duration-300
+                ease-in-out
+            `}
+            onClick={() => retexExists ? retexToggler(project.title) : {}}
         >
-            <div id={`card-${id}-container`}
-                className=
+
+            <div className=
                 {`
-                    ${styles.flexRow}
-                    ${styles.sizeFull}
-                    rounded-lg
-                    shadow-md
-                    cursor-pointer
-                    overflow-hidden
-
-                    hover:scale-105
-                    transition-all
-                    duration-300
-                    ease-in-out
-
-                    relative
+                    m-[6%]
+                    mb-[0]
                 `}
             >
-                <img id={`card-${id}-img`}
-                    src={img ? img : coreImages.sysiphus}
+                <img id={`card-${project.title}-img`}
+                    src={project.img ? project.img : coreImages.sysiphus}
                     alt="project image"
-                    className={`
+                    className=
+                    {`
+                        lg:h-[200px]
+                        w-full
+                        aspect-video
+                        object-contain
                         object-center
-                        object-cover
-                        w-3/6
-                    `}
-                />
-
-                <Card 
-                    title={formatedTitle()} 
-                    content={formatedContent()} 
-                    tags={tags} 
-                    additionalClasses={`
-                        lg:text-[100%]
                     `}
                 />
             </div>
-        </a>
+            
+            <Card 
+                title={project.title} 
+                content={project.content[currentLang]} 
+                tags={project.tags[currentLang].concat(project.tags[0])} 
+                moreTopClasses=
+                {`
+                    px-[8%]
+                `}
+                titleProps=
+                {`
+                `}
+                contentProps=
+                {`
+                `}
+                tagsProps=
+                {`
+                `}
+            />
+        </div>
     );
 }
 

@@ -25,6 +25,7 @@ import hephaistos from "./hephaistos_nobg.png";
 
 import gpgtool_home from "./projects_images/gpgtool_home.png";
 import gpgtool_crypto_tool from "./projects_images/gpgtool_crypto_tool.png";
+import gpgtool_code from "./projects_images/GPGtool_code.webp";
 import portfolio from "./projects_images/portfolio.jpg";
 
 import cv from "./documents/CV-informatique-2024-5.pdf";
@@ -74,6 +75,7 @@ export const projectsImages = {
   
   gpgtool_home,
   gpgtool_crypto_tool,
+  gpgtool_code,
   portfolio,
 
 }

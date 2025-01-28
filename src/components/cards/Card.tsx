@@ -1,73 +1,91 @@
+import { useEffect, useState } from 'react';
 import styles from '../../style';
 import DOMPurify from 'dompurify';
+import { isOverflowing, truncateTextIfOverflow } from '../../utils';
 
 type CardProps = {
     title: string;
     content: string;
     tags: string[];
-    additionalClasses?: string;
+    moreTopClasses?: string;
+    titleProps?: string;
+    contentProps?: string;
+    tagsProps?: string;
 }
 
-const Card = ({title, content, tags, additionalClasses}: CardProps) => {
+const Card = ({title, content, tags, moreTopClasses, titleProps, contentProps, tagsProps}: CardProps) => {
+    const [displayedTags, setDisplayedTags] = useState<string[]>(tags.slice(0, 3));
+
+    useEffect(() => {
+        truncateTextIfOverflow(document.getElementById(`card-${title}-title`)!, title);
+        truncateTextIfOverflow(document.getElementById(`card-${title}-text`)!, content);
+        
+        const tagsContainer = document.getElementById(`card-${title}-tags`);
+        if (tagsContainer) {
+            // while (isOverflowing(tagsContainer)) {
+            //     tags.pop();
+            //     setDisplayedTags(tags);
+            // }
+        }
+
+    }, [content, tags, title]);
+
     return (
         <div id={`card-${title}`}
-            className={`
-                ${styles.sizeFull}
+            className={` 
                 ${styles.flexCol}
+                ${styles.sizeFull}
                 color-scheme-primary
-                z-10
-                space-y-[5%]
-                ${additionalClasses}
+                ${moreTopClasses}
             `}
         >
-            <header id="card-header"
+            <header id={`card-header`}
                 className={`
+                    flex
                     w-full
-                    h-1/5
-                    color-scheme-secondary
-                    py-[2%]
+                    h-1/4
+                    max-h-[25%]
+                    ${styles.contentStartX}
+                    font-primary-bold
+                    ${titleProps}
                 `}
             >
-                <h3 id="card-title"
-                    className={`
-                        font-primary-bold
-                        tracking-wide
-                        color-scheme-secondary
-                        px-[8%]
-                    `}
+                <h3 id={`card-${title}title`}
                     dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(title)}}
                 />
             </header>
 
-            <p id="card-text"
+            <p id={`card-${title}-text`}
                 className={`
+                    flex
                     w-full
-                    h-2/5
-                    px-[8%]
-                    font-primary-regular
+                    h-2/4
+                    max-h-[50%]
+                    overflow-hidden
                     text-ellipsis
+                    ${styles.contentStartX}
+                    ${contentProps}
                 `}
                 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(content)}}
             />
                         
-            <div id='card-tags'
+            <div id={`card-${title}-tags`}
                 className={`
+                    flex
                     w-full
-                    flex-row
-                    px-[8%]
-                    pb-[3%]
-                    overflow-x-auto
-                    justify-self-end
-                    space-x-[2%]
+                    h-1/4
+                    max-h-[25%]
+                    ${styles.contentStartX}
+                    space-x-[5%]
+                    overflow-hidden
+                    ${tagsProps}
                 `}
             >
-                {tags.slice(0, 3)
-                .map((tag, index) => {
+                {displayedTags.map((tag, index) => {
                     return (
                         <a key={index}
                             id={`tag-${tag}`}
                             className={`
-                                font-primary-regular
                                 text-[--color-tertiary]
                             `}
                         > {tag} </a>

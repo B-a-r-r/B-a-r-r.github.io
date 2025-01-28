@@ -12,6 +12,7 @@ const Projects = () => {
             {`
                 ${styles.page}
                 ${styles.flexCol}
+                relative
             `}
         >
             <div id="navbar-container"

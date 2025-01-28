@@ -2,8 +2,12 @@ import styles from "../../style"
 import { coreImages } from "../../assets"
 import { bioText } from "../../data/contents"
 import DOMPurify from "dompurify"
+import { useContext } from "react"
+import { LangContext } from "../language"
 
 const About = () => {
+  const { currentLang } = useContext(LangContext);
+
   return (
     <section id="about"
       className=
@@ -47,11 +51,11 @@ const About = () => {
           overflow-hidden
         `}
       >
-        <h2 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(bioText[0].title)}}
+        <h2 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(bioText.find((e) => e.active)!.title[currentLang])}}
           className={styles.heading2}
         />
 
-        <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(bioText[0].content)}}
+        <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(bioText.find((e) => e.active)!.content[currentLang])}}
         className={styles.paragraph}
         />
       </div>

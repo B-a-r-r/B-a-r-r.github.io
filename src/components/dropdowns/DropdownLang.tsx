@@ -1,28 +1,33 @@
-import { languages } from '../../data/constants';
-import { Language } from '../../data/dataTypes';
+import { availableLanguages } from '../../data/constants';
+import { LangContext } from '../language';
 import Dropdown from './Dropdown';
-import { CSSProperties, useState } from 'react';
+import { CSSProperties, useContext, useEffect, useState } from 'react';
 
 const DropdownLang = () => {
     const [toggleLang, setToggleLang] = useState(false);
-    const [selectedLang, setSelectedLang] = useState('FR');
+    const { currentLang, setCurrentLang } = useContext(LangContext);
+    const [selectedLang, setSelectedLang] = useState(currentLang.toUpperCase());
+
+    useEffect(() => {
+        setCurrentLang(selectedLang.toLowerCase());
+    }, [selectedLang]);
 
     const langItems = () => {
         return (
-            languages
-            .sort(function(a) { return a.country.symbol === selectedLang ? -1 : 1; })
-            .map((lang: Language) => (
+            availableLanguages
+            .sort(function(country) { return country.symbol === selectedLang ? -1 : 1; })
+            .map((lang) => (
                 <li 
-                    key={lang.id} 
+                    key={lang.symbol.toLowerCase()} 
                     className=
                     {`
                         cursor-pointer
                         hover:text-[--color-tertiary]
                         z-[1]
                     `}
-                    onClick={() => setSelectedLang(lang.country.symbol.toUpperCase())}
+                    onClick={() => setSelectedLang(lang.symbol.toUpperCase())}
                 >
-                    {lang.country.symbol.toUpperCase()}
+                    {lang.symbol.toUpperCase()}
                 </li>
             ))
         );

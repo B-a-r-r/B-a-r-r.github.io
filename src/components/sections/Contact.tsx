@@ -38,8 +38,8 @@ const Contact = () => {
             `}
         >
           {socialMedia.map((social: SocialMedia) => (
-            <div key={`icon-${social.id}-container`}
-              id={`icon-${social.id}-container`}
+            <div key={`icon-${social.label}-container`}
+              id={`icon-${social.label}-container`}
               className=
               {`
                 ${styles.flexCol}
@@ -55,7 +55,7 @@ const Contact = () => {
                   ${styles.contentStartX}
                 `}
               >
-                <img id={`icon-${social.id}`}
+                <img id={`icon-${social.label}`}
                     src={social.icon} 
                     alt={social.label}
                     className=
@@ -67,7 +67,7 @@ const Contact = () => {
                     `}
                 />
               </a>
-              <hr id={`line-${social.id}`}
+              <hr id={`line-${social.label}`}
                   className=
                   {`
                     ${styles.line}
@@ -75,7 +75,7 @@ const Contact = () => {
                     h-[2.5px]
                   `}
               />
-              <label id={`label-${social.id}`}
+              <label id={`label-${social.label}`}
                   className=
                   {`
                     w-full

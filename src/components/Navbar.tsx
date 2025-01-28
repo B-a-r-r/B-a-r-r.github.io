@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { navLinks } from "../data/constants";
 import DropdownLang from "./dropdowns/DropdownLang";
 import SwitchButton from "./theme/SwitchButton";
 import styles from "../style";
 import { getCurrentNavigation } from "../utils";
+import { Link } from "react-router";
+import { LangContext } from "./language";
+import { menuIcons } from "../assets";
 
 /**
 * @description This component renders the navigation bar of the website, from the info in the constants file.
@@ -11,6 +14,13 @@ import { getCurrentNavigation } from "../utils";
 const Navbar = () => {
   const [toggleBurger, setToggleBurger] = useState(true);
   const [currentNavigation, setCurrentNavigation] = useState(getCurrentNavigation());
+  const { currentLang } = useContext(LangContext);
+
+  useEffect(() => {
+    setCurrentNavigation(getCurrentNavigation());
+    console.log('currentNavigation', currentNavigation);
+    console.log('currentLang', currentLang);
+  }, [currentLang]);
 
   return (
     <nav id="navbar"
@@ -32,31 +42,35 @@ const Navbar = () => {
         className="
           space-x-10
           list-none 
-          sm:flex hidden"
+          lg:flex hidden"
       >
         {
           navLinks
-          .filter(
+          .find(
             (nav) => nav.route.includes(window.location.pathname.split('/')[1])
-            || nav.route === window.location.pathname.split('/')[1]
-          )[0].links.map((nav) => (
+          )?.links.map((nav) => (
             <>
-              <li key={`${nav.id}-container`}
+              <li key={`${nav.label}-container`}
                 className=
                 {`
                     font-secondary-regular
                     tracking-widest
                     cursor-pointer
                     hover:text-[--color-tertiary]
-                    ${nav.label.toLowerCase() === currentNavigation ? 'text-[--color-tertiary]' : ""}
+                    text-nowrap
+                    ${(nav.label[currentLang] ? nav.label[currentLang].toLowerCase()
+                      : nav.label[0].toLowerCase()) === currentNavigation ? 'text-[--color-tertiary]' : ""}
                 `}
               >
-                <a href={nav.link}
-                  onClick={() => setCurrentNavigation(nav.label.toLowerCase())}
-                >
-                  {nav.label}
-                </a>
-
+                {nav.link.includes('#') ?
+                  <a href={nav.link}
+                    onClick={() => setCurrentNavigation(nav.label[currentLang].toLowerCase())}
+                  > {nav.label[currentLang] ? nav.label[currentLang] : nav.label[0]} </a> 
+                  :
+                  <Link to={nav.link}
+                    onClick={() => setCurrentNavigation(nav.label[currentLang].toLowerCase())}
+                  > {nav.label[currentLang] ? nav.label[currentLang] : nav.label[0]} </Link>
+                }
               </li>
             </>
           ))
@@ -71,6 +85,7 @@ const Navbar = () => {
           ${styles.contentEndX}
           font-primary-regular
           space-x-[3%]
+          lg:flex hidden
         `}
       >
 
@@ -78,6 +93,80 @@ const Navbar = () => {
 
         <DropdownLang />
 
+      </div>
+
+      <div id="burger-container"
+        className=
+        {`
+          ${styles.sizeFull}
+          ${styles.contentEndX}
+          lg:hidden flex flew-row
+        `}
+      >
+        <button id="burger"
+          className=
+          {`
+            ${styles.sizeFit}
+          `}
+          onClick={() => setToggleBurger(!toggleBurger)}
+        >
+          <img src=
+            {toggleBurger ? menuIcons.burger_menu_icon 
+            : menuIcons.close_menu_icon} 
+            alt="burger"
+            className=
+            {`
+              object-contain
+              object-center
+              h-[60px]
+              self-end
+            `}
+          />
+        </button>
+
+        <div id="burger-menu"
+          className=
+          {`
+            ${toggleBurger ? 'hidden' : 'flex'}
+            ${styles.sizeFull}
+            ${styles.flexCol}
+            ${styles.contentEndY}
+            bg-[--color-secondary]
+            lg:hidden
+          `}
+        >
+          {
+            navLinks
+            .find(
+              (nav) => nav.route.includes(window.location.pathname.split('/')[1])
+            )?.links.map((nav) => (
+              <>
+                <li key={`${nav.label}-container`}
+                  className=
+                  {`
+                    font-secondary-regular
+                    tracking-widest
+                    cursor-pointer
+                    hover:text-[--color-tertiary]
+                    text-nowrap
+                    ${(nav.label[currentLang] ? nav.label[currentLang].toLowerCase()
+                      : nav.label[0].toLowerCase()) === currentNavigation ? 'text-[--color-tertiary]' : ""}
+                  `}
+                >
+                  {nav.link.includes('#') ?
+                    <a href={nav.link}
+                      onClick={() => setCurrentNavigation(nav.label[currentLang].toLowerCase())}
+                    > {nav.label[currentLang] ? nav.label[currentLang] : nav.label[0]} </a> 
+                    :
+                    <Link to={nav.link}
+                      onClick={() => setCurrentNavigation(nav.label[currentLang].toLowerCase())}
+                    > {nav.label[currentLang] ? nav.label[currentLang] : nav.label[0]} </Link>
+                  }
+                </li>
+              </>
+            ))
+          }
+          </div>
       </div>
     </nav>
   ) 

@@ -1,12 +1,14 @@
 import styles from "../style"
 import { copyrigthText, creditsMentions, navLinks } from "../data/constants"
 import { getCurrentNavigation } from "../utils"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { sharedLinks } from "../data/contents"
 import DOMPurify from "dompurify"
+import { LangContext } from "./language"
 
 const Footer = () => {
   const [currentNavigation, setCurrentNavigation] = useState(getCurrentNavigation())
+  const { currentLang } = useContext(LangContext)
 
   return (
     <footer id="footer"
@@ -47,18 +49,22 @@ const Footer = () => {
             `}
           >Navigation</h3>
 
-          {navLinks.filter((pattern) => pattern.route === window.location.pathname)[0].links
-          .map((navLink) => (
-            <a key={`nav-link-${navLink.id}`}
-              id={`nav-link-${navLink.id}`}
+          {navLinks.filter((pattern) => pattern.route.includes(window.location.pathname.split("/")[1]))[0].links
+          .map((navLink, index) => (
+            <a key={`nav-link-${index}`}
+              id={`nav-link-${navLink.label}`}
               href={navLink.link}
               className=
               {`
-                ${navLink.label.toLocaleLowerCase() === currentNavigation ? 'text-[--color-tertiary]' : ''}
+                ${(navLink.label[currentLang] ? navLink.label[currentLang].toLocaleLowerCase() 
+                  : navLink.label[0].toLocaleLowerCase()) === currentNavigation ? 'text-[--color-tertiary]' : ''}
                 hover:text-[--color-tertiary]
               `}
-              onClick={() => setCurrentNavigation(navLink.label.toLocaleLowerCase())}
-            > {navLink.label} </a>
+              onClick={() => setCurrentNavigation(
+                navLink.label[currentLang] ? navLink.label[currentLang].toLocaleLowerCase() 
+                : navLink.label[0].toLocaleLowerCase()
+              )}
+            > {navLink.label[currentLang] || "about:blank"} </a>
           ))}
         </div>
 
@@ -79,12 +85,12 @@ const Footer = () => {
             `}
           >Credits</h3>
 
-          {creditsMentions.map((credit) => (
-            <a key={`credit-${credit.label}`}
+          {creditsMentions.map((credit, index) => (
+            <a key={`credit-${index}`}
               id={`credit-${credit.label}`}
               href={credit.link ? credit.link : credit.contentRef[0]}
               className={`hover:text-[--color-tertiary]`}
-            > {credit.label} </a>
+            > {credit.label[currentLang]} </a>
           ))}
         </div>
 
@@ -108,7 +114,7 @@ const Footer = () => {
                 id={`credit-${index}`}
                 href={link.link}
                 className={`hover:text-[--color-tertiary]`}
-              > {link.label} </a>
+              > {link.label[currentLang]} </a>
             ))}
         </div>
       </div>

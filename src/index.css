@@ -11,6 +11,7 @@
    --font-primary: "Montserrat", sans-serif;
    --font-secondary: "Hind Vadodara", sans-serif;
    --font-tertiary: "Kanit", sans-serif;
+   --base-font-size: 20px;
 }
 
 .light {
@@ -25,15 +26,19 @@
 .dark {
   /* App dark theme colors */
   --color-primary: #000000;
-  --color-secondary: #161616;
-  --color-tertiary: #e6e5e5;
-  --color-quaternary: #e6e5e5; /*#78f7a9;*/
-  --color-quinary: #397855;
+  --color-secondary: #060606;
+  --color-tertiary: #397855;
+  --color-quaternary: #F1F1F1; /*#78f7a9;*/
+  --color-quinary: #e6e5e5;
 }
 
 /* App global styles */
 * {
   scroll-behavior: smooth;
+}
+
+*:hover {
+  transition: all 0.3s ease-in-out;
 }
 
 /* sauf body */
@@ -48,7 +53,7 @@ html {
 
 body {
   background-color: var(--color-primary);
-  font-size: 20px;
+  font-size: var(--base-font-size);
   color: var(--color-quaternary);
   font-family: var(--font-primary);
   display: flex;
@@ -187,6 +192,28 @@ input:focus, textarea:focus {
 }
 
 @keyframes sort-dropdown-menu {
+  0% {
+    visibility: hidden;
+    transform: translateY(-75%);
+  }
+  
+  1% {
+    visibility: visible;
+    opacity: 100;
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes hr-apparition {
+  from {
+    width: 0;
+  }
+  to {
+    width: 66;
+  }
 }
 
 @keyframes card-apparition {
@@ -211,37 +238,23 @@ input:focus, textarea:focus {
   
 }
 
-@keyframes card-change-position {
-  
-}
-
-@keyframes card-reach-top {
-  from {
-    transform: translate3d(0,0,0);
-  }
-
-  to {
-    rotate: 0deg;
-  }
-}
-
 @keyframes card-top-to-bottom {
   0% {
-    z-index: 1;
+    z-index: 10;
     opacity: 100;
     rotate: 0deg;
     transform: translate3d(0, 0, 0);
   }
 
   20% {
-    z-index: 1;
+    z-index: 10;
     opacity: 10%;
     rotate: 8deg;
     transform: translate3d(80%, -15%, 0);
   }
 
   40% {
-    z-index: 1;
+    z-index: 10;
     opacity: 0;
     rotate: 10deg;
     transform: translate3d(200%, -30%, 0);
@@ -280,6 +293,64 @@ input:focus, textarea:focus {
   }
 }
 
+@keyframes card-bottom-to-top {
+  0% {
+    z-index: 1;
+    opacity: 100;
+    rotate: 0deg;
+    transform: translate3d(0, 0, 0);
+  }
+
+  10% {
+    opacity: 0;
+  }
+
+  30% {
+      z-index: 10;
+      opacity: 0;
+      rotate: 10deg;
+      transform: translate3d(100%, -30%, 0);
+    }
+
+  50% {
+    z-index: 10;
+    opacity: 10%;
+    rotate: 8deg;
+    transform: translate3d(80%, -15%, 0);
+  }
+
+  100% {
+    opacity: 100;
+    z-index: 10;
+    transform: translate3d(0, 0);
+  }
+}
+
+@keyframes card-top-to-second {
+  from {
+    z-index: 10;
+    opacity: 100;
+    rotate: 0deg;
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    z-index: 9;
+    opacity: 100;
+    transform: translate3d(0, 0, 0, 0);
+  }
+}
+
+@keyframes card-reach-top {
+  from {
+    z-index: 9;
+  }
+
+  to {
+    z-index: 10;
+    rotate: 0deg;
+  }
+}
 
 @keyframes fade-in {
   0% {

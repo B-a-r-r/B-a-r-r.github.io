@@ -5,7 +5,7 @@ import { SearchContext } from "./SearchEngine";
 import { DropdownSort } from "../dropdowns";
 
 const SortingBar = () => {
-    const { setToMatch } = useContext(SearchContext);
+    const { toMatch, setToMatch } = useContext(SearchContext);
     const alreadyDisplayesItems = ["ALL"];
 
     return (
@@ -37,6 +37,7 @@ const SortingBar = () => {
                         {`
                             ${styles.line}
                         `}
+                        style={{animation: "hr-apparition 0.5s forwards ease-in-out"}}
                     />
                 </button>
             )

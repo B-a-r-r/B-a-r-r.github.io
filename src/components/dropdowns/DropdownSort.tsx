@@ -55,7 +55,7 @@ const DropdownSort = ({alreadyDisplayesItems}: DropdownSortProps) => {
             {{
                 animation: `sort-dropdown-menu 0.5s 1 ${toggleMenu ? 'forwards' : 'reverte'}`,
                 fontSize: '90%',
-                left: '-11%',
+                left: '-12%',
             }}
             additionalStyles=
             {`

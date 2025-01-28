@@ -2,8 +2,13 @@ import styles from "../style"
 import { errorMessages } from "../data/constants"
 import DOMPurify from "dompurify"
 import { Errors } from "../data/dataTypes"
+import { useContext } from "react"
+import { LangContext } from "../components/language"
+import { Link } from "react-router"
 
 const Err404 = () => {
+  const { currentLang } = useContext(LangContext)
+
   return (
     <section id='err404-container'
       className=
@@ -33,11 +38,11 @@ const Err404 = () => {
             ${styles.contentCenter}
           `}
           dangerouslySetInnerHTML={{__html: errorMessages.filter((message)=>message.error === Errors.NOT_FOUND)
-          ? DOMPurify.sanitize(errorMessages.filter((message)=>message.error === Errors.NOT_FOUND)[0].content)
+          ? DOMPurify.sanitize(errorMessages.find((message)=>message.error === Errors.NOT_FOUND)!.content[currentLang])
           :""}}
         />
 
-        <button id='home-button'
+        <Link id='home-button'
           className=
           {`
             mt-[2%]
@@ -48,8 +53,8 @@ const Err404 = () => {
             px-[1%]
             py-[0.5%]
           `}
-          onClick={() => window.location.href = "/"}
-        >Back to home</button>
+          to='/'
+        >Back to home</Link>
 
     </section>
   )

@@ -22,7 +22,7 @@ const ProjectsSlider = () => {
   
     projects.slice(0,10).map((project: Project, index: number, all: Project[]) => {
       slides.push(
-        <ProjectCard key={`card-${project.id}-container`}
+        <ProjectCard key={`project-${project.title}-container`}
           project={project}
           additionalStyles={{
             rotate: `${assignRotation(index, all.length)}deg`,
@@ -69,32 +69,42 @@ const ProjectsSlider = () => {
             return (
               cloneElement(card, {
                 additionalStyles: {
-                  animation: `card-top-to-bottom 2s ease-in forwards`,
+                  animation: (
+                    from === "next" ? `card-top-to-bottom 2s ease-in forwards` 
+                    : "card-top-to-second ease-in 0.2s forwards"
+                  ),
                   rotate: `${
                     topCardTrueAngle.current !== 0 
-                    ? topCardTrueAngle.current : assignRotation(0, cardsCopy.length)
+                    ? topCardTrueAngle.current : assignRotation(from === "next" ? 0 : cardsCopy.length - 2, cardsCopy.length)
                   }deg`
                 }
               })
             )
           case cardsCopy.length - 2:
-            topCardTrueAngle.current = parseInt(card.props.additionalStyles.rotate.split("deg")[0]);
+            topCardTrueAngle.current = from === "next" ? parseInt(card.props.additionalStyles.rotate.split("deg")[0]) : topCardTrueAngle.current;
             return (
               cloneElement(card, {
                 additionalStyles: {
-                  animation: `transition all 0.5s ease-in-out forwards`,
-                  rotate: `0deg`
+                  animation: (from === "next" ? `card-reach-top ease-in 0.5s forwards` : ""),
+                  rotate: (from === "next" ? "0deg" : `${card.props.additionalStyles.rotate}`)
+                }
+              })
+            )
+          case 0:
+            return (
+              cloneElement(card, {
+                additionalStyles: {
+                  animation: (
+                    from === "next" ? ``
+                    : `card-bottom-to-top 1s ease-in forwards`
+                  ),
+                  rotate: (from === "next" ? `${card.props.additionalStyles.rotate}` : "0deg")
                 }
               })
             )
           default:
             return (
-              cloneElement(card, {
-                additionalStyles: {
-                  animation: "",
-                  rotate: `${card.props.additionalStyles.rotate}`
-                }
-              })
+              cloneElement(card)
             )
         }
       })
@@ -104,7 +114,7 @@ const ProjectsSlider = () => {
   const previousCard = () => {
     if (cards.length <= 1) return;
     const [last, ...rest] = adjustAnimations(cards, "prev");
-    setCards([last, ...rest]);
+    setCards([...rest, last]);
   }
 
   const nextCard = () => {

@@ -1,16 +1,20 @@
 import { useContext, useEffect, useState } from "react";
 import styles from "../../style"
 import { ThemeContext } from "./ThemeEngine";
+import { FlashContext } from "../flashs";
 
 const SwitchButton = () => {
     const { setCurrentTheme } = useContext(ThemeContext);
-    const [toggleSwitch, setToggleSwitch] = useState(false);
+    const [toggleSwitch, setToggleSwitch] = useState(localStorage.getItem("theme") === "dark");
+    const { setCurrentFlash } = useContext(FlashContext);
 
     useEffect(() => {
         if (toggleSwitch) {
-            setCurrentTheme("dark");
+            //setCurrentTheme("dark");
+            setCurrentFlash("theme");
         } else {
             setCurrentTheme("light");
+            setCurrentFlash("");
         }
     }, [toggleSwitch]);
 

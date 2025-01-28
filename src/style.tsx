@@ -33,6 +33,7 @@ const styles = {
 
   flexCol: "flex flex-col",
   flexRow: "flex flex-row",
+  flexWrap: "flex flex-wrap",
 
   contentCenter: "justify-center items-center",
   contentStartAll: "justify-start items-start",
