@@ -38,14 +38,14 @@ export enum Errors {
 
 /**
  * Data structure to represent a retex
- * @param projet - project to which the retex is related
+ * @param relatedProject - project to which the retex is related
  * @param specs - specifications of the project
  * @param notions - notions used in the project
  * @param tools - list of tools used in the project
  * @param img - list of image urls to display in the retex 
  */
 export interface Retex {
-  relatedProject?: string;
+  relatedProject: string;
   specs: {[lang: string]: string};
   notions: {[lang: string]: string[]};
   tools: Skill[];

@@ -2,7 +2,7 @@ import { projects, retex } from '../data/contents';
 import styles from '../style';
 import DOMPurify from 'dompurify';
 import { isOverflowing } from '../utils';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { LangContext } from './language';
 
 type RetexProps = {
@@ -11,6 +11,8 @@ type RetexProps = {
 }
 
 const Retex = ({projectTitle, displayed}: RetexProps) => {
+    const { currentLang } = useContext(LangContext);
+    const isVerifyed = useRef(false);
 
     useEffect(() => {
         document.addEventListener(
@@ -24,18 +26,12 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
     }, []);
 
     useEffect(() => {
-        if (isOverflowing(document.getElementById('specs')!)) {
-            document.getElementById('img-1')!.style.display = 'none';
-        }
-        // if (isOverflowing(document.getElementById('notions')!)) {
-        //     document.getElementById('img-2')!.style.display = 'none';
-        // }
-    }, []);
+    }, [isVerifyed]);
 
-    const { currentLang } = useContext(LangContext);
     const relatedRetex = retex.find((project) => project.relatedProject === projectTitle);
-    if (!relatedRetex) return (<></>);
+    if (!relatedRetex) {console.log(`Could not log retex titled ${projectTitle}`); return (<></>)};
     const relatedProject = projects.find((project) => project.title === projectTitle)!;
+    isVerifyed.current = true;
 
     return (
         <div id={`retex-${projectTitle}`}
@@ -43,7 +39,7 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
             {`
                 ${styles.sizeFull}
                 ${styles.flexRow}
-                ${styles.contentCenter}
+                ${styles.contentStartY}
                 p-[6%]
                 relative
             `}
@@ -67,8 +63,8 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
             <header id='retex-header'
                 className=
                 {`
-                    h-full
-                    w-2/5
+                    h-fit
+                    w-3/12
                     ${styles.flexCol}
                     z-[21]
                     color-scheme-secondary
@@ -79,17 +75,24 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
                 <h1 className=
                     {`
                         w-full
-                        h-1/3
                         font-primary-bold
-                        text-5xl
+                        text-3xl
                         tracking-wide
                         py-[6%]
                         px-[10%]
                         overflow-hidden
                         border-dashed
+                        space-y-[6%]
                     `}
                 > 
-                    {relatedRetex.relatedProject} 
+                    <p className=
+                        {`
+                            ${styles.flexWrap}
+                            ${styles.contentStartX}
+                            leading-8
+                        `}
+                        dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(relatedRetex.relatedProject)}}
+                    />
 
                     <hr className=
                         {`
@@ -101,8 +104,7 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
                     <span className=
                         {`
                             font-primary-regular
-                            text-[50%]
-                            self-end
+                            text-[60%]
                         `}
                     > 
                     {relatedProject.date.toLocaleDateString(
@@ -116,16 +118,16 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
                     className=
                     {`
                         ${styles.flexCol}
-                        w-full
-                        h-2/3
+                        ${styles.sizeFull}
                         ${styles.contentStartX}
-                        py-[8%]
                         px-[10%]
-                        space-y-[5%]
+                        py-[8%]
+                        pt-[6%]
+                        space-y-[6%]
                         overflow-scroll
                     `}
                 >
-                    {relatedRetex.tools.map((tool, index) => (
+                    {relatedRetex.tools.slice(0, 6).map((tool, index) => (
                         <span key={`retex-skill-${index}`}
                             className=
                             {`
@@ -142,13 +144,14 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
                                     object-cover
                                     object-center
                                     aspect-square
-                                    w-[15%]
+                                    w-[25%]
                                 `}
                             />
 
                             <label className=
                                 {`
-                                    
+                                    font-primary-regular
+                                    text-sm
                                 `}
                             > {tool.label} </label>
                         </span>
@@ -170,7 +173,7 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
                     shadow-lg
                     overflow-hidden
                     z-[22]
-                    ml-[3%]
+                    ml-[2%]
                     text-justify
                 `}
             >

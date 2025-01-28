@@ -76,15 +76,6 @@ export const retex: Array<Retex> = [
       skills.find((skill) => skill.label === 'Python')!,
       skills.find((skill) => skill.label === 'Git')!,
       skills.find((skill) => skill.label === 'Typescript')!,
-      skills.find((skill) => skill.label === 'Docker')!,
-      skills.find((skill) => skill.label === 'Java')!,
-      skills.find((skill) => skill.label === 'VSCode')!,
-      skills.find((skill) => skill.label === 'VSCode')!,
-      skills.find((skill) => skill.label === 'VSCode')!,
-      skills.find((skill) => skill.label === 'VSCode')!,
-      skills.find((skill) => skill.label === 'VSCode')!,
-      skills.find((skill) => skill.label === 'VSCode')!,
-      skills.find((skill) => skill.label === 'VSCode')!,
     ],
     img: [
       projectsImages.gpgtool_home,
@@ -116,19 +107,46 @@ export const retex: Array<Retex> = [
       skills.find((skill) => skill.label === 'Git')!,
       skills.find((skill) => skill.label === 'Typescript')!,
       skills.find((skill) => skill.label === 'Docker')!,
-      skills.find((skill) => skill.label === 'Java')!,
-      skills.find((skill) => skill.label === 'VSCode')!,
-      skills.find((skill) => skill.label === 'VSCode')!,
-      skills.find((skill) => skill.label === 'VSCode')!,
-      skills.find((skill) => skill.label === 'VSCode')!,
-      skills.find((skill) => skill.label === 'VSCode')!,
-      skills.find((skill) => skill.label === 'VSCode')!,
     ],
     img: [
       projectsImages.gpgtool_code,
       projectsImages.gpgtool_crypto_tool,
     ],
   },
+  {
+    relatedProject: "Ecograph xxxxxxx",
+    specs: 
+    {
+      en:
+      "This project aims to help companies to position themselves geographically, based on climatic and emission data around the world. \
+      An intuitive graphic interface allows to visualize heavy masses of information, through several views, such as graphs and maps.",
+      fr:
+      "En binôme, <strong>recherche et élaboration d'un algorithme</strong> determinant le meilleur coup à jouer, pour un jeu de plateau. \
+      Chaque soirs, les bots de chaque équipe s'affrontaient dans <strong>un tournois</strong>, dont les résultats étaient présentés le \
+      lendemain. Mon binôme et moi nous sommes tournés vers un algorithme de pathfinding qui s'inspire de A* et du Monte Carlo Tree Search : le M*. \
+      Le principal dilemme était de trouver <strong>un équilibre</strong> entre l'exploration et l'exploitation de l'arbre de jeu; sachant <strong>certaines contraintes \
+      imposées</strong>, telles que le temps d'éxécution par coup ou encore l'immensité de l'arbre des possibilités.<br/> ",
+    },
+    notions: 
+    {
+      en: ["Learning better", "Learning faster", "Learning more"],
+      fr: ["Processus d'actualisation des poids des noeuds d'un arbre", "Gestion de threads et calculs parralèlles en Java,", "Compromis stratégiques (<ins>ex:</ins> élagage)"],
+    },
+    tools: [
+      skills.find((skill) => skill.label === 'Python')!,
+      skills.find((skill) => skill.label === 'Git')!,
+      skills.find((skill) => skill.label === 'Typescript')!,
+      skills.find((skill) => skill.label === 'Docker')!,
+      skills.find((skill) => skill.label === 'Java')!,
+      skills.find((skill) => skill.label === 'VSCode')!,
+      skills.find((skill) => skill.label === 'VSCode')!,
+      skills.find((skill) => skill.label === 'VSCode')!,
+    ],  
+    img: [
+      projectsImages.gpgtool_code,
+      projectsImages.gpgtool_crypto_tool,
+    ],
+  }
 
 ];
 
@@ -156,7 +174,7 @@ export const projects: Array<Project> = [
       retex: retex.find((retex) => retex.relatedProject === 'GPGtool')!,
     },
     {
-      title: "Ecograph",
+      title: "Ecograph xxxxxxx",
       content: 
       {
         fr:
@@ -175,6 +193,7 @@ export const projects: Array<Project> = [
         0: ["ORM"],
       },
       date: new Date(2024, 6),
+      retex: retex.find((retex) => retex.relatedProject === 'Ecograph xxxxxxx')!,
     },
     {
       title: "MiniShell",
@@ -236,7 +255,7 @@ export const projects: Array<Project> = [
         0: ["Java", "Game", "Algo", "Test", "Machine Learning"],
       },
       date: new Date(2024, 8),
-      retex: retex.find((retex) => retex.relatedProject === 'GPGtool')!,
+      retex: retex.find((retex) => retex.relatedProject === 'MStar')!,
     }
 ];
   

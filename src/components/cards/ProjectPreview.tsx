@@ -7,7 +7,7 @@ import Card from './Card';
 
 type ProjectPreviewProps = {
     project: Project;
-    retexToggler: (retexTitle: string)=>void;
+    retexToggler: (retexTitle: string | false)=>void;
 }
 
 const ProjectPreview = ({project, retexToggler}: ProjectPreviewProps) => {
@@ -32,7 +32,7 @@ const ProjectPreview = ({project, retexToggler}: ProjectPreviewProps) => {
                 duration-300
                 ease-in-out
             `}
-            onClick={() => retexExists ? retexToggler(project.title) : {}}
+            onClick={() => retexExists ? retexToggler(project.retex ? project.retex.relatedProject : false) : {}}
         >
 
             <div className=
