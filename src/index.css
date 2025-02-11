@@ -16,9 +16,9 @@
 
 .light {
   /* App light theme colors */
-  --color-primary: #F1F1F1;
-  --color-secondary: #EEEEEE;
-  --color-tertiary: #428E5B;
+  --color-primary: #f4f4f4;
+  --color-secondary: #f1f1f1  ;
+  --color-tertiary: #479561;
   --color-quaternary: #3D3E3C;
   --color-quinary: #4F4F4F;
 }
@@ -35,10 +35,6 @@
 /* App global styles */
 * {
   scroll-behavior: smooth;
-}
-
-*:hover {
-  transition: all 0.3s ease-in-out;
 }
 
 /* sauf body */
@@ -60,10 +56,15 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow-x: hidden;
 }
 
 strong {
+  display: inline-flex;
+  margin: 0;
+  padding: 0;
   color: var(--color-tertiary); 
+  text-wrap: wrap;  
 }
 
 button {
@@ -74,7 +75,7 @@ button {
 
 input:focus, textarea:focus {
   transition: all 0.1s ease-in-out;
-  border: 1px solid var(--color-tertiary);
+  border: 2px solid var(--color-tertiary);
   outline: none;
 }
 
@@ -194,7 +195,7 @@ input:focus, textarea:focus {
 @keyframes sort-dropdown-menu {
   0% {
     visibility: hidden;
-    transform: translateY(-75%);
+    transform: translateY(-50%);
   }
   
   1% {
@@ -248,7 +249,7 @@ input:focus, textarea:focus {
 
   20% {
     z-index: 10;
-    opacity: 10%;
+    opacity: 25%;
     rotate: 8deg;
     transform: translate3d(80%, -15%, 0);
   }
@@ -261,7 +262,7 @@ input:focus, textarea:focus {
   }
 
   45% {
-    z-index: 0;
+    z-index: 10;
     opacity: 0;
     rotate: -10deg;
     transform: translate3d(-25%, -15%, 0);
@@ -269,7 +270,7 @@ input:focus, textarea:focus {
 
   60% {
     opacity: 0;
-    z-index: 0;
+    z-index: 10;
     transform: translate3d(0, 0);
   }
 

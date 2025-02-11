@@ -69,39 +69,41 @@ const ProjectsListing = () => {
             
             <Sortingbar />
         </div>
+        
+        <div id='retex-container'
+            className=
+            {`
+                ${!toggleRetexTitled ? "hidden" : "block"}
+                ${styles.sizeFull}
+                fixed
+                z-[20]
+                top-0
+                left-0
+                backdrop-blur-md
+                bg-black
+                bg-opacity-30
+            `}
+            style={{
+                animation: "fade-in 0.3s ease-in-out",
+            }}
+        >
+            <Retex projectTitle={toggleRetexTitled} displayed={setToggleRetexTitled} />
+        </div>
 
         <div id="projects-container"
             className=
             {`
                 ${styles.flexWrap}
                 gap-x-[3%]
-                gap-y-[4%]
                 w-full
                 h-fit
                 ${styles.contentStartAll}
-                py-[10%]
+                my-[3%]
             `}
-        >
-            {
-            !toggleRetexTitled ? "" :
-                <div id='retex-container'
-                    className=
-                    {`
-                        ${toggleRetexTitled === "" ? "hidden" : "block"}
-                        ${styles.sizeFull}
-                        fixed
-                        z-[20]
-                        top-0
-                        left-0
-                        backdrop-blur-md
-                        bg-black
-                        bg-opacity-30
-                    `}
-                >
-                    <Retex projectTitle={toggleRetexTitled} displayed={setToggleRetexTitled} />
-                </div>
-            }
-            
+            style={{
+                perspective: '2000px',
+            }}
+        >   
             {displayedProjects.map((project) => (
                 <ProjectPreview key={`project-${project.title}-preview`}
                     project={project}

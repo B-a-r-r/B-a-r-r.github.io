@@ -1,9 +1,10 @@
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import { coreImages } from '../../assets';
 import {Project} from '../../data/dataTypes';
 import styles from '../../style';
 import { LangContext } from '../language';
 import Card from './Card';
+import { handleMouseLeave, handleMouseMove } from '../../utils';
 
 type ProjectPreviewProps = {
     project: Project;
@@ -13,25 +14,32 @@ type ProjectPreviewProps = {
 const ProjectPreview = ({project, retexToggler}: ProjectPreviewProps) => {
     const { currentLang } = useContext(LangContext);
     const retexExists = project.retex ? true : false;
+    const cardRef = useRef<HTMLDivElement>(null);
 
     return (
-        <div id={`card-${project.title}-container`}
+        <div ref={cardRef}
+            id={`card-${project.title}-container`}
             className=
             {`
                 ${styles.flexCol}
                 w-[30%]
                 h-[500px]
                 rounded-md
-                shadow-lg
+                shadow-xl
                 overflow-hidden
                 cursor-pointer
                 last:overflow-visible
-
-                hover:scale-105
-                transition-transform
-                duration-300
-                ease-in-out
+                mt-[5%]
+                transition-all
+                duration-200
+                ease-linear
             `}
+            style={{
+                
+                transformStyle: 'preserve-3d',
+            }}
+            onMouseLeave={() => handleMouseLeave(cardRef.current)}
+            onMouseMove={(e) => handleMouseMove(e, cardRef.current)}
             onClick={() => retexExists ? retexToggler(project.retex ? project.retex.relatedProject : false) : {}}
         >
 
@@ -49,14 +57,13 @@ const ProjectPreview = ({project, retexToggler}: ProjectPreviewProps) => {
                         lg:h-[200px]
                         w-full
                         aspect-video
-                        object-contain
-                        object-center
+                        object-cover
+                        object-top
                     `}
                 />
             </div>
             
-            <Card 
-                title={project.title} 
+            <Card title={project.title} 
                 content={project.content[currentLang]} 
                 tags={project.tags[currentLang].concat(project.tags[0])} 
                 moreTopClasses=

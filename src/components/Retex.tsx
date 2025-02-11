@@ -4,15 +4,15 @@ import DOMPurify from 'dompurify';
 import { isOverflowing } from '../utils';
 import { useContext, useEffect, useRef } from 'react';
 import { LangContext } from './language';
+import { menuIcons } from '../assets';
 
 type RetexProps = {
-    projectTitle: string;
+    projectTitle: string | false;
     displayed: React.Dispatch<React.SetStateAction<string | false>>;
 }
 
 const Retex = ({projectTitle, displayed}: RetexProps) => {
     const { currentLang } = useContext(LangContext);
-    const isVerifyed = useRef(false);
 
     useEffect(() => {
         document.addEventListener(
@@ -23,15 +23,19 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
                 }
             }
         );
-    }, []);
-
-    useEffect(() => {
-    }, [isVerifyed]);
+        document.getElementById(`retex-${projectTitle}`)?.addEventListener(
+            'click',
+            (e) => {
+                if (e.target === document.getElementById(`retex-${projectTitle}`)) {
+                    displayed(false);
+                }
+            }
+        );
+    }, [displayed, projectTitle]);
 
     const relatedRetex = retex.find((project) => project.relatedProject === projectTitle);
     if (!relatedRetex) {console.log(`Could not log retex titled ${projectTitle}`); return (<></>)};
     const relatedProject = projects.find((project) => project.title === projectTitle)!;
-    isVerifyed.current = true;
 
     return (
         <div id={`retex-${projectTitle}`}
@@ -39,26 +43,10 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
             {`
                 ${styles.sizeFull}
                 ${styles.flexRow}
-                ${styles.contentStartY}
                 p-[6%]
                 relative
             `}
-        >
-            <button id='close-button'
-                className=
-                {`
-                    absolute
-                    top-[12%]
-                    right-[4%]
-                    z-[23]
-                    ${styles.sizeFit}
-                `}
-                onClick={() => displayed(false)}
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 self-center" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
+        > 
 
             <header id='retex-header'
                 className=
@@ -80,9 +68,9 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
                         tracking-wide
                         py-[6%]
                         px-[10%]
-                        overflow-hidden
                         border-dashed
                         space-y-[6%]
+                        mb-[3%]
                     `}
                 > 
                     <p className=
@@ -124,7 +112,7 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
                         py-[8%]
                         pt-[6%]
                         space-y-[6%]
-                        overflow-scroll
+                        overflow-hidden
                     `}
                 >
                     {relatedRetex.tools.slice(0, 6).map((tool, index) => (
@@ -163,75 +151,154 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
                 className=
                 {`
                     ${styles.sizeFull}
-                    ${styles.flexCol}
+                    ${styles.flexRow}
                     color-scheme-secondary
                     py-[3%]
                     px-[3%]
-                    space-x-[3%]
-                    space-y-[3%]
                     rounded-lg
                     shadow-lg
                     overflow-hidden
                     z-[22]
                     ml-[2%]
-                    text-justify
+                    relative
                 `}
             >
-                <span id='specs'
+                <img src={menuIcons.close_menu_icon}
+                    id='close-button'
                     className=
                     {`
-                        w-full
-                        h-3/5
-                        ${styles.flexRow}
-                        text-xs
+                        absolute
+                        top-[1%]
+                        right-[1%]
+                        z-[23]
+                        ${styles.sizeFit}
+                        cursor-pointer
                     `}
-                >
-                    <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(relatedRetex.specs[currentLang])}}/>
-                    
-                    {/* <img id='img-1'
-                        src={relatedRetex.img[0]}
-                        alt="retex image"
-                        className=
-                        {`
-                            aspect-video
-                            object-contain
-                            object-center
-                            w-[10%]
-                        `}
-                    /> */}
-                </span>
-
-                <span id='notions'
+                    onClick={() => displayed(false)}
+                />
+                
+                <div id='retex-text'
                     className=
                     {`
-                        w-full
-                        h-2/5
-                        ${styles.flexRow}
-                        ${styles.contentStartX}
-                        justify-evenly
+                        h-full
+                        w-3/5
+                        ${styles.flexCol}
+                        text-wrap
+                        overflow-hidden
+                        mr-[5%]
                     `}
                 >
-                    <ul className='list-disc text-wrap w-1/2'>
-                        {relatedRetex.notions[currentLang].map((notion, index) => (
-                            <li key={`notion-${index}`}
-                                dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(notion)}}
-                            />
-                        ))}
-                    </ul>
-                    
-                    <img id='img-2'
-                        src={relatedRetex.img[1]}
-                        alt="retex image"
+                    <span id='specs'
                         className=
                         {`
-                            aspect-video
-                            object-contain
-                            object-center
-                            w-1/2
+                            ${styles.sizeFull}
+                            text-sm
+                            overflow-hidden
                         `}
-                    />
-                </span>
+                    >
+                        <p className=
+                            {`
+                                ${styles.sizeFull}
+                            `}
+                            dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(relatedRetex.specs[currentLang])}}
+                        />
+                    </span>
 
+                    <span id='notions'
+                        className=
+                        {`
+                            w-full
+                            h-fit
+                            min-h-[30%]
+                            ${styles.flexRow}
+                            ${styles.contentStartAll}
+                            overflow-hidden
+                        `}
+                    >
+                        <ul className=
+                            {`
+                                ${styles.sizeFull}
+                                ${styles.flexCol}
+                                ${styles.contentStartAll}
+                                list-disc
+                                list-inside
+                                space-y-[5%]
+                            `}
+                        >
+                            {relatedRetex.notions[currentLang].map((notion, index) => (
+                                <li key={`notion-${index}`}
+                                    dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(notion)}}
+                                />
+                            ))}
+                        </ul>
+                    </span>
+                </div>
+            
+                <div id='retex-imgs'
+                    className=
+                    {`
+                        h-full
+                        w-2/5
+                        ${styles.flexCol}
+                        space-y-[10%]
+                    `}
+                >
+                    <span id='image-1-container'
+                        className=
+                        {`
+                            focus:fixed 
+                            focus:top-[50%]
+                            ${styles.sizeFull}
+                            overflow-hidden
+                            rounded-lg
+                            -rotate-[3deg]
+                            hover:rotate-1
+                            transition-all
+                            duration-200
+                            ease-in-out
+                        `}
+                    >
+                        <img id='img-1'
+                            src={relatedRetex.img[0]}
+                            alt="retex image"
+                            className=
+                            {`
+                                aspect-video
+                                object-cover
+                                object-center
+                                ${styles.sizeFull}
+                                border-2
+                            `}
+                        />
+                    </span>
+
+                    <span id='image-2-container'
+                        className=
+                        {`
+                            ${styles.sizeFull}
+                            overflow-hidden
+                            rounded-lg
+                            rotate-[0.5deg]
+                            hover:-rotate-1
+                            transition-all
+                            duration-200
+                            ease-in-out
+                        `}
+                    >
+                        <img id='img-2'
+                            src={relatedRetex.img[1]}
+                            alt="retex image"
+                            className=
+                            {`
+                                aspect-video
+                                object-cover
+                                object-center
+                                ${styles.sizeFull}
+                                border-2
+                            `}
+                        />
+                    </span>
+                </div>
             </div>
         </div>
     )

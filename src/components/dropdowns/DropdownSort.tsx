@@ -37,6 +37,9 @@ const DropdownSort = ({alreadyDisplayesItems}: DropdownSortProps) => {
                     {`
                         cursor-pointer
                         hover:text-[--color-tertiary]
+                        transition-all
+                        duration-200
+                        ease-in-out
                         z-[1]
                     `}
                     onClick={() => setSelectedItem(option.toUpperCase())}
@@ -53,7 +56,7 @@ const DropdownSort = ({alreadyDisplayesItems}: DropdownSortProps) => {
             menuState={[toggleMenu, setToggleMenu]}
             animationStyle=
             {{
-                animation: `sort-dropdown-menu 0.5s 1 ${toggleMenu ? 'forwards' : 'reverte'}`,
+                animation: `fade-in 0.2s 1 ${toggleMenu ? 'forwards' : 'reverte'}`,
                 fontSize: '90%',
                 left: '-12%',
             }}
@@ -62,6 +65,10 @@ const DropdownSort = ({alreadyDisplayesItems}: DropdownSortProps) => {
                 font-primary-regular 
                 text-[110%] 
                 ${styles.contentEndX}
+            `}
+            additionalButtonStyles=
+            {`
+                ${selectedItem === "Other" ? "" : "text-[--color-tertiary]"}
             `}
         />
     )

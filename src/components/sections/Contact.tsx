@@ -1,5 +1,5 @@
 import styles from '../../style'
-import { Form } from '../contact'
+import { ContactForm } from '../contact'
 import { SocialMedia } from '../../data/dataTypes'
 import { socialMedia } from '../../data/constants'
 
@@ -9,10 +9,9 @@ const Contact = () => {
       className=
       {`
         ${styles.sizeFull}
-        ${styles.section}
         ${styles.flexRow}
         ${styles.contentCenter}
-        space-x-[20%]
+        space-x-[15%]
       `}
     >
         <div id='form-container'
@@ -24,7 +23,7 @@ const Contact = () => {
               overflow-hidden
             `}
         >
-          <Form />
+          <ContactForm />
         </div>
 
         <div id='contact-info'
@@ -33,18 +32,19 @@ const Contact = () => {
               w-fit
               h-full
               ${styles.flexCol}
-              ${styles.contentCenter}
-              space-y-[30%]
+              ${styles.contentStartAll}
+              space-y-[50%]
+              mt-[15%]
             `}
         >
           {socialMedia.map((social: SocialMedia) => (
             <div key={`icon-${social.label}-container`}
-              id={`icon-${social.label}-container`}
               className=
               {`
                 ${styles.flexCol}
                 ${styles.contentStartAll}
-                ${styles.sizeFull}
+                w-full
+                h-fit
                 space-y-[1%]
               `}
             >
@@ -54,29 +54,27 @@ const Contact = () => {
                   ${styles.flexRow}
                   ${styles.contentStartX}
                 `}
+                target="_blank" 
+                rel="noopener noreferrer"
               >
-                <img id={`icon-${social.label}`}
-                    src={social.icon} 
+                <img src={social.icon} 
                     alt={social.label}
                     className=
                     {`
-                      ${styles.sizeFull}
                       object-cover
-                      w-[50px]
-                      h-[50px]
+                      aspect-square
+                      w-[120%]
                     `}
                 />
               </a>
-              <hr id={`line-${social.label}`}
-                  className=
+              <hr className=
                   {`
                     ${styles.line}
                     w-[20%]
                     h-[2.5px]
                   `}
               />
-              <label id={`label-${social.label}`}
-                  className=
+              <label className=
                   {`
                     w-full
                     ${styles.contentStartX}

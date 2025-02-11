@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react"
 import DOMPurify from "dompurify"
 import { ThemeContext } from "../theme/ThemeEngine"
 import { LangContext } from "../language"
+import { getNavbarOffset } from "../../utils"
 
 const Hero = () => {
   const { currentTheme } = useContext(ThemeContext);
@@ -38,6 +39,7 @@ const Hero = () => {
         setDisplayText(text);
       }
     }, 50);
+    console.log(window.innerHeight - getNavbarOffset());
     return () => clearInterval(interval);
   }, [currentMessage]);
 
@@ -46,10 +48,9 @@ const Hero = () => {
       id="hero" 
       className=
       {`
-        ${styles.sizeScreen}
+        ${styles.sizeFull}
         ${styles.flexRow}
         ${styles.contentCenter}
-        ${styles.section}
         overflow-visible
         font-primary-regular
         color-scheme-primary
@@ -64,7 +65,6 @@ const Hero = () => {
             ${styles.flexCol}
             ${styles.contentStartAll}
             space-y-[15%]
-            resize-none
           `}
         >
             <div id="hero-heading"
@@ -72,19 +72,19 @@ const Hero = () => {
               {`
                 ${styles.sizeFit}
                 relative
-                mt-[33%]
+                xl:mt-[30%] mt-[33%]
               `}
             >
               <h1 className="
                 tracking-[0.04em]
                 xxl:leading-[90px] leading-[115%]
-                xxl:text-[400%] lg:text-[280%]"
+                xxl:text-[400%] lg:text-7xl"
               >
                 {author.firstName} <br/> 
                 <a className=
                   {`
                     font-primary-bold 
-                    lg:text-[120%]
+                    lg:text-xl
                     tracking-wide
                   `}
                 > 
@@ -113,7 +113,9 @@ const Hero = () => {
               }
               className=
               {`
-                xxl:text-[160%] lg:text-[125%]
+                xxl:text-[160%] lg:text-2xl
+                text-wrap
+                pr-[10%]
               `}
             />
 
@@ -134,9 +136,9 @@ const Hero = () => {
             className=
             {`
               absolute
-              xxl:w-[90%] lg:w-[100%]
+              xxl:w-[90%] lg:w-[102%]
               object-cover
-              xxl:-top-[12%] top-[8%]
+              xxl:-top-[12%] top-[6%]
               right-0
             `}
           />

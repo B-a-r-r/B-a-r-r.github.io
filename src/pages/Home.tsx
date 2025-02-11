@@ -1,32 +1,20 @@
 import styles from "../style";
 import { Hero, About, ProjectsSlider, Skills, Contact } from "../components/sections";
-import { Navbar, Footer } from "../components";
 
 const Home = () => {
 
   return (
-    <div id='app-container' 
+    <div id='home-container' 
       className=
       {`
         ${styles.page}
         ${styles.flexCol}
       `}
     >
-      <div id="navbar-container"
-        className={`
-          w-full
-          h-fit  
-        `}
-      > 
-        <Navbar />
-
-      </div>
-
       <div id="hero-container"
         className=
         {`
           ${styles.sectionContainer}
-          xxl:px-[17%]
         `}
       >
         <Hero />
@@ -47,7 +35,7 @@ const Home = () => {
           ${styles.sectionContainer}
         `}
       >
-        {/* <Skills /> */}
+        <Skills />
       </div>
 
       <div id="projects-carrousel-container"
@@ -68,17 +56,6 @@ const Home = () => {
       >
         <Contact />
       </div>
-
-      <div id="footer-container"
-        className={`
-          w-full
-          h-fit
-          ${styles.contentEndAll}
-        `}
-      > 
-        <Footer />
-      </div>
-
     </div>
   );
 };

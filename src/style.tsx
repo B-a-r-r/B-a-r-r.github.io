@@ -12,10 +12,11 @@ const styles = {
     mb-8",
   
   line: " \
+    block \
     bg-[--color-tertiary] \
     w-2/3 \
     h-[3px] \
-    border-[0px]",
+    border-none ",
   
   subtitle: " \
     font-primary-regular  \
@@ -28,8 +29,8 @@ const styles = {
     font-primary-regular \
     color-scheme-primary  \
     xxl:text-[180%] lg:text-[110%]  \
-    leading-[150%]  \
-    tracking-wide", 
+    leading-[145%]  \
+    tracking-wide",
 
   flexCol: "flex flex-col",
   flexRow: "flex flex-row",
@@ -47,8 +48,7 @@ const styles = {
   sizeScreen: "h-screen w-auto",
   sizeFit: "w-fit h-fit",
 
-  section: `mb-[12%]`,
-  sectionContainer: `w-full h-full px-[12%] color-scheme-primary`,
+  sectionContainer: `w-screen h-screen px-[12%] color-scheme-primary `,
 };
   
 export default styles;

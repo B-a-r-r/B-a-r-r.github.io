@@ -1,5 +1,5 @@
-import { Form } from "./Form";
+import { ContactForm } from "./ContactForm";
 
 export {
-    Form
+    ContactForm
 }

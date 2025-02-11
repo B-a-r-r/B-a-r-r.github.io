@@ -4,7 +4,7 @@ import {
   Copyrigth, 
   PhoneCode, 
   CreditMention, 
-  Form, 
+  ContactForm,
   NavbarPattern, 
   Author,
   Country,
@@ -29,7 +29,7 @@ export const navLinks: Array<NavbarPattern> = [
         label: 
         {
           fr: "À propos",
-          en: "About",
+          0: "About",
         },
         link: "/#about",
       },
@@ -37,7 +37,7 @@ export const navLinks: Array<NavbarPattern> = [
         label: 
         {
           fr: "Projets",
-          en: "Projects",
+          0: "Projects",
         },
         link: "/projects",
       },
@@ -64,7 +64,7 @@ export const navLinks: Array<NavbarPattern> = [
         label:
         {
           fr: "Accueil",
-          en: "Home",
+          0: "Home",
         },
         link: "/",
       },
@@ -72,7 +72,7 @@ export const navLinks: Array<NavbarPattern> = [
         label:
         {
           fr: "Projets",
-          en: "Projects",
+          0: "Projects",
         },
         link: "/projects",
       },
@@ -287,20 +287,89 @@ const emailAPI: EmailAPI = {
 /**
  * Store all the form patterns available for the app
  */
-export const formStructures: Array<Form> = [
+export const contactForm: ContactForm = {
+  title: 
   {
-    id: "contact",
-    title: 
+    fr: "N'hésitez pas<br/>à me contacter",
+    en: "Feel free<br/>to contact me",
+  },
+  messageMinLength: 80,
+  fields: 
+  {
+    firstname: 
     {
-      fr: "N'hésitez pas<br/>à me contacter",
-      en: "Feel free<br/>to contact me",
+      fr: "Prénom...",
+      en: "Firstname...",
     },
-    messageMinLength: 80,
-    fields: [ "firstname", "lastname", "email", "phone", "message" ],
-    mendatoryFields: [ "name", "email", "message" ],
-    emailAPI: emailAPI,
-  }
-];
+    lastname: 
+    {
+      fr: "Nom...",
+      en: "Lastname...",
+    },
+    email: 
+    {
+      fr: "Email...",
+      en: "Email...",
+    },
+    phone: 
+    {
+      fr: "Téléphone...",
+      en: "Phone...",
+    },
+    message: 
+    {
+      fr: "Votre message...",
+      en: "Your message...",
+    },
+  },
+  mendatoryFields: [ "name", "email", "message" ],
+  alert: 
+  {
+    email: 
+    {
+      fr: "Veuillez entrer une adresse email valide.",
+      en: "Please enter a valid email address.",
+    },
+    phone:
+    {
+      fr: "Veuillez entrer un numéro de téléphone valide.",
+      en: "Please enter a valid phone number.",
+    },
+    message:
+    {
+      fr: "Votre message est trop court. Il doit contenir au moins 80 caractères.",
+      en: "Your message is too short. It should contain at least 80 characters.",
+    },
+    cooldown:
+    {
+      fr: "Vous avez atteint le nombre maximum de requêtes autorisées. \
+        Veuillez réessayer plus tard.",
+      en: "You have reached the maximum number of requests allowed. \
+        Please try again later.",
+    },
+    apiError:
+    {
+      fr: "Oups, quelque chose s'est mal passé... Veuillez réessayer plus tard.",
+      en: "Oops, something went wrong... Please try again later.",
+    },
+    apiOK:
+    {
+      fr: "Votre message a bien été envoyé !",
+      en: "Your message has been sent successfully!",
+    },
+    mendatory:
+    {
+      fr: "champs obligatoires.",
+      en: "mendatory fields.",
+    },
+    submit:
+    {
+      fr: "Envoyer",
+      en: "Submit",
+    },
+  },
+  emailAPI: emailAPI,
+};
 
 /**
  * Store information on the author of the app

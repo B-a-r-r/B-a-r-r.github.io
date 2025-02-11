@@ -26,7 +26,8 @@ const ProjectsSlider = () => {
           project={project}
           additionalStyles={{
             rotate: `${assignRotation(index, all.length)}deg`,
-            animation: `card-apparition 0.5s cubic-bezier(.54,.54,.57,.56) forwards`
+            animation: `card-apparition 0.5s cubic-bezier(.54,.54,.57,.56) forwards`,
+            transformStyle: 'preserve-3d',
           }}
         />
       )
@@ -62,10 +63,16 @@ const ProjectsSlider = () => {
 
   // This funtion is called before updating the cards, to animate the cards according to their position
   const adjustAnimations = (cardsCopy: ReactElement[], from?: "prev" | "next") => {
+    let tmp: number;
+
     return(
       cardsCopy.map((card, index) => {
+        tmp = 0;
+
         switch (index) {
           case cardsCopy.length - 1:
+            tmp = topCardTrueAngle.current;
+            topCardTrueAngle.current = from === "next" ? topCardTrueAngle.current : 0;
             return (
               cloneElement(card, {
                 additionalStyles: {
@@ -74,8 +81,8 @@ const ProjectsSlider = () => {
                     : "card-top-to-second ease-in 0.2s forwards"
                   ),
                   rotate: `${
-                    topCardTrueAngle.current !== 0 
-                    ? topCardTrueAngle.current : assignRotation(from === "next" ? 0 : cardsCopy.length - 2, cardsCopy.length)
+                    tmp !== 0 
+                    ? tmp : assignRotation(randomNumberBetween(0,1), cardsCopy.length)
                   }deg`
                 }
               })
@@ -85,8 +92,8 @@ const ProjectsSlider = () => {
             return (
               cloneElement(card, {
                 additionalStyles: {
-                  animation: (from === "next" ? `card-reach-top ease-in 0.5s forwards` : ""),
-                  rotate: (from === "next" ? "0deg" : `${card.props.additionalStyles.rotate}`)
+                  animation: (from === "next" ? `card-reach-top ease-in 0.3s forwards` : ""),
+                  rotate: (`${card.props.additionalStyles.rotate}`)
                 }
               })
             )
@@ -133,7 +140,6 @@ const ProjectsSlider = () => {
         ${styles.sizeScreen}
         ${styles.flexRow}
         ${styles.contentCenter}
-        ${styles.section}
         space-x-[5%]
         overflow-hidden
       `}
@@ -146,6 +152,9 @@ const ProjectsSlider = () => {
           ${styles.contentCenter}
           relative
         `}
+        style={{
+          perspective: '1000px',
+        }}
       > 
         {cards.map((card: ReactElement) => (
           card
@@ -169,25 +178,6 @@ const ProjectsSlider = () => {
             `}
           /> 
         </button>
-
-        {/* <button id="projects-button"
-          className={`
-            font-primary-semibold
-            lg:text-[80%]
-            tracking-widest
-            absolute
-            bottom-5
-            opacity-50
-            text-center
-          `}
-          onClick={() => window.location.href = "/projects"}
-        > Browse all<br/>projects
-          <hr className=
-            {`
-              ${styles.line}
-            `}
-          />
-        </button> */}
 
         <button id="next-button"
           className={`

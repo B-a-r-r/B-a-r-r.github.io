@@ -15,41 +15,194 @@ export const skills: Array<Skill> = [
     label: "React",
     icon: skillsIcons.react_icon,
     category: SkillCategorie.LANGUAGE,
-    subcategory: SkillSubcategorie.FRONTEND,
+    subcategory: SkillSubcategorie.WEB,
+    framework: "Javascript",
+    link: 'https://react.dev/',
+    weight: 10
   },
   {
     label: "Typescript",
     icon: skillsIcons.typescript_icon,
     category: SkillCategorie.LANGUAGE,
-    subcategory: SkillSubcategorie.FRONTEND,
+    subcategory: SkillSubcategorie.WEB,
+    framework: "Javascript",
+    link: 'https://www.typescriptlang.org/'
   },
   {
     label: "Python",
     icon: skillsIcons.python_icon,
     category: SkillCategorie.LANGUAGE,
-    subcategory: SkillSubcategorie.BACKEND,
+    subcategory: SkillSubcategorie.SOFTWARE,
+    link: "https://www.python.org/",
+    weight: 20
   },
   {
     label: "Java",
     icon: skillsIcons.java_icon,
     category: SkillCategorie.LANGUAGE,
-    subcategory: SkillSubcategorie.BACKEND,
+    subcategory: SkillSubcategorie.SOFTWARE,
+    link: 'https://www.java.com/',
+    weight: 18
   },
   {
     label: "VSCode",
     icon: skillsIcons.vscode_icon,
     category: SkillCategorie.TOOL,
+    link: 'https://code.visualstudio.com/',
+    weight: 15
   },
   {
     label: "Docker",
     icon: skillsIcons.docker_icon,
     category: SkillCategorie.TOOL,
+    link: 'https://www.docker.com/'
   },
   {
     label: "Git",
     icon: skillsIcons.git_icon,
     category: SkillCategorie.TOOL,
+    link: 'https://git-scm.com/',
+    weight: 16
   },
+  {
+    label: "GnuPG",
+    icon: skillsIcons.gnupg_icon,
+    category: SkillCategorie.LIBRARY,
+    link: 'https://www.gnupg.org/'
+  },
+  {
+    label: "Tailwind",
+    icon: skillsIcons.tailwind_icon,
+    category: SkillCategorie.LANGUAGE,
+    subcategory: SkillSubcategorie.WEB,
+    link: 'https://tailwindcss.com/'
+  },
+  {
+    label: "Markdown",
+    icon: skillsIcons.markdown_icon,
+    category: SkillCategorie.LANGUAGE,
+    subcategory: SkillSubcategorie.TEXT,
+    link: 'https://www.markdownguide.org/'
+  },
+  {
+    label: "SQL",
+    icon: skillsIcons.sql_icon,
+    category: SkillCategorie.LANGUAGE,
+    subcategory: SkillSubcategorie.DATABASE,
+    link: 'https://fr.wikipedia.org/wiki/Structured_Query_Language'
+  },
+  {
+    label: "Pandas",
+    icon: skillsIcons.pandas_icon,
+    category: SkillCategorie.LIBRARY,
+    subcategory: SkillSubcategorie.BIGDATA,
+    link: 'https://pandas.pydata.org/'
+  },
+  {
+    label: "Numpy",
+    icon: skillsIcons.numpy_icon,
+    category: SkillCategorie.LIBRARY,
+    subcategory: SkillSubcategorie.BIGDATA,
+    link: 'https://numpy.org/'
+  },
+  {
+    label: "Symfony",
+    icon: skillsIcons.symfony_icon,
+    category: SkillCategorie.LANGUAGE,
+    subcategory: SkillSubcategorie.WEB,
+    framework: "PHP",
+    link: 'https://symfony.com/'
+  },
+  {
+    label: "PHP",
+    icon: skillsIcons.php_icon,
+    category: SkillCategorie.LANGUAGE,
+    subcategory: SkillSubcategorie.WEB,
+    link: 'https://www.php.net/'
+  },
+  {
+    label: "Debian",
+    icon: skillsIcons.debian_icon,
+    category: SkillCategorie.TOOL,
+    link: 'https://www.debian.org/'
+  },
+  {
+    label: "Rust",
+    icon: skillsIcons.rust_icon,
+    category: SkillCategorie.LANGUAGE,
+    subcategory: SkillSubcategorie.SOFTWARE,
+    link: 'https://www.rust-lang.org/'
+  },
+  {
+    label: "Latex",
+    icon: skillsIcons.latex_icon,
+    category: SkillCategorie.LANGUAGE,
+    subcategory: SkillSubcategorie.TEXT,
+    link: 'https://www.latex-project.org/'
+  },
+  {
+    label: "MySQL",
+    icon: skillsIcons.mysql_icon,
+    category: SkillCategorie.TOOL,
+    link: 'https://www.mysql.com/'
+  },
+  {
+    label: "Bash",
+    icon: skillsIcons.bash_icon,
+    category: SkillCategorie.LANGUAGE,
+    link: 'https://www.gnu.org/software/bash/'
+  },
+  {
+    label: ".NET",
+    icon: skillsIcons.dotnet_icon,
+    category: SkillCategorie.LANGUAGE,
+    subcategory: SkillSubcategorie.SOFTWARE,
+    framework: "C#",
+    link: 'https://dotnet.microsoft.com/'
+  },
+  {
+    label: "Javascript",
+    icon: skillsIcons.js_icon,
+    category: SkillCategorie.LANGUAGE,
+    subcategory: SkillSubcategorie.WEB,
+    link: 'https://developer.mozilla.org/fr/docs/Web/JavaScript'
+  },
+  {
+    label: "C",
+    icon: skillsIcons.c_icon,
+    category: SkillCategorie.LANGUAGE,
+    subcategory: SkillSubcategorie.SOFTWARE,
+    link: 'https://fr.wikipedia.org/wiki/C_(langage)'
+  },
+  {
+    label: "Cpp",
+    icon: skillsIcons.cplusplus_icon,
+    category: SkillCategorie.LANGUAGE,
+    subcategory: SkillSubcategorie.SOFTWARE,
+    framework: "C",
+    link: 'https://fr.wikipedia.org/wiki/C%2B%2B'
+  },
+  {
+    label: "Figma",
+    icon: skillsIcons.figma_icon,
+    category: SkillCategorie.TOOL,
+    link: 'https://www.figma.com/'
+  },
+  {
+    label: "Go",
+    icon: skillsIcons.go_icon,
+    category: SkillCategorie.LANGUAGE,
+    subcategory: SkillSubcategorie.WEB,
+    link: 'https://golang.org/'
+  },
+  {
+    label: "C#",
+    icon: skillsIcons.csharp_icon,
+    category: SkillCategorie.LANGUAGE,
+    subcategory: SkillSubcategorie.SOFTWARE,
+    framework: "C",
+    link: 'https://docs.microsoft.com/fr-fr/dotnet/csharp/'
+  }
 ];
 
 export const retex: Array<Retex> = [
@@ -58,24 +211,28 @@ export const retex: Array<Retex> = [
     specs: 
     {
       en:
-      "This PGP keys manager aims to make accessibe the use of the GnuPG technology, \
-      providing several integration modes, such as an api, a command line user interface \
-      and a graphic user interface.<br/>As for the encryption/decryption tool, ",
+      "This PGP key manager aims to make GnuPG technology accessible. It offers different integration modes, \
+      including a CustomTK <strong>graphical interface</strong>. You can either encrypt/decrypt messages or files, or manage a \
+      multitude of keys. <br/>This personal project is <strong>100% Python</strong>, and designed to be <strong>easily maintainable and \
+      extensible</strong> thanks to its <strong>robust error handling</strong> and object-oriented architecture. The development of \
+      the GUI has also been a good opportunity to review <strong>event-driven programming</strong>.",
       fr:
-      "Ce gestionnaire de clés PGP a pour but de rendre accessible l'utilisation de la \
-      technologie GnuPG, en proposant plusieurs modes d'intégration, tels qu'une api, une \
-      interface en ligne de commande et une interface graphique.<br/>Quant à l'outil de \
-      chiffrement/déchiffrement, "
+      "Ce gestionnaire de clés PGP vise à rendre la technologie GnuPG accessible. \
+      Il propose différents modes d'intégration, dont <strong>une interface graphique</strong> CustomTK. Vous pouvez \
+      soit chiffrer/déchiffrer des messages ou des fichiers, soit gérer une multitude de clés.<br/>Ce projet \
+      personnel est <strong>100% Python</strong>, et conçu pour être facilement <strong>maintenable et extensible</strong> \
+      grâce à sa <strong>gestion d'erreurs robuste</strong> et son architecture orientée objet. Le développement de l'IG, \
+      aura aussi été une bonne occasion de réviser la <strong>programmation événementielle</strong>.",
     },
     notions: 
     {
-      en: ["Learning better", "Learning faster", "Learning more"],
-      fr: ["Apprendre mieux et développer des compétences techniques", "Apprendre plus vite", "Apprendre plus"],
+      en: ["Errors handling and tests bench,", "Design following SOLID principles of OOP,", "Release and launch a software."],
+      fr: ["Gestion des erreurs et banc de tests,", "Conception d'après les principes SOLID,", "Lancement d'un logicielle en production."],
     },
     tools: [
       skills.find((skill) => skill.label === 'Python')!,
       skills.find((skill) => skill.label === 'Git')!,
-      skills.find((skill) => skill.label === 'Typescript')!,
+      skills.find((skill) => skill.label === 'GnuPG')!,
     ],
     img: [
       projectsImages.gpgtool_home,
@@ -88,64 +245,104 @@ export const retex: Array<Retex> = [
     specs: 
     {
       en:
-      "This pathfinding algorithm is based on the Monte Carlo Tree Search model, and is designed to find the best move to play in a board game, \
-      by simulating games from the current state of the game.",
+      "In pairs, <strong>research and development of an algorithm in Java</strong> to determine the best move to play, for a board game. \
+      The goal: to win <strong>the bots tournament</strong>.<br/> \
+      <strong>Our pathfinder</strong> is inspired by <strong>A*</strong> and the <strong>Monte Carlo Tree Search</strong>, exploring the possible outcomes from a given move. A phase of \
+      reverse propagation allows to give more or less weight to each possible choice. The main difficulty was to find <strong>a \
+      balance</strong> between the exploration and exploitation of the game tree. Knowing the size of the board and the limited execution time, \
+      it was necessary to <strong>prune strategically</strong>.",
       fr:
-      "En binôme, <strong>recherche et élaboration d'un algorithme</strong> determinant le meilleur coup à jouer, pour un jeu de plateau. \
-      Chaque soirs, les bots de chaque équipe s'affrontaient dans <strong>un tournois</strong>, dont les résultats étaient présentés le lendemain. \
-      Mon binôme et moi nous sommes tournés vers un algorithme de pathfinding qui s'inspire de A* et du Monte Carlo Tree Search : le M*. \
-      Le principal dilemme était de trouver <strong>un équilibre</strong> entre l'exploration et l'exploitation de l'arbre de jeu; sachant <strong>certaines contraintes \
-      imposées</strong>, telles que le temps d'éxécution par coup ou encore l'immensité de l'arbre des possibilités.<br/> ",
+      "En binôme, <strong>recherche et élaboration d'un algorithme en Java</strong> determinant le meilleur coup à jouer, pour un jeu de plateau. \
+      L'objectif : remporter <strong>le tournois</strong> des bots.<br/> \
+      <strong>Notre pathfinder</strong> s'inspire de <strong>A*</strong> et du <strong>Monte Carlo Tree Search</strong>, explorant les possibles issues à partir d'un coup donné. Un phase de \
+      propagation inverse permet de donner plus ou moins de poid à chaque choix possible. La principale difficulté était de trouver <strong>un \
+      équilibre</strong> entre l'exploration et l'exploitation de l'arbre de jeu. Sachant la taille du plateau et le temps d'exécution limité, \
+      il nous a fallu <strong>élaguer de manière stratégique</strong>.", 
     },
     notions: 
     {
-      en: ["Learning better", "Learning faster", "Learning more"],
-      fr: ["Processus d'actualisation des poids des noeuds d'un arbre", "Gestion de threads et calculs parralèlles en Java,", "Compromis stratégiques (<ins>ex:</ins> élagage)"],
+      en: ["Concurrent programming,", "Machine learning,", "Comparison of existing algorithms,", "Results analysis and adaptation."],
+      fr: ["Programmation concurente en Java,", "Machine learning,", "Comparaison d'algorithmes existants,", "Analyse de résultats et adaptation."],
     },
     tools: [
-      skills.find((skill) => skill.label === 'Python')!,
+      skills.find((skill) => skill.label === 'Java')!,
       skills.find((skill) => skill.label === 'Git')!,
-      skills.find((skill) => skill.label === 'Typescript')!,
-      skills.find((skill) => skill.label === 'Docker')!,
+      skills.find((skill) => skill.label === 'Git')!,
     ],
     img: [
-      projectsImages.gpgtool_code,
-      projectsImages.gpgtool_crypto_tool,
+      projectsImages.mstar_tournament_results,
+      projectsImages.mstar_tree,
     ],
   },
   {
-    relatedProject: "Ecograph xxxxxxx",
+    relatedProject: "Ecograph",
     specs: 
     {
       en:
-      "This project aims to help companies to position themselves geographically, based on climatic and emission data around the world. \
-      An intuitive graphic interface allows to visualize heavy masses of information, through several views, such as graphs and maps.",
+      "This project <strong>helps companies to position themselves geographically</strong>, based on climatic and emission data around the world. \
+      An intuitive graphic interface allows to visualize heavy masses of information, through several views, such as graphs and maps. \
+      <br/>In my team of five developers, I was in charge of the database management. I discovered SQLAlchemy, <strong>an ORM in \
+      Python</strong>. I had to learn a whole new technology <strong>in just a few days</strong>.",
       fr:
-      "En binôme, <strong>recherche et élaboration d'un algorithme</strong> determinant le meilleur coup à jouer, pour un jeu de plateau. \
-      Chaque soirs, les bots de chaque équipe s'affrontaient dans <strong>un tournois</strong>, dont les résultats étaient présentés le \
-      lendemain. Mon binôme et moi nous sommes tournés vers un algorithme de pathfinding qui s'inspire de A* et du Monte Carlo Tree Search : le M*. \
-      Le principal dilemme était de trouver <strong>un équilibre</strong> entre l'exploration et l'exploitation de l'arbre de jeu; sachant <strong>certaines contraintes \
-      imposées</strong>, telles que le temps d'éxécution par coup ou encore l'immensité de l'arbre des possibilités.<br/> ",
+      "Ce projet <strong>aide les entreprises à se positionner géographiquement</strong>, en fonction de données climatiques et d'émission à travers le monde. \
+      Une interface graphique intuitive permet de visualiser de lourdes masses d'informations, à travers plusieurs vues, telles que des graphiques et des cartes.\
+      <br/>Dans mon équipe de cins développeur, j'étais chargé de la gestion de la base de données. J'ai fait la découverte de SQLAlchemy, <strong>un ORM en \
+      Python</strong>. J'ai donc dû apprendre une toute nouvelle technologie <strong>en l'espace de quelques jours</strong>",
     },
     notions: 
     {
-      en: ["Learning better", "Learning faster", "Learning more"],
-      fr: ["Processus d'actualisation des poids des noeuds d'un arbre", "Gestion de threads et calculs parralèlles en Java,", "Compromis stratégiques (<ins>ex:</ins> élagage)"],
+      en: [
+        "Filling a database from CSV files,", 
+        "Quick start of a new tool,", 
+        "Teamwork and Git management,", 
+        "Link between the different project technologies."
+      ],
+      fr: [
+        "Remplissage d'une BD à partir de fichiers CSV,", 
+        "Prise en main éclaire d'un nouvel outils,", 
+        "Travail d'équipe et gestion du Git,", 
+        "Liaison entre les différentes technos du projet."
+      ],
     },
     tools: [
+      skills.find((skill) => skill.label === 'C#')!,
       skills.find((skill) => skill.label === 'Python')!,
+      skills.find((skill) => skill.label === 'SQL')!,
+      skills.find((skill) => skill.label === '.NET')!,
       skills.find((skill) => skill.label === 'Git')!,
-      skills.find((skill) => skill.label === 'Typescript')!,
-      skills.find((skill) => skill.label === 'Docker')!,
-      skills.find((skill) => skill.label === 'Java')!,
-      skills.find((skill) => skill.label === 'VSCode')!,
-      skills.find((skill) => skill.label === 'VSCode')!,
-      skills.find((skill) => skill.label === 'VSCode')!,
     ],  
     img: [
-      projectsImages.gpgtool_code,
-      projectsImages.gpgtool_crypto_tool,
+      projectsImages.ecograph_home,
+      projectsImages.ecograph_gestion,
     ],
+  },
+  {
+    relatedProject: "MiniShell",
+    specs: 
+    {
+      en:
+      "This project is <strong>a replica of the Linux shell</strong>. Written in C, it allows you to manage your folders and files, \
+      execute commands, even in the background, and supports pipes. <br/>An excellent opportunity to practice <strong>process management</strong>, \
+      between interception of <strong>signals</strong> and instantiation of new children. Knowing the <strong>strict compilation flags</strong> imposed in the Makefile, \
+      it was also an opportunity to work on <strong>memory management</strong>, minimizing segmentation errors. This project will also have \
+      served as an introduction to <strong>functional programming in C</strong>.",
+      fr:
+      "Ce projet est <strong>une réplique du shell Linux</strong>. Écrit en C, il permet de gérer des dossier et fichiers, d'éxécuter des commandes, \
+      même en arrière plan, et prend en charge les pipes. <br/>Une excellente opportunité de s'exercer à la <strong>gestion des processus</strong>, \
+      entre interception de <strong>signaux</strong> et instanciation de nouveaux fils. Sachant les <strong>flags de compilation strictes</strong> imposés dans le Makefile, \
+      c'était aussi l'occasion de travaller la <strong>gestion mémoire</strong>, en minimisant les erreurs de segmentation. Ce projet m'aura également \
+      servi d'introduction à la <strong>programmation fonctionnelle en C</strong>.",
+    },
+    notions: 
+    {
+      en: ["Processes management,", "Memory allocation,", "File system,", "Signals and errors management."],
+      fr: ["Gestion de struct", "Allocation mémoire,", "Système de fichiers,", "Gestion des signaux et des erreurs."],
+    },
+    tools: [
+      skills.find((skill) => skill.label === 'C')!,
+      skills.find((skill) => skill.label === 'Bash')!,
+    ],
+    img: [],
   }
 
 ];
@@ -174,7 +371,7 @@ export const projects: Array<Project> = [
       retex: retex.find((retex) => retex.relatedProject === 'GPGtool')!,
     },
     {
-      title: "Ecograph xxxxxxx",
+      title: "Ecograph",
       content: 
       {
         fr:
@@ -193,7 +390,7 @@ export const projects: Array<Project> = [
         0: ["ORM"],
       },
       date: new Date(2024, 6),
-      retex: retex.find((retex) => retex.relatedProject === 'Ecograph xxxxxxx')!,
+      retex: retex.find((retex) => retex.relatedProject === 'Ecograph')!,
     },
     {
       title: "MiniShell",
@@ -213,6 +410,7 @@ export const projects: Array<Project> = [
         0: ["OS"],
       },
       date: new Date(2024, 11),
+      retex: retex.find((retex) => retex.relatedProject === 'MiniShell')!,
     },
     {
       title: "clembarr.dev",
@@ -270,15 +468,15 @@ export const subtitleMessages: Array<SubtitleMessage> = [
     {
       content:
       {
-        fr: "Étudie actuellement la <br/>vie artificielle !",
-        en: "Currently studying<br/>artificial life !",
+        fr: "Étudie actuellement la vie artificielle !",
+        en: "Currently studying artificial life !",
       }
     },
     {
       content: 
       {
-        fr: "Bienvenue sur <br/>mon portfolio.",
-        en: "Welcome to my<br/>portfolio.",
+        fr: "Bienvenue sur mon portfolio.",
+        en: "Welcome to my portfolio.",
       }
     }
 ];
@@ -287,25 +485,31 @@ export const bioText: Array<Biography> = [
     {
       title: 
       {
-        fr: "Faire propre,<br/>faire mieux.",
+        fr: "Penser,<br/>Développer.",
         en: "Make it clean,<br/>make it better.",
       },
       content:
       {
         fr: 
-        "Je suis un <strong>développeur junior</strong> de 19 ans, principalement intéressé par le développement d'outils intelligents et utiles à des besoins spécifiques. \
+        "Principalement intéressé par le développement d'outils intelligents, je cherche avant tout à lier \
+        <strong>utilité</strong> et <strong>accessibilité</strong> dans mes projets. Mon objectif est de permettre au plus \
+        grand nombre de profiter des technologies utilitaires avancées.\
         <br/><br/> \
-        La <strong>programmation</strong> me permet d'exprimer ma créativité, j'aime faire les choses proprement et efficacement, mais aussi agréables à utiliser. \
-        Je suis passionné par la programmation depuis l'âge de 14 ans, et mon intérêt pour divers domaines a forgé ma <strong>polyvalence</strong>, qui est ma principale force.\
+        La programmation est un art qui donne vie aux abstractions de l'esprit. J'en suis passionné depuis plusieurs années, \
+        et mes inspirations ont forgées <strong>ma polyvalence</strong>, qui fait aujourd'hui ma force. \
         <br/><br/>   \
-        Jusqu'en 2026, je préparerai une <strong>licence</strong> en informatique à l'Université et à l'Institut de Technologie de Bordeaux, France.",
+        Je prépare actuellement un Bachelor Universitaire de Technologie (<strong>BUT</strong>) \
+        en informatique, à l'Institut Universitaire de Technologie (IUT) de Bordeaux, France.",
         en: 
-        "I am a 19yo <strong>junior developer</strong> and creator, mainly interest in developing intelligent and helpful tools to specific needs. \
+        "Mainly interested in the development of <strong>intelligent</strong> tools, I seek to link \
+        <strong>utility</strong> and <strong>accessibility</strong> in my projects. My goal is to allow as many people as possible \
+        to benefit from advanced utility technologies.\
         <br/><br/> \
-        <strong>Programming</strong> allows me to express my creativity, I like to make things clean and efficient, but also pleasent to use. \
-        I’ve been passionate about programming since I was 14yo, and my interest for various has built my <strong>versatility</strong>, which is my key strength.\
+        Programming is an art that brings abstractions of the mind to life. I have been passionate about it for several years, \
+        and my inspirations have forged <strong>my versatility</strong>, one of my key assets today. \
         <br/><br/>   \
-        Until 2026, I will be preparing a <strong>bachelor’s degree</strong> in computer science at the University and Technology Institue of Bordeaux, France."
+        I am currently preparing a University Bachelor of Technology (<strong>BUT</strong>) \
+        in computer science, at the University Institute of Technology (IUT) of Bordeaux, France.",
       },
       active: true,
     }
@@ -315,9 +519,33 @@ export const sharedLinks: Array<sharedLink> = [
   {
     label: 
     {
-      fr: "Théo, développeur d'IA générative",
+      fr: "Théo, développeur d'IA génératives",
       en: "Théo, generative AI developer",
     },
     link: "https://tcastillo.me",
   },
+  {
+    label:
+    {
+      fr: "Zao, développeur de jeux vidéo",
+      en: "Zao, video game developer",
+    },
+    link: "https://zaofromage.github.io/portfolio",
+  },
+  {
+    label:
+    {
+      fr: "Antoine, développeur d'API",
+      en: "Antoine, API developer",
+    },
+    link: "https://labian0.github.io",
+  },
+  {
+    label:
+    {
+      fr: "Alexandre, développeur d'algorithmes",
+      en: "Alexandre, algorithms developer",
+    },
+    link: "https://carcroks.github.io",
+  }
 ];

@@ -19,13 +19,10 @@ const Card = ({title, content, tags, moreTopClasses, titleProps, contentProps, t
     useEffect(() => {
         truncateTextIfOverflow(document.getElementById(`card-${title}-title`)!, title);
         truncateTextIfOverflow(document.getElementById(`card-${title}-text`)!, content);
-        
-        const tagsContainer = document.getElementById(`card-${title}-tags`);
-        if (tagsContainer) {
-            // while (isOverflowing(tagsContainer)) {
-            //     tags.pop();
-            //     setDisplayedTags(tags);
-            // }
+
+        const tagsContainer = document.getElementById(`card-${title}-tags`)!;
+        if (isOverflowing(tagsContainer)) { 
+            setDisplayedTags((prev) => prev.slice(0, displayedTags.length-1))
         }
 
     }, [content, tags, title]);
@@ -35,7 +32,6 @@ const Card = ({title, content, tags, moreTopClasses, titleProps, contentProps, t
             className={` 
                 ${styles.flexCol}
                 ${styles.sizeFull}
-                color-scheme-primary
                 ${moreTopClasses}
             `}
         >
@@ -50,7 +46,7 @@ const Card = ({title, content, tags, moreTopClasses, titleProps, contentProps, t
                     ${titleProps}
                 `}
             >
-                <h3 id={`card-${title}title`}
+                <h3 id={`card-${title}-title`}
                     dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(title)}}
                 />
             </header>
@@ -84,9 +80,9 @@ const Card = ({title, content, tags, moreTopClasses, titleProps, contentProps, t
                 {displayedTags.map((tag, index) => {
                     return (
                         <a key={index}
-                            id={`tag-${tag}`}
                             className={`
                                 text-[--color-tertiary]
+                                text-nowrap
                             `}
                         > {tag} </a>
                     );

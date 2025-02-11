@@ -21,6 +21,7 @@ const Footer = () => {
         ${styles.flexRow}
         color-scheme-secondary
         relative
+        shadow-md
       `}
     >
       <div id="footer-content"
@@ -59,12 +60,15 @@ const Footer = () => {
                 ${(navLink.label[currentLang] ? navLink.label[currentLang].toLocaleLowerCase() 
                   : navLink.label[0].toLocaleLowerCase()) === currentNavigation ? 'text-[--color-tertiary]' : ''}
                 hover:text-[--color-tertiary]
+                transition-all
+                duration-150
+                ease-in-out
               `}
               onClick={() => setCurrentNavigation(
                 navLink.label[currentLang] ? navLink.label[currentLang].toLocaleLowerCase() 
                 : navLink.label[0].toLocaleLowerCase()
               )}
-            > {navLink.label[currentLang] || "about:blank"} </a>
+            > {navLink.label[currentLang] || navLink.label[0]} </a>
           ))}
         </div>
 
@@ -89,7 +93,15 @@ const Footer = () => {
             <a key={`credit-${index}`}
               id={`credit-${credit.label}`}
               href={credit.link ? credit.link : credit.contentRef[0]}
-              className={`hover:text-[--color-tertiary]`}
+              className=
+              {`
+                hover:text-[--color-tertiary]
+                transition-all
+                duration-150
+                ease-in-out
+              `}
+              target="_blank" 
+              rel="noopener noreferrer"
             > {credit.label[currentLang]} </a>
           ))}
         </div>
@@ -113,7 +125,15 @@ const Footer = () => {
               <a key={`credit-${index}`}
                 id={`credit-${index}`}
                 href={link.link}
-                className={`hover:text-[--color-tertiary]`}
+                className=
+                {`
+                  hover:text-[--color-tertiary]
+                  transition-all
+                  duration-150
+                  ease-in-out
+                `}
+                target="_blank" 
+                rel="noopener noreferrer"
               > {link.label[currentLang]} </a>
             ))}
         </div>
@@ -132,7 +152,16 @@ const Footer = () => {
         {
           <a id="copyrigth" 
             href={copyrigthText.link}
-            className="hover:text-[--color-tertiary] text-right"
+            className=
+            {`
+              text-right
+              hover:text-[--color-tertiary]
+              transition-all
+              duration-150
+              ease-in-out
+            `}
+            target="_blank" 
+            rel="noopener noreferrer"
             dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(copyrigthText.label)}}
           />
         }

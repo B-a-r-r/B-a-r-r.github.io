@@ -1,7 +1,5 @@
 import styles from '../style'
 import ProjectsListing from '../components/sections/ProjectsListing'
-import Footer from '../components/Footer'
-import Navbar from '../components/Navbar'
 import { SearchEngine } from '../components/search/SearchEngine'
 
 const Projects = () => {
@@ -15,12 +13,6 @@ const Projects = () => {
                 relative
             `}
         >
-            <div id="navbar-container"
-            className={``}
-            > 
-                <Navbar />
-            </div>
-
             <div id="content-container" 
                 className=
                 {`
@@ -35,14 +27,6 @@ const Projects = () => {
                 <SearchEngine>
                     <ProjectsListing />
                 </SearchEngine>
-            </div>
-
-            <div id="footer-container"
-            className=
-            {`
-            `}
-            > 
-                <Footer />
             </div>
         </div>
   )

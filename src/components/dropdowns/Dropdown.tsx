@@ -11,12 +11,13 @@ type DropdownProps = {
     menuState: [boolean, (arg: boolean) => void];
     itemState: [string, (arg: string) => void];
     additionalStyles?: string;
+    additionalButtonStyles?: string;
 }
 
 /**
  * @description This component is the base for specialized dropdown components.
  */
-const Dropdown = ({items, animationStyle, menuState, itemState, additionalStyles}: DropdownProps) => {    
+const Dropdown = ({items, animationStyle, menuState, itemState, additionalStyles, additionalButtonStyles}: DropdownProps) => {    
     const [toggleMenu, setToggleMenu] = menuState;
     const [selectedItem] = itemState;
     
@@ -51,7 +52,11 @@ const Dropdown = ({items, animationStyle, menuState, itemState, additionalStyles
                     ${styles.flexRow}
                     ${styles.contentCenter}
                     hover:text-[--color-tertiary]
+                    transition-all
+                    duration-200
+                    ease-in-out
                     cursor-pointer
+                    ${additionalButtonStyles}
                 `}
             >
                 {selectedItem}

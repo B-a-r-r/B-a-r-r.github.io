@@ -18,9 +18,7 @@ const Navbar = () => {
 
   useEffect(() => {
     setCurrentNavigation(getCurrentNavigation());
-    console.log('currentNavigation', currentNavigation);
-    console.log('currentLang', currentLang);
-  }, [currentLang]);
+  }, [currentLang, currentNavigation]);
 
   return (
     <nav id="navbar"
@@ -33,7 +31,6 @@ const Navbar = () => {
         ${styles.flexRow}
         ${styles.contentStartX}
         color-scheme-secondary
-        test
         xxl:text-[125%]  xl:text-[115%]  lg:text-[102%]
       `}
     >
@@ -44,9 +41,7 @@ const Navbar = () => {
           list-none 
           lg:flex hidden"
       >
-        {
-          navLinks
-          .find(
+        {navLinks.find(
             (nav) => nav.route.includes(window.location.pathname.split('/')[1])
           )?.links.map((nav) => (
             <>
@@ -57,9 +52,11 @@ const Navbar = () => {
                     tracking-widest
                     cursor-pointer
                     hover:text-[--color-tertiary]
+                    transition-all
+                    duration-300
+                    ease-in-out
                     text-nowrap
-                    ${(nav.label[currentLang] ? nav.label[currentLang].toLowerCase()
-                      : nav.label[0].toLowerCase()) === currentNavigation ? 'text-[--color-tertiary]' : ""}
+                    ${nav.label[0].toLowerCase() === currentNavigation ? 'text-[--color-tertiary]' : ""}
                 `}
               >
                 {nav.link.includes('#') ?

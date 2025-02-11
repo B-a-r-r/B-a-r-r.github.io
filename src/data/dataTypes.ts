@@ -12,9 +12,11 @@ export enum SkillCategorie {
  * Data structure to list the available skill subcategories
  */
 export enum SkillSubcategorie {
-  FRONTEND = "Frontend",
-  BACKEND = "Backend",
+  WEB = "Web",
   DATABASE = "Database",
+  SOFTWARE = "Software",
+  TEXT = "Text",
+  BIGDATA = "BigData",
 }
 
 /**
@@ -138,13 +140,17 @@ export interface Biography {
  * @param category - category of the skill (Language, Tool, Library)
  * @param subcategory - subcategory of the skill
  * @param framework - if the skill is a framework, the name of the original techno, else null
+ * @param link - link to the documentation of the skill
+ * @param weight - weight of the skill in the graph, matching affinity 
  */
 export interface Skill {
   label: string;
   icon: string;
   category: SkillCategorie;
   subcategory?: SkillSubcategorie;
-  framework?: Skill;
+  framework?: string;
+  link?: string;
+  weight?: number;
 }
 
 /**
@@ -202,13 +208,13 @@ export interface EmailAPI {
  * @param button - properties of the submit button
  * @param mendatoryFields - list of the names for the mendatory fields
  */
-export interface Form {
-  id: number | string;
+export interface ContactForm {
   title: {[lang: string]: string};
   messageMinLength?: number;
-  fields: string[];
-  mendatoryFields?: string[];
-  emailAPI?: EmailAPI; 
+  fields: {[field: string]: {[lang: string]: string}};
+  mendatoryFields: string[];
+  alert: {[context: string]: {[lang: string]: string}};
+  emailAPI: EmailAPI; 
 }
 
 /**

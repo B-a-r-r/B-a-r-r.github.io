@@ -18,6 +18,23 @@ import vscode_icon from "./skills_icons/vscode_icon.svg";
 import python_icon from "./skills_icons/python_icon.svg";
 import tailwind_icon from "./skills_icons/tailwind_icon.svg";
 import markdown_icon from "./skills_icons/markdown_icon.svg";
+import c_icon from "./skills_icons/c_icon.svg";
+import cplusplus_icon from "./skills_icons/cplusplus_icon.svg";
+import figma_icon from "./skills_icons/figma_icon.svg";
+import sql_icon from "./skills_icons/sql_icon.svg";
+import pandas_icon from "./skills_icons/pandas_icon.svg";
+import numpy_icon from "./skills_icons/numpy_icon.svg";
+import symfony_icon from "./skills_icons/symfony_icon.svg";
+import php_icon from "./skills_icons/php_icon.svg";
+import debian_icon from "./skills_icons/debian_icon.svg";
+import rust_icon from "./skills_icons/rust_icon.svg";
+import latex_icon from "./skills_icons/latex_icon.svg";
+import mysql_icon from "./skills_icons/mysql_icon.svg";
+import bash_icon from "./skills_icons/bash_icon.svg";
+import dotnet_icon from "./skills_icons/dotnet_icon.svg";
+import js_icon from "./skills_icons/js_icon.svg";
+import gnupg_icon from "./skills_icons/gnupg_icon.svg";
+import csharp_icon from "./skills_icons/csharp_icon.svg";
 
 import portrait from "./about_portrait.jpg";
 import sysiphus from "./sysiphus_rotated.svg";
@@ -27,6 +44,11 @@ import gpgtool_home from "./projects_images/gpgtool_home.png";
 import gpgtool_crypto_tool from "./projects_images/gpgtool_crypto_tool.png";
 import gpgtool_code from "./projects_images/GPGtool_code.webp";
 import portfolio from "./projects_images/portfolio.jpg";
+import mstar_tree from "./projects_images/mstar_tree.png";
+import mstar_mcts_algo from "./projects_images/mstar_mcts_algo.png";
+import mstar_tournament_results from "./projects_images/mstar_tournament_results.png";
+import ecograph_home from "./projects_images/ecograph_home.png";
+import ecograph_gestion from "./projects_images/ecograph_gestion.png";
 
 import cv from "./documents/CV-informatique-2024-5.pdf";
 
@@ -60,6 +82,23 @@ export const skillsIcons = {
   python_icon,
   tailwind_icon,
   markdown_icon,
+  c_icon,
+  cplusplus_icon,
+  figma_icon,
+  sql_icon,
+  pandas_icon,
+  numpy_icon,
+  symfony_icon,
+  php_icon,
+  debian_icon,
+  rust_icon,
+  latex_icon,
+  mysql_icon,
+  bash_icon,
+  dotnet_icon,
+  js_icon,
+  gnupg_icon,
+  csharp_icon,
 
 };
 
@@ -77,6 +116,11 @@ export const projectsImages = {
   gpgtool_crypto_tool,
   gpgtool_code,
   portfolio,
+  mstar_tree,
+  mstar_mcts_algo,
+  mstar_tournament_results,
+  ecograph_home,
+  ecograph_gestion,
 
 }
 

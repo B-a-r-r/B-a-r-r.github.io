@@ -6,7 +6,7 @@ import { DropdownSort } from "../dropdowns";
 
 const SortingBar = () => {
     const { toMatch, setToMatch } = useContext(SearchContext);
-    const alreadyDisplayesItems = ["ALL"];
+    const alreadyDisplayedItems = ["ALL"];
 
     return (
     <div id="sorting-bar-container"
@@ -20,7 +20,7 @@ const SortingBar = () => {
         {(Object.keys(SortOption) as Array<keyof typeof SortOption>)
         .slice(0,5)
         .map((option, index) => {
-            alreadyDisplayesItems.push(option);
+            alreadyDisplayedItems.push(option);
             return(
                 <button key={index}
                     onClick={() => setToMatch([option])}
@@ -30,6 +30,10 @@ const SortingBar = () => {
                         py-1
                         rounded-md
                         hover:text-[--color-tertiary]
+                        transition-all
+                        duration-300
+                        ease-in-out
+                        ${option === toMatch[0] ? "text-[--color-tertiary]" : ""}
                     `}
                 > {option} 
                     <hr id='lib-hr'
@@ -51,7 +55,7 @@ const SortingBar = () => {
                 ml-[5%]
             `}
         >
-            <DropdownSort alreadyDisplayesItems={alreadyDisplayesItems} />
+            <DropdownSort alreadyDisplayesItems={alreadyDisplayedItems} />
         </div>
     </div>
   )

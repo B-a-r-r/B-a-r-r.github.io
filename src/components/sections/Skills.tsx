@@ -1,170 +1,136 @@
-import { ReactNode, useEffect, useState } from 'react'
-import styles from '../../style'
-import { Skill } from '../../data/dataTypes'
-import { skills } from '../../data/contents'
-import { randomNumberBetween } from '../../utils'
+import { useEffect, useState } from "react"
+import { skills } from "../../data/contents"
+import { SkillCategorie, SkillSubcategorie } from "../../data/dataTypes"
+import styles from "../../style"
+import { ForceGraph3D } from "react-force-graph"
+import {TextureLoader, SRGBColorSpace, SpriteMaterial, Sprite} from "three"
+
+type GraphData = {
+  nodes: {id: string, name: string, img: string, val: number, group: SkillSubcategorie}[];
+  links: {source: string, target: string}[];
+}
 
 const Skills = () => {
-  const [selectedTab, setSelectedTab] = useState<string>('lang')
-
-  const getSkillsNodes = () => {
-    const skillsNodes: Array<ReactNode> = [];
-
-    skills.filter((icon: Skill) => icon.category === selectedTab)
-    .map((icon: Skill) => (
-      skillsNodes.push(
-        <span key={`icon-span-${icon.id}`}
-          id={`icon-span-${icon.id}`}
-          className=
-          {`
-            ${styles.flexCol}
-            ${styles.contentCenter}
-            z-[1]
-            absolute
-          `}
-          style={{
-            top: `${randomNumberBetween(0,100)}%`,
-            left: `${randomNumberBetween(0,100)}%`,
-            animation: `skill-icon-motion ${randomNumberBetween(10,20)}s infinite linear`
-          }}
-        >
-          <label id={`icon-label-${icon.id}`}
-            className=
-            {`
-              hidden hover:flex
-              ${styles.sizeFull}
-              border-2
-            `}
-          > {icon.label} </label>
-          
-          <img key={`icon-${icon.id}`}
-            id={`icon-${icon.id}`}
-            src={icon.icon} 
-            alt={icon.label} 
-            className=
-            {`
-              w-20
-              h-20
-            `}
-          />
-        </span>
-      )
-    ))
-    return skillsNodes
-  }
-
-
-  const drawSkillsTree = () => {
-    const canvas = document.getElementById('skills-icons-pool') as HTMLCanvasElement
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
-    
-    const startPoint: number = (() => {
-      const tabFrom: HTMLElement | null = document.getElementById(selectedTab+'-button')
-      if (tabFrom) {
-        return tabFrom.offsetLeft + tabFrom.offsetWidth / 2
-      }
-      return canvas.width / 2
-    })();
-
-    const subTrees: Array<Array<Skill>> = (
-      getSkillsSubcategories(selectedTab).map((cat: string) => (
-        skills.filter((skill: Skill) => skill.category === selectedTab && skill.subcategory === cat)
-      ))
-    )
-
-    
-  }
-
-  async function drawSkillsSubtree(
-      subtree: Array<Skill>, 
-      startPoint: number, 
-      ctx: CanvasRenderingContext2D,
-      maxX: number,
-      maxY: number,
-  ) {
-    return
-  }
-
-  const [skillsNodes, setSkillsNodes] = useState(getSkillsNodes)
-
+  const [selectedCategory, setSelectedCategory] = useState(SkillCategorie.LANGUAGE)
+  const [graphData, setGraphData] = useState<GraphData>()
+  
   useEffect(() => {
-    setSkillsNodes(getSkillsNodes)
-    drawSkillsTree()
-  }, [selectedTab])
+    const initGraphData: GraphData = {nodes: [], links: []}
+
+    skills.filter((skill) => skill.category === selectedCategory)
+    .sort((a) => a.framework ? -1 : 1)
+    .sort((a,b) => a.framework === b.framework ? -1 : 1)
+    .map((skill, index, all) => {
+      if (index === 0) { console.log(all) }
+      initGraphData.nodes.push({
+        id: skill.label,
+        name: skill.label,
+        img: skill.icon,
+        val: skill.weight ?? 1,
+        group: skill.subcategory ?? SkillSubcategorie.TEXT
+      })
+
+      const verifiedTarget = (
+        skill.framework ? all.find((s) => s.label === skill.framework)
+          : all.find((s) => 
+            s.subcategory === skill.subcategory 
+            && !s.framework
+            && s.label !== skill.label
+          ) ?? null
+      )
+      if (verifiedTarget !== null) {
+        initGraphData.links.push({
+          source: skill.label,
+          target: verifiedTarget!.label
+        })
+      }
+    })
+
+    setGraphData(initGraphData)
+  }, [selectedCategory])
 
   return (
-    <section id='skills'
+    <section id="skills"
       className=
       {`
         ${styles.sizeFull}
-        ${styles.section}
-        mt-0
         ${styles.flexCol}
         ${styles.contentCenter}
       `}
     >
-      <div id="controls-container"
+      <div id="section-controls"
         className=
         {`
-          w-full
-          h-[10%]
           ${styles.flexRow}
-          ${styles.contentStartY}
-          space-x-10
+          w-full
+          h-fit        
         `}
       >
-
-        <button id="lang-button"
-          className={``}
-          onClick={() => setSelectedTab('lang')}
-        > Languages 
-          <hr id='lib-hr'
+        {Object.values(SkillCategorie).map((categorie) => (
+          <button key={`${categorie}`}
             className=
             {`
-              ${styles.line}
+              ${selectedCategory === categorie ? "text-[--color-tertiary]" : ""}
+              hover:text-[--color-tertiary]
             `}
-          />
-        </button>
-
-        <button id="tools-button"
-          className={``}
-          onClick={() => setSelectedTab('tools')}
-        > Tools 
-          <hr id='lib-hr'
-            className=
-            {`
-              ${styles.line}
-            `}
-          />
-        </button>
-
-        <button id="lib-button"
-          className={``}
-          onClick={() => setSelectedTab('lib')}
-        > Libraries 
-          <hr id='lib-hr'
-            className=
-            {`
-              ${styles.line}
-            `}
-          />
-        </button>
-
+            onClick={() => setSelectedCategory(categorie)}
+          > {categorie} </button>
+          
+        ))}
+        {selectedCategory}
       </div>
-      
-      <canvas id="skills-icons-pool"
+
+      <div id="graph-container"
         className=
         {`
           ${styles.sizeFull}
-          border-2
-          relative
-          bg-transparent
+          ${styles.flexCol}
+          ${styles.contentCenter}
         `}
-      />
+      >
+        <ForceGraph3D graphData={graphData}
+          backgroundColor={
+            getComputedStyle(document.documentElement)
+            .getPropertyValue("--color-primary")
+          }
+          width={document.querySelector("#graph-container")?.clientWidth ?? 0}
+          height={ document.querySelector("#graph-container")?.clientHeight ?? 0}
+          showNavInfo={false}
+
+          nodeThreeObject={({ img }) => {
+              const imgTexture = new TextureLoader().load(img);
+              imgTexture.colorSpace = SRGBColorSpace;
+              const material = new SpriteMaterial({ map: imgTexture });
+              const sprite = new Sprite(material);
+              sprite.scale.set(24, 24, 1);
+              return sprite;
+          }}
+          nodeLabel={(node) => `${node.name}`}
+          nodeVal={(node) => node.val}
+          nodeRelSize={5}
+          nodeResolution={10}
+
+
+          linkColor={() =>
+            getComputedStyle(document.documentElement)
+            .getPropertyValue("--color-tertiary")
+          }
+          linkVisibility={true}
+          linkLabel={"bonjour"}
+          linkWidth={0.2}
+          linkOpacity={0.5}
+          linkResolution={8}
+          linkCurvature={0.25}
+          linkCurveRotation={0.5}
+
+          linkDirectionalParticles={1}
+          linkDirectionalParticleSpeed={0.001}
+          linkDirectionalParticleWidth={0.8}
+          
+        />
+      </div>
     </section>
-  )
+  )  
 }
 
 export default Skills

@@ -23,14 +23,17 @@ export const getCurrentNavigation = () => {
     )!;
 
     const correspondingNavigation: NavLink = currentRoute.links.find(
-        (navLink) => (navLink.label['en'] ? navLink.label['en'].toLowerCase() 
-            : navLink.label[0].toLowerCase()) === window.location.pathname.split('/')[1]
+        (navLink) => navLink.label[0].toLowerCase() === window.location.pathname.split('/')[1]
     )!;
 
     if (correspondingNavigation) {
-        return correspondingNavigation.label[getLocalLanguage()].toLowerCase();
+        return (correspondingNavigation.label[getLocalLanguage()] ? 
+        correspondingNavigation.label[getLocalLanguage()] 
+        : correspondingNavigation.label[0]).toLowerCase();
     } else {
-        return currentRoute.links[0].label[getLocalLanguage()].toLowerCase();
+        return (currentRoute.links[0].label[getLocalLanguage()] ? 
+        currentRoute.links[0].label[getLocalLanguage()] 
+        : currentRoute.links[0].label[0]).toLowerCase();
     }
 }
 
@@ -68,12 +71,108 @@ export const isOverflowing = (element: HTMLElement) => {
  * @param text the text to truncate
  */
 export const truncateTextIfOverflow = (textContainer: HTMLElement, text: string) => {
-    if (textContainer) {
-        let tempText = text;
+    let tempText = text;
 
-        while (isOverflowing(textContainer) && tempText.length > 0) {
-            tempText = tempText.slice(0, tempText.lastIndexOf(' '));
-            textContainer.textContent = tempText + '...';
-        }
+    while (isOverflowing(textContainer) && tempText.length > 0) {
+        tempText = tempText.slice(0, tempText.lastIndexOf(' '));
+        textContainer.textContent = tempText + '...';
     }
+}
+
+/**
+ * @function getNavbarOffset Get the height of the navbar
+ * @returns the height of the navbar
+ */
+export const getNavbarOffset = () => {
+    const navbar = document.getElementById('navbar');
+    return navbar ? navbar.clientHeight : 0;
+}
+
+/**
+ * @function getFooterOffset Get the height of the footer
+ * @returns the height of the footer
+ */
+export const getFooterOffset = () => {
+    const footer = document.getElementById('footer');
+    return footer ? footer.clientHeight : 0;
+}
+
+/**
+ * @function handleMouseMove When the mouse mouves over the given div, the element
+ * rotates according to the mouse position.
+ * @param e the mouse event
+ * @param div the div to rotate
+ * @returns void
+ */
+export const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, div: HTMLDivElement | null) => {
+    if (!div) return;
+
+    const { top, left, width, height } = div.getBoundingClientRect();
+    const color1 = getComputedStyle(document.documentElement).getPropertyValue("--color-primary")
+    const color2 = getComputedStyle(document.documentElement).getPropertyValue("--color-secondary")
+    const cursorX = e.clientX - left - width / 2;
+    const cursorY = e.clientY - top - height / 2;
+    console.log(left, top);
+
+    div.style.transform = `rotateX(${cursorY/25}deg) rotateY(${cursorX/22}deg)`;
+    div.style.background = `radial-gradient(circle at ${cursorX}% ${cursorY}%, ${lightenHexColor(color1, 3)} 8%, ${darkenHexColor(color2, 0)})`;
+    injectCursorPosition(e.clientX, e.clientY);
+}
+
+/**
+ * @function handleMouseLeave When the mouse leaves the given div, the element
+ * rotates back to its original position.
+ * @param div the div to rotate
+ * @returns void
+ */
+export const handleMouseLeave = (div: HTMLDivElement | null) => {
+    if (!div) return;
+    div.style.transform = `rotateX(0deg) rotateY(0deg)`;
+    div.style.background = 'none';
+    injectCursorPosition(0, 0);
+}
+
+/**
+ * @function injectCursorPosition Inject the cursor position in the CSS variables
+ * @param x the x position of the cursor
+ * @param y the y position of the cursor
+ * @returns void
+ */
+export const injectCursorPosition = (x: number, y: number) => {
+    document.documentElement.style.setProperty('--x', `${Math.round(x)}`)
+    document.documentElement.style.setProperty('--y', `${Math.round(y)}`);
+}
+
+/**
+ * @function darkenHexColor Darken a given hex string color by a given percentage
+ * @param color the color to darken
+ * @param percent the percentage to darken the color
+ * @returns the darkened color as a hex string
+ */
+export const darkenHexColor = (color: string, percent: number) => {
+    const num = parseInt(color.slice(1), 16);
+    const amt = Math.round(2.55 * percent);
+    const R = (num >> 16) - amt;
+    const G = (num >> 8 & 0x00FF) - amt;
+    const B = (num & 0x0000FF) - amt;
+    return "#" + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 + 
+    (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 + 
+    (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
+}
+
+/**
+ * @function lightenHexColor Lighten a given hex string color by a given percentage
+ * @param color the color to lighten
+ * @param percent the percentage to lighten the color
+ * @returns the lightened color as a hex string
+ */
+export const lightenHexColor = (color: string, percent: number) => {
+    const num = parseInt(color.slice(1), 16);
+    const amt = Math.round(2.55 * percent);
+    const R = (num >> 16) + amt;
+    const G = (num >> 8 & 0x00FF) + amt;
+    const B = (num & 0x0000FF) + amt;
+    return "#" + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 + 
+    (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 + 
+    (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
 }

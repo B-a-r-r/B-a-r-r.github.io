@@ -13,34 +13,39 @@ const About = () => {
       className=
       {`
         ${styles.sizeFull}
-        ${styles.section}
         ${styles.flexRow}
-        justify-center
-        relative
-        space-x-28
+        space-x-[8%]
       `}
     >
-      <img 
-        src={coreImages.portrait}
-        alt="author-portrait"
-        className=
+      <span className=
         {`
-          object-cover
-          ${styles.sizeFit}
-          xxl:w-[55%] lg:w-[45%]
-          rounded-[1%]
+          w-5/12
+          h-full
+          ${styles.flexCol}
+          relative
+          overflow-hidden
         `}
-      />
+      >
+        <img src={coreImages.portrait}
+          alt="author-portrait"
+          className=
+          {`
+            object-cover
+            object-center
+            aspect-square
+            rounded-sm
+          `}
+        />
 
-      <hr className=
-        {`
-          absolute
-          ${styles.line}
-          w-[25%]
-          xxl:bottom-[43%] lg:bottom-[30%]
-          xxl:-left-[11%] lg:-left-[13%]
-        `}
-      />
+        <hr className=
+          {`
+            absolute
+            ${styles.line}
+            xl:top-[40%]
+            xl:left-[5%]
+          `}
+        />
+      </span>
 
       <div id="about-text"
         className=
@@ -56,7 +61,10 @@ const About = () => {
         />
 
         <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(bioText.find((e) => e.active)!.content[currentLang])}}
-        className={styles.paragraph}
+          className=
+          {`
+            ${styles.paragraph}
+          `}
         />
       </div>
     </section>

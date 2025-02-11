@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, createContext, FormEvent, useContext } from 'react';
-import { formStructures } from '../../data/constants';
+import { contactForm } from '../../data/constants';
 import styles from '../../style'
 import DropdownPhone from '../dropdowns/DropdownPhone'
 import DOMPurify from 'dompurify';
@@ -16,13 +16,12 @@ const PhoneCodeContext = createContext<PhoneCodeContextType>({
   setPhoneCode: () => {},
 });
 
-const Form = () => {
+const ContactForm = () => {
   const waitTime = useRef<number>(30000);
   const [canSubmit, setCanSubmit] = useState<boolean>(true);
   const requestCount = useRef<number>(0);
   const { currentLang } = useContext(LangContext);
 
-  const form = formStructures.filter((form) => form.id === "contact")[0];
   const [formFistName, setFormFirstName] = useState<string>('');
   const [formLastName, setFormLastName] = useState<string>('');
   const [formEmail, setFormEmail] = useState<string>('');
@@ -48,17 +47,17 @@ const Form = () => {
       setFormPhone('');
       
     } else if (!phonePattern.test(formPhone)) {
-      alert('Please enter a valid phone number.');
+      alert(contactForm.alert.phone[currentLang]);
       return false;
     }
 
     if (!emailPattern.test(formEmail)) {
-      alert('Please enter a valid email address.');
+      alert(contactForm.alert.email[currentLang]);
       return false;
     }
 
-    if (form.messageMinLength && formMessage.length < form.messageMinLength) {
-      alert(`Your message is too short. It should contain at least ${form.messageMinLength} characters.`);
+    if (contactForm.messageMinLength && formMessage.length < contactForm.messageMinLength) {
+      alert(contactForm.alert.message[currentLang]);
       return false;
     }
 
@@ -69,12 +68,10 @@ const Form = () => {
     e.preventDefault();
     if (!canSubmit) return;
     if (!validateForm()) return ;  
-    if (!form.emailAPI) return;
+    if (!contactForm.emailAPI) return;
 
     if (requestCount.current > 3) {
-      alert('You have reached the maximum number of requests allowed. \
-        Please try again later.'
-      );
+      alert(contactForm.alert.cooldown[currentLang]);
       waitTime.current = 900000;
       setCanSubmit(false);
       return;
@@ -89,17 +86,17 @@ const Form = () => {
     };
 
     emailjs
-      .send(form.emailAPI!.serviceId, 
-        form.emailAPI!.templateId, 
+      .send(contactForm.emailAPI!.serviceId, 
+        contactForm.emailAPI!.templateId, 
         templateParams,
-        form.emailAPI!.publicKey
+        contactForm.emailAPI!.publicKey
       ).then(() => {
-          alert('Your message has been sent successfully!');
+          alert(contactForm.alert.apiOK[currentLang]);
 
         },
         (error) => {
-          alert('Oops, something went wrong... Please try again later!');
-          console.log('FAILED to send email from the form...', error.text);
+          alert(contactForm.alert.apiError[currentLang])
+          console.error('Form submission error: ', error);
         },
       );
       setCanSubmit(false);
@@ -107,7 +104,7 @@ const Form = () => {
   };
 
   return (
-    <form id='contact-form'
+    <form id='contact-contactForm'
       onSubmit={(e) => handleSubmit(e)}
       className=
       {`
@@ -119,32 +116,29 @@ const Form = () => {
         font-primary-regular
         color-scheme-secondary
         px-[10%]
-        pt-[5%]
-        pb-[6%]
-        space-y-4
+        pt-[10%]
+        pb-[8%]
+        space-y-[5%]
         shadow-lg
         border-2
-        aspect-[16/9]
       `}
     >
-      <h2 id='form-title'
-        className=
+      <h2 className=
         {`
           w-full
           h-1/5
           ${styles.contentStartAll}
           font-primary-bold
-          xxl:text-[180%] text-[100%]
+          xxl:text-[180%] text-base
           ${styles.heading2}
           tracking-wider
           leading-10
-          mb-[17%]
+          mb-[8%]
         `}
-        dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(form.title[currentLang])}}
+        dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(contactForm.title[currentLang])}}
       />
         
-      <div id="names-info"
-        className=
+      <div className=
         {`
           w-full
           h-1/5
@@ -153,14 +147,13 @@ const Form = () => {
           space-x-2
           resize-none
           relative
-          text-[80%]
+          text-xxs
         `}
       >
-        <input type="text" 
-          id="lastname" 
+        <input type="text"
           name="lastname" 
-          placeholder="Last name.." 
-          required={form.mendatoryFields ? form.mendatoryFields.includes('lastname') : false}
+          placeholder={`${contactForm.fields['lastname'][currentLang]}`}
+          required={contactForm.mendatoryFields ? contactForm.mendatoryFields.includes('lastname') : false}
           className=
           {`
             ${styles.sizeFull}
@@ -173,11 +166,10 @@ const Form = () => {
           onChange={(e) => setFormLastName(e.target.value)}
         />
         
-        <input type="text" 
-          id="fist_name" 
+        <input type="text"
           name="firstname" 
-          placeholder="First name.." 
-          required={form.mendatoryFields ? form.mendatoryFields.includes('firstname') : false}
+          placeholder={`${contactForm.fields['firstname'][currentLang]}`}
+          required={contactForm.mendatoryFields ? contactForm.mendatoryFields.includes('firstname') : false}
           className=
           {`
             ${styles.sizeFull}
@@ -189,26 +181,24 @@ const Form = () => {
           `}
           onChange={(e) => setFormFirstName(e.target.value)}
         />
-        {form.mendatoryFields && form.mendatoryFields.includes('name') 
-          ? <a key="names-asterisk" id="names-asterisk" className='absolute text-[--color-tertiary] top-0 -right-3'>*</a>
+        {contactForm.mendatoryFields && contactForm.mendatoryFields.includes('name') 
+          ? <a key="names-asterisk" className='absolute text-[--color-tertiary] top-0 -right-3'>*</a>
           : ""
         }
       </div>
 
-      <div id="email-info"
-        className=
+      <div className=
         {`
           w-full
           h-1/5
           relative
-          text-[80%]
+          text-xxs
         `}
       >
         <input type="email"
-          id="email"
           name="email"
-          placeholder="Email address.."
-          required={form.mendatoryFields ? form.mendatoryFields.includes('email') : false}
+          placeholder={`${contactForm.fields['email'][currentLang]}`}
+          required={contactForm.mendatoryFields ? contactForm.mendatoryFields.includes('email') : false}
           className=
           {`
             ${styles.sizeFull}
@@ -220,14 +210,13 @@ const Form = () => {
           `}
           onChange={(e) => setFormEmail(e.target.value)}
         />
-        {form.mendatoryFields && form.mendatoryFields.includes('email') 
+        {contactForm.mendatoryFields && contactForm.mendatoryFields.includes('email') 
           ? <a key="email-asterisk" id="email-asterisk" className='absolute text-[--color-tertiary] self-end px-2'>*</a>
           : ""
         }
       </div>
 
-      <div id="phone-info"
-        className=
+      <div className=
         {`
           w-full
           h-1/5
@@ -238,7 +227,7 @@ const Form = () => {
           border-2
           resize-none
           relative
-          text-[80%]
+          text-xxs
         `}
       >
         <PhoneCodeContext.Provider value={{phoneCode, setPhoneCode}}>
@@ -246,10 +235,9 @@ const Form = () => {
         </PhoneCodeContext.Provider>
 
         <input type="tel"
-          id="phone"
           name="phone"
-          placeholder="Phone number.."
-          required={form.mendatoryFields ? form.mendatoryFields.includes('phone') : false}
+          placeholder={`${contactForm.fields['phone'][currentLang]}`}
+          required={contactForm.mendatoryFields ? contactForm.mendatoryFields.includes('phone') : false}
           className=
           {`
             ${styles.sizeFull}
@@ -261,24 +249,22 @@ const Form = () => {
           `}
           onChange={(e) => setFormPhone(phoneCode+' '+e.target.value)}
         />
-        {form.mendatoryFields && form.mendatoryFields.includes('phone') 
+        {contactForm.mendatoryFields && contactForm.mendatoryFields.includes('phone') 
           ? <a key="phone-asterisk" id="message-asterisk" className='absolute text-[--color-tertiary] self-end px-2'>*</a>
           : ""
         }
       </div>
 
-      <div id="message-info"
-        className=
+      <div className=
         {`
           w-full
           h-3/5
           relative
-          text-[80%]
+          text-xxs
         `}
       >
-        <textarea id="message"
-          name="message"
-          required={form.mendatoryFields ? form.mendatoryFields.includes('message') : false}
+        <textarea name="message"
+          required={contactForm.mendatoryFields ? contactForm.mendatoryFields.includes('message') : false}
           className=
           {`
             ${styles.sizeFull}
@@ -290,24 +276,24 @@ const Form = () => {
             resize-none
             border-2
           `}
-          placeholder="Your message..."
-          minLength={form.messageMinLength}
+          placeholder={`${contactForm.fields['message'][currentLang]}`}
+          minLength={contactForm.messageMinLength}
           onChange={(e) => setFormMessage(e.target.value)}
         />
-        {form.mendatoryFields && form.mendatoryFields.includes('message') 
+        {contactForm.mendatoryFields && contactForm.mendatoryFields.includes('message') 
           ? <a key="message-asterisk" id="message-asterisk" className='absolute text-[--color-tertiary] self-end px-2'>*</a>
           : ""
         }
       </div>
 
-      {form.mendatoryFields && form.mendatoryFields.length > 0 ?
+      {contactForm.mendatoryFields && contactForm.mendatoryFields.length > 0 ?
         <label id="indication-label"
           className=
           {`
             lg:text-[70%]
             self-baseline
           `}
-        ><strong>*</strong>: mendatory information</label>
+        ><strong>*</strong>: {contactForm.alert['mendatory'][currentLang]}</label>
         : ""
       }
 
@@ -318,13 +304,22 @@ const Form = () => {
           rounded-md
           ${canSubmit ? 
             'color-scheme-quaternary \
-            hover:bg-[--color-quinary]' 
-            : 'bg-[#e1e1e1] text-white cursor-wait'}
+            hover:bg-[--color-quinary] \
+            hover:scale-[1.01]\
+            focus:ring-2 \
+            focus:ring-[--color-tertiary]' 
+            : 
+            'bg-[#d2d2d2] \
+            text-[#bfbfbf] \
+            cursor-wait'
+          }
+            transition-all
+            duration-300
+            ease-in-out
         `}
-      >{canSubmit ? 'Submit' : 'Cooldown..'}</button>
-
+      >{canSubmit ? contactForm.alert['submit'][currentLang] : '🕒'}</button>
     </form>
   )
 }
 
-export { Form, PhoneCodeContext };
+export { ContactForm, PhoneCodeContext };
