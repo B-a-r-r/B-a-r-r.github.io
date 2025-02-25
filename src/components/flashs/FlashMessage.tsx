@@ -19,7 +19,7 @@ const FlashMessage = ({context}: FlashMessageProps) => {
                 color-scheme-primary
                 fixed
                 bottom-0
-                right-1/3
+                left-[2%]
                 ${styles.sizeFit}
                 ${styles.flexRow}
                 ${styles.contentCenter}

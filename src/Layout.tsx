@@ -3,6 +3,8 @@ import { Footer, Navbar } from './components'
 import { ReactNode } from 'react'
 
 const Layout = ({children}: {children: ReactNode}) => {
+    console.log(window.innerWidth + 'x' + window.innerHeight)
+
     return (
         <div id='app-container' 
             className=
@@ -15,7 +17,8 @@ const Layout = ({children}: {children: ReactNode}) => {
                     className={`
                     z-50
                     w-full
-                    h-fit  
+                    h-fit
+                    min-h-[60px]
                 `}
             > <Navbar /> </div>
 

@@ -25,16 +25,17 @@
 
 .dark {
   /* App dark theme colors */
-  --color-primary: #000000;
-  --color-secondary: #060606;
-  --color-tertiary: #397855;
-  --color-quaternary: #F1F1F1; /*#78f7a9;*/
-  --color-quinary: #e6e5e5;
+  --color-primary: #2F2F2F;
+  --color-secondary: #282929;
+  --color-tertiary: #7CFFC4;
+  --color-quaternary: #71cbb3;
+  --color-quinary: #3c3c3c;
 }
 
 /* App global styles */
 * {
   scroll-behavior: smooth;
+  border-color: var(--color-quinary);
 }
 
 /* sauf body */
@@ -44,11 +45,15 @@
 }
 
 html {
-  background-color: var(--color-secondary);
+  /*background-color: var(--color-secondary);*/
 }
 
 body {
-  background-color: var(--color-primary);
+  background-image: url('./assets/cloudy_sky_landscape.webp');
+  background-size: contain;
+  background-position: top;
+  opacity: 100%;
+  /* background-color: var(--color-primary); */
   font-size: var(--base-font-size);
   color: var(--color-quaternary);
   font-family: var(--font-primary);
@@ -158,7 +163,7 @@ input:focus, textarea:focus {
 
 .color-scheme-secondary {
   background: var(--color-secondary);
-  color: var(--color-quaternary); 
+  color: var(--color-quaternary);
 }
 
 .color-scheme-quaternary {
@@ -370,5 +375,15 @@ input:focus, textarea:focus {
 
   100% {
     opacity: 0;
+  }
+}
+
+@keyframes burger-menu-apparition {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(0);
   }
 }

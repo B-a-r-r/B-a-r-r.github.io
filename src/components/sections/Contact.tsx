@@ -9,14 +9,15 @@ const Contact = () => {
       className=
       {`
         ${styles.sizeFull}
-        ${styles.flexRow}
+        md:${styles.flexRow} ${styles.flexCol}
         ${styles.contentCenter}
-        space-x-[15%]
+        md:space-x-[13%]
       `}
     >
         <div id='form-container'
             className=
             {`
+              md:${styles.flexCol} hidden
               w-2/5
               h-full
               ${styles.contentCenter}
@@ -32,20 +33,23 @@ const Contact = () => {
               w-fit
               h-full
               ${styles.flexCol}
-              ${styles.contentStartAll}
-              space-y-[50%]
-              mt-[15%]
+              ${styles.contentCenter}
+              md:space-y-[50%] space-y-[15%]
             `}
         >
           {socialMedia.map((social: SocialMedia) => (
             <div key={`icon-${social.label}-container`}
               className=
               {`
-                ${styles.flexCol}
+                md:${styles.flexCol} ${styles.flexRow}
                 ${styles.contentStartAll}
                 w-full
                 h-fit
-                space-y-[1%]
+                md:space-y-[1%] space-y-[3%]
+                md:color-scheme-primary color-scheme-secondary
+                md:rounded-none rounded-lg
+                md:p-[0] py-[3%] px-[5%]
+                md:shadow-none shadow-md
               `}
             >
               <a href={social.link}
@@ -63,7 +67,7 @@ const Contact = () => {
                     {`
                       object-cover
                       aspect-square
-                      w-[120%]
+                      md:w-[120%] w-[100%]
                     `}
                 />
               </a>
@@ -74,14 +78,46 @@ const Contact = () => {
                     h-[2.5px]
                   `}
               />
+
+              <div className=
+                  {`
+                    md:hidden ${styles.flexCol}
+                    ${styles.contentStartX}
+                    ${styles.debugBorders}
+                  `}
+              >
+                <label className=
+                  {`
+                    md:text-base text-xs
+                    w-full
+                    ${styles.contentStartX}
+                  `}
+                >{social.at}</label>
+              </div>
+
               <label className=
                   {`
+                    md:visible hidden
+                    md:text-base text-xs
                     w-full
                     ${styles.contentStartX}
                   `}
               >{social.at}</label>
             </div>
           ))}
+        </div>
+
+        <div id='form-container'
+            className=
+            {`
+              md:hidden ${styles.flexCol}
+              w-full
+              h-full
+              ${styles.contentCenter}
+              overflow-hidden
+            `}
+        >
+          <ContactForm />
         </div>
     </section>
   )

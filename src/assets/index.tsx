@@ -39,6 +39,7 @@ import csharp_icon from "./skills_icons/csharp_icon.svg";
 import portrait from "./about_portrait.jpg";
 import sysiphus from "./sysiphus_rotated.svg";
 import hephaistos from "./hephaistos_nobg.png";
+import background_landscape from "./cloudy_sky_landscape.webp";
 
 import gpgtool_home from "./projects_images/gpgtool_home.png";
 import gpgtool_crypto_tool from "./projects_images/gpgtool_crypto_tool.png";
@@ -106,7 +107,8 @@ export const coreImages = {
 
   portrait,
   sysiphus,
-  hephaistos
+  hephaistos,
+  background_landscape
 
 };
 

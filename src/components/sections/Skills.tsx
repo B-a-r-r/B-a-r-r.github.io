@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { skills } from "../../data/contents"
 import { SkillCategorie, SkillSubcategorie } from "../../data/dataTypes"
 import styles from "../../style"
-import { ForceGraph3D } from "react-force-graph"
+import { ForceGraph2D, ForceGraph3D, ForceGraphMethods$1 } from "react-force-graph"
 import {TextureLoader, SRGBColorSpace, SpriteMaterial, Sprite} from "three"
 
 type GraphData = {
@@ -13,6 +13,8 @@ type GraphData = {
 const Skills = () => {
   const [selectedCategory, setSelectedCategory] = useState(SkillCategorie.LANGUAGE)
   const [graphData, setGraphData] = useState<GraphData>()
+  const graph = useRef<ForceGraphMethods$1<{ id: string; name: string; img: string; val: number; group: SkillSubcategorie; }, { source: string; target: string }> | undefined>(undefined)
+  const distance = 500
   
   useEffect(() => {
     const initGraphData: GraphData = {nodes: [], links: []}
@@ -21,7 +23,6 @@ const Skills = () => {
     .sort((a) => a.framework ? -1 : 1)
     .sort((a,b) => a.framework === b.framework ? -1 : 1)
     .map((skill, index, all) => {
-      if (index === 0) { console.log(all) }
       initGraphData.nodes.push({
         id: skill.label,
         name: skill.label,
@@ -31,12 +32,13 @@ const Skills = () => {
       })
 
       const verifiedTarget = (
-        skill.framework ? all.find((s) => s.label === skill.framework)
-          : all.find((s) => 
-            s.subcategory === skill.subcategory 
-            && !s.framework
-            && s.label !== skill.label
-          ) ?? null
+        initGraphData.links.find((l) => l.target === skill.label) ? null 
+        : skill.framework ? all.find((s) => s.label === skill.framework)
+        : all.find((s) => 
+          s.subcategory === skill.subcategory 
+          && !s.framework
+          && s.label !== skill.label
+        ) ?? null
       )
       if (verifiedTarget !== null) {
         initGraphData.links.push({
@@ -44,10 +46,24 @@ const Skills = () => {
           target: verifiedTarget!.label
         })
       }
-    })
 
-    setGraphData(initGraphData)
+      setGraphData(initGraphData)
+    })
   }, [selectedCategory])
+
+  useEffect(() => {
+    graph.current?.cameraPosition({ z: distance });
+
+    let angle = 0;
+    setInterval(() => {
+      graph.current?.cameraPosition({
+        x: distance * Math.sin(angle),
+        z: distance * Math.cos(angle)
+      });
+      angle += Math.PI / 300;
+    }, 10);
+  }, []);
+
 
   return (
     <section id="skills"
@@ -88,7 +104,8 @@ const Skills = () => {
           ${styles.contentCenter}
         `}
       >
-        <ForceGraph3D graphData={graphData}
+        {/* <ForceGraph3D ref={graph}
+          graphData={graphData}
           backgroundColor={
             getComputedStyle(document.documentElement)
             .getPropertyValue("--color-primary")
@@ -96,7 +113,16 @@ const Skills = () => {
           width={document.querySelector("#graph-container")?.clientWidth ?? 0}
           height={ document.querySelector("#graph-container")?.clientHeight ?? 0}
           showNavInfo={false}
-
+          enableNavigationControls={true}
+          
+          // nodeCanvasObject={(node) => {
+          //   const imgTexture = new TextureLoader().load(node.img);
+          //   imgTexture.colorSpace = SRGBColorSpace;
+          //   const material = new SpriteMaterial({ map: imgTexture });
+          //   const sprite = new Sprite(material);
+          //   sprite.scale.set(24, 24, 1);
+          //   return sprite;
+          // }}
           nodeThreeObject={({ img }) => {
               const imgTexture = new TextureLoader().load(img);
               imgTexture.colorSpace = SRGBColorSpace;
@@ -110,24 +136,22 @@ const Skills = () => {
           nodeRelSize={5}
           nodeResolution={10}
 
-
           linkColor={() =>
             getComputedStyle(document.documentElement)
             .getPropertyValue("--color-tertiary")
           }
           linkVisibility={true}
           linkLabel={"bonjour"}
-          linkWidth={0.2}
+          linkWidth={0.8}
           linkOpacity={0.5}
-          linkResolution={8}
-          linkCurvature={0.25}
-          linkCurveRotation={0.5}
+          linkResolution={10}
 
           linkDirectionalParticles={1}
           linkDirectionalParticleSpeed={0.001}
           linkDirectionalParticleWidth={0.8}
           
-        />
+          onEngineStop={() => graph.current?.zoomToFit(400, 400)}
+        /> */}
       </div>
     </section>
   )  

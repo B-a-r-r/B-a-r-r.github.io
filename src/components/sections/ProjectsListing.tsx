@@ -8,12 +8,13 @@ import Sortingbar from "../search/Sortingbar";
 import { Project } from "../../data/dataTypes";
 import { LangContext } from "../language";
 import Retex from "../Retex";
+import { getActiveBreakpoint, randomNumberBetween } from "../../utils";
 
 
 const ProjectsListing = () => {
     const { toMatch } = useContext(SearchContext);
     const { currentLang } = useContext(LangContext);
-    const [displayedProjects, setDisplayedProjects] = useState(projects);
+    const [ displayedProjects, setDisplayedProjects ] = useState(projects);
     const [ toggleRetexTitled, setToggleRetexTitled ] = useState<string | false>(false);
 
     useEffect(() => {
@@ -60,9 +61,10 @@ const ProjectsListing = () => {
             {`
                 w-full
                 h-fit
-                ${styles.flexRow}
+                ${getActiveBreakpoint("number") as number > 1 ? styles.flexRow : styles.flexCol}
                 ${styles.contentCenter}
-                space-x-[2%]
+                md:space-x-[2%] space-x-[0]
+                md:space-y-[0] space-y-[15%]
             `}
         >
             <Searchbar />
@@ -104,7 +106,7 @@ const ProjectsListing = () => {
                 perspective: '2000px',
             }}
         >   
-            {displayedProjects.map((project) => (
+            {displayedProjects.sort(() => randomNumberBetween(0,1) === 0 ? 1 : -1).map((project) => (
                 <ProjectPreview key={`project-${project.title}-preview`}
                     project={project}
                     retexToggler={setToggleRetexTitled}

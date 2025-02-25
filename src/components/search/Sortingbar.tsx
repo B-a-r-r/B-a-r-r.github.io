@@ -1,12 +1,27 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import styles from "../../style"
 import { SortOption } from "../../data/dataTypes"
 import { SearchContext } from "./SearchEngine";
 import { DropdownSort } from "../dropdowns";
+import { getActiveBreakpoint } from "../../utils";
 
 const SortingBar = () => {
     const { toMatch, setToMatch } = useContext(SearchContext);
     const alreadyDisplayedItems = ["ALL"];
+    const [isMobile, setIsMobile] = useState(!(getActiveBreakpoint("number") as number > 1));
+
+    useEffect(() => {
+        console.log(getActiveBreakpoint("number"));
+        window.addEventListener("resize", () => {
+            const avbp = getActiveBreakpoint("number") as number;
+            if (!isMobile && avbp <= 1) {
+                setIsMobile(true);
+            }
+            else if (isMobile && avbp > 1) {
+                setIsMobile(false);
+            }
+        })
+    }, [])
 
     return (
     <div id="sorting-bar-container"
@@ -17,7 +32,7 @@ const SortingBar = () => {
             ${styles.contentCenter}
         `}
     >
-        {(Object.keys(SortOption) as Array<keyof typeof SortOption>)
+        {isMobile ? "" : (Object.keys(SortOption) as Array<keyof typeof SortOption>)
         .slice(0,5)
         .map((option, index) => {
             alreadyDisplayedItems.push(option);

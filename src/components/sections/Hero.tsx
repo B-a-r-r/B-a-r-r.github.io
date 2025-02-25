@@ -62,9 +62,10 @@ const Hero = () => {
           {`
             w-fit
             h-full
+            z-10
             ${styles.flexCol}
             ${styles.contentStartAll}
-            space-y-[15%]
+            md:space-y-[15%] space-y-[13%]
           `}
         >
             <div id="hero-heading"
@@ -72,19 +73,21 @@ const Hero = () => {
               {`
                 ${styles.sizeFit}
                 relative
-                xl:mt-[30%] mt-[33%]
+                xl:mt-[40%] md:mt-[33%] mt-[10%]
               `}
             >
-              <h1 className="
-                tracking-[0.04em]
-                xxl:leading-[90px] leading-[115%]
-                xxl:text-[400%] lg:text-7xl"
+              <h1 className=
+                {`
+                  tracking-[0.04em]
+                  leading-[115%]
+                  xl:text-9xl lg:text-7xl text-4xl
+                `}
               >
                 {author.firstName} <br/> 
                 <a className=
                   {`
                     font-primary-bold 
-                    lg:text-xl
+                    text-xl
                     tracking-wide
                   `}
                 > 
@@ -97,7 +100,7 @@ const Hero = () => {
                 {`
                   absolute
                   ${styles.line}
-                  -bottom-4
+                  md:-bottom-4 -bottom-3
                   left-1/4
                 `}
               />
@@ -113,9 +116,9 @@ const Hero = () => {
               }
               className=
               {`
-                xxl:text-[160%] lg:text-2xl
+                xl:text-2xl lg:text-2xl text-xxs
                 text-wrap
-                pr-[10%]
+                md:pr-[10%] pr-[15%]
               `}
             />
 
@@ -136,9 +139,11 @@ const Hero = () => {
             className=
             {`
               absolute
-              xxl:w-[90%] lg:w-[102%]
+              md:visible hidden
+              md:opacity-100 opacity-50
+              xl:w-[85%] lg:w-[102%] w-[550%]
               object-cover
-              xxl:-top-[12%] top-[6%]
+              md:top-[6%] top-[1%]
               right-0
             `}
           />

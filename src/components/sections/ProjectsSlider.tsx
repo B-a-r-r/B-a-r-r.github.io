@@ -141,7 +141,6 @@ const ProjectsSlider = () => {
         ${styles.flexRow}
         ${styles.contentCenter}
         space-x-[5%]
-        overflow-hidden
       `}
     >
 
@@ -206,14 +205,15 @@ const ProjectsSlider = () => {
           ${styles.flexCol}
           ${styles.contentCenter}
           relative
+          overflow-y-visible
         `}
       >
         <img id="hephaistos-statue"
             src={coreImages.hephaistos}
             alt={`Statue of Hephaistos`}
             className={`
-              object-cover
-              xxl:w-[400px] lg:h-[700px]
+              object-contain
+              xl:w-[75%] 
               absolute
               left-0
             `}

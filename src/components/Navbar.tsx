@@ -30,8 +30,8 @@ const Navbar = () => {
         py-[1%]
         ${styles.flexRow}
         ${styles.contentStartX}
-        color-scheme-secondary
-        xxl:text-[125%]  xl:text-[115%]  lg:text-[102%]
+        md:color-scheme-secondary color-scheme-primary
+        xxl:text-[125%]  xl:text-lg  lg:text-base
       `}
     >
 
@@ -96,15 +96,28 @@ const Navbar = () => {
         className=
         {`
           ${styles.sizeFull}
+          min-h-[60px]
           ${styles.contentEndX}
-          lg:hidden flex flew-row
+          lg:hidden ${styles.flexRow}
+          relative
         `}
       >
         <button id="burger"
           className=
           {`
-            ${styles.sizeFit}
+            ${styles.sizeFull}
+            ${styles.flexRow}
+            ${styles.contentEndX}
+            absolute
+            top-0
+            -right-${toggleBurger ? "0" : "5"}
+            transition-all
+            duration-300
+            ease-in-out
           `}
+          style={{
+            zIndex: 1000,
+          }}
           onClick={() => setToggleBurger(!toggleBurger)}
         >
           <img src=
@@ -113,10 +126,12 @@ const Navbar = () => {
             alt="burger"
             className=
             {`
-              object-contain
+              object-cover
               object-center
-              h-[60px]
-              self-end
+              w-[${toggleBurger ? "15%" : "12%"}] 
+              transition-all
+              duration-300
+              ease-in-out
             `}
           />
         </button>
@@ -128,42 +143,63 @@ const Navbar = () => {
             ${styles.sizeFull}
             ${styles.flexCol}
             ${styles.contentEndY}
-            bg-[--color-secondary]
             lg:hidden
+            relative
           `}
+          style={{
+            zIndex: 999,
+            animation: 'burger-menu-apparition 0.5s ease-in-out'
+          }}
         >
-          {
-            navLinks
+          <ul className=
+            {`
+              list-none
+              absolute
+              color-scheme-secondary
+              -top-10
+              -right-5
+              px-[8%]
+              pt-[25%]
+              pb-[5%]
+              space-y-[10%]
+              shadow-md
+              rounded-md
+            `}
+          >
+            {navLinks
             .find(
               (nav) => nav.route.includes(window.location.pathname.split('/')[1])
-            )?.links.map((nav) => (
-              <>
-                <li key={`${nav.label}-container`}
-                  className=
-                  {`
-                    font-secondary-regular
-                    tracking-widest
-                    cursor-pointer
-                    hover:text-[--color-tertiary]
-                    text-nowrap
-                    ${(nav.label[currentLang] ? nav.label[currentLang].toLowerCase()
-                      : nav.label[0].toLowerCase()) === currentNavigation ? 'text-[--color-tertiary]' : ""}
-                  `}
-                >
-                  {nav.link.includes('#') ?
-                    <a href={nav.link}
-                      onClick={() => setCurrentNavigation(nav.label[currentLang].toLowerCase())}
-                    > {nav.label[currentLang] ? nav.label[currentLang] : nav.label[0]} </a> 
-                    :
-                    <Link to={nav.link}
-                      onClick={() => setCurrentNavigation(nav.label[currentLang].toLowerCase())}
-                    > {nav.label[currentLang] ? nav.label[currentLang] : nav.label[0]} </Link>
-                  }
-                </li>
-              </>
-            ))
-          }
-          </div>
+            )?.links.map((nav, index) => (
+              <li key={`${index}`}
+                className=
+                {`
+                  font-secondary-regular
+                  tracking-widest
+                  cursor-pointer
+                  hover:text-[--color-tertiary]
+                  text-nowrap
+                  transition-all
+                  duration-300
+                  ease-in-out
+                  ${(nav.label[currentLang] ? nav.label[currentLang].toLowerCase()
+                    : nav.label[0].toLowerCase()) === currentNavigation ? 'text-[--color-tertiary]' : ""}
+                `}
+              >
+                {nav.link.includes('#') ?
+                  <a key={`${index}-a`}
+                    href={nav.link}
+                    onClick={() => setCurrentNavigation(nav.label[currentLang].toLowerCase())}
+                  > {nav.label[currentLang] ? nav.label[currentLang] : nav.label[0]} </a> 
+                  :
+                  <Link key={`${index}-link`}
+                    to={nav.link}
+                    onClick={() => setCurrentNavigation(nav.label[currentLang].toLowerCase())}
+                  > {nav.label[currentLang] ? nav.label[currentLang] : nav.label[0]} </Link>
+                }
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </nav>
   ) 

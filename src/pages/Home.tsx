@@ -15,6 +15,8 @@ const Home = () => {
         className=
         {`
           ${styles.sectionContainer}
+          xl:px-[13%]
+          h-[40vh]
         `}
       >
         <Hero />
@@ -24,6 +26,7 @@ const Home = () => {
         className=
         {`
           ${styles.sectionContainer}
+          xl:px-[13%]
         `}
       >
         <About />

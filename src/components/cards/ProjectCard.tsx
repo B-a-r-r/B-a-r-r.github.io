@@ -20,7 +20,7 @@ const ProjectCard = ({project, additionalStyles}: ProjectCardProps) => {
             id={`card-${project.title}-container`}
             className={`
                 ${styles.sizeFull}
-                max-h-[400px]
+                max-h-[55%]
                 max-w-[70%]
                 aspect-square
                 absolute
@@ -53,8 +53,9 @@ const ProjectCard = ({project, additionalStyles}: ProjectCardProps) => {
                     titleProps=
                     {`
                         color-scheme-secondary
-                        lg:text-lg
+                        xl:text-xl lg:text-lg
                         px-[8%]
+                        xl:mb-[4%]
                     `}
                     contentProps=
                     {`

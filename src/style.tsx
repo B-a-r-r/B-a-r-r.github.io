@@ -1,15 +1,17 @@
+import { getRandomTailwindColor } from "./utils";
 
 const styles = {
 
   page: "w-full h-full color-scheme-primary ",
+  sectionContainer: `w-screen md:h-screen px-[12%] color-scheme-primary `,
 
   heading2: " \
     font-primary-bold \
-    xxl:text-[230%] lg:text-[140%]  \
-    xxl:leading-10 leading-8 \
+    xl:text-4xl lg:text-2xl  \
+    xl:leading-10 leading-8 \
     w-full  \
     tracking-wider  \
-    mb-8",
+    xl:mb-9 mb-8",
   
   line: " \
     block \
@@ -21,16 +23,18 @@ const styles = {
   subtitle: " \
     font-primary-regular  \
     color-scheme-primary  \
-    xxl:text-[200%]  \
+    xxl:text-5xl  \
     leading-[40px]  \
     tracking-wide", 
   
   paragraph: " \
     font-primary-regular \
     color-scheme-primary  \
-    xxl:text-[180%] lg:text-[110%]  \
+    xl:text-2xl lg:text-lg text-xs \
     leading-[145%]  \
-    tracking-wide",
+    tracking-wide \
+    text-wrap  \
+    whitespace-pre-line",
 
   flexCol: "flex flex-col",
   flexRow: "flex flex-row",
@@ -47,8 +51,9 @@ const styles = {
   sizeFull: "w-full h-full",
   sizeScreen: "h-screen w-auto",
   sizeFit: "w-fit h-fit",
+  sizeAuto: "w-auto h-auto",
 
-  sectionContainer: `w-screen h-screen px-[12%] color-scheme-primary `,
+  debugBorders: "border-2 border-".concat(getRandomTailwindColor()),
 };
   
 export default styles;

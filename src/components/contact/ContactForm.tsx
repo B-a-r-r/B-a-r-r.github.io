@@ -109,8 +109,7 @@ const ContactForm = () => {
       className=
       {`
         ${styles.sizeFull}
-        max-h-[700px]
-        max-w-[600px]
+        md:max-h-[75%] 
         ${styles.flexCol}
         ${styles.contentCenter}
         font-primary-regular
@@ -222,12 +221,17 @@ const ContactForm = () => {
           h-1/5
           ${styles.flexRow}
           ${styles.contentCenter}
-          space-x-2
+          space-x-[3%]
           pl-[4%]
           border-2
           resize-none
           relative
           text-xxs
+          rounded-md
+          transition-all
+          duration-300
+          ease-in-out
+          focus-within:border-[--color-tertiary]
         `}
       >
         <PhoneCodeContext.Provider value={{phoneCode, setPhoneCode}}>
@@ -244,9 +248,9 @@ const ContactForm = () => {
             color-scheme-primary
             rounded-md
             px-4
-            border-l-2
             resize-none
           `}
+          style={{border: 'none'}}
           onChange={(e) => setFormPhone(phoneCode+' '+e.target.value)}
         />
         {contactForm.mendatoryFields && contactForm.mendatoryFields.includes('phone') 
@@ -305,17 +309,16 @@ const ContactForm = () => {
           ${canSubmit ? 
             'color-scheme-quaternary \
             hover:bg-[--color-quinary] \
-            hover:scale-[1.01]\
-            focus:ring-2 \
-            focus:ring-[--color-tertiary]' 
+            focus:scale-[0.96]'
             : 
-            'bg-[#d2d2d2] \
-            text-[#bfbfbf] \
+            'border-2 \
+            border-[--color-quaternary] \
+            bg-[--color-secondary] \
             cursor-wait'
           }
-            transition-all
-            duration-300
-            ease-in-out
+          transition-all
+          duration-150
+          ease-in-out
         `}
       >{canSubmit ? contactForm.alert['submit'][currentLang] : '🕒'}</button>
     </form>

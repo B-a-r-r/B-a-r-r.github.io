@@ -13,17 +13,53 @@ const About = () => {
       className=
       {`
         ${styles.sizeFull}
-        ${styles.flexRow}
-        space-x-[8%]
+        md:${styles.flexRow} ${styles.flexCol}
+        ${styles.contentCenter}
+        md:space-x-[6%]
+        md:space-y-0 space-y-[10%]
+        overflow-hidden
       `}
     >
       <span className=
         {`
+          md:${styles.flexCol} hidden
           w-5/12
           h-full
-          ${styles.flexCol}
           relative
-          overflow-hidden
+        `}
+      >
+        <img src={coreImages.portrait}
+          alt="author-portrait"
+          className=
+          {`
+            absolute
+            object-cover
+            object-center
+            aspect-square
+            rounded-[5px]
+            xl:w-[93%] w-[100%]
+            xl:top-[17%] top-0 right-0
+            shadow-xl
+          `}
+        />
+
+        <hr className=
+          {`
+            hidden
+            ${styles.line}
+            xl:top-[60%]
+            xl:left-[5%]
+          `}
+        />
+      </span>
+      
+      <span className=
+        {`
+          md:hidden ${styles.flexRow}
+          w-full
+          h-fit
+          relative
+          space-x-[3%]
         `}
       >
         <img src={coreImages.portrait}
@@ -33,16 +69,20 @@ const About = () => {
             object-cover
             object-center
             aspect-square
-            rounded-sm
+            rounded-[5px]
+            w-[60%]
+            shadow-xl
           `}
         />
 
-        <hr className=
+        <h2 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(bioText.find((e) => e.active)!.title[currentLang])}}
+          className=
           {`
-            absolute
-            ${styles.line}
-            xl:top-[40%]
-            xl:left-[5%]
+            ${styles.heading2}
+            flex
+            mb-[0]
+            pb-[0]
+            ${styles.contentEndY}
           `}
         />
       </span>
@@ -57,7 +97,11 @@ const About = () => {
         `}
       >
         <h2 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(bioText.find((e) => e.active)!.title[currentLang])}}
-          className={styles.heading2}
+          className=
+          {`
+            md:visible hidden
+            ${styles.heading2}
+          `}
         />
 
         <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(bioText.find((e) => e.active)!.content[currentLang])}}

@@ -39,7 +39,6 @@ module.exports = {
   },
   plugins: [
     require('dompurify'), 
-    require('react-router'), 
-    require('react-i18next'),
+    require('react-router'),
   ],
 };

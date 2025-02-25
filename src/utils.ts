@@ -1,5 +1,10 @@
 import { NavbarPattern, NavLink } from "./data/dataTypes";
 import { navLinks } from "./data/constants";
+import resolveConfig from 'tailwindcss/resolveConfig'
+import config from '../tailwind.config.d'
+import { Config } from "tailwindcss";
+
+const TAILWIND_CONFIG = resolveConfig(config as Config);
 
 /**
  * @function randomNumberBetween Get a random number between min and max
@@ -175,4 +180,51 @@ export const lightenHexColor = (color: string, percent: number) => {
     return "#" + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 + 
     (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 + 
     (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
+}
+
+/**
+ * @function getRandomTailwindColor Get a random Tailwind CSS color anmong a 
+ * predefined list of colors.
+ * @returns a random Tailwind CSS color
+ */
+export const getRandomTailwindColor = () => {
+    const colors = [
+        'red-500', 
+        'green-500', 
+        'blue-500', 
+        'yellow-500', 
+        'purple-500', 
+        'pink-500', 
+        'cyan-500', 
+    ];
+    return colors[randomNumberBetween(0, colors.length - 1)];
+}
+
+/**
+ * @function getActiveBreakpoint compare the current screen width with the custom 
+ * breakpoints in the tailwindcss config file.
+ * @returns the active breakpoint.
+ */
+export const getActiveBreakpoint = (returnType: "string" | "number") => {
+    const currentWidth = window.innerWidth;
+    console.log(parseInt(TAILWIND_CONFIG.theme.screens["2xl"]))
+    console.log(currentWidth)
+    if (parseInt(TAILWIND_CONFIG.theme.screens["2xl"]) <= currentWidth) {
+        return returnType === "number" ? 5 : "2xl";
+    }
+    else if (parseInt(TAILWIND_CONFIG.theme.screens["xl"]) <= currentWidth) {
+        return returnType === "number" ? 4 : "xl";
+    }
+    else if (parseInt(TAILWIND_CONFIG.theme.screens["lg"]) <= currentWidth) {
+        return returnType === "number" ? 3 : "lg";
+    }
+    else if (parseInt(TAILWIND_CONFIG.theme.screens["md"]) <= currentWidth) {
+        return returnType === "number" ? 2 : "md"
+    }
+    else if (parseInt(TAILWIND_CONFIG.theme.screens["sm"]) <= currentWidth) {
+        return returnType === "number" ? 1 : "sm";
+    }
+    else {
+        return returnType === "number" ? 0 : "base";
+    }
 }

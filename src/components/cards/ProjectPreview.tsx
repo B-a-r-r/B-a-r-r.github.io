@@ -22,7 +22,7 @@ const ProjectPreview = ({project, retexToggler}: ProjectPreviewProps) => {
             className=
             {`
                 ${styles.flexCol}
-                w-[30%]
+                md:w-[30%] w-full
                 h-[500px]
                 rounded-md
                 shadow-xl
@@ -54,7 +54,7 @@ const ProjectPreview = ({project, retexToggler}: ProjectPreviewProps) => {
                     alt="project image"
                     className=
                     {`
-                        lg:h-[200px]
+                        lg:h-[200px] h-full
                         w-full
                         aspect-video
                         object-cover
