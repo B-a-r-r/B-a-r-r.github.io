@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react"
 import { skills } from "../../data/contents"
-import { SkillCategorie, SkillSubcategorie } from "../../data/dataTypes"
+import { AvailableSkillCategories, AvailableSkillSubcategories, SkillCategorie, SkillSubcategorie } from "../../data/dataTypes"
 import styles from "../../style"
 import { ForceGraph2D, ForceGraph3D, ForceGraphMethods$1 } from "react-force-graph"
 import {TextureLoader, SRGBColorSpace, SpriteMaterial, Sprite} from "three"
+import { skillCategories, skillSubcategories } from "../../data/constants"
 
 type GraphData = {
   nodes: {id: string, name: string, img: string, val: number, group: SkillSubcategorie}[];
@@ -11,7 +12,7 @@ type GraphData = {
 }
 
 const Skills = () => {
-  const [selectedCategory, setSelectedCategory] = useState(SkillCategorie.LANGUAGE)
+  const [selectedCategory, setSelectedCategory] = useState(AvailableSkillCategories.LANGUAGE)
   const [graphData, setGraphData] = useState<GraphData>()
   const graph = useRef<ForceGraphMethods$1<{ id: string; name: string; img: string; val: number; group: SkillSubcategorie; }, { source: string; target: string }> | undefined>(undefined)
   const distance = 500
@@ -19,7 +20,7 @@ const Skills = () => {
   useEffect(() => {
     const initGraphData: GraphData = {nodes: [], links: []}
 
-    skills.filter((skill) => skill.category === selectedCategory)
+    skills.filter((skill) => skill.category.context === selectedCategory)
     .sort((a) => a.framework ? -1 : 1)
     .sort((a,b) => a.framework === b.framework ? -1 : 1)
     .map((skill, index, all) => {
@@ -28,7 +29,7 @@ const Skills = () => {
         name: skill.label,
         img: skill.icon,
         val: skill.weight ?? 1,
-        group: skill.subcategory ?? SkillSubcategorie.TEXT
+        group: skill.subcategory!
       })
 
       const verifiedTarget = (
@@ -82,15 +83,15 @@ const Skills = () => {
           h-fit        
         `}
       >
-        {Object.values(SkillCategorie).map((categorie) => (
+        {skillCategories.map((categorie) => (
           <button key={`${categorie}`}
             className=
             {`
-              ${selectedCategory === categorie ? "text-[--color-tertiary]" : ""}
+              ${selectedCategory === categorie.context ? "text-[--color-tertiary]" : ""}
               hover:text-[--color-tertiary]
             `}
-            onClick={() => setSelectedCategory(categorie)}
-          > {categorie} </button>
+            onClick={() => setSelectedCategory(categorie.context)}
+          > {categorie.content['fr']} </button>
           
         ))}
         {selectedCategory}

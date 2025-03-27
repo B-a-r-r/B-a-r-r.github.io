@@ -9,6 +9,7 @@ import { LangContext } from "./language"
 const Footer = () => {
   const [currentNavigation, setCurrentNavigation] = useState(getCurrentNavigation())
   const { currentLang } = useContext(LangContext)
+  let seeAlsoLinksDisplayed = 0;
 
   return (
     <footer id="footer"
@@ -16,7 +17,7 @@ const Footer = () => {
       {`
         ${styles.sizeFull}
         px-[5%]
-        pt-[4%]
+        2xl:pt-[2%] pt-[4%]
         pb-[2%]
         ${styles.flexRow}
         color-scheme-secondary
@@ -31,7 +32,7 @@ const Footer = () => {
           w-[200%]
           ${styles.contentStartAll}
           ${styles.flexRow}
-          xxl:text-[130%]  xl:text-[75%]  lg:text-[80%]
+          lg:text-2xs
           space-x-[15%]
         `}
       >
@@ -46,29 +47,26 @@ const Footer = () => {
             className=
             {`
               font-primary-semibold
-              lg:text-[110%]
+              lg:text-lg
             `}
           >Navigation</h3>
 
           {navLinks.filter((pattern) => pattern.route.includes(window.location.pathname.split("/")[1]))[0].links
           .map((navLink, index) => (
             <a key={`nav-link-${index}`}
-              id={`nav-link-${navLink.label}`}
+              id={`nav-link-${navLink.content[currentLang]}`}
               href={navLink.link}
               className=
               {`
-                ${(navLink.label[currentLang] ? navLink.label[currentLang].toLocaleLowerCase() 
-                  : navLink.label[0].toLocaleLowerCase()) === currentNavigation ? 'text-[--color-tertiary]' : ''}
-                hover:text-[--color-tertiary]
-                transition-all
-                duration-150
-                ease-in-out
+                ${(navLink.content[currentLang] ? navLink.content[currentLang].toLocaleLowerCase() 
+                  : navLink.content[0].toLocaleLowerCase()) === currentNavigation ? 'text-[--color-tertiary]' : ''}
+                ${styles.hyperlink}
               `}
               onClick={() => setCurrentNavigation(
-                navLink.label[currentLang] ? navLink.label[currentLang].toLocaleLowerCase() 
-                : navLink.label[0].toLocaleLowerCase()
+                navLink.content[currentLang] ? navLink.content[currentLang].toLocaleLowerCase() 
+                : navLink.content[0].toLocaleLowerCase()
               )}
-            > {navLink.label[currentLang] || navLink.label[0]} </a>
+            > {navLink.content[currentLang] || navLink.content[0]} </a>
           ))}
         </div>
 
@@ -77,32 +75,26 @@ const Footer = () => {
           {`
             ${styles.flexCol}
             ${styles.contentStartAll}
-            
+            text-nowrap
           `}
         >
           <h3 id="credits-title"
             className=
             {`
               font-primary-semibold
-              lg:text-[110%]
+              lg:text-lg
               w-full
             `}
           >Credits</h3>
 
           {creditsMentions.map((credit, index) => (
             <a key={`credit-${index}`}
-              id={`credit-${credit.label}`}
+              id={`credit-${credit.content[currentLang]}`}
               href={credit.link ? credit.link : credit.contentRef[0]}
-              className=
-              {`
-                hover:text-[--color-tertiary]
-                transition-all
-                duration-150
-                ease-in-out
-              `}
+              className={`${styles.hyperlink}`}
               target="_blank" 
               rel="noopener noreferrer"
-            > {credit.label[currentLang]} </a>
+            > {credit.content[currentLang]} </a>
           ))}
         </div>
 
@@ -111,31 +103,74 @@ const Footer = () => {
           {`
             ${styles.flexCol}
             ${styles.contentStartAll}
+            w-fit
+            h-full
+            text-nowrap
           `}
         >
           <h3 id="see-also-title"
             className=
             {`
               font-primary-semibold
-              lg:text-[110%]
+              lg:text-lg
             `}
           >See also</h3>
+          
+          {/** This section can support 0 to 8 shared links, split in two columns */}
+          <div id="see-also-links-cols"
+            className=
+            {`
+              ${styles.flexRow}
+              ${styles.sizeFull}
+              space-x-[8%]
+            `}
+          >
+            <div id="links-col-1"
+              className=
+              {`
+                ${styles.sizeFull}
+                ${styles.flexCol}
+              `}
+            >
+              {sharedLinks.map((link, index) => {
+                if (seeAlsoLinksDisplayed === navLinks.filter((pattern) => pattern.route.includes(window.location.pathname.split("/")[1]))[0].links.length) {return;}
+                seeAlsoLinksDisplayed++;
+                return (
+                  <a key={`credit-${index}`}
+                    id={`credit-${index}`}
+                    href={link.link}
+                    className={`${styles.hyperlink}`}
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  > {link.content[currentLang]} </a>
+                )
+              })}
+            </div>
 
-            {sharedLinks.map((link, index) => (
-              <a key={`credit-${index}`}
-                id={`credit-${index}`}
-                href={link.link}
-                className=
-                {`
-                  hover:text-[--color-tertiary]
-                  transition-all
-                  duration-150
-                  ease-in-out
-                `}
-                target="_blank" 
-                rel="noopener noreferrer"
-              > {link.label[currentLang]} </a>
-            ))}
+            <div id="links-col-2"
+              className=
+              {`
+                ${seeAlsoLinksDisplayed === sharedLinks.length ? 'hidden' : ''}
+                ${styles.sizeFull}
+                ${styles.flexCol}
+              `}
+            >
+              {seeAlsoLinksDisplayed === sharedLinks.length ? '' : 
+              sharedLinks.slice(seeAlsoLinksDisplayed).map((link, index) => {
+                if (seeAlsoLinksDisplayed === navLinks.filter((pattern) => pattern.route.includes(window.location.pathname.split("/")[1]))[0].links.length*2) {return;}
+                seeAlsoLinksDisplayed++;
+                return (
+                  <a key={`credit-${index}`}
+                    id={`credit-${index}`}
+                    href={link.link}
+                    className={`${styles.hyperlink}`}
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  > {link.content[currentLang]} </a>
+                )
+              })}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -146,7 +181,7 @@ const Footer = () => {
           ${styles.contentEndAll}
           ${styles.sizeFull}
           self-end
-          text-[60%]
+          text-3xs
         `}
       >
         {
@@ -155,14 +190,11 @@ const Footer = () => {
             className=
             {`
               text-right
-              hover:text-[--color-tertiary]
-              transition-all
-              duration-150
-              ease-in-out
+              ${styles.hyperlink}
             `}
             target="_blank" 
             rel="noopener noreferrer"
-            dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(copyrigthText.label)}}
+            dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(copyrigthText.content[0])}}
           />
         }
       </div>

@@ -47,17 +47,17 @@ const ContactForm = () => {
       setFormPhone('');
       
     } else if (!phonePattern.test(formPhone)) {
-      alert(contactForm.alert.phone[currentLang]);
+      alert(contactForm.alert.find(alert => alert.context === "phone")!.content[currentLang]);
       return false;
     }
 
     if (!emailPattern.test(formEmail)) {
-      alert(contactForm.alert.email[currentLang]);
+      alert(contactForm.alert.find(alert => alert.context === "email")!.content[currentLang]);
       return false;
     }
 
     if (contactForm.messageMinLength && formMessage.length < contactForm.messageMinLength) {
-      alert(contactForm.alert.message[currentLang]);
+      alert(contactForm.alert.find(alert => alert.context === "message")!.content[currentLang]);
       return false;
     }
 
@@ -71,7 +71,7 @@ const ContactForm = () => {
     if (!contactForm.emailAPI) return;
 
     if (requestCount.current > 3) {
-      alert(contactForm.alert.cooldown[currentLang]);
+      alert(contactForm.alert.find(alert => alert.context === "cooldown")!.content[currentLang]);
       waitTime.current = 900000;
       setCanSubmit(false);
       return;
@@ -91,11 +91,11 @@ const ContactForm = () => {
         templateParams,
         contactForm.emailAPI!.publicKey
       ).then(() => {
-          alert(contactForm.alert.apiOK[currentLang]);
+          alert(contactForm.alert.find(alert => alert.context === "apiOK")!.content[currentLang]);
 
         },
         (error) => {
-          alert(contactForm.alert.apiError[currentLang])
+          alert(contactForm.alert.find(alert => alert.context === "apiError")!.content[currentLang]);
           console.error('Form submission error: ', error);
         },
       );
@@ -128,11 +128,11 @@ const ContactForm = () => {
           h-1/5
           ${styles.contentStartAll}
           font-primary-bold
-          xxl:text-[180%] text-base
+          2xl:text-[180%] base:text-base
           ${styles.heading2}
           tracking-wider
-          leading-10
-          mb-[8%]
+          xl:leading-[125%] md:leading-10
+          xl:mb-[5%] base:mb-[8%]
         `}
         dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(contactForm.title[currentLang])}}
       />
@@ -151,7 +151,11 @@ const ContactForm = () => {
       >
         <input type="text"
           name="lastname" 
-          placeholder={`${contactForm.fields['lastname'][currentLang]}`}
+          placeholder={`${
+            contactForm.fields['lastname'].content[currentLang] ?
+            contactForm.fields['lastname'].content[currentLang] 
+            : contactForm.fields['lastname'].content[0]
+          }`}
           required={contactForm.mendatoryFields ? contactForm.mendatoryFields.includes('lastname') : false}
           className=
           {`
@@ -167,7 +171,11 @@ const ContactForm = () => {
         
         <input type="text"
           name="firstname" 
-          placeholder={`${contactForm.fields['firstname'][currentLang]}`}
+          placeholder={`${
+            contactForm.fields['firstname'].content[currentLang] ?
+            contactForm.fields['firstname'].content[currentLang] 
+            : contactForm.fields['firstname'].content[0]
+          }`}
           required={contactForm.mendatoryFields ? contactForm.mendatoryFields.includes('firstname') : false}
           className=
           {`
@@ -196,7 +204,11 @@ const ContactForm = () => {
       >
         <input type="email"
           name="email"
-          placeholder={`${contactForm.fields['email'][currentLang]}`}
+          placeholder={`${
+            contactForm.fields['email'].content[currentLang] ?
+            contactForm.fields['email'].content[currentLang] 
+            : contactForm.fields['email'].content[0]
+          }`}
           required={contactForm.mendatoryFields ? contactForm.mendatoryFields.includes('email') : false}
           className=
           {`
@@ -240,7 +252,11 @@ const ContactForm = () => {
 
         <input type="tel"
           name="phone"
-          placeholder={`${contactForm.fields['phone'][currentLang]}`}
+          placeholder={`${
+            contactForm.fields['phone'].content[currentLang] ?
+            contactForm.fields['phone'].content[currentLang] 
+            : contactForm.fields['phone'].content[0]
+          }`}
           required={contactForm.mendatoryFields ? contactForm.mendatoryFields.includes('phone') : false}
           className=
           {`
@@ -280,7 +296,11 @@ const ContactForm = () => {
             resize-none
             border-2
           `}
-          placeholder={`${contactForm.fields['message'][currentLang]}`}
+          placeholder={`${
+            contactForm.fields['message'].content[currentLang] ?
+            contactForm.fields['message'].content[currentLang] 
+            : contactForm.fields['message'].content[0]
+          }`}
           minLength={contactForm.messageMinLength}
           onChange={(e) => setFormMessage(e.target.value)}
         />
@@ -297,7 +317,7 @@ const ContactForm = () => {
             lg:text-[70%]
             self-baseline
           `}
-        ><strong>*</strong>: {contactForm.alert['mendatory'][currentLang]}</label>
+        ><strong>*</strong>: {contactForm.alert.find(alert => alert.context === "mendatory")!.content[currentLang]}</label>
         : ""
       }
 
@@ -320,7 +340,7 @@ const ContactForm = () => {
           duration-150
           ease-in-out
         `}
-      >{canSubmit ? contactForm.alert['submit'][currentLang] : '🕒'}</button>
+      >{canSubmit ? contactForm.alert.find(alert => alert.context === "submit")!.content[currentLang] : '🕒'}</button>
     </form>
   )
 }

@@ -6,24 +6,27 @@ import { BrowserRouter, Route, Routes } from 'react-router'
 import { ThemeEngine } from './components/theme'
 import { LangEngine } from './components/language'
 import { FlashsEngine } from './components/flashs'
+import { RetexDisplayEngine } from './components/retex'
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <LangEngine>
       <ThemeEngine>
         <FlashsEngine>
-          <Layout>
-              <Routes>
+          <RetexDisplayEngine>
+            <Layout>
+                <Routes>
 
-                  <Route path="/" element={<Home />} />
+                    <Route path="/" element={<Home />} />
 
-                  <Route path="/projects" element={<Projects />} />
+                    <Route path="/projects" element={<Projects />} />
 
-                  <Route path="/*" element={<Err404 />} />
-                  
-              </Routes>
+                    <Route path="/*" element={<Err404 />} />
+                    
+                </Routes>
 
-          </Layout>
+            </Layout>
+          </RetexDisplayEngine>
         </FlashsEngine>
       </ThemeEngine>
     </LangEngine>

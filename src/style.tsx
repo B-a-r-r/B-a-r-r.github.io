@@ -2,16 +2,16 @@ import { getRandomTailwindColor } from "./utils";
 
 const styles = {
 
-  page: "w-full h-full color-scheme-primary ",
-  sectionContainer: `w-screen md:h-screen px-[12%] color-scheme-primary `,
+  page: "w-full h-full text-[--color-quaternary] bg-transparent",
+  sectionContainer: `w-screen md:h-screen px-[12%] text-[--color-quaternary] bg-transparent`,
 
   heading2: " \
     font-primary-bold \
-    xl:text-4xl lg:text-2xl  \
-    xl:leading-10 leading-8 \
+    2xl:text-4xl xl:text-3xl lg:text-2xl  \
+    xl:leading-10 base:leading-8 \
     w-full  \
     tracking-wider  \
-    xl:mb-9 mb-8",
+    xl:mb-9 base:mb-8",
   
   line: " \
     block \
@@ -22,19 +22,23 @@ const styles = {
   
   subtitle: " \
     font-primary-regular  \
-    color-scheme-primary  \
     xxl:text-5xl  \
     leading-[40px]  \
     tracking-wide", 
   
   paragraph: " \
     font-primary-regular \
-    color-scheme-primary  \
-    xl:text-2xl lg:text-lg text-xs \
+    2xl:text-2xl xl:text-xl lg:text-lg base:text-xs \
     leading-[145%]  \
     tracking-wide \
     text-wrap  \
     whitespace-pre-line",
+
+  hyperlink: " \
+    hover:text-[--color-tertiary] \
+    transition-all \
+    duration-200 \
+    ease-in-out",
 
   flexCol: "flex flex-col",
   flexRow: "flex flex-row",

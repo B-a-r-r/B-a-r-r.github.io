@@ -1,44 +1,96 @@
-import { projects, retex } from '../data/contents';
-import styles from '../style';
+import { projects } from '../../data/contents';
+import styles from '../../style';
 import DOMPurify from 'dompurify';
-import { isOverflowing } from '../utils';
-import { useContext, useEffect, useRef } from 'react';
-import { LangContext } from './language';
-import { menuIcons } from '../assets';
+import { adjustFontSize, isOverflowing } from '../../utils';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { LangContext } from '../language';
+import { coreImages, menuIcons } from '../../assets';
+import { RetexContext } from './RetexDisplayEngine';
 
-type RetexProps = {
-    projectTitle: string | false;
-    displayed: React.Dispatch<React.SetStateAction<string | false>>;
-}
-
-const Retex = ({projectTitle, displayed}: RetexProps) => {
+const RetexViewer = () => {
     const { currentLang } = useContext(LangContext);
+    const { displayedRetexTitle, setDisplayedRetex } = useContext(RetexContext);
+    const [focusedImage, setFocusedImage] = useState<string>();
+    const specsContainer = useRef<HTMLSpanElement>(null);
+    const notionsContainer = useRef<HTMLSpanElement>(null);
+    const retexContainer = useRef<HTMLDivElement>(null);
+    const notionsList = useRef<HTMLUListElement>(null);
+    const headerContainer = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         document.addEventListener(
             'keydown', 
             (e) => {
                 if (e.key === 'Escape') {
-                    displayed(false);
+                    setDisplayedRetex(undefined);
                 }
             }
         );
-        document.getElementById(`retex-${projectTitle}`)?.addEventListener(
+        document.getElementById(`retex-${displayedRetexTitle}`)?.addEventListener(
             'click',
             (e) => {
-                if (e.target === document.getElementById(`retex-${projectTitle}`)) {
-                    displayed(false);
+                if (e.target === document.getElementById(`retex-${displayedRetexTitle}`)) {
+                    setDisplayedRetex(undefined);
                 }
             }
         );
-    }, [displayed, projectTitle]);
+        window.addEventListener('resize', handleTextOverflow);
 
-    const relatedRetex = retex.find((project) => project.relatedProject === projectTitle);
-    if (!relatedRetex) {console.log(`Could not log retex titled ${projectTitle}`); return (<></>)};
-    const relatedProject = projects.find((project) => project.title === projectTitle)!;
+        return () => {
+            document.removeEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    setDisplayedRetex(undefined);
+                }
+            });
+            document.getElementById(`retex-${displayedRetexTitle}`)?.removeEventListener(
+                'click',
+                (e) => {
+                    if (e.target === document.getElementById(`retex-${displayedRetexTitle}`)) {
+                        setDisplayedRetex(undefined);
+                    }
+                }
+            );
+            window.addEventListener('resize', handleTextOverflow);
+        }
+    }, []);
+
+    useEffect(() => {
+        handleTextOverflow();
+    }, [displayedRetexTitle]);
+    
+    const handleTextOverflow = () => {
+        if (!specsContainer.current) return;
+        if (isOverflowing(specsContainer.current)) {adjustFontSize(specsContainer.current, "min");}
+        else {adjustFontSize(specsContainer.current, "max");}
+
+        if (!notionsContainer.current) return;
+        if (isOverflowing(notionsContainer.current)) {
+            adjustFontSize(notionsContainer.current, "min");
+            if (!notionsList.current) return;
+            /** If the content is still overflowing, remove the last notion */
+            while (isOverflowing(notionsContainer.current)) {
+                notionsList.current.removeChild(notionsList.current.lastChild as Node);
+            }
+        }
+        else {adjustFontSize(notionsContainer.current, "max");}
+
+        /** Homogenize the font sizes to the lower one */
+        const minFontSize = (
+            specsContainer.current.style.fontSize < notionsContainer.current.style.fontSize ?
+            specsContainer.current.style.fontSize : notionsContainer.current.style.fontSize
+        )
+        specsContainer.current.style.fontSize = minFontSize
+        notionsContainer.current.style.fontSize = minFontSize
+    }
+
+
+    const relatedProject = projects.find((project) => project.title === displayedRetexTitle);
+    if (!displayedRetexTitle) return;
+    if (!relatedProject) {console.error(`No project found for '${displayedRetexTitle}'.`); return;}
 
     return (
-        <div id={`retex-${projectTitle}`}
+        <div id={`retex-${displayedRetexTitle}`}
+            ref={retexContainer}
             className=
             {`
                 ${styles.sizeFull}
@@ -47,8 +99,8 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
                 relative
             `}
         > 
-
             <header id='retex-header'
+                ref={headerContainer}
                 className=
                 {`
                     h-fit
@@ -64,7 +116,7 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
                     {`
                         w-full
                         font-primary-bold
-                        text-3xl
+                        2xl:text-4xl base:text-3xl
                         tracking-wide
                         py-[6%]
                         px-[10%]
@@ -79,7 +131,7 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
                             ${styles.contentStartX}
                             leading-8
                         `}
-                        dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(relatedRetex.relatedProject)}}
+                        dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(relatedProject.title)}}
                     />
 
                     <hr className=
@@ -115,7 +167,7 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
                         overflow-hidden
                     `}
                 >
-                    {relatedRetex.tools.slice(0, 6).map((tool, index) => (
+                    {relatedProject.tools.slice(0, 6).map((tool, index) => (
                         <span key={`retex-skill-${index}`}
                             className=
                             {`
@@ -139,7 +191,7 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
                             <label className=
                                 {`
                                     font-primary-regular
-                                    text-sm
+                                    2xl:text-lg base:text-sm
                                 `}
                             > {tool.label} </label>
                         </span>
@@ -174,7 +226,7 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
                         ${styles.sizeFit}
                         cursor-pointer
                     `}
-                    onClick={() => displayed(false)}
+                    onClick={() => setDisplayedRetex(undefined)}
                 />
                 
                 <div id='retex-text'
@@ -189,44 +241,53 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
                     `}
                 >
                     <span id='specs'
+                        ref={specsContainer}
                         className=
                         {`
                             ${styles.sizeFull}
-                            text-sm
+                            max-h-[70%]
                             overflow-hidden
+                            text-base
+                            text-wrap
                         `}
                     >
                         <p className=
                             {`
                                 ${styles.sizeFull}
+                                text-base
                             `}
-                            dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(relatedRetex.specs[currentLang])}}
+                            dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(relatedProject.specs[currentLang])}}
                         />
                     </span>
 
                     <span id='notions'
+                        ref={notionsContainer}
                         className=
                         {`
                             w-full
                             h-fit
                             min-h-[30%]
                             ${styles.flexRow}
-                            ${styles.contentStartAll}
+                            ${styles.contentStartX}
                             overflow-hidden
+                            relative
                         `}
                     >
-                        <ul className=
+                        <ul ref={notionsList}
+                            className=
                             {`
                                 ${styles.sizeFull}
                                 ${styles.flexCol}
                                 ${styles.contentStartAll}
                                 list-disc
                                 list-inside
-                                space-y-[5%]
+                                space-y-[3%]
+                                ml-[3%]
                             `}
                         >
-                            {relatedRetex.notions[currentLang].map((notion, index) => (
+                            {relatedProject.notions[currentLang].map((notion, index) => (
                                 <li key={`notion-${index}`}
+                                    className={`notion-${index}`}
                                     dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(notion)}}
                                 />
                             ))}
@@ -251,16 +312,21 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
                             ${styles.sizeFull}
                             overflow-hidden
                             rounded-lg
-                            -rotate-[3deg]
-                            hover:rotate-1
+                            hover:shadow-lg
+                            hover:scale-[1.01]
                             transition-all
-                            duration-200
-                            ease-in-out
+                            duration-400
+                            linear
                         `}
                     >
                         <img id='img-1'
-                            src={relatedRetex.img[0]}
-                            alt="retex image"
+                            src={
+                                relatedProject.img ?
+                                    relatedProject.img.length > 1 ?
+                                    relatedProject.img[1] : relatedProject.img[0]
+                                : coreImages.portrait  
+                            }
+                            alt="retex image 1"
                             className=
                             {`
                                 aspect-video
@@ -278,16 +344,21 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
                             ${styles.sizeFull}
                             overflow-hidden
                             rounded-lg
-                            rotate-[0.5deg]
-                            hover:-rotate-1
+                            hover:scale-[1.01]
+                            hover:shadow-lg
                             transition-all
-                            duration-200
-                            ease-in-out
+                            duration-400
+                            linear
                         `}
                     >
                         <img id='img-2'
-                            src={relatedRetex.img[1]}
-                            alt="retex image"
+                            src={
+                                relatedProject.img ?
+                                    relatedProject.img.length > 1 ?
+                                    relatedProject.img[2] : relatedProject.img[0]
+                                : coreImages.portrait  
+                            }
+                            alt="retex image 2"
                             className=
                             {`
                                 aspect-video
@@ -304,4 +375,4 @@ const Retex = ({projectTitle, displayed}: RetexProps) => {
     )
 }
 
-export default Retex
+export default RetexViewer

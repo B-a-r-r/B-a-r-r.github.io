@@ -22,7 +22,7 @@ const ProjectsSlider = () => {
   
     projects.slice(0,10).map((project: Project, index: number, all: Project[]) => {
       slides.push(
-        <ProjectCard key={`project-${project.title}-container`}
+        <ProjectCard key={`project-${project.title}-card`}
           project={project}
           additionalStyles={{
             rotate: `${assignRotation(index, all.length)}deg`,
@@ -84,7 +84,10 @@ const ProjectsSlider = () => {
                     tmp !== 0 
                     ? tmp : assignRotation(randomNumberBetween(0,1), cardsCopy.length)
                   }deg`
-                }
+                },
+                onaonanimationend: (from === "next" ? (e: React.AnimationEvent<HTMLDivElement>) => {
+                  e.currentTarget.style.rotate = '0deg';
+                } : undefined)
               })
             )
           case cardsCopy.length - 2:
@@ -94,7 +97,10 @@ const ProjectsSlider = () => {
                 additionalStyles: {
                   animation: (from === "next" ? `card-reach-top ease-in 0.3s forwards` : ""),
                   rotate: (`${card.props.additionalStyles.rotate}`)
-                }
+                },
+                onanimationend: (from === "next" ? (e: React.AnimationEvent<HTMLDivElement>) => {
+                  e.currentTarget.style.rotate = '0deg';
+                } : undefined)
               })
             )
           case 0:
@@ -106,7 +112,8 @@ const ProjectsSlider = () => {
                     : `card-bottom-to-top 1s ease-in forwards`
                   ),
                   rotate: (from === "next" ? `${card.props.additionalStyles.rotate}` : "0deg")
-                }
+                },
+                
               })
             )
           default:
@@ -165,6 +172,10 @@ const ProjectsSlider = () => {
             left-0
             top-1/2
             z-10
+            hover:scale-105
+            transition-all
+            duration-200
+            ease-in-out
           `}
           onClick={previousCard}
         > 
@@ -184,6 +195,11 @@ const ProjectsSlider = () => {
             right-0
             top-1/2
             z-10
+            rounded-full
+            hover:scale-105
+            transition-all
+            duration-200
+            ease-in-out
           `}
           onClick={nextCard}
         > 
@@ -198,7 +214,7 @@ const ProjectsSlider = () => {
         </button>
       </div>
 
-      <div id="statue-container"
+      <div id="image-container"
         className=
         {`
           ${styles.sizeFull}
@@ -213,9 +229,9 @@ const ProjectsSlider = () => {
             alt={`Statue of Hephaistos`}
             className={`
               object-contain
-              xl:w-[75%] 
+              2xl:w-[80%] xl:w-[88%]
               absolute
-              left-0
+              2xl:left-[3%] base:left-0
             `}
           />
       </div>

@@ -1,19 +1,15 @@
 import { useContext, useRef } from 'react';
 import { coreImages } from '../../assets';
-import {Project} from '../../data/dataTypes';
+import {Retex} from '../../data/dataTypes';
 import styles from '../../style';
 import { LangContext } from '../language';
 import Card from './Card';
 import { handleMouseLeave, handleMouseMove } from '../../utils';
+import { RetexContext } from '../retex';
 
-type ProjectPreviewProps = {
-    project: Project;
-    retexToggler: (retexTitle: string | false)=>void;
-}
-
-const ProjectPreview = ({project, retexToggler}: ProjectPreviewProps) => {
+const ProjectPreview = (project: Retex) => {
     const { currentLang } = useContext(LangContext);
-    const retexExists = project.retex ? true : false;
+    const { setDisplayedRetex } = useContext(RetexContext);
     const cardRef = useRef<HTMLDivElement>(null);
 
     return (
@@ -22,7 +18,8 @@ const ProjectPreview = ({project, retexToggler}: ProjectPreviewProps) => {
             className=
             {`
                 ${styles.flexCol}
-                md:w-[30%] w-full
+                color-scheme-primary
+                md:w-[30%] base:w-full
                 h-[500px]
                 rounded-md
                 shadow-xl
@@ -40,7 +37,7 @@ const ProjectPreview = ({project, retexToggler}: ProjectPreviewProps) => {
             }}
             onMouseLeave={() => handleMouseLeave(cardRef.current)}
             onMouseMove={(e) => handleMouseMove(e, cardRef.current)}
-            onClick={() => retexExists ? retexToggler(project.retex ? project.retex.relatedProject : false) : {}}
+            onClick={() => setDisplayedRetex(project.title)}
         >
 
             <div className=
@@ -50,7 +47,7 @@ const ProjectPreview = ({project, retexToggler}: ProjectPreviewProps) => {
                 `}
             >
                 <img id={`card-${project.title}-img`}
-                    src={project.img ? project.img : coreImages.sysiphus}
+                    src={project.img && project.img.length > 0 ? project.img[0] : coreImages.portrait}
                     alt="project image"
                     className=
                     {`
@@ -64,7 +61,7 @@ const ProjectPreview = ({project, retexToggler}: ProjectPreviewProps) => {
             </div>
             
             <Card title={project.title} 
-                content={project.content[currentLang]} 
+                content={project.description[currentLang]} 
                 tags={project.tags[currentLang].concat(project.tags[0])} 
                 moreTopClasses=
                 {`

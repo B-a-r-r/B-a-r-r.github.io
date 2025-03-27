@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { countryPhoneCodes } from '../../data/constants';
+import { countries } from '../../data/constants';
 import Dropdown from './Dropdown';
 import {PhoneCodeContext} from '../contact/ContactForm';
 
@@ -14,19 +14,19 @@ const DropdownPhone = () => {
 
     const phoneCodes = () => {
         return (
-            countryPhoneCodes.sort((a, b) => a.code.localeCompare(b.code))
+            countries.sort((a, b) => a.phoneCode.localeCompare(b.phoneCode))
             .map((code) => (
                 <li 
-                    key={`code.id-${code.code}`} 
+                    key={`code.id-${code.phoneCode}`} 
                     className=
                     {`
                         cursor-pointer
                         hover:text-[--color-tertiary]
                         z-[1]
                     `}
-                    onClick={() => setSelectedCode(code.code)}
+                    onClick={() => setSelectedCode(code.phoneCode)}
                 >
-                    {code.code}
+                    {code.phoneCode}
                 </li>
             ))
         );

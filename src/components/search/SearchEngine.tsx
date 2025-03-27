@@ -1,4 +1,5 @@
-import { createContext, useState, ReactNode, useEffect, useRef } from "react";
+import { createContext, useState, ReactNode, useEffect, useRef, useContext } from "react";
+import { LangContext } from "../language";
 
 interface SearchContextType {
   toMatch: string[];
@@ -11,8 +12,13 @@ const SearchContext = createContext<SearchContextType>({
 });
 
 const SearchEngine = ({ children }: { children: ReactNode }) => {
-  const [toMatch, setToMatch] = useState<Array<string>>([]);
+  const [toMatch, setToMatch] = useState<Array<string>>(["ALL"]);
   const youCanWork = useRef(true);
+  const { currentLang } = useContext(LangContext);
+
+  useEffect(() => {
+    setToMatch(["ALL"]);
+  }, [currentLang]);
 
   useEffect(() => {
     if (youCanWork.current) {

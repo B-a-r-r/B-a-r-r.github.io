@@ -1,16 +1,11 @@
 import './dataTypes';
 import './constants';
 import './contents';
-import { retex } from './contents';
 
-function unicity_test(obj: object): boolean {
-    let ids = [];
-    return true;
-}
+/**
+ * @fileoverview This file contains the tests for the consistency of the types and 
+ * contents of the data used in the application. It ensures that the entries respect
+ * some rules, which can not be specified natively within the interfaces.
+ */
 
-function retexType_test(): boolean {
-    if (!unicity_test(retex)) {
-        return false;
-    }
-    return true;
-}
+/*-- TODO --*/

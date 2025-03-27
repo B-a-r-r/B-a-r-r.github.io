@@ -1,8 +1,6 @@
 import { socialsIcons, documents, coreImages, menuIcons } from "../assets";
 import { 
   SocialMedia, 
-  Copyrigth, 
-  PhoneCode, 
   CreditMention, 
   ContactForm,
   NavbarPattern, 
@@ -12,11 +10,202 @@ import {
   Errors,
   EmailAPI,
   FlashMessage,
+  Message,
+  Hyperlink,
+  SkillCategorie,
+  AvailableSkillCategories,
+  SkillSubcategorie,
+  AvailableSkillSubcategories,
+  AvailableSortOptions,
+  SortOption,
 } from "./dataTypes";
 
-console.log('hello from constants.tsx');
-
 export const CARD_TEXT_MAX_LINES = 5;
+
+export const skillCategories: Array<SkillCategorie> = [
+  {
+    context: AvailableSkillCategories.LANGUAGE,
+    content: 
+    {
+      fr: "Langages",
+      en: "Languages",
+    },
+  },
+  {
+    context: AvailableSkillCategories.TOOL,
+    content: 
+    {
+      fr: "Outils",
+      en: "Tools",
+    },
+  },
+  {
+    context: AvailableSkillCategories.LIBRARY,
+    content: 
+    {
+      fr: "Bibliothèques",
+      en: "Libraries",
+    },
+  },
+]
+
+export const skillSubcategories: Array<SkillSubcategorie> = [
+  {
+    context: AvailableSkillSubcategories.WEB,
+    parentCategory: AvailableSkillCategories.LANGUAGE,
+    content: 
+    {
+      0: "Web",
+    },
+  },
+  {
+    context: AvailableSkillSubcategories.DATABASE,
+    parentCategory: AvailableSkillCategories.LANGUAGE,
+    content: 
+    {
+      fr: "Base de données",
+      en: "Database",
+    },
+  },
+  {
+    context: AvailableSkillSubcategories.BIGDATA,
+    parentCategory: AvailableSkillCategories.LANGUAGE,
+    content: 
+    {
+      0: "Big Data",
+    },
+  },
+  {
+    context: AvailableSkillSubcategories.FORMATING,
+    parentCategory: AvailableSkillCategories.LANGUAGE,
+    content: 
+    {
+      fr: "Formatage",
+      en: "Formating",
+    },
+  },
+  {
+    context: AvailableSkillSubcategories.SOFTWARE,
+    parentCategory: AvailableSkillCategories.LANGUAGE,
+    content: 
+    {
+      fr: "Logiciel",
+      en: "Software",
+    },
+  },
+]
+
+/** Store all the available projects sort options and their 
+ * displayed value. /!\ The order matters, as the four first 
+ * options are displayed in the sorting bar. The rest is 
+ * displayed in the sort options menu. */
+export const sortOptions: Array<SortOption> = [
+  {
+    context: AvailableSortOptions.ALL,
+    content: 
+    {
+      fr: "Tous",
+      en: "All",
+    },
+  },
+  {
+    context: AvailableSortOptions.NEWEST,
+    content: 
+    {
+      fr: "Récents",
+      en: "Newest",
+    },
+  },
+  {
+    context: AvailableSortOptions.OLDEST,
+    content: 
+    {
+      fr: "Anciens",
+      en: "Oldest",
+    },
+  },
+  {
+    context: AvailableSortOptions.PERSONNAL,
+    content: 
+    {
+      fr: "Personnels",
+      en: "Personnal",
+    },
+  },
+  {
+    context: AvailableSortOptions.ALGORITHMIC,
+    content: 
+    {
+      fr: "Algorithmie",
+      en: "Algorithmic",
+    },
+  },
+  {
+    context: AvailableSortOptions.CP,
+    content: 
+    {
+      fr: "Prog. concurrente",
+      en: "Concurrent prog.",
+    },
+    abreviation:
+    {
+      content:
+      {
+        fr: "PC",
+        en: "CP",
+      },
+    },
+  },
+  {
+    context: AvailableSortOptions.EP,
+    content: 
+    {
+      fr: "Prog. événementielle",
+      en: "Event prog.",
+    },
+    abreviation:
+    {
+      content:
+      {
+        fr: "PE",
+        en: "EP",
+      },
+    },
+  },
+  {
+    context: AvailableSortOptions.OOP,
+    content: 
+    {
+      fr: "Prog. objet",
+      en: "Object prog.",
+    },
+    abreviation:
+    {
+      content:
+      {
+        fr: "POO",
+        en: "OOP",
+      },
+    },
+  },
+  {
+    context: AvailableSortOptions.ACADEMIC,
+    content: 
+    {
+      fr: "Académiques",
+      en: "Academic",
+    },
+  },
+  {
+    context: AvailableSortOptions.PROFESSIONAL,
+    content: 
+    {
+      fr: "Professionnels",
+      en: "Professional",
+    },
+  },
+];
+
 
 /**
  * Store all the navigation links for each navbar patterns
@@ -26,7 +215,7 @@ export const navLinks: Array<NavbarPattern> = [
     route: '',
     links: [
       {
-        label: 
+        content: 
         {
           fr: "À propos",
           0: "About",
@@ -34,7 +223,7 @@ export const navLinks: Array<NavbarPattern> = [
         link: "/#about",
       },
       {
-        label: 
+        content: 
         {
           fr: "Projets",
           0: "Projects",
@@ -42,14 +231,14 @@ export const navLinks: Array<NavbarPattern> = [
         link: "/projects",
       },
       {
-        label: 
+        content: 
         {
           0: "Contact",
         },
         link: "/#contact",
       }, 
       {
-        label:
+        content:
         {
           0: "CV",
         },
@@ -61,7 +250,7 @@ export const navLinks: Array<NavbarPattern> = [
     route: ['projects', 'project'],
     links: [
       {
-        label:
+        content:
         {
           fr: "Accueil",
           0: "Home",
@@ -69,7 +258,7 @@ export const navLinks: Array<NavbarPattern> = [
         link: "/",
       },
       {
-        label:
+        content:
         {
           fr: "Projets",
           0: "Projects",
@@ -77,14 +266,14 @@ export const navLinks: Array<NavbarPattern> = [
         link: "/projects",
       },
       {
-        label: 
+        content: 
         {
           0: "Contact",
         },
         link: "/#contact",
       }, 
       {
-        label: 
+        content: 
         {
           0: "CV",
         },
@@ -101,50 +290,62 @@ export const countries: Array<Country> = [
   {
     symbol: "fr",
     label: "France",
+    phoneCode: "+33",
   },
   {
     symbol: "en",
     label: "United States",
+    phoneCode: "+1",
   },
   {
     symbol: "gb",
     label: "United Kingdom",
+    phoneCode: "+44",
   },
   {
     symbol: "de",
     label: "Germany",
+    phoneCode: "+49",
   },
   {
     symbol: "es",
     label: "Spain",
+    phoneCode: "+34",
   },
   {
     symbol: "it",
     label: "Italy",
+    phoneCode: "+39",
   },
   {
     symbol: "be",
     label: "Belgium",
+    phoneCode: "+32",
   },
   {
     symbol: "nl",
     label: "Netherlands",
+    phoneCode: "+31",
   },
   {
     symbol: "ch",
     label: "Switzerland",
+    phoneCode: "+41",
   },
   {
     symbol: "dk",
     label: "Denmark",
+    phoneCode: "+45",
   },
   {
     symbol: "ru",
     label: "Russia",
+    phoneCode: "+7",
   },
   {
     symbol: "jp",
     label: "Japan",
+    phoneCode: "+81",
   }
 ];
 
@@ -173,65 +374,11 @@ export const socialMedia: Array<SocialMedia> = [
 ];
 
 /**
- * Store all the phone code available for the app
- */
-export const countryPhoneCodes: Array<PhoneCode> = [
-    {
-        country: countries.find((country) => country.label === "France")!,
-        code: "+33",
-    },
-    {
-        country: countries.find((country) => country.label === "United States")!,
-        code: "+1",
-    },
-    {
-        country: countries.find((country) => country.label === "United Kingdom")!,
-        code: "+44",
-    },
-    {
-        country: countries.find((country) => country.label === "Germany")!,
-        code: "+49",
-    },
-    {
-        country: countries.find((country) => country.label === "Spain")!,
-        code: "+34",
-    },
-    {
-        country: countries.find((country) => country.label === "Italy")!,
-        code: "+39",
-    },
-    {
-        country: countries.find((country) => country.label === "Belgium")!,
-        code: "+32",
-    },
-    {
-        country: countries.find((country) => country.label === "Netherlands")!,
-        code: "+31",
-    },
-    {
-        country: countries.find((country) => country.label === "Switzerland")!,
-        code: "+41",
-    },
-    {
-        country: countries.find((country) => country.label === "Denmark")!,
-        code: "+45",
-    },
-    {
-        country: countries.find((country) => country.label === "Russia")!,
-        code: "+7",
-    },
-    {
-        country: countries.find((country) => country.label === "Japan")!,
-        code: "+81",
-    },
-];
-
-/**
  * Store all the credits mentions for the assets used in the app
  */
 export const creditsMentions: Array<CreditMention> = [
   {
-    label: 
+    content: 
     {
       fr: "Croquis de Sisyphe original",
       en: "Original Sisyphus sketch",
@@ -240,7 +387,7 @@ export const creditsMentions: Array<CreditMention> = [
     link: "https://www.google.com/search/about-this-image?img=H4sIAAAAAAAAAFMy5NLnePr3nIoAkwSjkoq5hZlJomlysm6KSWqyrolZkqWuhbllmm6SiamRpUmymZFxUgoAWMCsSTMAAAA&sa=X&ved=2ahUKEwjA-qCj4dqKAxUoVaQEHYJXNngQs6gLegQIDBAB",
   },
   {
-    label: 
+    content: 
     {
       fr: "Croquis de Héphaïstos original",
       en: "Original Hephaistos sketch",
@@ -249,7 +396,7 @@ export const creditsMentions: Array<CreditMention> = [
     link: "https://fr.pinterest.com/pin/1080582504340139757/",
   },
   {
-    label: 
+    content: 
     {
       fr: "Icones de menu et réseaux",
       en: "Menu and social medias icons",
@@ -266,109 +413,26 @@ export const creditsMentions: Array<CreditMention> = [
     ],
     link: "https://boxicons.com/",
   },
-
 ];
 
 /**
  * Store the copyrigth mention for the app
  */
-export const copyrigthText: Copyrigth = {
-  label: `clembarr.dev © 2025,<br/>by Clément Barrière,<br/>under CC BY 4.0`,
+export const copyrigthText: Hyperlink = {
+  content: {
+    0: `clembarr.dev © 2025,<br/>by Clément Barrière,<br/>under CC BY 4.0`,
+  },
   link: "https://creativecommons.org/licenses/by/4.0/",
 };
 
+/**
+ * Store the email API information
+ */
 const emailAPI: EmailAPI = {
   apiName: "emailjs",
   serviceId: "clembarr.dev_1234",
   templateId: "clembarr.dev_contact",
   publicKey: "XhGuv8Ll1Znl6NEuG",
-};
-
-/**
- * Store all the form patterns available for the app
- */
-export const contactForm: ContactForm = {
-  title: 
-  {
-    fr: "N'hésitez pas<br/>à me contacter",
-    en: "Feel free<br/>to contact me",
-  },
-  messageMinLength: 80,
-  fields: 
-  {
-    firstname: 
-    {
-      fr: "Prénom...",
-      en: "Firstname...",
-    },
-    lastname: 
-    {
-      fr: "Nom...",
-      en: "Lastname...",
-    },
-    email: 
-    {
-      fr: "Email...",
-      en: "Email...",
-    },
-    phone: 
-    {
-      fr: "Téléphone...",
-      en: "Phone...",
-    },
-    message: 
-    {
-      fr: "Votre message...",
-      en: "Your message...",
-    },
-  },
-  mendatoryFields: [ "name", "email", "message" ],
-  alert: 
-  {
-    email: 
-    {
-      fr: "Veuillez entrer une adresse email valide.",
-      en: "Please enter a valid email address.",
-    },
-    phone:
-    {
-      fr: "Veuillez entrer un numéro de téléphone valide.",
-      en: "Please enter a valid phone number.",
-    },
-    message:
-    {
-      fr: "Votre message est trop court. Il doit contenir au moins 80 caractères.",
-      en: "Your message is too short. It should contain at least 80 characters.",
-    },
-    cooldown:
-    {
-      fr: "Vous avez atteint le nombre maximum de requêtes autorisées. \
-        Veuillez réessayer plus tard.",
-      en: "You have reached the maximum number of requests allowed. \
-        Please try again later.",
-    },
-    apiError:
-    {
-      fr: "Oups, quelque chose s'est mal passé... Veuillez réessayer plus tard.",
-      en: "Oops, something went wrong... Please try again later.",
-    },
-    apiOK:
-    {
-      fr: "Votre message a bien été envoyé !",
-      en: "Your message has been sent successfully!",
-    },
-    mendatory:
-    {
-      fr: "champs obligatoires.",
-      en: "mendatory fields.",
-    },
-    submit:
-    {
-      fr: "Envoyer",
-      en: "Submit",
-    },
-  },
-  emailAPI: emailAPI,
 };
 
 /**
@@ -407,7 +471,7 @@ export const availableLanguages: Array<Country> = [
 export const flashMessages: Array<FlashMessage> = [
   {
     context: "theme",
-    message: 
+    content: 
     {
       fr: "Le theme sombre arrive bientôt..",
       en: "Dark mode comming soon..",
@@ -415,3 +479,162 @@ export const flashMessages: Array<FlashMessage> = [
     type: "info",
   },
 ];
+
+export const noDataMessages: Array<Message> = [
+  {
+    context: "projects",
+    content: 
+    {
+      fr: "Aucun projet ne correspond à vos critères >_<",
+      en: "No project matches your search criteria >_<",
+    },
+  },
+];
+
+export const placeholderMessages: Array<Message> = [
+  {
+    context: "search",
+    content: 
+    {
+      fr: "Entrez un mot-clé...",
+      en: "Enter a keyword...",
+    },
+  },
+  {
+    context: "formFirstname",
+    content: 
+    {
+      fr: "PrénomL..",
+      en: "Firstname...",
+    },
+  },
+  {
+    context: "formLastname",
+    content: 
+    {
+      fr: "Nom...",
+      en: "Lastname...",
+    },
+  },
+  {
+    context: "formEmail",
+    content: 
+    {
+      0: "Email...",
+    },
+  },
+  {
+    context: "formPhone",
+    content: 
+    {
+      fr: "Téléphone...",
+      en: "Phone...",
+    },
+  },
+  {
+    context: "formMessage",
+    content: 
+    {
+      fr: "C'est à vous...",
+      en: "What's on your mind...",
+    },
+  },
+  {
+    context: "dropdownSort",
+    content: 
+    {
+      fr: "Autre",
+      en: "Other",
+    },
+  }
+]
+
+/**
+ * Store all the information for the contact form
+ */
+export const contactForm: ContactForm = {
+  title: 
+  {
+    fr: "N'hésitez pas<br/>à me contacter",
+    en: "Feel free<br/>to contact me",
+  },
+  messageMinLength: 80,
+  fields: 
+  {
+    firstname: placeholderMessages.find((message) => message.context === "formFirstname")!,
+    lastname: placeholderMessages.find((message) => message.context === "formLastname")!,
+    email: placeholderMessages.find((message) => message.context === "formEmail")!,
+    phone: placeholderMessages.find((message) => message.context === "formPhone")!,
+    message: placeholderMessages.find((message) => message.context === "formMessage")!,
+  },
+  mendatoryFields: [ "name", "email", "message" ],
+  alert: [
+    {
+      context: "email",
+      content: 
+      {
+        fr: "Veuillez entrer une adresse email valide.",
+        en: "Please enter a valid email address.",
+      }
+    },
+    {
+      context: "phone",
+      content:
+      {
+        fr: "Veuillez entrer un numéro de téléphone valide.",
+        en: "Please enter a valid phone number.",
+      },
+    },
+    {
+      context: "message",
+      content:
+      {
+        fr: "Votre message est trop court. Il doit contenir au moins 80 caractères.",
+        en: "Your message is too short. It should contain at least 80 characters.",
+      },
+    },
+    {
+      context: "cooldown",
+      content:
+      {
+        fr: "Vous avez atteint le nombre maximum de requêtes autorisées. \
+          Veuillez réessayer plus tard.",
+        en: "You have reached the maximum number of requests allowed. \
+          Please try again later.",
+      },
+    },
+    {
+      context: "apiError",
+      content:
+      {
+        fr: "Oups, quelque chose s'est mal passé... Veuillez réessayer plus tard.",
+        en: "Oops, something went wrong... Please try again later.",
+      },
+    },
+    {
+      context: "apiOK",
+      content:
+      {
+        fr: "Votre message a bien été envoyé !",
+        en: "Your message has been sent successfully!",
+      },
+    },
+    {
+      context: "mendatory",
+      content:
+      {
+        fr: "champs obligatoires.",
+        en: "mendatory fields.",
+      },
+    },
+    {
+      context: "submit",
+      content:
+      {
+        fr: "Envoyer",
+        en: "Submit",
+      },
+    },
+  ],
+  emailAPI: emailAPI,
+};

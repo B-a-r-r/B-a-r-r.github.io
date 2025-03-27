@@ -1,74 +1,86 @@
 import { useContext, useEffect, useState } from 'react'
 import Dropdown from './Dropdown'
-import { SortOption } from '../../data/dataTypes';
 import styles from '../../style';
 import { SearchContext } from '../search';
+import { placeholderMessages, sortOptions } from '../../data/constants';
+import { LangContext } from '../language';
+import { SortOption } from '../../data/dataTypes';
 
 type DropdownSortProps = {
     alreadyDisplayesItems?: string[]
 }
 
 const DropdownSort = ({alreadyDisplayesItems}: DropdownSortProps) => {
-    const [toggleMenu, setToggleMenu] = useState(false);
-    const [selectedItem, setSelectedItem] = useState("Other")
     const { toMatch, setToMatch } = useContext(SearchContext);
+    const { currentLang } = useContext(LangContext);
+    const [toggleMenu, setToggleMenu] = useState(false);
+    let dropdownPlaceholder = placeholderMessages.find((message) => message.context === 'dropdownSort')!.content[currentLang];
+    const [selectedItem, setSelectedItem] = useState<SortOption>();
+    const [placeholder, setPlaceholder] = useState(dropdownPlaceholder);
 
     useEffect(() => {
-        if (selectedItem !== "Other") {
-            setToMatch([selectedItem])
+        if (selectedItem !== undefined) {
+            setToMatch([
+                selectedItem.abreviation ? selectedItem.abreviation.content[currentLang].toUpperCase()
+                : selectedItem.content[currentLang].toUpperCase()
+            ])
         }
-    }, [selectedItem])
+        dropdownPlaceholder = placeholderMessages.find((message) => message.context === 'dropdownSort')!.content[currentLang];
+    }, [selectedItem, dropdownPlaceholder, currentLang])
 
     useEffect(() => {   
-        if (!toMatch.includes(selectedItem)) {
-            setSelectedItem("Other")
+        if ((selectedItem && selectedItem.abreviation 
+            && !toMatch.includes(selectedItem.abreviation.content[currentLang].toUpperCase()))
+            && !toMatch.includes(selectedItem.content[currentLang].toUpperCase())
+        ) {
+            setPlaceholder(dropdownPlaceholder)
         }
-    }, [toMatch])
+    }, [toMatch, currentLang])
 
-    const sortOptions = () => (
-        (Object.keys(SortOption) as Array<keyof typeof SortOption>)
-        .filter((option) => !alreadyDisplayesItems?.includes(option))
+    const displayedSortOptions = () => (
+        sortOptions.filter((option) => !alreadyDisplayesItems?.includes(option.context))
         .map((option) => {
-            option = option.charAt(0).toUpperCase() + option.slice(1).toLowerCase()
             return (
-                <li 
-                    key={`option-${option}-item`} 
+                <li key={`option-${option.context}-item`} 
                     className=
                     {`
                         cursor-pointer
-                        hover:text-[--color-tertiary]
-                        transition-all
-                        duration-200
-                        ease-in-out
+                        text-nowrap
+                        ${styles.hyperlink}
                         z-[1]
                     `}
-                    onClick={() => setSelectedItem(option.toUpperCase())}
-                >
-                    {option}
-                </li>
+                    onClick={() => {
+                        setSelectedItem(option); 
+                        setPlaceholder(
+                            option.abreviation ? option.abreviation.content[currentLang] 
+                            : option.content[currentLang]
+                        );
+                    }}
+                > { option.content[currentLang] } </li>
             )
         }  
     ))
 
     return (
-        <Dropdown items={sortOptions()}
-            itemState={[selectedItem, setSelectedItem]}
+        <Dropdown items={displayedSortOptions()}
+            itemState={[placeholder.toUpperCase(), (x) => {setPlaceholder((x === dropdownPlaceholder ? x : x.toUpperCase()))}]}
             menuState={[toggleMenu, setToggleMenu]}
             animationStyle=
             {{
                 animation: `fade-in 0.2s 1 ${toggleMenu ? 'forwards' : 'reverte'}`,
                 fontSize: '90%',
-                left: '-12%',
+                left: '-13  %',
             }}
             additionalStyles=
             {`
                 font-primary-regular 
                 text-[110%] 
+                text-nowrap
                 ${styles.contentEndX}
             `}
             additionalButtonStyles=
             {`
-                ${selectedItem === "Other" ? "" : "text-[--color-tertiary]"}
+                ${placeholder === dropdownPlaceholder ? "" : "text-[--color-tertiary]"}
             `}
         />
     )

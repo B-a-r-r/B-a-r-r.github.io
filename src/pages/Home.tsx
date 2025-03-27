@@ -15,50 +15,38 @@ const Home = () => {
         className=
         {`
           ${styles.sectionContainer}
-          xl:px-[13%]
           h-[40vh]
         `}
-      >
-        <Hero />
-      </div>
+      > <Hero /> </div>
 
       <div id="about-container"
         className=
         {`
           ${styles.sectionContainer}
-          xl:px-[13%]
         `}
-      >
-        <About />
-      </div>
+      > <About /> </div>
 
       <div id="skills-container"
         className=
         {`
           ${styles.sectionContainer}
         `}
-      >
-        <Skills />
-      </div>
+      > <Skills /> </div>
 
-      <div id="projects-carrousel-container"
+      <div id="projects-slider-container"
         className=
         {`
           ${styles.sectionContainer}
           overflow-visible
         `}
-      >
-        <ProjectsSlider />
-      </div>
+      > <ProjectsSlider /> </div>
 
       <div id="contact-container"
         className=
         {`
           ${styles.sectionContainer}
         `}
-      >
-        <Contact />
-      </div>
+      > <Contact /> </div>
     </div>
   );
 };

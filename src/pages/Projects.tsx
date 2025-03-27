@@ -13,14 +13,15 @@ const Projects = () => {
                 relative
             `}
         >
-            <div id="content-container" 
+            <div id="projects-listing-container" 
                 className=
                 {`
                     w-full
                     h-fit
                     ${styles.flexCol}
                     ${styles.contentStartY}
-                    px-[12%]
+                    pl-[11%]
+                    pr-[12%]
                     py-[6%]
                 `}
             >

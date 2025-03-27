@@ -1,8 +1,9 @@
-import { NavbarPattern, NavLink } from "./data/dataTypes";
+import { Hyperlink, NavbarPattern } from "./data/dataTypes";
 import { navLinks } from "./data/constants";
 import resolveConfig from 'tailwindcss/resolveConfig'
 import config from '../tailwind.config.d'
 import { Config } from "tailwindcss";
+import { ArrowFunction } from "typescript";
 
 const TAILWIND_CONFIG = resolveConfig(config as Config);
 
@@ -20,25 +21,25 @@ export const randomNumberBetween = (min: number, max: number) => {
  * @function getCurrentNavigation Get the current navigation link to highlight in the navbar of the current page
  * If no nav links correspond to the current pae, return the first link of the 
  * current navigation links
- * @returns the link to highlight in the navbar
+ * @returns the link to highlight in the navbar, to lowercase
  */
 export const getCurrentNavigation = () => {
     const currentRoute: NavbarPattern = navLinks.find(
         (nav) => nav.route.includes(window.location.pathname.split('/')[1])
     )!;
 
-    const correspondingNavigation: NavLink = currentRoute.links.find(
-        (navLink) => navLink.label[0].toLowerCase() === window.location.pathname.split('/')[1]
+    const correspondingNavigation: Hyperlink = currentRoute.links.find(
+        (navLink) => navLink.content[0].toLowerCase() === window.location.pathname.split('/')[1].toLowerCase()
     )!;
 
     if (correspondingNavigation) {
-        return (correspondingNavigation.label[getLocalLanguage()] ? 
-        correspondingNavigation.label[getLocalLanguage()] 
-        : correspondingNavigation.label[0]).toLowerCase();
+        return (correspondingNavigation.content[getLocalLanguage()] ? 
+        correspondingNavigation.content[getLocalLanguage()] 
+        : correspondingNavigation.content[0]).toLowerCase();
     } else {
-        return (currentRoute.links[0].label[getLocalLanguage()] ? 
-        currentRoute.links[0].label[getLocalLanguage()] 
-        : currentRoute.links[0].label[0]).toLowerCase();
+        return (currentRoute.links[0].content[getLocalLanguage()] ? 
+        currentRoute.links[0].content[getLocalLanguage()] 
+        : currentRoute.links[0].content[0]).toLowerCase();
     }
 }
 
@@ -103,6 +104,17 @@ export const getFooterOffset = () => {
 }
 
 /**
+ * @function handleMouseEnter When the mouse enters the given div, the element
+ * drops its initial animation properties.
+ * @param div the div to animate
+ * @returns void
+ */
+export const handleMouseEnter = (div: HTMLDivElement | null) => {
+    if (!div) return;
+    div.style.animation = "";
+}
+
+/**
  * @function handleMouseMove When the mouse mouves over the given div, the element
  * rotates according to the mouse position.
  * @param e the mouse event
@@ -117,10 +129,9 @@ export const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, div: HTMLDi
     const color2 = getComputedStyle(document.documentElement).getPropertyValue("--color-secondary")
     const cursorX = e.clientX - left - width / 2;
     const cursorY = e.clientY - top - height / 2;
-    console.log(left, top);
 
     div.style.transform = `rotateX(${cursorY/25}deg) rotateY(${cursorX/22}deg)`;
-    div.style.background = `radial-gradient(circle at ${cursorX}% ${cursorY}%, ${lightenHexColor(color1, 3)} 8%, ${darkenHexColor(color2, 0)})`;
+    div.style.background = `radial-gradient(circle at ${cursorX}% ${cursorY}%, ${lightenHexColor(color1, 4)} 8%, ${lightenHexColor(color2, 1)})`;
     injectCursorPosition(e.clientX, e.clientY);
 }
 
@@ -133,7 +144,7 @@ export const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, div: HTMLDi
 export const handleMouseLeave = (div: HTMLDivElement | null) => {
     if (!div) return;
     div.style.transform = `rotateX(0deg) rotateY(0deg)`;
-    div.style.background = 'none';
+    div.style.backgroundColor = getRGBAThemeColor("--color-secondary", 1);
     injectCursorPosition(0, 0);
 }
 
@@ -203,12 +214,11 @@ export const getRandomTailwindColor = () => {
 /**
  * @function getActiveBreakpoint compare the current screen width with the custom 
  * breakpoints in the tailwindcss config file.
+ * @param returnType the type of the return value: 'string' or 'number'
  * @returns the active breakpoint.
  */
 export const getActiveBreakpoint = (returnType: "string" | "number") => {
     const currentWidth = window.innerWidth;
-    console.log(parseInt(TAILWIND_CONFIG.theme.screens["2xl"]))
-    console.log(currentWidth)
     if (parseInt(TAILWIND_CONFIG.theme.screens["2xl"]) <= currentWidth) {
         return returnType === "number" ? 5 : "2xl";
     }
@@ -227,4 +237,106 @@ export const getActiveBreakpoint = (returnType: "string" | "number") => {
     else {
         return returnType === "number" ? 0 : "base";
     }
+}
+
+/**
+ * @function getRGBThemeColor Get the RGBA color of a theme color from the hex CSS variables
+ * @param CSSVarName the name of the CSS variable to get the color from
+ * @param alpha the opacity of the color
+ * @returns the RGBA color as a string
+ */
+export const getRGBAThemeColor = (
+    CSSVarName: "--color-primary" 
+    | "--color-secondary" 
+    | "--color-tertiary"
+    | "--color-quaternary"
+    | "--color-quinary",
+    alpha?: number
+) => {
+    const color = getComputedStyle(document.documentElement).getPropertyValue(CSSVarName);
+    if (!color || color.length <= 0) console.error("Can't get color from CSS variable.");
+    return `rgba(
+        ${parseInt(color.slice(1, 3), 16)}, 
+        ${parseInt(color.slice(3, 5), 16)}, 
+        ${parseInt(color.slice(5, 7), 16)}, 
+        ${alpha || 1}
+    )`
+}
+
+/**
+ * @function isFullScreen Check if the window is in full screen mode
+ * @returns true if the window is in full screen mode, false otherwise
+ */
+export const isFullScreen = () => {
+    return window.innerHeight === screen.height;
+}
+
+/**
+ * @function charsPerLine Get the number of characters that can fit in a line for a given container
+ * and font size.
+ * @param container the container
+ * @param fontSize the font size
+ * @return the number of characters that can fit in a line
+ * @
+ */
+export const charsPerLine = (container: HTMLElement, fontSize: number) => {
+    return Math.floor(container.clientWidth / fontSize)
+}
+
+/**
+ * @function minimizeFontSize While the text is overflowing the container, decrease the font size.
+ * Then, apply the font size that fits the text in the container.
+ * @param container - the container of the text
+ * @param fontSize - the font size
+ * @param simulatedHeight - the simulated height of the text, to compare with the container height
+ */
+export const minimizeFontSize = (
+    container: HTMLElement, 
+    fontSize: number, 
+    simulatedHeight: (fontSize: number) => number,
+) => {
+    
+    while (simulatedHeight(fontSize) > container.offsetHeight && fontSize > 8) {
+        fontSize -= 1;
+    }
+    container.style.fontSize = `${fontSize+0.5}px`;
+}
+
+/**
+ * @function maximizeFontSize While the text is not overflowing the container, increase the font size.
+ * Then, apply the font size that fits the text in the container.
+ * @param container - the container of the text
+ * @param fontSize - the font size
+ * @param simulatedHeight - the simulated height of the text, to compare with the container height
+ */
+export const maximizeFontSize = (
+    container: HTMLElement, 
+    fontSize: number, 
+    simulatedHeight: (fontSize: number) => number,
+) => {
+    
+    while (simulatedHeight(fontSize) < container.offsetHeight && fontSize < 64) {
+        fontSize += 1;
+    }
+    container.style.fontSize = `${fontSize-0.5}px`;
+}
+
+/**
+ * @function adjustFontSize Adjust the font size of a text to fit in its container
+ * @param container the container of the text
+ * @param expect the expected behavior: 'min' to minimize or 'max' to maximize
+ */
+export const adjustFontSize = (container: HTMLElement, expect: "min" | "max") => {
+    if (!container) {console.warn("Can't adjust font size: container is null."); return;}
+
+    const initFontSize = parseFloat(getComputedStyle(container).fontSize);
+    const textContentLenght = container.innerText?.length || 0; 
+    const lines = (fontSize: number) => Math.ceil(textContentLenght / charsPerLine(container, fontSize)); 
+    const simulatedHeight = (fontSize: number) => lines(fontSize) * fontSize;
+
+    if (expect === "min") {
+        minimizeFontSize(container, initFontSize, simulatedHeight);
+    } else {
+        maximizeFontSize(container, initFontSize, simulatedHeight);
+    }    
 }

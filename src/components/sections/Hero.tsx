@@ -6,7 +6,7 @@ import { useContext, useEffect, useState } from "react"
 import DOMPurify from "dompurify"
 import { ThemeContext } from "../theme/ThemeEngine"
 import { LangContext } from "../language"
-import { getNavbarOffset } from "../../utils"
+import { getNavbarOffset, isFullScreen } from "../../utils"
 
 const Hero = () => {
   const { currentTheme } = useContext(ThemeContext);
@@ -44,8 +44,7 @@ const Hero = () => {
   }, [currentMessage]);
 
   return (
-    <section 
-      id="hero" 
+    <section id="hero" 
       className=
       {`
         ${styles.sizeFull}
@@ -53,7 +52,6 @@ const Hero = () => {
         ${styles.contentCenter}
         overflow-visible
         font-primary-regular
-        color-scheme-primary
         relative
       `}
     >
@@ -65,22 +63,21 @@ const Hero = () => {
             z-10
             ${styles.flexCol}
             ${styles.contentStartAll}
-            md:space-y-[15%] space-y-[13%]
+            md:space-y-[15%] base:space-y-[13%]
           `}
         >
-            <div id="hero-heading"
-              className=
+            <div className=
               {`
                 ${styles.sizeFit}
                 relative
-                xl:mt-[40%] md:mt-[33%] mt-[10%]
+                2xl:mt-[40%] xl:"mt-[${isFullScreen() ? "30%" : "50%"}] md:mt-[33%] base:mt-[10%]
               `}
             >
               <h1 className=
                 {`
                   tracking-[0.04em]
                   leading-[115%]
-                  xl:text-9xl lg:text-7xl text-4xl
+                  2xl:text-9xl xl:text-7xl lg:text-7xl base:text-4xl
                 `}
               >
                 {author.firstName} <br/> 
@@ -93,14 +90,14 @@ const Hero = () => {
                 > 
                   {author.lastName.toUpperCase()}
                 </a>
-                <br className="sm:block hidden"/> 
+                <br className="sm:block base:hidden"/> 
               </h1>
 
               <hr className=
                 {`
                   absolute
                   ${styles.line}
-                  md:-bottom-4 -bottom-3
+                  md:-bottom-4 base:-bottom-3
                   left-1/4
                 `}
               />
@@ -116,9 +113,9 @@ const Hero = () => {
               }
               className=
               {`
-                xl:text-2xl lg:text-2xl text-xxs
+                2xl:text-2xl lg:text-xl base:text-xxs
                 text-wrap
-                md:pr-[10%] pr-[15%]
+                2xl:pr-[10%] xl:pr-[15%] md:pr-[10%] base:pr-[15%]
               `}
             />
 
@@ -130,20 +127,20 @@ const Hero = () => {
             ${styles.sizeFull}
             relative
           `}
-        >
-
-          <object id="hero-image"
-            data={coreImages.sysiphus} 
+        > 
+          <object data={coreImages.sysiphus} 
             type="image/svg+xml"
-            style={{fill: currentTheme === "dark" ? "white" : "black"}}
+            style={{
+              fill: currentTheme === "dark" ? "white" : "black"
+            }}
             className=
             {`
               absolute
-              md:visible hidden
-              md:opacity-100 opacity-50
-              xl:w-[85%] lg:w-[102%] w-[550%]
+              md:visible base:hidden
+              md:opacity-100 base:opacity-50
+              2xl:w-[85%] xl:w-[100%] lg:w-[102%] base:w-[550%]
               object-cover
-              md:top-[6%] top-[1%]
+              md:top-[6%] base:top-[1%]
               right-0
             `}
           />

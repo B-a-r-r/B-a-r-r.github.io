@@ -5,20 +5,21 @@ import ProjectPreview from "../cards/ProjectPreview";
 import Searchbar from "../search/Searchbar";
 import { SearchContext } from "../search/SearchEngine";
 import Sortingbar from "../search/Sortingbar";
-import { Project } from "../../data/dataTypes";
+import { Retex } from "../../data/dataTypes";
 import { LangContext } from "../language";
-import Retex from "../Retex";
+import { RetexViewer, RetexContext } from "../retex";
 import { getActiveBreakpoint, randomNumberBetween } from "../../utils";
+import { noDataMessages, sortOptions } from "../../data/constants";
 
 
 const ProjectsListing = () => {
     const { toMatch } = useContext(SearchContext);
     const { currentLang } = useContext(LangContext);
     const [ displayedProjects, setDisplayedProjects ] = useState(projects);
-    const [ toggleRetexTitled, setToggleRetexTitled ] = useState<string | false>(false);
+    const { displayedRetexTitle } = useContext(RetexContext);
 
     useEffect(() => {
-        const matchingProjects: Project[] = [];
+        const matchingProjects: Retex[] = [];
         projects.filter((project) => toMatch.some((filter) => {
             switch (filter) {
                 case "ALL":
@@ -27,35 +28,52 @@ const ProjectsListing = () => {
                 case "NEWEST":
                     matchingProjects.push(project);
                     matchingProjects.sort((a, b) => a.date <= b.date ? 1 : -1);
-                    console.log(matchingProjects);
                     break;
                 case "OLDEST":
                     matchingProjects.push(project);
                     matchingProjects.sort((a, b) => a.date >= b.date ? 1 : -1);
                     break;
                 default:
-                    if (project.title.toUpperCase().split(' ').includes(filter) 
-                    || project.content[currentLang].toUpperCase().split(' ').includes(filter) 
-                    || Array.from(Object.keys(project.tags)).map((tag) => tag.toUpperCase()).includes(filter)
+                    if (!(toMatch.length === 1 /** Does the filter comes from the sorting bar ? */
+                        && (sortOptions.find((option) => option.context === filter)
+                        || sortOptions.find((option) => option.abreviation?.content[currentLang] === filter))
+                        || sortOptions.find((option) => option.content[currentLang] === filter))
+                    ) { 
+                        if (filter.length > 1 && (project.title.toUpperCase().includes(filter) 
+                        || project.description[currentLang].toUpperCase().includes(filter) 
+                        || (Object(project.specs).length > 0 && project.specs[currentLang].toUpperCase().includes(filter))
+                        || project.notions[currentLang]?.map((notion) => notion.toUpperCase()).includes(filter))
+                        ) { matchingProjects.push(project); break;}
+                    }
+                    if (project.tags[currentLang]?.map((tag) => tag.toUpperCase()).includes(filter)
+                        || project.tags[0]?.map((tag) => tag.toUpperCase()).includes(filter)
                     ) {
                         matchingProjects.push(project);
                     }
             }
         }))
         setDisplayedProjects(matchingProjects);
-    }, [toMatch]);
+    }, [toMatch, currentLang]);
 
     useEffect(() => {
-        if (toggleRetexTitled) {
+        if (displayedRetexTitle != undefined) {
             document.body.style.overflow = "hidden";
         }
         else {
             document.body.style.overflow = "scroll";
         }
-    }, [toggleRetexTitled]);
+    }, [displayedRetexTitle]);
 
     return (
-    <>
+    <section id='projects-listing'
+        className=
+        {`
+            ${styles.sizeFull}
+            ${styles.flexCol}
+            ${styles.contentCenter}
+            relative
+        `}
+    >
         <div id='search-options-container'
             className=
             {`
@@ -63,8 +81,8 @@ const ProjectsListing = () => {
                 h-fit
                 ${getActiveBreakpoint("number") as number > 1 ? styles.flexRow : styles.flexCol}
                 ${styles.contentCenter}
-                md:space-x-[2%] space-x-[0]
-                md:space-y-[0] space-y-[15%]
+                md:space-x-[3%] base:space-x-[0]
+                md:space-y-[0] base:space-y-[15%]
             `}
         >
             <Searchbar />
@@ -75,7 +93,7 @@ const ProjectsListing = () => {
         <div id='retex-container'
             className=
             {`
-                ${!toggleRetexTitled ? "hidden" : "block"}
+                ${displayedRetexTitle === undefined ? "hidden" : "block"}
                 ${styles.sizeFull}
                 fixed
                 z-[20]
@@ -89,31 +107,34 @@ const ProjectsListing = () => {
                 animation: "fade-in 0.3s ease-in-out",
             }}
         >
-            <Retex projectTitle={toggleRetexTitled} displayed={setToggleRetexTitled} />
+            <RetexViewer />
         </div>
 
         <div id="projects-container"
             className=
             {`
                 ${styles.flexWrap}
+                ${styles.contentStartX}
                 gap-x-[3%]
                 w-full
                 h-fit
-                ${styles.contentStartAll}
+                ${displayedProjects.length > 0 ? "" : "min-h-[50vh]"}
+                ${displayedProjects.length > 0 ? styles.contentStartAll : styles.contentCenter}
                 my-[3%]
+                ml-[4%]
             `}
             style={{
                 perspective: '2000px',
             }}
         >   
-            {displayedProjects.sort(() => randomNumberBetween(0,1) === 0 ? 1 : -1).map((project) => (
-                <ProjectPreview key={`project-${project.title}-preview`}
-                    project={project}
-                    retexToggler={setToggleRetexTitled}
-                />
-            ))}
+            {displayedProjects.length > 0 ? (toMatch.includes("NEWEST") || toMatch.includes("OLDEST") ?
+                displayedProjects : displayedProjects.sort(() => randomNumberBetween(0,1) === 0 ? 1 : -1))
+                .map((project) => (
+                    <ProjectPreview key={`project-${project.title}-preview`} {...project} />
+                ))
+            : noDataMessages.find((message) => message.context === "projects")!.content[currentLang]}
         </div>
-    </>
+    </section>
     )
 }
 

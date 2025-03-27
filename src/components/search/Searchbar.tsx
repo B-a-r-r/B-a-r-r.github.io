@@ -1,9 +1,12 @@
 import { useContext } from "react"
 import styles from "../../style"
 import { SearchContext } from "./SearchEngine"
+import { placeholderMessages } from "../../data/constants";
+import { LangContext } from "../language";
 
 const Searchbar = () => {
     const { setToMatch } = useContext(SearchContext);
+    const { currentLang } = useContext(LangContext);
 
     const handleSearchTerms = (searchTerms: string) => {
         setToMatch(
@@ -16,16 +19,19 @@ const Searchbar = () => {
             className=
             {`
                 ${styles.sizeFit}
+                ${styles.flexRow}
+                ${styles.contentCenter}
             `}
         >
             <input type='search'
-                placeholder='Enter a keyword...'
+                placeholder={placeholderMessages.find((message) => message.context === 'search')!.content[currentLang]}
                 className=
                 {`
-                    px-4
-                    py-1
+                    px-[3%]
+                    py-[1.5%]
                     rounded-md
                     border-2
+                    border-[--color-quaternary]
                     transition-all
                     duration-300
                     ease-in-out

@@ -4,6 +4,7 @@ import { bioText } from "../../data/contents"
 import DOMPurify from "dompurify"
 import { useContext } from "react"
 import { LangContext } from "../language"
+import { getActiveBreakpoint } from "../../utils"
 
 const About = () => {
   const { currentLang } = useContext(LangContext);
@@ -13,16 +14,17 @@ const About = () => {
       className=
       {`
         ${styles.sizeFull}
-        md:${styles.flexRow} ${styles.flexCol}
+        ${getActiveBreakpoint('number') as number <= 1 ? styles.flexCol : styles.flexRow}
         ${styles.contentCenter}
         md:space-x-[6%]
-        md:space-y-0 space-y-[10%]
+        md:space-y-0 base:space-y-[10%]
         overflow-hidden
       `}
     >
-      <span className=
+      <span id="portrait-container-desktop"
+        className=
         {`
-          md:${styles.flexCol} hidden
+          ${getActiveBreakpoint('number') as number <= 1 ? "hidden" : styles.flexRow}
           w-5/12
           h-full
           relative
@@ -37,8 +39,9 @@ const About = () => {
             object-center
             aspect-square
             rounded-[5px]
-            xl:w-[93%] w-[100%]
-            xl:top-[17%] top-0 right-0
+            2xl:w-[93%] xl:w-[100%] base:w-[100%]
+            2xl:top-[17%] xl:top-[11%] base:top-0 
+            right-0
             shadow-xl
           `}
         />
@@ -53,7 +56,8 @@ const About = () => {
         />
       </span>
       
-      <span className=
+      <span id="portrait-container-mobile"
+        className=
         {`
           md:hidden ${styles.flexRow}
           w-full
@@ -99,7 +103,7 @@ const About = () => {
         <h2 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(bioText.find((e) => e.active)!.title[currentLang])}}
           className=
           {`
-            md:visible hidden
+            md:visible base:hidden
             ${styles.heading2}
           `}
         />
@@ -108,6 +112,7 @@ const About = () => {
           className=
           {`
             ${styles.paragraph}
+            2xl:pr-[3.5%]
           `}
         />
       </div>

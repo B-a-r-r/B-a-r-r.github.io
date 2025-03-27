@@ -1,17 +1,18 @@
 import { useContext, useEffect, useState } from "react"
 import styles from "../../style"
-import { SortOption } from "../../data/dataTypes"
 import { SearchContext } from "./SearchEngine";
 import { DropdownSort } from "../dropdowns";
 import { getActiveBreakpoint } from "../../utils";
+import { sortOptions } from "../../data/constants";
+import { LangContext } from "../language";
 
 const SortingBar = () => {
     const { toMatch, setToMatch } = useContext(SearchContext);
+    const { currentLang } = useContext(LangContext);
     const alreadyDisplayedItems = ["ALL"];
-    const [isMobile, setIsMobile] = useState(!(getActiveBreakpoint("number") as number > 1));
+    const [isMobile, setIsMobile] = useState((getActiveBreakpoint("number") as number <= 1));
 
     useEffect(() => {
-        console.log(getActiveBreakpoint("number"));
         window.addEventListener("resize", () => {
             const avbp = getActiveBreakpoint("number") as number;
             if (!isMobile && avbp <= 1) {
@@ -32,25 +33,22 @@ const SortingBar = () => {
             ${styles.contentCenter}
         `}
     >
-        {isMobile ? "" : (Object.keys(SortOption) as Array<keyof typeof SortOption>)
-        .slice(0,5)
-        .map((option, index) => {
-            alreadyDisplayedItems.push(option);
+        {isMobile ? "" : sortOptions.slice(0,4).map((option, index) => {
+            alreadyDisplayedItems.push(option.context);
             return(
                 <button key={index}
-                    onClick={() => setToMatch([option])}
+                    onClick={() => setToMatch([option.context])}
                     className=
                     {`
                         px-4
                         py-1
                         rounded-md
-                        hover:text-[--color-tertiary]
-                        transition-all
+                        ${styles.hyperlink}
                         duration-300
-                        ease-in-out
-                        ${option === toMatch[0] ? "text-[--color-tertiary]" : ""}
+                        text-nowrap
+                        ${option.context === toMatch[0] ? "text-[--color-tertiary]" : ""}
                     `}
-                > {option} 
+                > {option.content[currentLang].toUpperCase()} 
                     <hr id='lib-hr'
                         className=
                         {`
@@ -67,6 +65,7 @@ const SortingBar = () => {
             {`
                 ${styles.sizeFit}
                 ${styles.flexRow}
+                ${styles.contentStartX}
                 ml-[5%]
             `}
         >

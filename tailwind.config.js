@@ -1,3 +1,4 @@
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx,html}"],
@@ -10,7 +11,8 @@ module.exports = {
         kanit: ["Kanit", "sans-serif"],
       },
       fontSize: {
-        xxs: "80%",
+        "3xs": "60%",
+        "2xs": "80%",
         xs: "90%",
         sm: "95%",
         base: "100%",
@@ -26,16 +28,19 @@ module.exports = {
         "8xl": "300%",
         "9xl": "320%",
       },
+      screens: {
+        base: [{min: "0px", max: "399px"}],
+        xs: "400px",
+        ss: "500px", 
+      }
     },
   },
   screens: {
-    xs: "400px",
-    ss: "500px",
     sm: "640px",
     md: "768px",
     lg: "1024px",
     xl: "1280px",
-    xxl: "1536px",
+    "2xl": "1536px",
   },
   plugins: [
     require('dompurify'), 

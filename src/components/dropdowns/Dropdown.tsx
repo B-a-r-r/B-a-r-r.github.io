@@ -51,10 +51,7 @@ const Dropdown = ({items, animationStyle, menuState, itemState, additionalStyles
                 {`
                     ${styles.flexRow}
                     ${styles.contentCenter}
-                    hover:text-[--color-tertiary]
-                    transition-all
-                    duration-200
-                    ease-in-out
+                    ${styles.hyperlink}
                     cursor-pointer
                     ${additionalButtonStyles}
                 `}
@@ -97,11 +94,9 @@ const Dropdown = ({items, animationStyle, menuState, itemState, additionalStyles
                     {`
                         list-none
                         flex-col
-                        xxl:leading-8 lg:leading-9 
+                        2xl:leading-8 lg:leading-9 
                     `}
-                >
-                    {items}
-                </ul>
+                > {items} </ul>
             </div>
         </div>
     )

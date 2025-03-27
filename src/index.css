@@ -17,7 +17,7 @@
 .light {
   /* App light theme colors */
   --color-primary: #f4f4f4;
-  --color-secondary: #f1f1f1  ;
+  --color-secondary: #f1f1f1;
   --color-tertiary: #479561;
   --color-quaternary: #3D3E3C;
   --color-quinary: #4F4F4F;
@@ -45,18 +45,19 @@
 }
 
 html {
-  /*background-color: var(--color-secondary);*/
+  background-color: var(--color-secondary);
 }
 
 body {
-  background-image: url('./assets/cloudy_sky_landscape.webp');
-  background-size: contain;
-  background-position: top;
+  background-image: url('./assets/marble_texture.jpg');
+  background-repeat: repeat-y;
+  background-size: cover;
   opacity: 100%;
-  /* background-color: var(--color-primary); */
+  
   font-size: var(--base-font-size);
   color: var(--color-quaternary);
   font-family: var(--font-primary);
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,11 +66,9 @@ body {
 }
 
 strong {
-  display: inline-flex;
   margin: 0;
   padding: 0;
   color: var(--color-tertiary); 
-  text-wrap: wrap;  
 }
 
 button {

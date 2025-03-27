@@ -16,7 +16,6 @@ const Err404 = () => {
         ${styles.sizeScreen}
         ${styles.flexCol}
         ${styles.contentCenter}
-        color-primary
       `}
     >
         <h1 id='err404-title'
@@ -25,7 +24,6 @@ const Err404 = () => {
             ${styles.contentCenter}
             lg:text-[200%]
             rounded-md
-            color-primary
             px-[2%]
             py-[1%]
           `}
@@ -37,9 +35,9 @@ const Err404 = () => {
             ${styles.sizeFit}
             ${styles.contentCenter}
           `}
-          dangerouslySetInnerHTML={{__html: errorMessages.filter((message)=>message.error === Errors.NOT_FOUND)
-          ? DOMPurify.sanitize(errorMessages.find((message)=>message.error === Errors.NOT_FOUND)!.content[currentLang])
-          :""}}
+          dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(
+            errorMessages.find((message)=>message.error === Errors.NOT_FOUND)!.content[currentLang]
+          )}}
         />
 
         <Link id='home-button'
