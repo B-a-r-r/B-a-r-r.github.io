@@ -5,12 +5,12 @@ import { adjustFontSize, isOverflowing } from '../../utils';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { LangContext } from '../language';
 import { coreImages, menuIcons } from '../../assets';
-import { RetexContext } from './RetexDisplayEngine';
+import { RetexContext } from './RetexDisplayEngine'
 
 const RetexViewer = () => {
     const { currentLang } = useContext(LangContext);
     const { displayedRetexTitle, setDisplayedRetex } = useContext(RetexContext);
-    const [focusedImage, setFocusedImage] = useState<string>();
+    const [focusedImage, setFocusedImage] = useState<string | null>(null);
     const specsContainer = useRef<HTMLSpanElement>(null);
     const notionsContainer = useRef<HTMLSpanElement>(null);
     const retexContainer = useRef<HTMLDivElement>(null);
@@ -22,11 +22,12 @@ const RetexViewer = () => {
             'keydown', 
             (e) => {
                 if (e.key === 'Escape') {
-                    setDisplayedRetex(undefined);
+                    setFocusedImage(null)
+                    setDisplayedRetex(undefined)
                 }
             }
         );
-        document.getElementById(`retex-${displayedRetexTitle}`)?.addEventListener(
+        document.addEventListener(
             'click',
             (e) => {
                 if (e.target === document.getElementById(`retex-${displayedRetexTitle}`)) {
@@ -39,10 +40,11 @@ const RetexViewer = () => {
         return () => {
             document.removeEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
-                    setDisplayedRetex(undefined);
+                    setFocusedImage(null)
+                    setDisplayedRetex(undefined)
                 }
             });
-            document.getElementById(`retex-${displayedRetexTitle}`)?.removeEventListener(
+            document.removeEventListener(
                 'click',
                 (e) => {
                     if (e.target === document.getElementById(`retex-${displayedRetexTitle}`)) {
@@ -50,9 +52,9 @@ const RetexViewer = () => {
                     }
                 }
             );
-            window.addEventListener('resize', handleTextOverflow);
+            window.removeEventListener('resize', handleTextOverflow);
         }
-    }, []);
+    }, [displayedRetexTitle]);
 
     useEffect(() => {
         handleTextOverflow();
@@ -72,21 +74,11 @@ const RetexViewer = () => {
                 notionsList.current.removeChild(notionsList.current.lastChild as Node);
             }
         }
-        else {adjustFontSize(notionsContainer.current, "max");}
-
-        /** Homogenize the font sizes to the lower one */
-        const minFontSize = (
-            specsContainer.current.style.fontSize < notionsContainer.current.style.fontSize ?
-            specsContainer.current.style.fontSize : notionsContainer.current.style.fontSize
-        )
-        specsContainer.current.style.fontSize = minFontSize
-        notionsContainer.current.style.fontSize = minFontSize
     }
-
 
     const relatedProject = projects.find((project) => project.title === displayedRetexTitle);
     if (!displayedRetexTitle) return;
-    if (!relatedProject) {console.error(`No project found for '${displayedRetexTitle}'.`); return;}
+    if (!relatedProject) {console.warn(`No project found for '${displayedRetexTitle}'.`); return;}
 
     return (
         <div id={`retex-${displayedRetexTitle}`}
@@ -116,7 +108,7 @@ const RetexViewer = () => {
                     {`
                         w-full
                         font-primary-bold
-                        2xl:text-4xl base:text-3xl
+                        2xl:text-4xl text-3xl
                         tracking-wide
                         py-[6%]
                         px-[10%]
@@ -203,7 +195,7 @@ const RetexViewer = () => {
                 className=
                 {`
                     ${styles.sizeFull}
-                    ${styles.flexRow}
+                    ${styles.flexCol}
                     color-scheme-secondary
                     py-[3%]
                     px-[3%]
@@ -213,6 +205,9 @@ const RetexViewer = () => {
                     z-[22]
                     ml-[2%]
                     relative
+                    transition-all
+                    duration-200
+                    ease-in-out
                 `}
             >
                 <img src={menuIcons.close_menu_icon}
@@ -229,7 +224,7 @@ const RetexViewer = () => {
                     onClick={() => setDisplayedRetex(undefined)}
                 />
                 
-                <div id='retex-text'
+                {/* <div id='retex-bottom'
                     className=
                     {`
                         h-full
@@ -238,37 +233,81 @@ const RetexViewer = () => {
                         text-wrap
                         overflow-hidden
                         mr-[5%]
+                        relative
                     `}
                 >
-                    <span id='specs'
-                        ref={specsContainer}
-                        className=
-                        {`
+                    <span id='focused-image-container'
+                        className={`
+                            ${focusedImage === null ? "hidden" : "display"}
+                            absolute
+                            z-[25]
+                            ${styles.flexCol}
                             ${styles.sizeFull}
-                            max-h-[70%]
-                            overflow-hidden
-                            text-base
-                            text-wrap
+                            ${styles.contentCenter}
+                            top-0
+                            left-0
+                            object-fill
                         `}
                     >
-                        <p className=
+                        <img src={menuIcons.close_menu_icon}
+                            id='close-button'
+                            className=
                             {`
-                                ${styles.sizeFull}
-                                text-base
+                                absolute
+                                top-[1%]
+                                right-[1%]
+                                ${styles.sizeFit}
+                                cursor-pointer
                             `}
-                            dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(relatedProject.specs[currentLang])}}
+                            onClick={() => setFocusedImage(null)}
                         />
-                    </span>
 
+                        <img id='focused-image'
+                            className={`
+                                object-center
+                                w-full
+                                h-full
+                            `}
+                            src={focusedImage || undefined}
+                            alt='focused image'
+                        />
+                    </span> */}
+
+                <span id='specs'
+                    ref={specsContainer}
+                    className=
+                    {`
+                        ${styles.sizeFull}
+                        overflow-hidden
+                        text-base
+                        text-wrap
+                    `}
+                >
+                    <p className=
+                        {`
+                            ${styles.sizeFull}
+                            text-base
+                        `}
+                        dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(relatedProject.specs[currentLang])}}
+                    />
+                </span>
+                
+                <div id='retex-bottom'
+                    className=
+                    {`
+                        ${styles.sizeFull}
+                        ${styles.flexRow}
+                        text-wrap
+                        overflow-hidden
+                    `}
+                >
                     <span id='notions'
                         ref={notionsContainer}
                         className=
                         {`
-                            w-full
-                            h-fit
-                            min-h-[30%]
+                            ${styles.sizeFull}
                             ${styles.flexRow}
-                            ${styles.contentStartX}
+                            ${styles.contentCenter}
                             overflow-hidden
                             relative
                         `}
@@ -278,11 +317,10 @@ const RetexViewer = () => {
                             {`
                                 ${styles.sizeFull}
                                 ${styles.flexCol}
-                                ${styles.contentStartAll}
+                                ${styles.contentStartY}
                                 list-disc
                                 list-inside
-                                space-y-[3%]
-                                ml-[3%]
+                                space-y-[5%]
                             `}
                         >
                             {relatedProject.notions[currentLang].map((notion, index) => (
@@ -293,81 +331,73 @@ const RetexViewer = () => {
                             ))}
                         </ul>
                     </span>
-                </div>
-            
-                <div id='retex-imgs'
-                    className=
-                    {`
-                        h-full
-                        w-2/5
-                        ${styles.flexCol}
-                        space-y-[10%]
-                    `}
-                >
-                    <span id='image-1-container'
+                    
+                    <span id='retex-imgs'
                         className=
                         {`
-                            focus:fixed 
-                            focus:top-[50%]
-                            ${styles.sizeFull}
-                            overflow-hidden
+                            grid
+                            grid-cols-2
+                            grid-rows-2
+                            relative
+                            gap-[1%]
+                            h-full
+                            w-2/3
+                            ${styles.flexCol}
+                            hover:cursor-pointer
                             rounded-lg
-                            hover:shadow-lg
-                            hover:scale-[1.01]
-                            transition-all
-                            duration-400
-                            linear
+                            overflow-hidden
+                            
                         `}
+                        onMouseEnter={() => {
+                            document.getElementById("gallery-preview-text")!.classList.add("scale-110");
+                            document.getElementById("gallery-preview-text")!.classList.remove("text-white");
+                            document.getElementById("gallery-preview-text")!.classList.add("text-[--color-tertiary]");
+                        }}
+                        onMouseLeave={() => {
+                            document.getElementById("gallery-preview-text")!.classList.remove("scale-110");
+                            document.getElementById("gallery-preview-text")!.classList.remove("text-[--color-tertiary]");
+                            document.getElementById("gallery-preview-text")!.classList.add("text-white");
+                        }}
                     >
-                        <img id='img-1'
-                            src={
-                                relatedProject.img ?
-                                    relatedProject.img.length > 1 ?
-                                    relatedProject.img[1] : relatedProject.img[0]
-                                : coreImages.portrait  
-                            }
-                            alt="retex image 1"
-                            className=
-                            {`
-                                aspect-video
-                                object-cover
-                                object-center
-                                ${styles.sizeFull}
-                                border-2
-                            `}
-                        />
-                    </span>
+                        {relatedProject.img && relatedProject.img.map((img, index) => {
+                            if (index <= 4) return (
+                                <img key={`retex-img-${index}`}
+                                    src={img}
+                                    alt={`retex image ${index + 1}`}
+                                    className=
+                                    {`
+                                        ${styles.sizeFull}
+                                        object-cover
+                                        blur-sm
+                                    `}
+                                    onClick={() => setFocusedImage(img)}
+                                />
+                            )
+                        })}
 
-                    <span id='image-2-container'
-                        className=
-                        {`
-                            ${styles.sizeFull}
-                            overflow-hidden
-                            rounded-lg
-                            hover:scale-[1.01]
-                            hover:shadow-lg
-                            transition-all
-                            duration-400
-                            linear
-                        `}
-                    >
-                        <img id='img-2'
-                            src={
-                                relatedProject.img ?
-                                    relatedProject.img.length > 1 ?
-                                    relatedProject.img[2] : relatedProject.img[0]
-                                : coreImages.portrait  
-                            }
-                            alt="retex image 2"
+                        <text id="gallery-preview-text"
                             className=
                             {`
-                                aspect-video
-                                object-cover
-                                object-center
-                                ${styles.sizeFull}
-                                border-2
+                                absolute
+                                top-24
+                                left-24
+                                z-[24]
+                                text-white
+                                font-semibold
+                                transition-all
+                                duration-300
+                                ease-in-out
+                            border-2
+                            border-green-500
                             `}
-                        />
+                        > {
+                            relatedProject.img && relatedProject.img.length > 0 ? 
+                                relatedProject.img.length > 4 ? 
+                                `+${relatedProject.img.length - 4 }` 
+                                : "Images gallery"
+                            : ""
+                        } </text>
+
                     </span>
                 </div>
             </div>

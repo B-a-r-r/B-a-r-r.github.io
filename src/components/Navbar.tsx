@@ -66,7 +66,7 @@ const Navbar = () => {
         w-full
         items-center
         px-[5%]
-        2xl:py-[0.8%] base:py-[1%]
+        2xl:py-[0.8%] base:py-[1%] py-[1%]
         ${styles.flexRow}
         ${styles.contentStartX}
         bg-[${getActiveBreakpoint('number') as number <= 1 ? 

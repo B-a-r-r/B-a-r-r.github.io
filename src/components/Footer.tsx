@@ -9,7 +9,6 @@ import { LangContext } from "./language"
 const Footer = () => {
   const [currentNavigation, setCurrentNavigation] = useState(getCurrentNavigation())
   const { currentLang } = useContext(LangContext)
-  let seeAlsoLinksDisplayed = 0;
 
   return (
     <footer id="footer"
@@ -116,7 +115,6 @@ const Footer = () => {
             `}
           >See also</h3>
           
-          {/** This section can support 0 to 8 shared links, split in two columns */}
           <div id="see-also-links-cols"
             className=
             {`
@@ -130,35 +128,11 @@ const Footer = () => {
               {`
                 ${styles.sizeFull}
                 ${styles.flexCol}
+                overflow-y-scroll
+                overflow-x-hidden
               `}
             >
               {sharedLinks.map((link, index) => {
-                if (seeAlsoLinksDisplayed === navLinks.filter((pattern) => pattern.route.includes(window.location.pathname.split("/")[1]))[0].links.length) {return;}
-                seeAlsoLinksDisplayed++;
-                return (
-                  <a key={`credit-${index}`}
-                    id={`credit-${index}`}
-                    href={link.link}
-                    className={`${styles.hyperlink}`}
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  > {link.content[currentLang]} </a>
-                )
-              })}
-            </div>
-
-            <div id="links-col-2"
-              className=
-              {`
-                ${seeAlsoLinksDisplayed === sharedLinks.length ? 'hidden' : ''}
-                ${styles.sizeFull}
-                ${styles.flexCol}
-              `}
-            >
-              {seeAlsoLinksDisplayed === sharedLinks.length ? '' : 
-              sharedLinks.slice(seeAlsoLinksDisplayed).map((link, index) => {
-                if (seeAlsoLinksDisplayed === navLinks.filter((pattern) => pattern.route.includes(window.location.pathname.split("/")[1]))[0].links.length*2) {return;}
-                seeAlsoLinksDisplayed++;
                 return (
                   <a key={`credit-${index}`}
                     id={`credit-${index}`}

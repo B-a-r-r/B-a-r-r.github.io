@@ -1,7 +1,7 @@
 import styles from './style'
 import { Footer, Navbar } from './components'
 import { ReactNode, useContext, useEffect, useRef } from 'react'
-import { getActiveBreakpoint, getRGBAThemeColor } from './utils'
+import { getActiveBreakpoint } from './utils'
 import { RetexContext } from './components/retex'
 
 const Layout = ({children}: {children: ReactNode}) => {
@@ -37,9 +37,9 @@ const Layout = ({children}: {children: ReactNode}) => {
                     w-full
                     h-fit
                     min-h-[60px]
-                    bg-[${getActiveBreakpoint('number') as number <= 1 ? 
-                        getRGBAThemeColor("--color-primary", 0.9)
-                        : "--color-secondary"
+                    bg-[${
+                        getActiveBreakpoint('number') as number <= 1 ?
+                        "--color-mobile-navbar" : "--color-secondary"
                     }]
                 `}
             > <Navbar /> </div>
@@ -49,10 +49,10 @@ const Layout = ({children}: {children: ReactNode}) => {
                 {`
                     ${styles.flexCol}
                     ${styles.sizeFull}
+                    bg-[--color-layout-bg]
                 `}
                 style={{
                     minHeight: "calc(100vh - 120px)",
-                    backgroundColor: `${getRGBAThemeColor("--color-primary", 0.8)}`,
                 }}
             > {children} </div>
 
@@ -65,6 +65,7 @@ const Layout = ({children}: {children: ReactNode}) => {
                     w-full
                     h-fit
                     ${styles.contentEndAll}
+                    bg-[--color-secondary]
                 `}
             > <Footer /> </div>
         </div>

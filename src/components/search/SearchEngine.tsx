@@ -7,7 +7,7 @@ interface SearchContextType {
 }
 
 const SearchContext = createContext<SearchContextType>({
-  toMatch: ["All"],
+  toMatch: ["ALL"],
   setToMatch: () => {},
 });
 
@@ -32,6 +32,7 @@ const SearchEngine = ({ children }: { children: ReactNode }) => {
       }
     }
     youCanWork.current = !youCanWork.current;
+    console.log("SearchEngine: toMatch updated to", toMatch);
   }, [toMatch]);
 
   return (

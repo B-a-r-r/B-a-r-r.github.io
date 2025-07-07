@@ -4,13 +4,13 @@ import styles from '../../style';
 import { SearchContext } from '../search';
 import { placeholderMessages, sortOptions } from '../../data/constants';
 import { LangContext } from '../language';
-import { SortOption } from '../../data/dataTypes';
+import { AvailableSortOptions, SortOption } from '../../data/dataTypes';
 
 type DropdownSortProps = {
-    alreadyDisplayesItems?: string[]
+    alreadyDisplayedItems?: string[]
 }
 
-const DropdownSort = ({alreadyDisplayesItems}: DropdownSortProps) => {
+const DropdownSort = ({alreadyDisplayedItems}: DropdownSortProps) => {
     const { toMatch, setToMatch } = useContext(SearchContext);
     const { currentLang } = useContext(LangContext);
     const [toggleMenu, setToggleMenu] = useState(false);
@@ -25,20 +25,20 @@ const DropdownSort = ({alreadyDisplayesItems}: DropdownSortProps) => {
                 : selectedItem.content[currentLang].toUpperCase()
             ])
         }
-        dropdownPlaceholder = placeholderMessages.find((message) => message.context === 'dropdownSort')!.content[currentLang];
     }, [selectedItem, dropdownPlaceholder, currentLang])
 
-    useEffect(() => {   
-        if ((selectedItem && selectedItem.abreviation 
-            && !toMatch.includes(selectedItem.abreviation.content[currentLang].toUpperCase()))
-            && !toMatch.includes(selectedItem.content[currentLang].toUpperCase())
+    useEffect(() => {
+        if (!(selectedItem?.abreviation && toMatch.includes(selectedItem.abreviation.content[currentLang].toUpperCase()))
+            && !(selectedItem?.content && toMatch.includes(selectedItem.content[currentLang].toUpperCase()))
         ) {
+            setSelectedItem(undefined);
             setPlaceholder(dropdownPlaceholder)
         }
+        console.log("Selected item:", selectedItem);
     }, [toMatch, currentLang])
 
     const displayedSortOptions = () => (
-        sortOptions.filter((option) => !alreadyDisplayesItems?.includes(option.context))
+        sortOptions.filter((option) => !alreadyDisplayedItems?.includes(option.context))
         .map((option) => {
             return (
                 <li key={`option-${option.context}-item`} 
