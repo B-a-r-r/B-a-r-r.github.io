@@ -32,7 +32,6 @@ const SearchEngine = ({ children }: { children: ReactNode }) => {
       }
     }
     youCanWork.current = !youCanWork.current;
-    console.log("SearchEngine: toMatch updated to", toMatch);
   }, [toMatch]);
 
   return (

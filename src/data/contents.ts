@@ -237,11 +237,11 @@ export const projects: Array<Retex> = [
       en:
       "This PGP key manager aims to make GnuPG technology accessible. \
       It offers different integration modes, including <strong>a CustomTK GUI</strong>. You can either encrypt/decrypt messages or files, or manage a multitude of keys. \
-      <strong>This personal <strong>pythonic</strong> project is designed to be easily <strong>maintainable and extensible</strong> thanks to its <strong>robust error handling</strong> and <strong>Model View Controller</strong> architecture. The development of the GUI was also a good opportunity to review <strong>event-driven programming</strong>.",
+      This personal <strong>pythonic</strong> project is designed to be easily <strong>maintainable and extensible</strong> thanks to its <strong>robust error handling</strong> and <strong>Model View Controller</strong> architecture. The development of the GUI was also a good opportunity to review <strong>event-driven programming</strong>.",
       fr:
       "Ce gestionnaire de clés PGP vise à rendre la technologie GnuPG accessible. \
       Il propose différents modes d'intégration, dont <strong>une interface graphique</strong> CustomTK. Vous pouvez soit chiffrer/déchiffrer des messages ou des fichiers, soit gérer une multitude de clés. \
-      <strong>Ce projet personnel est 100% Python</strong>, et conçu pour être facilement <strong>maintenable et extensible</strong> grâce à sa <strong>gestion d'erreurs robuste</strong> et son architecture <strong>Modèle Vue Contrôlleur</strong>. Le développement de l'IG, aura aussi été une bonne occasion de réviser la <strong>programmation événementielle</strong>.",
+      Ce projet personnel est <strong>100% Python</strong>, et conçu pour être facilement <strong>maintenable et extensible</strong> grâce à sa <strong>gestion d'erreurs robuste</strong> et son architecture <strong>Modèle Vue Contrôlleur</strong>. Le développement de l'IG, aura aussi été une bonne occasion de réviser la <strong>programmation événementielle</strong>.",
     },
     notions: 
     {

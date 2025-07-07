@@ -297,8 +297,10 @@ const RetexViewer = () => {
                     {`
                         ${styles.sizeFull}
                         ${styles.flexRow}
+                        ${styles.contentCenter}
                         text-wrap
-                        overflow-hidden
+                        border-2
+                        border-red-500
                     `}
                 >
                     <span id='notions'
@@ -332,73 +334,82 @@ const RetexViewer = () => {
                         </ul>
                     </span>
                     
-                    <span id='retex-imgs'
+                    <div id='retex-imgs-container'
                         className=
                         {`
-                            grid
-                            grid-cols-2
-                            grid-rows-2
                             relative
-                            gap-[1%]
-                            h-full
-                            w-2/3
+                            ${styles.sizeFull}
                             ${styles.flexCol}
-                            hover:cursor-pointer
+                            ${styles.contentCenter}
+                            bg-[--color-secondary]
                             rounded-lg
                             overflow-hidden
-                            
+                            px-[1%]
+                            pt-[1%]
+                            pb-[5%]
                         `}
-                        onMouseEnter={() => {
-                            document.getElementById("gallery-preview-text")!.classList.add("scale-110");
-                            document.getElementById("gallery-preview-text")!.classList.remove("text-white");
-                            document.getElementById("gallery-preview-text")!.classList.add("text-[--color-tertiary]");
-                        }}
-                        onMouseLeave={() => {
-                            document.getElementById("gallery-preview-text")!.classList.remove("scale-110");
-                            document.getElementById("gallery-preview-text")!.classList.remove("text-[--color-tertiary]");
-                            document.getElementById("gallery-preview-text")!.classList.add("text-white");
-                        }}
                     >
-                        {relatedProject.img && relatedProject.img.map((img, index) => {
-                            if (index <= 4) return (
-                                <img key={`retex-img-${index}`}
-                                    src={img}
-                                    alt={`retex image ${index + 1}`}
-                                    className=
-                                    {`
-                                        ${styles.sizeFull}
-                                        object-cover
-                                        blur-sm
-                                    `}
-                                    onClick={() => setFocusedImage(img)}
-                                />
-                            )
-                        })}
-
-                        <text id="gallery-preview-text"
+                        <span id='retex-imgs'
                             className=
                             {`
-                                absolute
-                                top-24
-                                left-24
-                                z-[24]
-                                text-white
-                                font-semibold
-                                transition-all
-                                duration-300
-                                ease-in-out
-                            border-2
-                            border-green-500
+                                grid
+                                grid-cols-2
+                                grid-rows-2
+                                relative
+                                gap-[1%]
+                                ${styles.flexCol}
+                                hover:cursor-pointer
                             `}
-                        > {
-                            relatedProject.img && relatedProject.img.length > 0 ? 
-                                relatedProject.img.length > 4 ? 
-                                `+${relatedProject.img.length - 4 }` 
-                                : "Images gallery"
-                            : ""
-                        } </text>
+                            onMouseEnter={() => {
+                                document.getElementById("gallery-preview-text")!.classList.add("scale-110");
+                                document.getElementById("gallery-preview-text")!.classList.remove("text-white");
+                                document.getElementById("gallery-preview-text")!.classList.add("text-[--color-tertiary]");
+                            }}
+                            onMouseLeave={() => {
+                                document.getElementById("gallery-preview-text")!.classList.remove("scale-110");
+                                document.getElementById("gallery-preview-text")!.classList.remove("text-[--color-tertiary]");
+                                document.getElementById("gallery-preview-text")!.classList.add("text-white");
+                            }}
+                        >
+                            {relatedProject.img && relatedProject.img.map((img, index) => {
+                                if (index <= 4) return (
+                                    <img key={`retex-img-${index}`}
+                                        src={img}
+                                        alt={`retex image ${index + 1}`}
+                                        className=
+                                        {`
+                                            ${styles.sizeFull}
+                                            object-cover
+                                        `}
+                                        onClick={() => setFocusedImage(img)}
+                                    />
+                                )
+                            })}
 
-                    </span>
+                            <text id="gallery-preview-text"
+                                className=
+                                {`
+                                    absolute
+                                    top-24
+                                    left-24
+                                    z-[24]
+                                    text-white
+                                    font-semibold
+                                    transition-all
+                                    duration-300
+                                    ease-in-out
+                                border-2
+                                border-green-500
+                                `}
+                            > {
+                                relatedProject.img && relatedProject.img.length > 0 ? 
+                                    relatedProject.img.length > 4 ? 
+                                    `+${relatedProject.img.length - 4 }` 
+                                    : "Images gallery"
+                                : ""
+                            } </text>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
