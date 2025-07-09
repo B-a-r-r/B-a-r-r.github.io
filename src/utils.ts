@@ -3,7 +3,6 @@ import { navLinks } from "./data/constants";
 import resolveConfig from 'tailwindcss/resolveConfig'
 import config from '../tailwind.config.d'
 import { Config } from "tailwindcss";
-import { ArrowFunction } from "typescript";
 
 const TAILWIND_CONFIG = resolveConfig(config as Config);
 
@@ -24,22 +23,27 @@ export const randomNumberBetween = (min: number, max: number) => {
  * @returns the link to highlight in the navbar, to lowercase
  */
 export const getCurrentNavigation = () => {
-    const currentRoute: NavbarPattern = navLinks.find(
-        (nav) => nav.route.includes(window.location.pathname.split('/')[1])
+    let currentRoute: NavbarPattern = navLinks.find(
+        (nav) => (
+            nav.route.includes(window.location.pathname.split('/')[1])
+        )
     )!;
 
-    const correspondingNavigation: Hyperlink = currentRoute.links.find(
-        (navLink) => navLink.content[0].toLowerCase() === window.location.pathname.split('/')[1].toLowerCase()
+    let correspondingNavigation: Hyperlink = currentRoute.links.find(
+        (navLink) => {
+            if (window.location.hash !== "") {
+                return window.location.hash.toLowerCase().includes(navLink.link.split('/')[1].toLowerCase());
+
+            } else {
+                return window.location.pathname.toLowerCase() === navLink.link.toLowerCase();
+            }
+        }
     )!;
 
     if (correspondingNavigation) {
-        return (correspondingNavigation.content[getLocalLanguage()] ? 
-        correspondingNavigation.content[getLocalLanguage()] 
-        : correspondingNavigation.content[0]).toLowerCase();
+        return (currentRoute.links.find((nav) => nav.link === correspondingNavigation.link)!).link.toLowerCase();
     } else {
-        return (currentRoute.links[0].content[getLocalLanguage()] ? 
-        currentRoute.links[0].content[getLocalLanguage()] 
-        : currentRoute.links[0].content[0]).toLowerCase();
+        return (currentRoute.links[0].link).toLowerCase();
     }
 }
 

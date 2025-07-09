@@ -28,9 +28,8 @@ const Navbar = () => {
    * the current navigation label in the navbar.*/
   useEffect(() => {
     setCurrentNavigation(getCurrentNavigation());
-    console.log("currentNav : ", currentNavigation);
-    console.log("got : ", getCurrentNavigation());
-  }, [currentLang, currentNavigation]);
+
+  }, [window.location.pathname]);
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
@@ -88,7 +87,9 @@ const Navbar = () => {
         {/**Map the navigation links from the data file according to the current URL.*/
         navLinks.find(
           (nav) => nav.route.includes(window.location.pathname.split('/')[1])
-        )?.links.map((nav, index) => (
+        )?.links.map((nav, index) => {
+          let thisNav = nav.content[currentLang] ? nav.content[currentLang] : nav.content[0];
+          return (
             <>
               <li key={`navlink-${index}`}
                 className=
@@ -101,25 +102,24 @@ const Navbar = () => {
                     duration-300
                     ease-in-out
                     text-nowrap
-                    ${(nav.content[currentLang] ? nav.content[currentLang] : nav.content[0])
-                      .toLowerCase() === currentNavigation ? 'text-[--color-tertiary]' : ""}
+                    ${(nav.link).toLowerCase() === currentNavigation ? 'text-[--color-tertiary]' : ""}
                 `}
               >
-                {/**If the navigation link is an anchor on the page, it become an <a>. Else if it
-                 * is supposed to redirect on another page, it become a React <Link>.*/
+                {/** If the navigation link is an anchor on the page, it become an <a>. Else if it
+                 * is supposed to redirect on another page, it become a React <Link>. */
                 nav.link.includes('#') ?
                   <a href={nav.link}
-                    onClick={() => setCurrentNavigation(nav.content[currentLang].toLowerCase())}
-                  > {nav.content[currentLang] ? nav.content[currentLang] : nav.content[0]} </a> 
+                    onClick={() => setCurrentNavigation((nav.link).toLowerCase())}
+                  > {thisNav} </a>
                   :
                   <Link to={nav.link}
-                    onClick={() => setCurrentNavigation(nav.content[currentLang].toLowerCase())}
-                  > {nav.content[currentLang] ? nav.content[currentLang] : nav.content[0]} </Link>
+                    onClick={() => setCurrentNavigation((nav.link).toLowerCase())}
+                  > {thisNav} </Link>
                 }
               </li>
             </>
-          ))
-        }
+          )
+        })}
       </ul>
 
       <div id="navbar-options"
