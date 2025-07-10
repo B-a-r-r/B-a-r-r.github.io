@@ -5,6 +5,7 @@ import DOMPurify from "dompurify"
 import { useContext } from "react"
 import { LangContext } from "../language"
 import { getActiveBreakpoint } from "../../utils"
+import { placeholderMessages } from "../../data/constants"
 
 const About = () => {
   const { currentLang } = useContext(LangContext);
@@ -46,14 +47,22 @@ const About = () => {
           `}
         />
 
-        <hr className=
+        <a id="additional-link"
+          className=
           {`
-            hidden
-            ${styles.line}
-            xl:top-[60%]
-            xl:left-[5%]
+            absolute  
+            text-base
+            top-[55%]
+            left-2
+            text-[--color-tertiary]
+            cursor-pointer
+            hover:scale-105
+            transition-all
+            duration-300
+            ease-in-out
+            overflow-x-visible
           `}
-        />
+        > {placeholderMessages.find(message => message.context === "aboutAdditionalLink")!.content[currentLang]} </a>
       </span>
       
       <span id="portrait-container-mobile"

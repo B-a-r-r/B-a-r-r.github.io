@@ -546,6 +546,14 @@ export const placeholderMessages: Array<Message> = [
       fr: "Autre",
       en: "Other",
     },
+  },
+  {
+    context: "aboutAdditionalLink",
+    content:
+    {
+      fr: "→ Lien vers mon CV",
+      en: "→ Link to my resume"
+    }
   }
 ]
 
