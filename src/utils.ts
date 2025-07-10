@@ -17,6 +17,19 @@ export const randomNumberBetween = (min: number, max: number) => {
 }
 
 /**
+ * @function shuffle Shuffle an array of strings using the Fisher-Yates algorithm
+ * @param array the array to shuffle
+ * @returns the shuffled array
+ */
+export const shuffle = (array: any[]) => { 
+  for (let i = array.length - 1; i > 0; i--) { 
+    const j = Math.floor(Math.random() * (i + 1)); 
+    [array[i], array[j]] = [array[j], array[i]]; 
+  } 
+  return array; 
+}; 
+
+/**
  * @function getCurrentNavigation Get the current navigation link to highlight in the navbar of the current page
  * If no nav links correspond to the current pae, return the first link of the 
  * current navigation links

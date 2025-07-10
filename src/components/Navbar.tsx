@@ -29,7 +29,7 @@ const Navbar = () => {
   useEffect(() => {
     setCurrentNavigation(getCurrentNavigation());
 
-  }, [window.location.pathname]);
+  }, [window.location.pathname, window.location.hash]);
 
   useEffect(() => {
     window.addEventListener('scroll', () => {

@@ -1,7 +1,7 @@
 import styles from "../style"
 import { copyrigthText, creditsMentions, navLinks } from "../data/constants"
-import { getCurrentNavigation } from "../utils"
-import { useContext, useState } from "react"
+import { getCurrentNavigation, shuffle } from "../utils"
+import { useContext, useEffect, useState } from "react"
 import { sharedLinks } from "../data/contents"
 import DOMPurify from "dompurify"
 import { LangContext } from "./language"
@@ -9,7 +9,11 @@ import { LangContext } from "./language"
 const Footer = () => {
   const [currentNavigation, setCurrentNavigation] = useState(getCurrentNavigation())
   const { currentLang } = useContext(LangContext)
-  let seeAlsoLinksDisplayed = 0;
+
+  useEffect(() => {
+    setCurrentNavigation(getCurrentNavigation())
+
+  }, [window.location.pathname, window.location.hash])
 
   return (
     <footer id="footer"
@@ -58,14 +62,10 @@ const Footer = () => {
               href={navLink.link}
               className=
               {`
-                ${(navLink.content[currentLang] ? navLink.content[currentLang].toLocaleLowerCase() 
-                  : navLink.content[0].toLocaleLowerCase()) === currentNavigation ? 'text-[--color-tertiary]' : ''}
+                ${(navLink.link).toLowerCase() === currentNavigation ? 'text-[--color-tertiary]' : ""}
                 ${styles.hyperlink}
               `}
-              onClick={() => setCurrentNavigation(
-                navLink.content[currentLang] ? navLink.content[currentLang].toLocaleLowerCase() 
-                : navLink.content[0].toLocaleLowerCase()
-              )}
+              onClick={() => setCurrentNavigation((navLink.link).toLowerCase())}
             > {navLink.content[currentLang] || navLink.content[0]} </a>
           ))}
         </div>
@@ -132,33 +132,9 @@ const Footer = () => {
                 ${styles.flexCol}
               `}
             >
-              {sharedLinks.map((link, index) => {
-                if (seeAlsoLinksDisplayed === navLinks.filter((pattern) => pattern.route.includes(window.location.pathname.split("/")[1]))[0].links.length) {return;}
-                seeAlsoLinksDisplayed++;
-                return (
-                  <a key={`credit-${index}`}
-                    id={`credit-${index}`}
-                    href={link.link}
-                    className={`${styles.hyperlink}`}
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  > {link.content[currentLang]} </a>
-                )
-              })}
-            </div>
+              {shuffle(shuffle(sharedLinks)).map((link, index) => {
+                if (index >= 4) {return;}
 
-            <div id="links-col-2"
-              className=
-              {`
-                ${seeAlsoLinksDisplayed === sharedLinks.length ? 'hidden' : ''}
-                ${styles.sizeFull}
-                ${styles.flexCol}
-              `}
-            >
-              {seeAlsoLinksDisplayed === sharedLinks.length ? '' : 
-              sharedLinks.slice(seeAlsoLinksDisplayed).map((link, index) => {
-                if (seeAlsoLinksDisplayed === navLinks.filter((pattern) => pattern.route.includes(window.location.pathname.split("/")[1]))[0].links.length*2) {return;}
-                seeAlsoLinksDisplayed++;
                 return (
                   <a key={`credit-${index}`}
                     id={`credit-${index}`}
