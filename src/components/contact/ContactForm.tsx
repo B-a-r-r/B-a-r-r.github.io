@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, createContext, FormEvent, useContext } from 'react';
+import { useEffect, useState, createContext, FormEvent, useContext } from 'react';
 import { contactForm } from '../../data/constants';
 import styles from '../../style'
 import DropdownPhone from '../dropdowns/DropdownPhone'
@@ -17,10 +17,8 @@ const PhoneCodeContext = createContext<PhoneCodeContextType>({
 });
 
 const ContactForm = () => {
-  const waitTime = useRef<number>(30000);
-  const [canSubmit, setCanSubmit] = useState<boolean>(true);
-  const requestCount = useRef<number>(0);
   const { currentLang } = useContext(LangContext);
+  const [canSubmit, setCanSubmit] = useState<boolean>(true);
 
   const [formFistName, setFormFirstName] = useState<string>('');
   const [formLastName, setFormLastName] = useState<string>('');
@@ -30,23 +28,38 @@ const ContactForm = () => {
   const [formMessage, setFormMessage] = useState<string>('');
 
   useEffect(() => {
+    if (Date.now() > parseInt(localStorage.getItem('tentativeCooldown')!)) {
+      localStorage.setItem('submitTentatives', '0');
+    }
+
+  }, []);
+
+  useEffect(() => {
+
     setTimeout(() => {
-      setCanSubmit(true);
-      if (requestCount.current > 3) {
-        requestCount.current = 0;
-        waitTime.current = 30000;
+
+      if (!(parseInt(localStorage.getItem('submitTentatives')!) >= contactForm.tentativeLimit)) {
+        setCanSubmit(true);
       }
-    }, waitTime.current);
+
+    }, contactForm.submitCooldown);
+
   }, [canSubmit]);
 
-  const validateForm = () => {
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    const phonePattern = /^\+[0-9]{1,4} [0-9]{6,14}$/;
 
+  const verifyForm = () => {
+    const emailPattern: RegExp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    const phonePattern: RegExp = /^\+[0-9]{1,4} [0-9]{6,14}$/;
+
+    if (!formFistName || !formLastName) {
+      alert(contactForm.alert.find(alert => alert.context === "names")!.content[currentLang]);
+      return false;
+    }
+    
     if (!phoneCode.split(' ')[1]) {
       setFormPhone('');
-      
-    } else if (!phonePattern.test(formPhone)) {
+    } 
+    else if (!phonePattern.test(formPhone)) {
       alert(contactForm.alert.find(alert => alert.context === "phone")!.content[currentLang]);
       return false;
     }
@@ -67,40 +80,39 @@ const ContactForm = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!canSubmit) return;
-    if (!validateForm()) return ;  
+    if (!verifyForm()) return ;  
     if (!contactForm.emailAPI) return;
 
-    if (requestCount.current > 3) {
+    if (parseInt(localStorage.getItem('submitTentatives')!) >= contactForm.tentativeLimit) {
       alert(contactForm.alert.find(alert => alert.context === "cooldown")!.content[currentLang]);
-      waitTime.current = 900000;
+      localStorage.setItem('tentativeCooldown', (Date.now() + contactForm.tentativeCooldown).toString());
+
       setCanSubmit(false);
       return;
     }
 
-    const templateParams = {
-      from_firstname: formFistName,
-      from_lastname: formLastName,
-      from_email: formEmail,
-      from_phone: formPhone,
-      message: formMessage
-    };
+    // emailjs
+    //   .send(contactForm.emailAPI!.serviceId, 
+    //     contactForm.emailAPI!.templateId, 
+    //     {
+    //       from_firstname: formFistName,
+    //       from_lastname: formLastName,
+    //       from_email: formEmail,
+    //       from_phone: formPhone,
+    //       message: formMessage
+    //     },
+    //     contactForm.emailAPI!.publicKey
+    //   ).then(() => {
+    //       alert(contactForm.alert.find(alert => alert.context === "apiOK")!.content[currentLang]);
 
-    emailjs
-      .send(contactForm.emailAPI!.serviceId, 
-        contactForm.emailAPI!.templateId, 
-        templateParams,
-        contactForm.emailAPI!.publicKey
-      ).then(() => {
-          alert(contactForm.alert.find(alert => alert.context === "apiOK")!.content[currentLang]);
-
-        },
-        (error) => {
-          alert(contactForm.alert.find(alert => alert.context === "apiError")!.content[currentLang]);
-          console.error('Form submission error: ', error);
-        },
-      );
+    //     },
+    //     (error) => {
+    //       alert(contactForm.alert.find(alert => alert.context === "apiError")!.content[currentLang]);
+    //       console.error('Form submission error: ', error);
+    //     },
+    //   );
       setCanSubmit(false);
-      requestCount.current++;
+      localStorage.setItem('submitTentatives', (parseInt(localStorage.getItem('submitTentatives')!) + 1).toString());
   };
 
   return (

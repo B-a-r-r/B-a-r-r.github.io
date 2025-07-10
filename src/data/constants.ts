@@ -504,7 +504,7 @@ export const placeholderMessages: Array<Message> = [
     context: "formFirstname",
     content: 
     {
-      fr: "PrénomL..",
+      fr: "Prénom...",
       en: "Firstname...",
     },
   },
@@ -558,7 +558,7 @@ export const contactForm: ContactForm = {
     fr: "N'hésitez pas<br/>à me contacter",
     en: "Feel free<br/>to contact me",
   },
-  messageMinLength: 80,
+  messageMinLength: 40,
   fields: 
   {
     firstname: placeholderMessages.find((message) => message.context === "formFirstname")!,
@@ -573,16 +573,16 @@ export const contactForm: ContactForm = {
       context: "email",
       content: 
       {
-        fr: "Veuillez entrer une adresse email valide.",
-        en: "Please enter a valid email address.",
+        fr: "Veuillez entrer une adresse email valide. (e.g mail@domaine.com)",
+        en: "Please enter a valid email address. (e.g mail@domaine.com)",
       }
     },
     {
       context: "phone",
       content:
       {
-        fr: "Veuillez entrer un numéro de téléphone valide.",
-        en: "Please enter a valid phone number.",
+        fr: "Veuillez entrer un numéro de téléphone valide, ou aucun. (e.g +33 06 12 34 56 78)",
+        en: "Please enter a valid phone number, or none. (e.g +33 06 12 34 56 78)",
       },
     },
     {
@@ -635,6 +635,17 @@ export const contactForm: ContactForm = {
         en: "Submit",
       },
     },
+    {
+      context: "names",
+      content:
+      {
+        fr: "Veuillez entrer votre nom et prénom.",
+        en: "Please enter your first and last name.",
+      },
+    }
   ],
   emailAPI: emailAPI,
+  submitCooldown: 30000,
+  tentativeLimit: 2, 
+  tentativeCooldown: 86400000, 
 };
