@@ -323,7 +323,7 @@ export const projects: Array<Retex> = [
       à travers plusieurs vues, telles que des graphiques et des cartes.",
       en:
       "Ecograph helps companies to position themselves geographically, based on climatic and emission data \
-      around the world.<br/>An intuitive graphic interface allows to visualize heavy masses of information, \
+      around the world. An intuitive graphic interface allows to visualize heavy masses of information, \
       through several views, such as graphs and maps.",
     },
     tags: 
