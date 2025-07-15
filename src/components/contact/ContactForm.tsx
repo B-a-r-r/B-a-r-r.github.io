@@ -1,10 +1,11 @@
-import { useRef, useEffect, useState, createContext, FormEvent, useContext } from 'react';
+import { useEffect, useState, createContext, FormEvent, useContext } from 'react';
 import { contactForm } from '../../data/constants';
 import styles from '../../style'
 import DropdownPhone from '../dropdowns/DropdownPhone'
 import DOMPurify from 'dompurify';
 import emailjs from '@emailjs/browser'
 import { LangContext } from '../language';
+import { SubmitContext } from './SubmitEngine';
 
 interface PhoneCodeContextType {
   phoneCode: string;
@@ -17,11 +18,10 @@ const PhoneCodeContext = createContext<PhoneCodeContextType>({
 });
 
 const ContactForm = () => {
-  const waitTime = useRef<number>(30000);
-  const [canSubmit, setCanSubmit] = useState<boolean>(true);
-  const requestCount = useRef<number>(0);
   const { currentLang } = useContext(LangContext);
-
+  const { tentativesCount, setTentiativesCount, canSubmit } = useContext(SubmitContext)
+  const emailPattern: RegExp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+  const phonePattern: RegExp = /^\+[0-9]{1,4}\s[0-9]{6,14}$/;
   const [formFistName, setFormFirstName] = useState<string>('');
   const [formLastName, setFormLastName] = useState<string>('');
   const [formEmail, setFormEmail] = useState<string>('');
@@ -30,23 +30,21 @@ const ContactForm = () => {
   const [formMessage, setFormMessage] = useState<string>('');
 
   useEffect(() => {
-    setTimeout(() => {
-      setCanSubmit(true);
-      if (requestCount.current > 3) {
-        requestCount.current = 0;
-        waitTime.current = 30000;
-      }
-    }, waitTime.current);
-  }, [canSubmit]);
+    setFormPhone(formPhone.replace(' ', ''))
+  }, [formPhone])
 
-  const validateForm = () => {
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    const phonePattern = /^\+[0-9]{1,4} [0-9]{6,14}$/;
-
-    if (!phoneCode.split(' ')[1]) {
+  const verifyForm = () => {
+    if (!formFistName || !formLastName) {
+      alert(contactForm.alert.find(alert => alert.context === "names")!.content[currentLang]);
+      return false;
+    }
+    
+    console.log('formPhone: ', formPhone);
+    console.log('phoneCode: ', phoneCode);
+    if (!formPhone || formPhone === '' || formPhone === ' ') {
       setFormPhone('');
-      
-    } else if (!phonePattern.test(formPhone)) {
+    } 
+    else if (!phonePattern.test(phoneCode+' '+formPhone)) {
       alert(contactForm.alert.find(alert => alert.context === "phone")!.content[currentLang]);
       return false;
     }
@@ -66,29 +64,22 @@ const ContactForm = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!canSubmit) return;
-    if (!validateForm()) return ;  
+    if (!verifyForm()) return ;  
     if (!contactForm.emailAPI) return;
 
-    if (requestCount.current > 3) {
-      alert(contactForm.alert.find(alert => alert.context === "cooldown")!.content[currentLang]);
-      waitTime.current = 900000;
-      setCanSubmit(false);
-      return;
-    }
-
-    const templateParams = {
-      from_firstname: formFistName,
-      from_lastname: formLastName,
-      from_email: formEmail,
-      from_phone: formPhone,
-      message: formMessage
-    };
+    setTentiativesCount(tentativesCount+1)
+    if (!canSubmit) return;
 
     emailjs
       .send(contactForm.emailAPI!.serviceId, 
         contactForm.emailAPI!.templateId, 
-        templateParams,
+        {
+          from_firstname: formFistName,
+          from_lastname: formLastName,
+          from_email: formEmail,
+          from_phone: formPhone,
+          message: formMessage
+        },
         contactForm.emailAPI!.publicKey
       ).then(() => {
           alert(contactForm.alert.find(alert => alert.context === "apiOK")!.content[currentLang]);
@@ -99,8 +90,6 @@ const ContactForm = () => {
           console.error('Form submission error: ', error);
         },
       );
-      setCanSubmit(false);
-      requestCount.current++;
   };
 
   return (
@@ -267,7 +256,7 @@ const ContactForm = () => {
             resize-none
           `}
           style={{border: 'none'}}
-          onChange={(e) => setFormPhone(phoneCode+' '+e.target.value)}
+          onChange={(e) => setFormPhone(e.target.value)}
         />
         {contactForm.mendatoryFields && contactForm.mendatoryFields.includes('phone') 
           ? <a key="phone-asterisk" id="message-asterisk" className='absolute text-[--color-tertiary] self-end px-2'>*</a>
@@ -334,12 +323,14 @@ const ContactForm = () => {
             'border-2 \
             border-[--color-quaternary] \
             bg-[--color-secondary] \
-            cursor-wait'
+            cursor-wait \
+            disabled'
           }
           transition-all
           duration-150
           ease-in-out
         `}
+        disabled={!canSubmit}
       >{canSubmit ? contactForm.alert.find(alert => alert.context === "submit")!.content[currentLang] : '🕒'}</button>
     </form>
   )

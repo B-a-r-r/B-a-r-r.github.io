@@ -79,6 +79,16 @@ export const getLocalLanguage = () => {
 }
 
 /**
+ * @function getLocalTentativeCooldown Get the time when the user reached the
+ * submit limit for the contact form, from the local storage.
+ * @return string value in the local storage if it exists, else now.
+ */
+export const getLocalTentativeCooldown = () => {
+    return localStorage.getItem('reachedLimit')?.toString().toLowerCase()
+    || Date.now().toString();
+}
+
+/**
  * @function isOverflowing Check if an element is overflowing its container
  * @param element the element to check
  * @returns true if the element is overflowing, false otherwise

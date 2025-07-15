@@ -173,6 +173,9 @@ export interface EmailAPI {
  * @param mendatoryFields - among the present fields, the ones that are mendatory
  * @param alert - message(s) to display in case of error
  * @param emailAPI - email API to use to send the form
+ * @param submitCooldown - cooldown time before the user can submit the form again
+ * @param tentativeLimit - number of attempts before blocking the user
+ * @param tentativeCooldown - cooldown time before the user can try again after being blocked
  */
 export interface ContactForm {
   title: {[lang: string]: string};
@@ -181,6 +184,9 @@ export interface ContactForm {
   mendatoryFields: string[];
   alert: Message[];
   emailAPI: EmailAPI; 
+  submitCooldown: number; 
+  tentativeLimit: number; 
+  tentativeCooldown: number; 
 }
 
 /**

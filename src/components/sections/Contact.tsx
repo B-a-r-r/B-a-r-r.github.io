@@ -1,5 +1,5 @@
 import styles from '../../style'
-import { ContactForm } from '../contact'
+import { ContactForm, SubmitEngine } from '../contact'
 import { SocialMedia } from '../../data/dataTypes'
 import { socialMedia } from '../../data/constants'
 import { getActiveBreakpoint } from '../../utils'
@@ -29,7 +29,9 @@ const Contact = () => {
               overflow-hidden
             `}
         >
-          <ContactForm />
+          <SubmitEngine>
+            <ContactForm />
+          </SubmitEngine>
         </div>
 
         <div id='contact-info'
