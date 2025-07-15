@@ -581,8 +581,8 @@ export const contactForm: ContactForm = {
       context: "phone",
       content:
       {
-        fr: "Veuillez entrer un numéro de téléphone valide, ou aucun. (e.g +33 06 12 34 56 78)",
-        en: "Please enter a valid phone number, or none. (e.g +33 06 12 34 56 78)",
+        fr: "Veuillez entrer un numéro de téléphone valide, sans espaces, ou aucun. (e.g +33 0612345678)",
+        en: "Please enter a valid phone number, without whitespaces, or none. (e.g +33 0612345678)",
       },
     },
     {

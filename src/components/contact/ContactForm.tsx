@@ -5,6 +5,7 @@ import DropdownPhone from '../dropdowns/DropdownPhone'
 import DOMPurify from 'dompurify';
 import emailjs from '@emailjs/browser'
 import { LangContext } from '../language';
+import { SubmitContext } from './SubmitEngine';
 
 interface PhoneCodeContextType {
   phoneCode: string;
@@ -18,8 +19,9 @@ const PhoneCodeContext = createContext<PhoneCodeContextType>({
 
 const ContactForm = () => {
   const { currentLang } = useContext(LangContext);
-  const [canSubmit, setCanSubmit] = useState<boolean>(true);
-
+  const { tentativesCount, setTentiativesCount, canSubmit } = useContext(SubmitContext)
+  const emailPattern: RegExp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+  const phonePattern: RegExp = /^\+[0-9]{1,4}\s[0-9]{6,14}$/;
   const [formFistName, setFormFirstName] = useState<string>('');
   const [formLastName, setFormLastName] = useState<string>('');
   const [formEmail, setFormEmail] = useState<string>('');
@@ -28,38 +30,21 @@ const ContactForm = () => {
   const [formMessage, setFormMessage] = useState<string>('');
 
   useEffect(() => {
-    if (Date.now() > parseInt(localStorage.getItem('tentativeCooldown')!)) {
-      localStorage.setItem('submitTentatives', '0');
-    }
-
-  }, []);
-
-  useEffect(() => {
-
-    setTimeout(() => {
-
-      if (!(parseInt(localStorage.getItem('submitTentatives')!) >= contactForm.tentativeLimit)) {
-        setCanSubmit(true);
-      }
-
-    }, contactForm.submitCooldown);
-
-  }, [canSubmit]);
-
+    setFormPhone(formPhone.replace(' ', ''))
+  }, [formPhone])
 
   const verifyForm = () => {
-    const emailPattern: RegExp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    const phonePattern: RegExp = /^\+[0-9]{1,4} [0-9]{6,14}$/;
-
     if (!formFistName || !formLastName) {
       alert(contactForm.alert.find(alert => alert.context === "names")!.content[currentLang]);
       return false;
     }
     
-    if (!phoneCode.split(' ')[1]) {
+    console.log('formPhone: ', formPhone);
+    console.log('phoneCode: ', phoneCode);
+    if (!formPhone || formPhone === '' || formPhone === ' ') {
       setFormPhone('');
     } 
-    else if (!phonePattern.test(formPhone)) {
+    else if (!phonePattern.test(phoneCode+' '+formPhone)) {
       alert(contactForm.alert.find(alert => alert.context === "phone")!.content[currentLang]);
       return false;
     }
@@ -79,40 +64,32 @@ const ContactForm = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!canSubmit) return;
     if (!verifyForm()) return ;  
     if (!contactForm.emailAPI) return;
 
-    if (parseInt(localStorage.getItem('submitTentatives')!) >= contactForm.tentativeLimit) {
-      alert(contactForm.alert.find(alert => alert.context === "cooldown")!.content[currentLang]);
-      localStorage.setItem('tentativeCooldown', (Date.now() + contactForm.tentativeCooldown).toString());
+    setTentiativesCount(tentativesCount+1)
+    if (!canSubmit) return;
 
-      setCanSubmit(false);
-      return;
-    }
+    emailjs
+      .send(contactForm.emailAPI!.serviceId, 
+        contactForm.emailAPI!.templateId, 
+        {
+          from_firstname: formFistName,
+          from_lastname: formLastName,
+          from_email: formEmail,
+          from_phone: formPhone,
+          message: formMessage
+        },
+        contactForm.emailAPI!.publicKey
+      ).then(() => {
+          alert(contactForm.alert.find(alert => alert.context === "apiOK")!.content[currentLang]);
 
-    // emailjs
-    //   .send(contactForm.emailAPI!.serviceId, 
-    //     contactForm.emailAPI!.templateId, 
-    //     {
-    //       from_firstname: formFistName,
-    //       from_lastname: formLastName,
-    //       from_email: formEmail,
-    //       from_phone: formPhone,
-    //       message: formMessage
-    //     },
-    //     contactForm.emailAPI!.publicKey
-    //   ).then(() => {
-    //       alert(contactForm.alert.find(alert => alert.context === "apiOK")!.content[currentLang]);
-
-    //     },
-    //     (error) => {
-    //       alert(contactForm.alert.find(alert => alert.context === "apiError")!.content[currentLang]);
-    //       console.error('Form submission error: ', error);
-    //     },
-    //   );
-      setCanSubmit(false);
-      localStorage.setItem('submitTentatives', (parseInt(localStorage.getItem('submitTentatives')!) + 1).toString());
+        },
+        (error) => {
+          alert(contactForm.alert.find(alert => alert.context === "apiError")!.content[currentLang]);
+          console.error('Form submission error: ', error);
+        },
+      );
   };
 
   return (
@@ -279,7 +256,7 @@ const ContactForm = () => {
             resize-none
           `}
           style={{border: 'none'}}
-          onChange={(e) => setFormPhone(phoneCode+' '+e.target.value)}
+          onChange={(e) => setFormPhone(e.target.value)}
         />
         {contactForm.mendatoryFields && contactForm.mendatoryFields.includes('phone') 
           ? <a key="phone-asterisk" id="message-asterisk" className='absolute text-[--color-tertiary] self-end px-2'>*</a>
@@ -346,12 +323,14 @@ const ContactForm = () => {
             'border-2 \
             border-[--color-quaternary] \
             bg-[--color-secondary] \
-            cursor-wait'
+            cursor-wait \
+            disabled'
           }
           transition-all
           duration-150
           ease-in-out
         `}
+        disabled={!canSubmit}
       >{canSubmit ? contactForm.alert.find(alert => alert.context === "submit")!.content[currentLang] : '🕒'}</button>
     </form>
   )

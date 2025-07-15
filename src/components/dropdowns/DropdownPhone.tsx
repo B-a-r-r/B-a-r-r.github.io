@@ -6,7 +6,7 @@ import {PhoneCodeContext} from '../contact/ContactForm';
 const DropdownPhone = () => {
     const { setPhoneCode } = useContext(PhoneCodeContext);
     const [toggleMenu, setToggleMenu] = useState(false);
-    const [selectedCode, setSelectedCode] = useState('+33');
+    const [selectedCode, setSelectedCode] = useState<string>('+33');
 
     useEffect(() => {
         setPhoneCode(selectedCode);
