@@ -253,6 +253,16 @@ export const projects: Array<Retex> = [
       skills.find((skill) => skill.label === 'Git')!,
       skills.find((skill) => skill.label === 'GnuPG')!,
     ],
+    additionalRessources: [
+      {
+        content: 
+        {
+          fr: "GPGtool sur Github",
+          en: "GPGtool on Github",
+        },
+        link: "",
+      },
+    ]
   },
   {
     title: "MStar",

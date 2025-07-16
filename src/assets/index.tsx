@@ -3,6 +3,7 @@ import close_menu_icon from "./menu_icons/close_menu.svg";
 import arrow_up from "./menu_icons/arrow_up.svg";
 import chevron_icon from "./menu_icons/chevron_icon.svg";
 import double_chevrons_icon from "./menu_icons/double_chevrons_icon.svg";
+import download_icon from "./menu_icons/download_icon.png";
 
 import linkedin_icon from "./socials_icons/linkedin_icon.svg";
 import github_icon from "./socials_icons/github_icon.svg";
@@ -60,7 +61,8 @@ export const menuIcons = {
   chevron_icon,
   arrow_up,
   double_chevrons_icon,
-
+  download_icon
+  
 };
 
 export const socialsIcons = {

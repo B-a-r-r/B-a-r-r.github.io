@@ -489,6 +489,14 @@ export const noDataMessages: Array<Message> = [
       en: "No project matches your search criteria >_<",
     },
   },
+  {
+    context: "projectImages",
+    content: 
+    {
+      fr: "Aucune image disponible.",
+      en: "No available image.",
+    },
+  }
 ];
 
 export const placeholderMessages: Array<Message> = [
@@ -545,6 +553,14 @@ export const placeholderMessages: Array<Message> = [
     {
       fr: "Autre",
       en: "Other",
+    },
+  },
+  {
+    context: "projectGalleryButton",
+    content:
+    {
+      fr: "Voir la galerie",
+      en: "View gallery",
     },
   }
 ]
