@@ -13,7 +13,6 @@ import RetexGalleryViewer from './RetexGalleryViewer';
 const RetexViewer = () => {
     const { currentLang } = useContext(LangContext);
     const { displayedRetexTitle, setDisplayedRetex } = useContext(RetexContext);
-    const [focusedImage, setFocusedImage] = useState<string | null>(null);
     const [toggleGallery, setToggleGallery] = useState<boolean>(false);
 
     const galleryButton = useRef<HTMLButtonElement>(null);
@@ -24,17 +23,7 @@ const RetexViewer = () => {
 
     useEffect(() => {
         setToggleGallery(false);
-        setFocusedImage(null);
 
-        document.addEventListener(
-            'keydown', 
-            (e) => {
-                if (e.key === 'Escape') {
-                    setFocusedImage(null)
-                    setDisplayedRetex(undefined)
-                }
-            }
-        );
         document.addEventListener(
             'click',
             (e) => {
@@ -43,15 +32,26 @@ const RetexViewer = () => {
                 }
             }
         );
+
+        document.addEventListener('keydown', (e) => {
+            if (displayedRetexTitle && !toggleGallery) {
+                if (e.key === 'Escape') {
+                    setDisplayedRetex(undefined)
+                }
+            }
+        });
+
         window.addEventListener('resize', handleTextOverflow);
 
         return () => {
             document.removeEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    setFocusedImage(null)
-                    setDisplayedRetex(undefined)
+                if (displayedRetexTitle && !toggleGallery) {
+                    if (e.key === 'Escape') {
+                        setDisplayedRetex(undefined)
+                    }
                 }
             });
+
             document.removeEventListener(
                 'click',
                 (e) => {
@@ -60,13 +60,14 @@ const RetexViewer = () => {
                     }
                 }
             );
+            
             window.removeEventListener('resize', handleTextOverflow);
         }
     }, [displayedRetexTitle]);
 
     useEffect(() => {
         handleTextOverflow();
-    }, [displayedRetexTitle]);
+    }, [displayedRetexTitle, toggleGallery, currentLang]);
 
     useEffect(() => {
         const button = galleryButton.current;
@@ -76,7 +77,7 @@ const RetexViewer = () => {
         //Center absolute button in its parent container
         button.style.top = `${(buttonContainer.clientHeight - button.clientHeight) / 2 -2}px`;
         button.style.left = `${(buttonContainer.clientWidth - button.clientWidth) / 2}px`;
-    }, [currentLang, displayedRetexTitle]);
+    }, [currentLang, displayedRetexTitle, toggleGallery]);
     
     const handleTextOverflow = () => {
         if (!specsContainer.current) return;
@@ -129,14 +130,15 @@ const RetexViewer = () => {
                     ease-in-out
                 `}
             >
-                {toggleGallery ? <RetexGalleryViewer /> : 
+                {toggleGallery && relatedProject.img && relatedProject.img.length > 0 
+                ? <RetexGalleryViewer images={relatedProject.img} untoggler={() => setToggleGallery(false)}/> : 
                 <>
                     <img src={menuIcons.close_menu_icon}
                         id='close-button'
                         className=
                         {`
                             absolute
-                            top-[1%]
+                            top-[2%]
                             right-[1%]
                             z-[23]
                             ${styles.sizeFit}
@@ -246,7 +248,6 @@ const RetexViewer = () => {
                                                 object-center
                                                 blur-[2px]
                                             `}
-                                            onClick={() => setFocusedImage(img)}
                                         />
                                     )
                                 })}
