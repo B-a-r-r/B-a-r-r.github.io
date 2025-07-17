@@ -23,6 +23,8 @@
   --color-quinary: #4F4F4F;
   --color-layout-bg: rgba(244, 244, 244, 0.7);
   --color-mobile-navbar: rgba(244, 244, 244, 0.9);
+
+  --background-image: url('./assets/marbled_texture.jpg');
 }
 
 .dark {
@@ -34,6 +36,8 @@
   --color-quinary: #3c3c3c;
   --color-layout-bg: rgba(47, 47, 47, 0.8);
   --color-mobile-navbar: rgba(47, 47, 47, 0.9);
+
+  --background-image: url('./assets/marbled_texture.jpg');
 }
 
 /* App global styles */
@@ -53,7 +57,7 @@ html {
 }
 
 body {
-  background-image: url('./assets/marble_texture.jpg');
+  background-image: var(--background-image);
   background-repeat: repeat-y;
   background-size: cover;
   opacity: 100%;
