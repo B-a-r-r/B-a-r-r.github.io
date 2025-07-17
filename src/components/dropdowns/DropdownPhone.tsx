@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { countries } from '../../data/constants';
+import { countries } from '../../assets/constants';
 import Dropdown from './Dropdown';
 import {PhoneCodeContext} from '../contact/ContactForm';
 

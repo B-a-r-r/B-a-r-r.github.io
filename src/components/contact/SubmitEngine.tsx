@@ -1,6 +1,6 @@
 import { createContext, useState, ReactNode, useEffect, useContext } from "react";
 import { getLocalTentativeCooldown } from "../../utils";
-import { contactForm } from "../../data/constants";
+import { contactForm } from "../../assets/constants";
 import { LangContext } from "../language";
 
 interface SubmitContextType {

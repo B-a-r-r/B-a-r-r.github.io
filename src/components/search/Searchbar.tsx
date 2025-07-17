@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import styles from "../../style"
 import { SearchContext } from "./SearchEngine"
-import { placeholderMessages } from "../../data/constants";
+import { placeholderMessages } from "../../assets/constants";
 import { LangContext } from "../language";
 
 const Searchbar = () => {

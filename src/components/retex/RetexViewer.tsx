@@ -1,4 +1,4 @@
-import { projects } from '../../data/contents';
+import { projects } from "../../assets/contents";
 import styles from '../../style';
 import DOMPurify from 'dompurify';
 import { adjustFontSize, isOverflowing } from '../../utils';
@@ -6,13 +6,15 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { LangContext } from '../language';
 import { menuIcons } from '../../assets';
 import { RetexContext } from './RetexDisplayEngine'
-import { placeholderMessages } from '../../data/constants';
+import { placeholderMessages } from '../../assets/constants';
 import RetexHeader from './RetexHeader';
 import RetexGalleryViewer from './RetexGalleryViewer';
+import { ThemeContext } from "../theme/ThemeEngine";
 
 const RetexViewer = () => {
     const { currentLang } = useContext(LangContext);
     const { displayedRetexTitle, setDisplayedRetex } = useContext(RetexContext);
+    const { currentTheme } = useContext(ThemeContext);
     const [toggleGallery, setToggleGallery] = useState<boolean>(false);
     let galleryToggleState = useRef<boolean>(toggleGallery);
 

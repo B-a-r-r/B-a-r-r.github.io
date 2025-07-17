@@ -1,12 +1,14 @@
-import { Project } from "../../data/dataTypes"
-import { projects } from "../../data/contents"
+import { Project } from "../../assets/dataTypes"
+import { projects } from "../../assets/contents"
 import styles from "../../style"
 import { coreImages, menuIcons } from "../../assets"
-import { cloneElement, ReactElement, useEffect, useRef, useState } from "react"
+import { cloneElement, ReactElement, useContext, useEffect, useRef, useState } from "react"
 import { randomNumberBetween } from "../../utils"
 import { ProjectCard } from "../cards"
+import { ThemeContext } from "../theme/ThemeEngine"
 
 const ProjectsSlider = () => {
+  const { currentTheme } = useContext(ThemeContext);
 
   const assignRotation = (index: number, all: number) => {
     return(
@@ -180,8 +182,8 @@ const ProjectsSlider = () => {
           onClick={previousCard}
         > 
           <img id="icon-previous" 
-            src={menuIcons.double_chevrons_icon} 
-            alt="previous"
+            src={menuIcons.double_chevrons_icon.content[currentTheme]} 
+            alt="previous button"
             className={`
               object-cover
               -rotate-90
@@ -204,8 +206,8 @@ const ProjectsSlider = () => {
           onClick={nextCard}
         > 
           <img id="icon-next" 
-            src={menuIcons.double_chevrons_icon} 
-            alt="next"
+            src={menuIcons.double_chevrons_icon.content[currentTheme]} 
+            alt="next button"
             className={`
               object-cover
               rotate-90
@@ -225,8 +227,8 @@ const ProjectsSlider = () => {
         `}
       >
         <img id="hephaistos-statue"
-            src={coreImages.hephaistos}
-            alt={`Statue of Hephaistos`}
+            src={coreImages.hephaistos.content[currentTheme]}
+            alt={coreImages.hephaistos.alt}
             className={`
               object-contain
               2xl:w-[80%] xl:w-[88%]

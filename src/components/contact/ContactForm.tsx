@@ -1,5 +1,5 @@
 import { useEffect, useState, createContext, FormEvent, useContext } from 'react';
-import { contactForm } from '../../data/constants';
+import { contactForm } from '../../assets/constants';
 import styles from '../../style'
 import DropdownPhone from '../dropdowns/DropdownPhone'
 import DOMPurify from 'dompurify';

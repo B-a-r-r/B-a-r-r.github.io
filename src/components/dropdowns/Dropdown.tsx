@@ -1,6 +1,7 @@
-import { CSSProperties } from "react";
+import { CSSProperties, useContext } from "react";
 import styles from "../../style";
 import { menuIcons } from "../../assets";
+import { ThemeContext } from "../theme/ThemeEngine";
 
 /**
  * @description This type is used to define the props of the children to import.
@@ -20,6 +21,7 @@ type DropdownProps = {
 const Dropdown = ({items, animationStyle, menuState, itemState, additionalStyles, additionalButtonStyles}: DropdownProps) => {    
     const [toggleMenu, setToggleMenu] = menuState;
     const [selectedItem] = itemState;
+    const {currentTheme} = useContext(ThemeContext);
     
     // Close the dropdown menu when the user clicks outside of it
     // or if a click appen outside of the dropdown menu 
@@ -59,8 +61,8 @@ const Dropdown = ({items, animationStyle, menuState, itemState, additionalStyles
                 {selectedItem}
                 
                 <img 
-                    src={menuIcons.chevron_icon} 
-                    alt="menu-down-arrow" 
+                    src={menuIcons.chevron_icon.content[currentTheme]} 
+                    alt={menuIcons.chevron_icon.alt} 
                     className=
                     {`
                         object-cover 

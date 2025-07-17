@@ -1,6 +1,6 @@
 import { CSSProperties, useContext, useRef } from "react";
 import styles from "../../style"
-import { Project } from "../../data/dataTypes";
+import { Project } from "../../assets/dataTypes";
 import Card from "./Card";
 import { LangContext } from "../language";
 import { Link } from "react-router";

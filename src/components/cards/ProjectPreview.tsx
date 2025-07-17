@@ -1,6 +1,6 @@
 import { useContext, useRef } from 'react';
 import { coreImages } from '../../assets';
-import {Retex} from '../../data/dataTypes';
+import {Retex} from "../../assets/dataTypes";
 import styles from '../../style';
 import { LangContext } from '../language';
 import Card from './Card';
