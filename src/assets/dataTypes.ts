@@ -41,6 +41,18 @@ export interface SortOption extends Omit<Message, "context"> {
   abreviation?: Message;
 }
 
+/**
+ * Available information for a graphic asset.
+ * @param label - name of the graphic asset
+ * @param content - content of the graphic asset, with light and dark versions
+ * @param alt - alternative text for the graphic asset
+ */
+export interface GraphicAsset {
+  label: string;
+  content: {[theme: string]: string};
+  alt: string;
+}
+
 export enum Errors {
   NOT_FOUND = 404,
 }
@@ -95,7 +107,7 @@ export interface Country {
  */
 export interface SocialMedia {
   label: string;
-  icon: string;
+  icon: GraphicAsset;
   link: string;
   at: string;
 }
@@ -124,7 +136,7 @@ export interface Biography {
  */
 export interface Skill {
   label: string;
-  icon: string;
+  icon: GraphicAsset;
   category: SkillCategorie;
   subcategory?: SkillSubcategorie;
   framework?: string;
@@ -138,7 +150,7 @@ export interface Skill {
  * @param author - author of the content, if known
  */
 export interface CreditMention extends Hyperlink{
-  contentRef: string | string[];
+  contentRef: GraphicAsset | GraphicAsset[];
   author?: Author;
 }
 

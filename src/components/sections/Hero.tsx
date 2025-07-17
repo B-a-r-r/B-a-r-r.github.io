@@ -1,7 +1,7 @@
 import styles from "../../style"
 import { coreImages } from "../../assets"
-import { author } from "../../data/constants"
-import { subtitleMessages } from "../../data/contents"
+import { author } from "../../assets/constants"
+import { subtitleMessages } from "../../assets/contents"
 import { useContext, useEffect, useState } from "react"
 import DOMPurify from "dompurify"
 import { ThemeContext } from "../theme/ThemeEngine"
@@ -128,11 +128,8 @@ const Hero = () => {
             relative
           `}
         > 
-          <object data={coreImages.sysiphus} 
-            type="image/svg+xml"
-            style={{
-              fill: currentTheme === "dark" ? "white" : "black"
-            }}
+          <img src={coreImages.sysiphus.content[currentTheme]} 
+            alt={coreImages.sysiphus.alt}
             className=
             {`
               absolute

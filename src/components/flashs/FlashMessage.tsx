@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { flashMessages } from "../../data/constants"
+import { flashMessages } from "../../assets/constants"
 import styles from "../../style"
 import { LangContext } from "../language";
 
@@ -55,7 +55,7 @@ const FlashMessage = ({context}: FlashMessageProps) => {
                     text-nowrap
                 `}
             >
-                {flash.message[currentLang]}
+                {flash.content[currentLang]}
             </p>
 
             <button id="close-flash"

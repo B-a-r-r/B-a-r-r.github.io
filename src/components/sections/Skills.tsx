@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from "react"
-import { skills } from "../../data/contents"
-import { AvailableSkillCategories, AvailableSkillSubcategories, SkillCategorie, SkillSubcategorie } from "../../data/dataTypes"
+import { useContext, useEffect, useRef, useState } from "react"
+import { skills } from "../../assets/contents"
+import { AvailableSkillCategories, AvailableSkillSubcategories, SkillCategorie, SkillSubcategorie } from "../../assets/dataTypes"
 import styles from "../../style"
 import { ForceGraph2D, ForceGraph3D, ForceGraphMethods$1 } from "react-force-graph"
 import {TextureLoader, SRGBColorSpace, SpriteMaterial, Sprite} from "three"
-import { skillCategories, skillSubcategories } from "../../data/constants"
+import { skillCategories, skillSubcategories } from "../../assets/constants"
+import { ThemeContext } from "../theme/ThemeEngine"
 
 type GraphData = {
   nodes: {id: string, name: string, img: string, val: number, group: SkillSubcategorie}[];
@@ -12,6 +13,7 @@ type GraphData = {
 }
 
 const Skills = () => {
+  const { currentTheme } = useContext(ThemeContext)
   const [selectedCategory, setSelectedCategory] = useState(AvailableSkillCategories.LANGUAGE)
   const [graphData, setGraphData] = useState<GraphData>()
   const graph = useRef<ForceGraphMethods$1<{ id: string; name: string; img: string; val: number; group: SkillSubcategorie; }, { source: string; target: string }> | undefined>(undefined)
@@ -27,7 +29,7 @@ const Skills = () => {
       initGraphData.nodes.push({
         id: skill.label,
         name: skill.label,
-        img: skill.icon,
+        img: skill.icon.content[currentTheme],
         val: skill.weight ?? 1,
         group: skill.subcategory!
       })

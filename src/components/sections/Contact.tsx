@@ -1,10 +1,14 @@
 import styles from '../../style'
 import { ContactForm, SubmitEngine } from '../contact'
-import { SocialMedia } from '../../data/dataTypes'
-import { socialMedia } from '../../data/constants'
+import { SocialMedia } from '../../assets/dataTypes'
+import { socialMedia } from '../../assets/constants'
 import { getActiveBreakpoint } from '../../utils'
+import { ThemeContext } from '../theme/ThemeEngine'
+import { useContext } from 'react'
 
 const Contact = () => {
+  const { currentTheme } = useContext(ThemeContext);
+
   return (
     <section id="contact"
       className=
@@ -70,8 +74,8 @@ const Contact = () => {
                 target="_blank" 
                 rel="noopener noreferrer"
               >
-                <img src={social.icon} 
-                    alt={social.label}
+                <img src={social.icon.content[currentTheme]} 
+                    alt={social.icon.alt}
                     className=
                     {`
                       object-cover

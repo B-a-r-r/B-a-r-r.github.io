@@ -1,4 +1,4 @@
-import { availableLanguages } from '../../data/constants';
+import { availableLanguages } from '../../assets/constants';
 import { LangContext } from '../language';
 import Dropdown from './Dropdown';
 import { CSSProperties, useContext, useEffect, useState } from 'react';

@@ -1,4 +1,4 @@
-import { socialsIcons, documents, coreImages, menuIcons } from "../assets";
+import { socialsIcons, documents, coreImages, menuIcons } from "./index";
 import { 
   SocialMedia, 
   CreditMention, 
@@ -402,7 +402,7 @@ export const creditsMentions: Array<CreditMention> = [
       en: "Menu and social medias icons",
     },
     contentRef: [
-      menuIcons.arrow_up, 
+      menuIcons.arrow_up_icon, 
       menuIcons.burger_menu_icon, 
       menuIcons.chevron_icon, 
       menuIcons.close_menu_icon, 
@@ -554,6 +554,14 @@ export const placeholderMessages: Array<Message> = [
       fr: "→ Lien vers mon CV",
       en: "→ Link to my resume"
     }
+  },
+  {
+    context: "ErrorPageBackButton",
+    content:
+    {
+      fr: "Retour à l'accueil",
+      en: "Back to home",
+    },
   }
 ]
 

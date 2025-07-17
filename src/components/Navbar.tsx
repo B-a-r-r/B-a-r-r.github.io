@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { navLinks } from "../data/constants";
+import { navLinks } from "../assets/constants";
 import DropdownLang from "./dropdowns/DropdownLang";
 import SwitchButton from "./theme/SwitchButton";
 import styles from "../style";
@@ -7,6 +7,7 @@ import { getActiveBreakpoint, getCurrentNavigation, getRGBAThemeColor } from "..
 import { Link } from "react-router";
 import { LangContext } from "./language";
 import { menuIcons } from "../assets";
+import { ThemeContext } from "./theme/ThemeEngine";
 
 /**
 * @description This component renders the navigation bar of the website, from the info in the constants file.
@@ -19,6 +20,7 @@ const Navbar = () => {
   const [scrollData, setScrollData] = useState({current: 0, last: 0});
   const navbar = useRef<HTMLDivElement>(null);
   const { currentLang } = useContext(LangContext);
+  const { currentTheme } = useContext(ThemeContext);
 
   const handleScroll = () => {
     setScrollData(prev => {return {current: window.scrollY, last: prev.current}});
@@ -170,10 +172,10 @@ const Navbar = () => {
           }}
           onClick={() => setToggleBurger(!toggleBurger)}
         >
-          <img src=
-            {toggleBurger ? menuIcons.burger_menu_icon 
-            : menuIcons.close_menu_icon} 
-            alt="burger"
+          <img src={toggleBurger ? menuIcons.burger_menu_icon.content[currentTheme]
+              : menuIcons.close_menu_icon.content[currentTheme]} 
+            alt={toggleBurger ? menuIcons.burger_menu_icon.alt
+              : menuIcons.close_menu_icon.alt}
             className=
             {`
               object-cover

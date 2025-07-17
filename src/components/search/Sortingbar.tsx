@@ -3,7 +3,7 @@ import styles from "../../style"
 import { SearchContext } from "./SearchEngine";
 import { DropdownSort } from "../dropdowns";
 import { getActiveBreakpoint } from "../../utils";
-import { sortOptions } from "../../data/constants";
+import { sortOptions } from "../../assets/constants";
 import { LangContext } from "../language";
 
 const SortingBar = () => {

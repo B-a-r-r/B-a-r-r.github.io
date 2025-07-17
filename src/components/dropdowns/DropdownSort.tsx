@@ -2,9 +2,9 @@ import { useContext, useEffect, useState } from 'react'
 import Dropdown from './Dropdown'
 import styles from '../../style';
 import { SearchContext } from '../search';
-import { placeholderMessages, sortOptions } from '../../data/constants';
+import { placeholderMessages, sortOptions } from '../../assets/constants';
 import { LangContext } from '../language';
-import { SortOption } from '../../data/dataTypes';
+import { SortOption } from '../../assets/dataTypes';
 
 type DropdownSortProps = {
     alreadyDisplayesItems?: string[]

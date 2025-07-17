@@ -1,4 +1,4 @@
-import { skillsIcons, projectsImages, coreImages } from "../assets";
+import { skillsIcons, projectsImages, coreImages } from "./index";
 import { skillCategories, skillSubcategories } from "./constants";
 import { 
   Message,

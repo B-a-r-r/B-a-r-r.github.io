@@ -1,4 +1,4 @@
-import { projects } from '../../data/contents';
+import { projects } from "../../assets/contents";
 import styles from '../../style';
 import DOMPurify from 'dompurify';
 import { adjustFontSize, isOverflowing } from '../../utils';
@@ -6,10 +6,12 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { LangContext } from '../language';
 import { coreImages, menuIcons } from '../../assets';
 import { RetexContext } from './RetexDisplayEngine';
+import { ThemeContext } from "../theme/ThemeEngine";
 
 const RetexViewer = () => {
     const { currentLang } = useContext(LangContext);
     const { displayedRetexTitle, setDisplayedRetex } = useContext(RetexContext);
+    const { currentTheme } = useContext(ThemeContext);
     const [focusedImage, setFocusedImage] = useState<string>();
     const specsContainer = useRef<HTMLSpanElement>(null);
     const notionsContainer = useRef<HTMLSpanElement>(null);
@@ -177,8 +179,8 @@ const RetexViewer = () => {
                                 space-x-[8%]
                             `}
                         >   
-                            <img src={tool.icon}
-                                alt={tool.label}
+                            <img src={tool.icon.content[currentTheme]}
+                                alt={tool.icon.content.alt}
                                 className=
                                 {`
                                     object-cover
@@ -215,7 +217,8 @@ const RetexViewer = () => {
                     relative
                 `}
             >
-                <img src={menuIcons.close_menu_icon}
+                <img src={menuIcons.close_menu_icon.content[currentTheme]}
+                    alt={menuIcons.close_menu_icon.content.alt}
                     id='close-button'
                     className=
                     {`

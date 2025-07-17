@@ -1,15 +1,15 @@
 import { useContext, useState, useEffect } from "react";
-import { projects } from "../../data/contents";
+import { projects } from "../../assets/contents";
 import styles from "../../style"
 import ProjectPreview from "../cards/ProjectPreview";
 import Searchbar from "../search/Searchbar";
 import { SearchContext } from "../search/SearchEngine";
 import Sortingbar from "../search/Sortingbar";
-import { Retex } from "../../data/dataTypes";
+import { Retex } from "../../assets/dataTypes";
 import { LangContext } from "../language";
 import { RetexViewer, RetexContext } from "../retex";
 import { getActiveBreakpoint, randomNumberBetween } from "../../utils";
-import { noDataMessages, sortOptions } from "../../data/constants";
+import { noDataMessages, sortOptions } from "../../assets/constants";
 
 
 const ProjectsListing = () => {

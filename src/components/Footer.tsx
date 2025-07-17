@@ -1,14 +1,16 @@
 import styles from "../style"
-import { copyrigthText, creditsMentions, navLinks } from "../data/constants"
+import { copyrigthText, creditsMentions, navLinks } from "../assets/constants"
 import { getCurrentNavigation, shuffle } from "../utils"
 import { useContext, useEffect, useState } from "react"
-import { sharedLinks } from "../data/contents"
+import { sharedLinks } from "../assets/contents"
 import DOMPurify from "dompurify"
 import { LangContext } from "./language"
+import { ThemeContext } from "./theme/ThemeEngine"
 
 const Footer = () => {
   const [currentNavigation, setCurrentNavigation] = useState(getCurrentNavigation())
   const { currentLang } = useContext(LangContext)
+  const { currentTheme } = useContext(ThemeContext)
 
   useEffect(() => {
     setCurrentNavigation(getCurrentNavigation())
@@ -90,7 +92,12 @@ const Footer = () => {
           {creditsMentions.map((credit, index) => (
             <a key={`credit-${index}`}
               id={`credit-${credit.content[currentLang]}`}
-              href={credit.link ? credit.link : credit.contentRef[0]}
+              href={
+                credit.link ? credit.link 
+                : (Array.isArray(credit.contentRef) ? 
+                  credit.contentRef[0].content[currentTheme] 
+                  : credit.contentRef.content[currentTheme])
+              }
               className={`${styles.hyperlink}`}
               target="_blank" 
               rel="noopener noreferrer"

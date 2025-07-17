@@ -1,11 +1,11 @@
 import styles from "../../style"
 import { coreImages } from "../../assets"
-import { bioText } from "../../data/contents"
+import { bioText } from "../../assets/contents"
 import DOMPurify from "dompurify"
 import { useContext } from "react"
 import { LangContext } from "../language"
 import { getActiveBreakpoint } from "../../utils"
-import { placeholderMessages } from "../../data/constants"
+import { placeholderMessages } from "../../assets/constants"
 
 const About = () => {
   const { currentLang } = useContext(LangContext);

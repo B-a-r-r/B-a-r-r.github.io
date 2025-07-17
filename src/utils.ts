@@ -1,5 +1,5 @@
-import { Hyperlink, NavbarPattern } from "./data/dataTypes";
-import { navLinks } from "./data/constants";
+import { Hyperlink, NavbarPattern } from "./assets/dataTypes";
+import { navLinks } from "./assets/constants";
 import resolveConfig from 'tailwindcss/resolveConfig'
 import config from '../tailwind.config.d'
 import { Config } from "tailwindcss";

@@ -1,7 +1,7 @@
 import styles from "../style"
-import { errorMessages } from "../data/constants"
+import { errorMessages, placeholderMessages } from "../assets/constants"
 import DOMPurify from "dompurify"
-import { Errors } from "../data/dataTypes"
+import { Errors } from "../assets/dataTypes"
 import { useContext } from "react"
 import { LangContext } from "../components/language"
 import { Link } from "react-router"
@@ -52,7 +52,7 @@ const Err404 = () => {
             py-[0.5%]
           `}
           to='/'
-        >Back to home</Link>
+        > {placeholderMessages.find((message) => message.context === "ErrorPageBackButton")!.content[currentLang]} </Link>
 
     </section>
   )
