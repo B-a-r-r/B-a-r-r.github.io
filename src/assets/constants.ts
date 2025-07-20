@@ -564,6 +564,7 @@ export const placeholderMessages: Array<Message> = [
     }
   },
   {
+<<<<<<< HEAD
     context: "projectGalleryButton",
     content:
     {
@@ -572,6 +573,8 @@ export const placeholderMessages: Array<Message> = [
     },
   },
   {
+=======
+>>>>>>> e882dc7e8f26a2cb76d83c19f0c5b81d4a0dc136
     context: "ErrorPageBackButton",
     content:
     {
