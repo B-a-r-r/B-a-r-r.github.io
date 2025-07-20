@@ -228,7 +228,6 @@ export const projects: Array<Retex> = [
     img: [
       projectsImages.gpgtool_crypto_tool, /* Main image */
       projectsImages.gpgtool_home,
-      projectsImages.gpgtool_crypto_tool,
       projectsImages.gpgtool_code
     ],    
     date: new Date(2024, 9),

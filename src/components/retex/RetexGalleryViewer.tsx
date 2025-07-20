@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "../../style";
 import { menuIcons } from "../../assets";
 
@@ -8,65 +8,29 @@ type RetexGalleryViewerProps = {
     untoggler: () => void;
 }
 
-type ImageProps = {
-    src: string;
-    index: number;
-}
-
 const RetexGalleryViewer = ({images, untoggler}: RetexGalleryViewerProps) => {
-    const [focusedImage, setFocusedImage] = useState<ImageProps | null>(null);
+    const [focusedImage, setFocusedImage] = useState<string>(images[0]);
+    let index = useRef<number>(0);
     
     useEffect(() => {
-        setFocusedImage(images.length > 0 ? {src: images[0], index: 0} : null);
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                untoggler();
-            }
-        });
-
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight') {
-                if (focusedImage) {
-                    const nextIndex = (focusedImage.index + 1) % images.length;
-                    setFocusedImage({src: images[nextIndex], index: nextIndex});
-                }
+                setIndex((index.current + 1) % images.length);
             }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') {
-                if (focusedImage) {
-                    const prevIndex = (focusedImage.index - 1 + images.length) % images.length;
-                    setFocusedImage({src: images[prevIndex], index: prevIndex});
-                }
+            else if (e.key === 'ArrowLeft') {
+                setIndex((index.current - 1 + images.length) % images.length);
             }
         });
 
         return () => {
-            document.removeEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    untoggler();
-                }
-            });
-            document.removeEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') {
-                    if (focusedImage) {
-                        const nextIndex = (focusedImage.index + 1) % images.length;
-                        setFocusedImage({src: images[nextIndex], index: nextIndex});
-                    }
-                }
-            });
-            document.removeEventListener('keydown', (e) => {
-                if (e.key === 'ArrowLeft') {
-                    if (focusedImage) {
-                        const prevIndex = (focusedImage.index - 1 + images.length) % images.length;
-                        setFocusedImage({src: images[prevIndex], index: prevIndex});
-                    }
-                }
-            });
+            document.removeEventListener('keydown', () => {});
         }
     }, []);
+
+    const setIndex = (newIndex: number) => {
+        index.current = newIndex;
+        setFocusedImage(images[index.current]);
+    }
 
     return (
         <div id="retex-gallery-container"
@@ -105,7 +69,7 @@ const RetexGalleryViewer = ({images, untoggler}: RetexGalleryViewerProps) => {
                 `}
             >
                 <img id="gallery-focused-image"
-                    src={focusedImage?.src || ''}
+                    src={focusedImage || ''}
                     alt={`Focused Retex Image`}
                     className=
                     {`
@@ -159,7 +123,7 @@ const RetexGalleryViewer = ({images, untoggler}: RetexGalleryViewerProps) => {
                                 rounded-lg
                                 shadow-lg
                                 
-                                ${focusedImage?.src === image ? 
+                                ${focusedImage === image ? 
                                     'border-2 \
                                     border-[--color-tertiary] \
                                     mb-[1.5%]' 
@@ -168,7 +132,7 @@ const RetexGalleryViewer = ({images, untoggler}: RetexGalleryViewerProps) => {
                                     border-[--color-quaternary]'
                                 }
                             `}
-                            onClick={() => setFocusedImage({src: image, index})}
+                            onClick={() => { setIndex(index) }}
                         />
                     )) : null}
 
@@ -176,8 +140,11 @@ const RetexGalleryViewer = ({images, untoggler}: RetexGalleryViewerProps) => {
                         className=
                         {`
                             absolute
-                            ${styles.line}
-                            w-1/3
+                            block
+                            bg-[--color-tertiary]
+                            h-[4px]
+                            border-none
+                            w-1/5
                             bottom-0
                             shadow-lg
                             blur-[1px]

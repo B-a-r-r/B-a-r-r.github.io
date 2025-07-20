@@ -14,6 +14,7 @@ const RetexViewer = () => {
     const { currentLang } = useContext(LangContext);
     const { displayedRetexTitle, setDisplayedRetex } = useContext(RetexContext);
     const [toggleGallery, setToggleGallery] = useState<boolean>(false);
+    let galleryToggleState = useRef<boolean>(toggleGallery);
 
     const galleryButton = useRef<HTMLButtonElement>(null);
     const galleryPreview = useRef<HTMLDivElement>(null);
@@ -24,46 +25,36 @@ const RetexViewer = () => {
     useEffect(() => {
         setToggleGallery(false);
 
-        document.addEventListener(
-            'click',
-            (e) => {
-                if (e.target === document.getElementById(`retex-${displayedRetexTitle}`)) {
+        document.addEventListener('keyup', (e) => {
+            if (e.key === 'Escape') {
+                if (galleryToggleState.current) {
+                    setTimeout(() => {
+                        setToggleGallery(false);
+                    }, 50);
+                } else {
                     setDisplayedRetex(undefined);
                 }
             }
-        );
+        });
 
-        document.addEventListener('keydown', (e) => {
-            if (displayedRetexTitle && !toggleGallery) {
-                if (e.key === 'Escape') {
-                    setDisplayedRetex(undefined)
-                }
+        document.addEventListener('click', (e) => {
+            if (e.target === document.getElementById(`retex-${displayedRetexTitle}`)) {
+                setDisplayedRetex(undefined);
             }
         });
 
         window.addEventListener('resize', handleTextOverflow);
 
         return () => {
-            document.removeEventListener('keydown', (e) => {
-                if (displayedRetexTitle && !toggleGallery) {
-                    if (e.key === 'Escape') {
-                        setDisplayedRetex(undefined)
-                    }
-                }
-            });
-
-            document.removeEventListener(
-                'click',
-                (e) => {
-                    if (e.target === document.getElementById(`retex-${displayedRetexTitle}`)) {
-                        setDisplayedRetex(undefined);
-                    }
-                }
-            );
-            
+            document.removeEventListener('click', () => {});
+            document.removeEventListener('keydown', () => {});
             window.removeEventListener('resize', handleTextOverflow);
         }
     }, [displayedRetexTitle]);
+
+    useEffect(() => {
+        galleryToggleState.current = toggleGallery;
+    }, [toggleGallery]);
 
     useEffect(() => {
         handleTextOverflow();
@@ -78,7 +69,7 @@ const RetexViewer = () => {
         button.style.top = `${(buttonContainer.clientHeight - button.clientHeight) / 2 -2}px`;
         button.style.left = `${(buttonContainer.clientWidth - button.clientWidth) / 2}px`;
     }, [currentLang, displayedRetexTitle, toggleGallery]);
-    
+
     const handleTextOverflow = () => {
         if (!specsContainer.current) return;
         if (isOverflowing(specsContainer.current)) {adjustFontSize(specsContainer.current, "min");}
@@ -86,8 +77,9 @@ const RetexViewer = () => {
 
         if (!notionsContainer.current) return;
         if (isOverflowing(notionsContainer.current)) {
-            adjustFontSize(notionsContainer.current, "min");
+            adjustFontSize(notionsContainer.current, "max");
             if (!notionsList.current) return;
+            adjustFontSize(notionsList.current, "max");
             /** If the content is still overflowing, remove the last notion */
             while (isOverflowing(notionsContainer.current)) {
                 notionsList.current.removeChild(notionsList.current.lastChild as Node);
@@ -187,6 +179,7 @@ const RetexViewer = () => {
                                 ${styles.contentStartX}
                                 overflow-hidden
                                 relative
+                                text-xl
                             `}
                         >
                             <ul ref={notionsList}
@@ -229,6 +222,7 @@ const RetexViewer = () => {
                                     grid
                                     grid-cols-2
                                     grid-rows-2
+                                    grid-flow-dense
                                     relative
                                     gap-[1%]
                                     ${styles.flexCol}
