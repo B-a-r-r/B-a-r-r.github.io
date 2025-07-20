@@ -215,41 +215,32 @@ export const projects: Array<Retex> = [
     description: 
     {
       fr:
-      "GPGtool est un gestionnaire de clés PGP 100% Python, qui embarque une interface graphique \
-      accessible, facilitant l'utilisation de la technologie GnuPG. Gérez vos propre paires de clés, \
-      et chiffrez/déchiffrez des messages et des fichiers.",
+      "GPGtool est un gestionnaire de clés PGP 100% Python, qui intègre une interface graphique accessible, et filite l'utilisation de la technologie GnuPG. Gérez vos propres paires de clés, et cryptez/décryptez des messages et fichiers.",
       en:
-      "GPGtool is a 100% Python PGP keys manager, which embeds an accessible graphic interface, \
-      facilitating the use of the GnuPG technology. Manage your own key pairs, and encrypt/decrypt messages and files.",
+      "GPGtool is a 100% Python PGP keys manager, which embeds an accessible graphic interface, facilitating the use of the GnuPG technology. Manage your own key pairs, and encrypt/decrypt messages and files.",
     },
     tags: 
     {
-      fr: ["Logiciel", "POO", "Cryptographie", "PE", "Programmation évenementielle", "Programmation orientée objet"],
-      en: ["Software", "OOP", "Cryptography", "EP", "Event-driven programming", "Object-oriented programming"],
-      0: ["UI", "Python", "UX", "CustomTkinter", "CLI", "Test"], /* Common tags to every languages */
+      fr: ["Logiciel", "POO", "Cryptographie", "PE", "Programmation évenementielle", "Programmation orientée objet", "Personnel"],
+      en: ["Software", "OOP", "Cryptography", "EP", "Event-driven programming", "Object-oriented programming", "Personnal"],
+      0: ["UI", "Python", "UX", "CustomTkinter", "CLI", "Test", "Tests", "Perso"], /* Common tags to every languages */
     },
     img: [
       projectsImages.gpgtool_crypto_tool, /* Main image */
       projectsImages.gpgtool_home,
-      projectsImages.gpgtool_crypto_tool,
       projectsImages.gpgtool_code
     ],    
     date: new Date(2024, 9),
     specs: 
     {
       en:
-      "This PGP key manager aims to make GnuPG technology accessible. It offers different integration modes, \
-      including a CustomTK <strong>graphical interface</strong>. You can either encrypt/decrypt messages or files, or manage a \
-      multitude of keys. <br/>This personal project is <strong>100% Python</strong>, and designed to be <strong>easily maintainable and \
-      extensible</strong> thanks to its <strong>robust error handling</strong> and object-oriented architecture. The development of \
-      the GUI has also been a good opportunity to review <strong>event-driven programming</strong>.",
+      "This PGP key manager aims to make GnuPG technology accessible. \
+      It offers different integration modes, including <strong>a CustomTK GUI</strong>. You can either encrypt/decrypt messages or files, or manage a multitude of keys. \
+      This personal <strong>pythonic</strong> project is designed to be easily <strong>maintainable and extensible</strong> thanks to its <strong>robust error handling</strong> and <strong>Model View Controller</strong> architecture. The development of the GUI was also a good opportunity to review <strong>event-driven programming</strong>.",
       fr:
       "Ce gestionnaire de clés PGP vise à rendre la technologie GnuPG accessible. \
-      Il propose différents modes d'intégration, dont <strong>une interface graphique</strong> CustomTK. Vous pouvez \
-      soit chiffrer/déchiffrer des messages ou des fichiers, soit gérer une multitude de clés.<br/>Ce projet \
-      personnel est <strong>100% Python</strong>, et conçu pour être facilement <strong>maintenable et extensible</strong> \
-      grâce à sa <strong>gestion d'erreurs robuste</strong> et son architecture orientée objet. Le développement de l'IG, \
-      aura aussi été une bonne occasion de réviser la <strong>programmation événementielle</strong>.",
+      Il propose différents modes d'intégration, dont <strong>une interface graphique</strong> CustomTK. Vous pouvez soit chiffrer/déchiffrer des messages ou des fichiers, soit gérer une multitude de clés. \
+      Ce projet personnel est <strong>100% Python</strong>, et conçu pour être facilement <strong>maintenable et extensible</strong> grâce à sa <strong>gestion d'erreurs robuste</strong> et son architecture <strong>Modèle Vue Contrôlleur</strong>. Le développement de l'IG, aura aussi été une bonne occasion de réviser la <strong>programmation événementielle</strong>.",
     },
     notions: 
     {
@@ -261,46 +252,46 @@ export const projects: Array<Retex> = [
       skills.find((skill) => skill.label === 'Git')!,
       skills.find((skill) => skill.label === 'GnuPG')!,
     ],
+    additionalRessources: [
+      {
+        content: 
+        {
+          fr: "GPGtool sur Github",
+          en: "GPGtool on Github",
+        },
+        link: "",
+      },
+    ]
   },
   {
-    title: "Towa",
+    title: "MStar",
     description: 
     {
       fr:
-      "MiniShell est une réplique du shell Linux. Écrit en C, il vous permet de gérer vos dossier et fichiers, \
-      d'éxécuter des commandes, même en arrière plan, et prend en charge les pipes.",
+      "MStar (M*) est un algorithme de pathfinding développé en Java, sur le modèle du Monte Carlo Tree Search, appliqué à un \"IA\" joueuse.",
       en:
-      "MiniShell is a replica of the Linux shell. Written in C, it allows you to manage your folders and files, \
-      to execute commands, even in the background, and supports pipes.",
+      "MStar (M*) is a pathfinding algorithm developed in Java, based on the Monte Carlo Tree Search, applied to an \"AI\" playing bot.",
     },
     tags:
     {
-      fr: ["PF"],
-      en: ["FP"],
-      0: ["OS"],
+      fr: ["PC", "Algorithmie", "IA", "POO", "Académique", "Universitaire", "PF", "Programmation concurrente", "Programmation fonctionnelle"],
+      en: ["CP", "Algorithmic", "AI", "OOP", "Academic", "University", "FP", "Parrallel programming", 'Functionnal programming'],
+      0: ["Java", "Algo", "Test", "Tests", "Monte Carlo", "Machine learning"],
     },
     date: new Date(2024, 11),
     specs: 
     {
       en:
-      "In pairs, <strong>research and development of an algorithm in Java</strong> to determine the best move to play, for a board game. \
-      The goal: to win <strong>the bots tournament</strong>.<br/> \
-      <strong>Our pathfinder</strong> is inspired by <strong>A*</strong> and the <strong>Monte Carlo Tree Search</strong>, exploring the possible outcomes from a given move. A phase of \
-      reverse propagation allows to give more or less weight to each possible choice. The main difficulty was to find <strong>a \
-      balance</strong> between the exploration and exploitation of the game tree. Knowing the size of the board and the limited execution time, \
-      it was necessary to <strong>prune strategically</strong>.",
+      "In pairs, <strong>research and development of a Java algorithm</strong> to determine the best move to make for a board game. The goal was to win <strong>the tournament</strong> of bots.<br/> \
+      <strong>Our pathfinder</strong> is inspired by <strong>A*</strong> and the <strong>Monte Carlo Tree Search</strong>, exploring possible outcomes from a given move. An inverse propagation phase allows to give more or less weight to each possible choice. The main difficulty was to find a <strong>balance</strong> between exploration and exploitation of the game tree. Knowing the size of the board and the limited execution time, we had to <strong>prune strategically</strong>.",
       fr:
-      "En binôme, <strong>recherche et élaboration d'un algorithme en Java</strong> determinant le meilleur coup à jouer, pour un jeu de plateau. \
-      L'objectif : remporter <strong>le tournois</strong> des bots.<br/> \
-      <strong>Notre pathfinder</strong> s'inspire de <strong>A*</strong> et du <strong>Monte Carlo Tree Search</strong>, explorant les possibles issues à partir d'un coup donné. Un phase de \
-      propagation inverse permet de donner plus ou moins de poid à chaque choix possible. La principale difficulté était de trouver <strong>un \
-      équilibre</strong> entre l'exploration et l'exploitation de l'arbre de jeu. Sachant la taille du plateau et le temps d'exécution limité, \
-      il nous a fallu <strong>élaguer de manière stratégique</strong>.", 
+      "En binôme, <strong>recherche et élaboration d'un algorithme en Java</strong> determinant le meilleur coup à jouer pour un jeu de plateau. Le but était de remporter <strong>le tournois</strong> des bots.<br/> \
+      <strong>Notre pathfinder</strong> s'inspire de <strong>A*</strong> et du <strong>Monte Carlo Tree Search</strong>, explorant les possibles issues à partir d'un coup donné. Une phase de propagation inverse permet de donner plus ou moins de poid à chaque choix possibles. La principale difficulté était de trouver <strong>un équilibre</strong> entre l'exploration et l'exploitation de l'arbre de jeu. Sachant la taille du plateau et le temps d'exécution limité, il nous aura fallu <strong>élaguer de manière stratégique</strong>.", 
     },
     notions: 
     {
       en: ["Concurrent programming,", "Machine learning,", "Comparison of existing algorithms,", "Results analysis and adaptation."],
-      fr: ["Programmation concurente en Java,", "Machine learning,", "Comparaison d'algorithmes existants,", "Analyse de résultats et adaptation."],
+      fr: ["Programmation concurente en Java,", "Machine learning,", "Comparaison d'algorithmes,", "Analyse de résultats et adaptation."],
     },
     tools: [
       skills.find((skill) => skill.label === 'Java')!,
@@ -308,8 +299,8 @@ export const projects: Array<Retex> = [
       skills.find((skill) => skill.label === 'Git')!,
     ],
     img: [
-      coreImages.portrait,
       projectsImages.mstar_tournament_results,
+      projectsImages.mstar_mcts_algo,
       projectsImages.mstar_tree,
     ],
   },
@@ -318,47 +309,37 @@ export const projects: Array<Retex> = [
     description: 
     {
       fr:
-      "Ecograph aide les entreprises à se positionner géographiquement, en fonction de données climatiques et d'émission \
-      à travers le monde.<br/>Une interface graphique intuitive permet de visualiser de lourdes masses d'informations, \
-      à travers plusieurs vues, telles que des graphiques et des cartes.",
+      "Ecograph aide les entreprises à se positionner géographiquement, en fonction de données climatiques et d'émission de GES à travers le monde.<br/>Cette application permet de visualiser de lourdes masses d'informations, à travers plusieurs vues, telles que des graphiques et des cartes.",
       en:
-      "Ecograph helps companies to position themselves geographically, based on climatic and emission data \
-      around the world. An intuitive graphic interface allows to visualize heavy masses of information, \
-      through several views, such as graphs and maps.",
+      "Ecograph helps companies to position themselves geographically, based on climatic and GES emission data around the world.<br/>This app allows to visualize heavy masses of information, through several views, such as graphs and maps.",
     },
     tags: 
     {
-      fr: ["BDD", "Visualisation"],
-      en: ["Database", "Visualization"],
-      0: ["ORM"],
+      fr: ["BDD", "Visualisation", "Académique", "Universitaire"],
+      en: ["Database", "Visualization", "Academic", "University"],
+      0: ["ORM", "Graph", "Graphs", "Python", "C#", "CS", "Fullstack"],
     },
     date: new Date(2024, 6),
     specs: 
     {
       en:
-      "This project <strong>helps companies to position themselves geographically</strong>, based on climatic and emission data around the world. \
-      An intuitive graphic interface allows to visualize heavy masses of information, through several views, such as graphs and maps. \
-      <br/>In my team of five developers, I was in charge of the database management. I discovered SQLAlchemy, <strong>an ORM in \
-      Python</strong>. I had to learn a whole new technology <strong>in just a few days</strong>.",
+      "The first step of this project was to search for the necessary <strong>csv datasets</strong> to create the visuals (graphs, maps ...). Then, my team and I were able to start developing the <strong>C# .NET graphic interface</strong> from our mockups. \
+      I was personally in charge of the database management. I discovered the <strong>SQLAlchemy ORM</strong> in Python, a whole new technology that I had to learn <strong>in a few days</strong>.",
       fr:
-      "Ce projet <strong>aide les entreprises à se positionner géographiquement</strong>, en fonction de données climatiques et d'émission à travers le monde. \
-      Une interface graphique intuitive permet de visualiser de lourdes masses d'informations, à travers plusieurs vues, telles que des graphiques et des cartes.\
-      <br/>Dans mon équipe de cins développeur, j'étais chargé de la gestion de la base de données. J'ai fait la découverte de SQLAlchemy, <strong>un ORM en \
-      Python</strong>. J'ai donc dû apprendre une toute nouvelle technologie <strong>en l'espace de quelques jours</strong>",
+      "La première étape de ce projet aura été la recherche des <strong>datasets csv</strong> nécessaires à l'élaboration des visuels (graphiques, carte ...). Ensuite, mon équipe et moi même avons pu commencer à développer <strong>l'interface graphique en C# .NET</strong> à partir de nos maquettes. \
+      J'étais personnellement chargé de la gestion de la base de données. J'ai fait la découverte de l'<strong>ORM</strong> SQLAlchemy en Python, une toute nouvelle technologie qu'il m'a fallu apprendre <strong>en l'espace de quelques jours</strong>. ",
     },
     notions: 
     {
       en: [
-        "Filling a database from CSV files,", 
-        "Quick start of a new tool,", 
-        "Teamwork and Git management,", 
-        "Link between the different project technologies."
+        "Filling a database from CSV files",
+        "Teamwork and Git management", 
+        "Linking interfaces between back and front ends"
       ],
       fr: [
-        "Remplissage d'une BD à partir de fichiers CSV,", 
-        "Prise en main éclaire d'un nouvel outils,", 
-        "Travail d'équipe et gestion du Git,", 
-        "Liaison entre les différentes technos du projet."
+        "Remplissage d'une BD à partir de fichiers CSV", 
+        "Management de projet et gestion du Git", 
+        "Liaison entre les différentes technos du projet"
       ],
     },
     tools: [
@@ -369,7 +350,7 @@ export const projects: Array<Retex> = [
       skills.find((skill) => skill.label === 'Git')!,
     ],  
     img: [
-      coreImages.portrait,
+      projectsImages.ecograph_home,
       projectsImages.ecograph_home,
       projectsImages.ecograph_gestion,
     ],
@@ -379,44 +360,38 @@ export const projects: Array<Retex> = [
     description: 
     {
       fr:
-      "MiniShell est une réplique du shell Linux. Écrit en C, il vous permet de gérer vos dossier et fichiers, \
-      d'éxécuter des commandes, même en arrière plan, et prend en charge les pipes.",
+      "MiniShell est une réplique du shell Linux. Écrit en C, il vous permet de gérer des dossier et fichiers, d'éxécuter des commandes, même en arrière plan, et prend en charge les pipes.",
       en:
-      "MiniShell is a replica of the Linux shell. Written in C, it allows you to manage your folders and files, \
-      to execute commands, even in the background, and supports pipes.",
+      "MiniShell is a replica of the Linux shell. Written in C, it allows you to manage your folders and files, execute commands, even in the background, and supports pipes.",
     },
     tags:
     {
-      fr: ["PF"],
-      en: ["FP"],
-      0: ["OS"],
+      fr: ["PF", "Mémoire", "Processus", "Programmation fonctionnelle", "Académique", "Universitaire"],
+      en: ["FP", "Memory", "Processes", "Functionnal programming", "Academic", "University"],
+      0: ["OS", "C", "Unix", "Linux", "Shell", "Makefile", "Bash"],
     },
     date: new Date(2024, 11),
     specs: 
     {
       en:
-      "This project is <strong>a replica of the Linux shell</strong>. Written in C, it allows you to manage your folders and files, \
-      execute commands, even in the background, and supports pipes. <br/>An excellent opportunity to practice <strong>process management</strong>, \
-      between interception of <strong>signals</strong> and instantiation of new children. Knowing the <strong>strict compilation flags</strong> imposed in the Makefile, \
-      it was also an opportunity to work on <strong>memory management</strong>, minimizing segmentation errors. This project will also have \
-      served as an introduction to <strong>functional programming in C</strong>.",
+      "This project is <strong>a replica of the Linux shell</strong>. Written in C, it allows to manage folders and files, execute commands, even in the background, and supports pipes. <br/> \
+      A great opportunity to practice <strong>process management</strong>, between <strong>signals</strong> interception and instantiation of new threads. Knowing the <strong>strict compilation flags</strong> imposed in the Makefile, it was also an opportunity to work on <strong>memory management</strong>, minimizing segmentation errors. This project also served as an introduction to <strong>functional programming in C</strong>.",
       fr:
-      "Ce projet est <strong>une réplique du shell Linux</strong>. Écrit en C, il permet de gérer des dossier et fichiers, d'éxécuter des commandes, \
-      même en arrière plan, et prend en charge les pipes. <br/>Une excellente opportunité de s'exercer à la <strong>gestion des processus</strong>, \
-      entre interception de <strong>signaux</strong> et instanciation de nouveaux fils. Sachant les <strong>flags de compilation strictes</strong> imposés dans le Makefile, \
-      c'était aussi l'occasion de travaller la <strong>gestion mémoire</strong>, en minimisant les erreurs de segmentation. Ce projet m'aura également \
-      servi d'introduction à la <strong>programmation fonctionnelle en C</strong>.",
+      "Ce projet est <strong>une réplique du shell Linux</strong>. Écrit en C, il permet de gérer des dossier et fichiers, d'éxécuter des commandes, même en arrière plan, et prend en charge les pipes. \
+      Une excellente opportunité de s'exercer à la <strong>gestion des processus</strong>, entre interception de <strong>signaux</strong> et instanciation de nouveaux threads. Sachant les <strong>flags de compilation strictes</strong> imposés dans le Makefile, c'était aussi l'occasion de travaller la <strong>gestion mémoire</strong>, en minimisant les erreurs de segmentation. Ce projet m'aura également servi d'introduction à la <strong>programmation fonctionnelle en C</strong>.",
     },
     notions: 
     {
-      en: ["Processes management,", "Memory allocation,", "File system,", "Signals and errors management."],
-      fr: ["Gestion de struct", "Allocation mémoire,", "Système de fichiers,", "Gestion des signaux et des erreurs."],
+      en: ["Processes management", "Memory allocation", "Signals and errors management"],
+      fr: ["Gestion des signaux et des erreurs", "Compilation sensible à la qualité", "Allocation mémoire", "Système de fichiers"],
     },
     tools: [
       skills.find((skill) => skill.label === 'C')!,
       skills.find((skill) => skill.label === 'Bash')!,
     ],
-    img: [],
+    img: [
+      
+    ],
   },
   {
     title: "clembarr.dev",
@@ -442,30 +417,6 @@ export const projects: Array<Retex> = [
     notions: {},
     tools: [],
   },
-  {
-    title: "MStar",
-    description:
-    {
-      fr:
-      "MStar (M*) est un algorithme de pathfinding développé en Java, sur le modèle du Monte \
-      Carlo Tree Search. Dans le cadre du développement d'un jeu de plateau, cet algorithme permet \
-      de trouver le meilleur coup à jouer, en simulant des parties à partir de l'état actuel du jeu.",
-      en:
-      "MStar (M*) is a pathfinding algorithm developed in Java, based on the Monte Carlo Tree Search model. \
-      In the context of developing a board game, this algorithm allows to find the best move to play, \
-      by simulating games from the current state of the game.",
-    },
-    tags:
-    {
-      fr: ["IA", "Jeu", "PC", "programmation concurrente", "programmation parallèle"],
-      en: ["AI", "Game", "CP", "concurrent programming", "parrallel programming"],
-      0: ["Java", "Game", "Algo", "Test", "Machine Learning"],
-    },
-    date: new Date(2024, 8),
-    specs: {},
-    notions: {},
-    tools: [],
-  }
 ];
 
 /** The messages displayed under the main title in the Hero section
@@ -500,25 +451,23 @@ export const bioText: Array<Biography> = [
     {
       title: 
       {
-        fr: "Penser,<br/>Développer.",
-        en: "Make it clean,<br/>make it better.",
+        fr: "Développer un futur<br/>libre et équitable.",
+        en: "Develop the future,<br/>free and fair.",
       },
       content:
       {
         fr: 
-        "Principalement intéressé par le développement d'outils intelligents, je cherche avant tout à lier \
-        <strong>utilité</strong> et <strong>accessibilité</strong> dans mes projets. Mon objectif est de permettre au plus \
-        grand nombre de profiter des technologies utilitaires avancées.\
+        "Principalement intéressé par le développement d'outils intelligents, je cherche avant tout à lier <strong>utilité</strong> et <strong>accessibilité</strong> dans mes projets. \
+        Mon objectif est de permettre au plus grand nombre de profiter des technologies utilitaires avancées. \
         <br/><br/> \
-        La programmation est un art qui donne vie aux abstractions de l'esprit. J'en suis passionné depuis plusieurs années, \
-        et mes inspirations ont forgées <strong>ma polyvalence</strong>, qui fait aujourd'hui ma force. \
+        La programmation est un art, nous permettant de matérialiser nos idées. J'en suis passionné depuis plusieurs années, \
+        et mes nombreuses inspirations ont forgées <strong>ma polyvalence</strong>, qui fait aujourd'hui ma force. \
         <br/><br/>   \
         Je prépare actuellement un Bachelor Universitaire de Technologie (<strong>BUT</strong>) \
         en informatique, à l'Institut Universitaire de Technologie (IUT) de Bordeaux, France.",
         en: 
-        "Mainly interested in the development of <strong>intelligent</strong> tools, I seek to link \
-        <strong>utility</strong> and <strong>accessibility</strong> in my projects. My goal is to allow as many people as possible \
-        to benefit from advanced utility technologies.\
+        "Mainly interested in the development of <strong>intelligent</strong> tools, I seek to link <strong>utility</strong> and <strong>accessibility</strong> in my projects. \
+        My goal is to allow as many people as possible to benefit from advanced utility technologies.\
         <br/><br/> \
         Programming is an art that brings abstractions of the mind to life. I have been passionate about it for several years, \
         and my inspirations have forged <strong>my versatility</strong>, one of my key assets today. \
@@ -568,7 +517,7 @@ export const sharedLinks: Array<Hyperlink> = [
     content:
     {
       fr: "Mathieu, data engineer",
-      en: "Mathieu, data engineer",
+      en: "Mathieu, engénieur data",
     },
     link: "https://matjay.me",
   },

@@ -7,7 +7,7 @@ interface SearchContextType {
 }
 
 const SearchContext = createContext<SearchContextType>({
-  toMatch: ["All"],
+  toMatch: ["ALL"],
   setToMatch: () => {},
 });
 

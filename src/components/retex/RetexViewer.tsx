@@ -4,60 +4,72 @@ import DOMPurify from 'dompurify';
 import { adjustFontSize, isOverflowing } from '../../utils';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { LangContext } from '../language';
-import { coreImages, menuIcons } from '../../assets';
-import { RetexContext } from './RetexDisplayEngine';
+import { menuIcons } from '../../assets';
+import { RetexContext } from './RetexDisplayEngine'
+import { placeholderMessages } from '../../data/constants';
+import RetexHeader from './RetexHeader';
+import RetexGalleryViewer from './RetexGalleryViewer';
 
 const RetexViewer = () => {
     const { currentLang } = useContext(LangContext);
     const { displayedRetexTitle, setDisplayedRetex } = useContext(RetexContext);
-    const [focusedImage, setFocusedImage] = useState<string>();
+    const [toggleGallery, setToggleGallery] = useState<boolean>(false);
+    let galleryToggleState = useRef<boolean>(toggleGallery);
+
+    const galleryButton = useRef<HTMLButtonElement>(null);
+    const galleryPreview = useRef<HTMLDivElement>(null);
     const specsContainer = useRef<HTMLSpanElement>(null);
     const notionsContainer = useRef<HTMLSpanElement>(null);
-    const retexContainer = useRef<HTMLDivElement>(null);
     const notionsList = useRef<HTMLUListElement>(null);
-    const headerContainer = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        document.addEventListener(
-            'keydown', 
-            (e) => {
-                if (e.key === 'Escape') {
+        setToggleGallery(false);
+
+        document.addEventListener('keyup', (e) => {
+            if (e.key === 'Escape') {
+                if (galleryToggleState.current) {
+                    setTimeout(() => {
+                        setToggleGallery(false);
+                    }, 50);
+                } else {
                     setDisplayedRetex(undefined);
                 }
             }
-        );
-        document.getElementById(`retex-${displayedRetexTitle}`)?.addEventListener(
-            'click',
-            (e) => {
-                if (e.target === document.getElementById(`retex-${displayedRetexTitle}`)) {
-                    setDisplayedRetex(undefined);
-                }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.target === document.getElementById(`retex-${displayedRetexTitle}`)) {
+                setDisplayedRetex(undefined);
             }
-        );
+        });
+
         window.addEventListener('resize', handleTextOverflow);
 
         return () => {
-            document.removeEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    setDisplayedRetex(undefined);
-                }
-            });
-            document.getElementById(`retex-${displayedRetexTitle}`)?.removeEventListener(
-                'click',
-                (e) => {
-                    if (e.target === document.getElementById(`retex-${displayedRetexTitle}`)) {
-                        setDisplayedRetex(undefined);
-                    }
-                }
-            );
-            window.addEventListener('resize', handleTextOverflow);
+            document.removeEventListener('click', () => {});
+            document.removeEventListener('keydown', () => {});
+            window.removeEventListener('resize', handleTextOverflow);
         }
-    }, []);
+    }, [displayedRetexTitle]);
+
+    useEffect(() => {
+        galleryToggleState.current = toggleGallery;
+    }, [toggleGallery]);
 
     useEffect(() => {
         handleTextOverflow();
-    }, [displayedRetexTitle]);
-    
+    }, [displayedRetexTitle, toggleGallery, currentLang]);
+
+    useEffect(() => {
+        const button = galleryButton.current;
+        const buttonContainer = galleryPreview.current;
+        if (!button || !buttonContainer) return;
+
+        //Center absolute button in its parent container
+        button.style.top = `${(buttonContainer.clientHeight - button.clientHeight) / 2 -2}px`;
+        button.style.left = `${(buttonContainer.clientWidth - button.clientWidth) / 2}px`;
+    }, [currentLang, displayedRetexTitle, toggleGallery]);
+
     const handleTextOverflow = () => {
         if (!specsContainer.current) return;
         if (isOverflowing(specsContainer.current)) {adjustFontSize(specsContainer.current, "min");}
@@ -65,32 +77,22 @@ const RetexViewer = () => {
 
         if (!notionsContainer.current) return;
         if (isOverflowing(notionsContainer.current)) {
-            adjustFontSize(notionsContainer.current, "min");
+            adjustFontSize(notionsContainer.current, "max");
             if (!notionsList.current) return;
+            adjustFontSize(notionsList.current, "max");
             /** If the content is still overflowing, remove the last notion */
             while (isOverflowing(notionsContainer.current)) {
                 notionsList.current.removeChild(notionsList.current.lastChild as Node);
             }
         }
-        else {adjustFontSize(notionsContainer.current, "max");}
-
-        /** Homogenize the font sizes to the lower one */
-        const minFontSize = (
-            specsContainer.current.style.fontSize < notionsContainer.current.style.fontSize ?
-            specsContainer.current.style.fontSize : notionsContainer.current.style.fontSize
-        )
-        specsContainer.current.style.fontSize = minFontSize
-        notionsContainer.current.style.fontSize = minFontSize
     }
-
 
     const relatedProject = projects.find((project) => project.title === displayedRetexTitle);
     if (!displayedRetexTitle) return;
-    if (!relatedProject) {console.error(`No project found for '${displayedRetexTitle}'.`); return;}
+    if (!relatedProject) {console.warn(`No project found for '${displayedRetexTitle}'.`); return;}
 
     return (
         <div id={`retex-${displayedRetexTitle}`}
-            ref={retexContainer}
             className=
             {`
                 ${styles.sizeFull}
@@ -99,111 +101,13 @@ const RetexViewer = () => {
                 relative
             `}
         > 
-            <header id='retex-header'
-                ref={headerContainer}
-                className=
-                {`
-                    h-fit
-                    w-3/12
-                    ${styles.flexCol}
-                    z-[21]
-                    color-scheme-secondary
-                    rounded-lg
-                    shadow-lg
-                `}
-            >
-                <h1 className=
-                    {`
-                        w-full
-                        font-primary-bold
-                        2xl:text-4xl base:text-3xl
-                        tracking-wide
-                        py-[6%]
-                        px-[10%]
-                        border-dashed
-                        space-y-[6%]
-                        mb-[3%]
-                    `}
-                > 
-                    <p className=
-                        {`
-                            ${styles.flexWrap}
-                            ${styles.contentStartX}
-                            leading-8
-                        `}
-                        dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(relatedProject.title)}}
-                    />
-
-                    <hr className=
-                        {`
-                            ${styles.line}
-                            w-[50%]
-                        `}
-                    />
-
-                    <span className=
-                        {`
-                            font-primary-regular
-                            text-[60%]
-                        `}
-                    > 
-                    {relatedProject.date.toLocaleDateString(
-                        currentLang === 'fr' ? 'fr' : 'en', 
-                        {month: 'numeric', year: 'numeric'}
-                    )} 
-                    </span>
-                </h1>
-
-                <div id='retex-skills'
-                    className=
-                    {`
-                        ${styles.flexCol}
-                        ${styles.sizeFull}
-                        ${styles.contentStartX}
-                        px-[10%]
-                        py-[8%]
-                        pt-[6%]
-                        space-y-[6%]
-                        overflow-hidden
-                    `}
-                >
-                    {relatedProject.tools.slice(0, 6).map((tool, index) => (
-                        <span key={`retex-skill-${index}`}
-                            className=
-                            {`
-                                ${styles.flexRow}
-                                ${styles.sizeFull}
-                                ${styles.contentStartX}
-                                space-x-[8%]
-                            `}
-                        >   
-                            <img src={tool.icon}
-                                alt={tool.label}
-                                className=
-                                {`
-                                    object-cover
-                                    object-center
-                                    aspect-square
-                                    w-[25%]
-                                `}
-                            />
-
-                            <label className=
-                                {`
-                                    font-primary-regular
-                                    2xl:text-lg base:text-sm
-                                `}
-                            > {tool.label} </label>
-                        </span>
-                    ))}
-                </div>
-            </header>
-
+            <RetexHeader {...relatedProject} />
+            
             <div id='retex-content'
                 className=
                 {`
                     ${styles.sizeFull}
-                    ${styles.flexRow}
+                    ${styles.flexCol}
                     color-scheme-secondary
                     py-[3%]
                     px-[3%]
@@ -213,39 +117,33 @@ const RetexViewer = () => {
                     z-[22]
                     ml-[2%]
                     relative
+                    transition-all
+                    duration-200
+                    ease-in-out
                 `}
             >
-                <img src={menuIcons.close_menu_icon}
-                    id='close-button'
-                    className=
-                    {`
-                        absolute
-                        top-[1%]
-                        right-[1%]
-                        z-[23]
-                        ${styles.sizeFit}
-                        cursor-pointer
-                    `}
-                    onClick={() => setDisplayedRetex(undefined)}
-                />
-                
-                <div id='retex-text'
-                    className=
-                    {`
-                        h-full
-                        w-3/5
-                        ${styles.flexCol}
-                        text-wrap
-                        overflow-hidden
-                        mr-[5%]
-                    `}
-                >
+                {toggleGallery && relatedProject.img && relatedProject.img.length > 0 
+                ? <RetexGalleryViewer images={relatedProject.img} untoggler={() => setToggleGallery(false)}/> : 
+                <>
+                    <img src={menuIcons.close_menu_icon}
+                        id='close-button'
+                        className=
+                        {`
+                            absolute
+                            top-[2%]
+                            right-[1%]
+                            z-[23]
+                            ${styles.sizeFit}
+                            cursor-pointer
+                        `}
+                        onClick={() => setDisplayedRetex(undefined)}
+                    />
+
                     <span id='specs'
                         ref={specsContainer}
                         className=
                         {`
                             ${styles.sizeFull}
-                            max-h-[70%]
                             overflow-hidden
                             text-base
                             text-wrap
@@ -259,117 +157,121 @@ const RetexViewer = () => {
                             dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(relatedProject.specs[currentLang])}}
                         />
                     </span>
-
-                    <span id='notions'
-                        ref={notionsContainer}
+                    
+                    <div id='retex-bottom'
                         className=
                         {`
                             w-full
                             h-fit
-                            min-h-[30%]
+                            max-h-[45%]
                             ${styles.flexRow}
-                            ${styles.contentStartX}
-                            overflow-hidden
-                            relative
+                            ${styles.contentCenter}
+                            text-wrap
+                            space-x-[3%]
                         `}
                     >
-                        <ul ref={notionsList}
+                        <span id='notions'
+                            ref={notionsContainer}
                             className=
                             {`
                                 ${styles.sizeFull}
-                                ${styles.flexCol}
-                                ${styles.contentStartAll}
-                                list-disc
-                                list-inside
-                                space-y-[3%]
-                                ml-[3%]
+                                ${styles.flexRow}
+                                ${styles.contentStartX}
+                                overflow-hidden
+                                relative
+                                text-xl
                             `}
                         >
-                            {relatedProject.notions[currentLang].map((notion, index) => (
-                                <li key={`notion-${index}`}
-                                    className={`notion-${index}`}
-                                    dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(notion)}}
-                                />
-                            ))}
-                        </ul>
-                    </span>
-                </div>
-            
-                <div id='retex-imgs'
-                    className=
-                    {`
-                        h-full
-                        w-2/5
-                        ${styles.flexCol}
-                        space-y-[10%]
-                    `}
-                >
-                    <span id='image-1-container'
-                        className=
-                        {`
-                            focus:fixed 
-                            focus:top-[50%]
-                            ${styles.sizeFull}
-                            overflow-hidden
-                            rounded-lg
-                            hover:shadow-lg
-                            hover:scale-[1.01]
-                            transition-all
-                            duration-400
-                            linear
-                        `}
-                    >
-                        <img id='img-1'
-                            src={
-                                relatedProject.img ?
-                                    relatedProject.img.length > 1 ?
-                                    relatedProject.img[1] : relatedProject.img[0]
-                                : coreImages.portrait  
-                            }
-                            alt="retex image 1"
+                            <ul ref={notionsList}
+                                className=
+                                {`
+                                    ${styles.sizeFull}
+                                    ${styles.flexCol}
+                                    ${styles.contentStartAll}
+                                    list-disc
+                                    list-inside
+                                    space-y-[5%]
+                                `}
+                            >
+                                {relatedProject.notions[currentLang].map((notion, index) => (
+                                    <li key={`notion-${index}`}
+                                        className={`notion-${index}`}
+                                        dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(notion)}}
+                                    />
+                                ))}
+                            </ul>
+                        </span>
+                        
+                        <div id='retex-imgs-container'
                             className=
                             {`
-                                aspect-video
-                                object-cover
-                                object-center
+                                relative
                                 ${styles.sizeFull}
-                                border-2
+                                max-w-[45%]
+                                ${styles.flexCol}
+                                ${styles.contentCenter}
+                                rounded-lg
+                                overflow-hidden
                             `}
-                        />
-                    </span>
+                        >
+                            <span id='retex-gallery-preview'
+                                ref={galleryPreview}
+                                className=
+                                {`  
+                                    ${styles.sizeFull}
+                                    grid
+                                    grid-cols-2
+                                    grid-rows-2
+                                    grid-flow-dense
+                                    relative
+                                    gap-[1%]
+                                    ${styles.flexCol}
+                                    rounded-lg
+                                    overflow-hidden
+                                `}
+                            >
+                                {relatedProject.img && relatedProject.img.map((img, index) => {
+                                    if (index <= 4) return (
+                                        <img key={`retex-img-${index}`}
+                                            src={img}
+                                            alt={`retex image ${index + 1}`}
+                                            className=
+                                            {`
+                                                ${styles.sizeFull}
+                                                object-cover
+                                                object-center
+                                                blur-[2px]
+                                            `}
+                                        />
+                                    )
+                                })}
 
-                    <span id='image-2-container'
-                        className=
-                        {`
-                            ${styles.sizeFull}
-                            overflow-hidden
-                            rounded-lg
-                            hover:scale-[1.01]
-                            hover:shadow-lg
-                            transition-all
-                            duration-400
-                            linear
-                        `}
-                    >
-                        <img id='img-2'
-                            src={
-                                relatedProject.img ?
-                                    relatedProject.img.length > 1 ?
-                                    relatedProject.img[2] : relatedProject.img[0]
-                                : coreImages.portrait  
-                            }
-                            alt="retex image 2"
-                            className=
-                            {`
-                                aspect-video
-                                object-cover
-                                object-center
-                                ${styles.sizeFull}
-                                border-2
-                            `}
-                        />
-                    </span>
-                </div>
+                                <button id='retex-gallery-button'
+                                    ref={galleryButton}
+                                    className=
+                                    {`
+                                        absolute
+                                        ${styles.sizeFit}
+                                        ${styles.flexRow}
+                                        ${styles.contentCenter}
+                                        z-50
+                                        bg-[--color-secondary]
+                                        text-[--color-tertiary]
+                                        hover:scale-105
+                                        font-semibold
+                                        hover:text-[--color-quinary]
+                                        transition-all
+                                        duration-300
+                                        ease-in-out
+                                        rounded-lg
+                                        shadow-lg
+                                    `}
+                                    onClick={() => setToggleGallery(true)}
+                                > {placeholderMessages.find((message) => message.context === "projectGalleryButton")!.content[currentLang]} </button> 
+                            </span>
+                        </div>
+                    </div>
+                </>}
             </div>
         </div>
     )

@@ -116,7 +116,6 @@ const Footer = () => {
             `}
           >See also</h3>
           
-          {/** This section can support 0 to 8 shared links, split in two columns */}
           <div id="see-also-links-cols"
             className=
             {`
@@ -130,6 +129,8 @@ const Footer = () => {
               {`
                 ${styles.sizeFull}
                 ${styles.flexCol}
+                overflow-y-scroll
+                overflow-x-hidden
               `}
             >
               {shuffle(shuffle(sharedLinks)).map((link, index) => {

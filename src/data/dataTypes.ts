@@ -56,6 +56,7 @@ export interface Retex extends Project {
   specs: {[lang: string]: string};
   notions: {[lang: string]: string[]};
   tools: Skill[];
+  additionalRessources?: Hyperlink[];
 }
 
 /**

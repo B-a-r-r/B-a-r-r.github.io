@@ -69,7 +69,7 @@ const SortingBar = () => {
                 ml-[5%]
             `}
         >
-            <DropdownSort alreadyDisplayesItems={alreadyDisplayedItems} />
+            <DropdownSort alreadyDisplayedItems={alreadyDisplayedItems} />
         </div>
     </div>
   )

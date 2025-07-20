@@ -45,9 +45,12 @@ const ProjectsListing = () => {
                         || project.notions[currentLang]?.map((notion) => notion.toUpperCase()).includes(filter))
                         ) { matchingProjects.push(project); break;}
                     }
-                    if (project.tags[currentLang]?.map((tag) => tag.toUpperCase()).includes(filter)
-                        || project.tags[0]?.map((tag) => tag.toUpperCase()).includes(filter)
-                    ) {
+                    
+                    let allTags: string[] = [];
+                    for (const lang in project.tags) {
+                        allTags.push(...project.tags[lang].map((tag) => tag.toUpperCase()));
+                    }
+                    if (allTags.includes(filter.toUpperCase())) {
                         matchingProjects.push(project);
                     }
             }

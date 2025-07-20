@@ -7,20 +7,20 @@ import {TextureLoader, SRGBColorSpace, SpriteMaterial, Sprite} from "three"
 import { skillCategories, skillSubcategories } from "../../data/constants"
 
 type GraphData = {
-  nodes: {id: string, name: string, img: string, val: number, group: SkillSubcategorie}[];
+  nodes: {id: string, name: string, img: string, val: number, group: SkillCategorie}[];
   links: {source: string, target: string}[];
 }
 
 const Skills = () => {
   const [selectedCategory, setSelectedCategory] = useState(AvailableSkillCategories.LANGUAGE)
   const [graphData, setGraphData] = useState<GraphData>()
-  const graph = useRef<ForceGraphMethods$1<{ id: string; name: string; img: string; val: number; group: SkillSubcategorie; }, { source: string; target: string }> | undefined>(undefined)
+  const graph = useRef<ForceGraphMethods$1<{ id: string; name: string; img: string; val: number; group: SkillCategorie; }, { source: string; target: string }> | undefined>(undefined)
   const distance = 500
   
   useEffect(() => {
     const initGraphData: GraphData = {nodes: [], links: []}
 
-    skills.filter((skill) => skill.category.context === selectedCategory)
+    skills//.filter((skill) => skill.category.context === selectedCategory)
     .sort((a) => a.framework ? -1 : 1)
     .sort((a,b) => a.framework === b.framework ? -1 : 1)
     .map((skill, index, all) => {
@@ -29,7 +29,7 @@ const Skills = () => {
         name: skill.label,
         img: skill.icon,
         val: skill.weight ?? 1,
-        group: skill.subcategory!
+        group: skill.category!
       })
 
       const verifiedTarget = (
@@ -103,9 +103,11 @@ const Skills = () => {
           ${styles.sizeFull}
           ${styles.flexCol}
           ${styles.contentCenter}
+          border-red-500
+          border-2
         `}
       >
-        {/* <ForceGraph3D ref={graph}
+        <ForceGraph2D //ref={graph}
           graphData={graphData}
           backgroundColor={
             getComputedStyle(document.documentElement)
@@ -113,29 +115,33 @@ const Skills = () => {
           }
           width={document.querySelector("#graph-container")?.clientWidth ?? 0}
           height={ document.querySelector("#graph-container")?.clientHeight ?? 0}
-          showNavInfo={false}
-          enableNavigationControls={true}
+          enableNodeDrag={false}
+          enableZoomInteraction={false}
+          enablePointerInteraction={true}
           
-          // nodeCanvasObject={(node) => {
-          //   const imgTexture = new TextureLoader().load(node.img);
-          //   imgTexture.colorSpace = SRGBColorSpace;
-          //   const material = new SpriteMaterial({ map: imgTexture });
-          //   const sprite = new Sprite(material);
-          //   sprite.scale.set(24, 24, 1);
-          //   return sprite;
-          // }}
-          nodeThreeObject={({ img }) => {
-              const imgTexture = new TextureLoader().load(img);
-              imgTexture.colorSpace = SRGBColorSpace;
-              const material = new SpriteMaterial({ map: imgTexture });
-              const sprite = new Sprite(material);
-              sprite.scale.set(24, 24, 1);
-              return sprite;
+          //showNavInfo={false}
+          //enableNavigationControls={true}
+          
+          nodeCanvasObject={(node) => {
+            const imgTexture = new TextureLoader().load(node.img);
+            imgTexture.colorSpace = SRGBColorSpace;
+            const material = new SpriteMaterial({ map: imgTexture });
+            const sprite = new Sprite(material);
+            sprite.scale.set(24, 24, 1);
+            return sprite;
           }}
+          // nodeThreeObject={({ img }) => {
+          //     const imgTexture = new TextureLoader().load(img);
+          //     imgTexture.colorSpace = SRGBColorSpace;
+          //     const material = new SpriteMaterial({ map: imgTexture });
+          //     const sprite = new Sprite(material);
+          //     sprite.scale.set(24, 24, 1);
+          //     return sprite;
+          // }}
           nodeLabel={(node) => `${node.name}`}
           nodeVal={(node) => node.val}
           nodeRelSize={5}
-          nodeResolution={10}
+          //nodeResolution={10}
 
           linkColor={() =>
             getComputedStyle(document.documentElement)
@@ -143,16 +149,16 @@ const Skills = () => {
           }
           linkVisibility={true}
           linkLabel={"bonjour"}
-          linkWidth={0.8}
-          linkOpacity={0.5}
-          linkResolution={10}
+          linkWidth={1}
+          //linkOpacity={0.5}
+          //linkResolution={10}
 
           linkDirectionalParticles={1}
           linkDirectionalParticleSpeed={0.001}
           linkDirectionalParticleWidth={0.8}
           
           onEngineStop={() => graph.current?.zoomToFit(400, 400)}
-        /> */}
+        />
       </div>
     </section>
   )  
