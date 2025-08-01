@@ -277,10 +277,11 @@ export const getRGBAThemeColor = (
     | "--color-secondary" 
     | "--color-tertiary"
     | "--color-quaternary"
-    | "--color-quinary",
+    | "--color-quinary"
+    | "--color-layout-bg",
     alpha?: number
 ) => {
-    const color = getComputedStyle(document.documentElement).getPropertyValue(CSSVarName);
+    const color = getComputedStyle(document.documentElement).getPropertyValue(CSSVarName).trim();
     if (!color || color.length <= 0) console.error("Can't get color from CSS variable.");
     return `rgba(
         ${parseInt(color.slice(1, 3), 16)}, 

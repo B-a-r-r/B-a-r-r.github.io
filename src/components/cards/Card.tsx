@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styles from '../../style';
 import DOMPurify from 'dompurify';
 import { isOverflowing, truncateTextIfOverflow } from '../../utils';
+import { ThemeContext } from '../theme/ThemeEngine';
+
 
 type CardProps = {
     title: string;
@@ -14,6 +16,7 @@ type CardProps = {
 }
 
 const Card = ({title, content, tags, moreTopClasses, titleProps, contentProps, tagsProps}: CardProps) => {
+    const {currentTheme} = useContext(ThemeContext);
     const [displayedTags, setDisplayedTags] = useState<string[]>(tags.slice(0, 3));
 
     useEffect(() => {

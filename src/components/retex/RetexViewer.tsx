@@ -127,8 +127,9 @@ const RetexViewer = () => {
                 {toggleGallery && relatedProject.img && relatedProject.img.length > 0 
                 ? <RetexGalleryViewer images={relatedProject.img} untoggler={() => setToggleGallery(false)}/> : 
                 <>
-                    <img src={menuIcons.close_menu_icon}
+                    <img src={menuIcons.close_menu_icon.content[currentTheme]}
                         id='close-button'
+                        alt={menuIcons.close_menu_icon.alt}
                         className=
                         {`
                             absolute

@@ -1,14 +1,17 @@
 import { GraphicAsset } from "../dataTypes";
 
-import linkedin from "./linkedin_icon.svg";
-import github from "./github_icon.svg";
-import mail from "./mail_icon.svg";
+import linkedin_light from './linkedin_icon_light.svg';
+import linkedin_dark from './linkedin_icon_dark.svg';
+import github_light from './github_icon_light.svg';
+import github_dark from './github_icon_dark.svg';
+import mail_light from './mail_icon_light.svg';
+import mail_dark from './mail_icon_dark.svg';
 
 const linkedin_icon: GraphicAsset = {
   label: "linkedin_icon",
   content: {
-    'light': linkedin,
-    'dark': linkedin,
+    'light': linkedin_light,
+    'dark': linkedin_dark,
   },
   alt: "LinkedIn Icon",
 };
@@ -16,8 +19,8 @@ const linkedin_icon: GraphicAsset = {
 const github_icon: GraphicAsset = {
   label: "github_icon",
   content: {
-    'light': github,
-    'dark': github,
+    'light': github_light,
+    'dark': github_dark,
   },
   alt: "GitHub Icon",
 };
@@ -25,8 +28,8 @@ const github_icon: GraphicAsset = {
 const mail_icon: GraphicAsset = {
   label: "mail_icon",
   content: {
-    'light': mail,
-    'dark': mail,
+    'light': mail_light,
+    'dark': mail_dark,
   },
   alt: "Mail Icon",
 };

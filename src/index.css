@@ -21,10 +21,12 @@
   --color-tertiary: #479561;
   --color-quaternary: #3D3E3C;
   --color-quinary: #4F4F4F;
-  --color-layout-bg: rgba(244, 244, 244, 0.7);
   --color-mobile-navbar: rgba(244, 244, 244, 0.9);
 
-  --background-image: url('./assets/marbled_texture.jpg');
+  /* RGBA version of the primary color */
+  --color-layout-bg: rgba(244, 244, 244, 0.8);
+
+  --background-image: url('./assets/illustrations/marble_texture.jpg');
 }
 
 .dark {
@@ -34,10 +36,13 @@
   --color-tertiary: #7CFFC4;
   --color-quaternary: #71cbb3;
   --color-quinary: #3c3c3c;
-  --color-layout-bg: rgba(47, 47, 47, 0.8);
+
   --color-mobile-navbar: rgba(47, 47, 47, 0.9);
 
-  --background-image: url('./assets/marbled_texture.jpg');
+  /* RGBA version of the primary color */
+  --color-layout-bg: rgba(47, 47, 47, 0.8);
+
+  --background-image: url('./assets/illustrations/background_landscape_dark.jpg');
 }
 
 /* App global styles */

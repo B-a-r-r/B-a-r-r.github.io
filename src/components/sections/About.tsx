@@ -56,7 +56,7 @@ const About = () => {
             left-2
             text-[--color-tertiary]
             cursor-pointer
-            hover:scale-105
+            hover:translate-x-1.5
             transition-all
             duration-300
             ease-in-out

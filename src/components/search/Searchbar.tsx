@@ -30,6 +30,7 @@ const Searchbar = () => {
                     px-[3%]
                     py-[1.5%]
                     rounded-md
+                    bg-[--color-primary]
                     border-2
                     border-[--color-quaternary]
                     transition-all

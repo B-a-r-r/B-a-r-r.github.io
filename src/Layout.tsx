@@ -1,14 +1,16 @@
 import styles from './style'
 import { Footer, Navbar } from './components'
-import { ReactNode, useContext, useEffect, useRef } from 'react'
-import { getActiveBreakpoint } from './utils'
+import { ReactNode, useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { getActiveBreakpoint, getRGBAThemeColor } from './utils'
 import { RetexContext } from './components/retex'
+import { ThemeContext } from './components/theme/ThemeEngine'
 
 const Layout = ({children}: {children: ReactNode}) => {
     const { displayedRetexTitle } = useContext(RetexContext);
+    const { currentTheme } = useContext(ThemeContext);
     const navbarContainer = useRef<HTMLDivElement>(null);
     const footerContainer = useRef<HTMLDivElement>(null);
-    
+
     useEffect(() => {
         if (displayedRetexTitle != undefined) {
             navbarContainer.current?.classList.add("hidden");

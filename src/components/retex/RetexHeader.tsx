@@ -2,7 +2,8 @@ import { useContext } from "react"
 import styles from "../../style"
 import DOMPurify from "dompurify"
 import { LangContext } from "../language"
-import { Hyperlink, Skill } from "../../data/dataTypes"
+import { Hyperlink, Skill } from "../../assets/dataTypes"
+import { ThemeContext } from "../theme/ThemeEngine"
 
 type RetexHeaderProps = {
     title: string,
@@ -13,6 +14,7 @@ type RetexHeaderProps = {
 
 const RetexHeader = (relatedProject: RetexHeaderProps) => {
     const { currentLang } = useContext(LangContext)
+    const { currentTheme } = useContext(ThemeContext);
 
     return (
         <header id='retex-header'
@@ -99,8 +101,8 @@ const RetexHeader = (relatedProject: RetexHeaderProps) => {
                                 space-x-[8%]
                             `}
                         >   
-                            <img src={tool.icon}
-                                alt={tool.label}
+                            <img src={tool.icon.content[currentTheme]}
+                                alt={tool.icon.alt}
                                 className=
                                 {`
                                     object-cover

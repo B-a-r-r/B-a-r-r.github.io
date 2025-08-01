@@ -1,10 +1,11 @@
-import { CSSProperties, useContext, useRef } from "react";
-import styles from "../../style"
+import { CSSProperties, useContext, useEffect, useRef } from "react";
+import styles from "../../style";
 import { Project } from "../../assets/dataTypes";
 import Card from "./Card";
 import { LangContext } from "../language";
 import { Link } from "react-router";
 import { handleMouseEnter, handleMouseLeave, handleMouseMove } from "../../utils";
+import { ThemeContext } from "../theme/ThemeEngine";
 
 type ProjectCardProps = {
     project: Project;
@@ -14,7 +15,15 @@ type ProjectCardProps = {
 
 const ProjectCard = ({project, additionalStyles, onanimationend}: ProjectCardProps) => {
     const { currentLang } = useContext(LangContext);
+    const {currentTheme} = useContext(ThemeContext);
     const cardRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!cardRef.current) return;
+        cardRef.current.classList.remove('color-scheme-primary');
+        cardRef.current.classList.add('color-scheme-primary');
+
+    }, [currentTheme]);
 
     return (
         <div ref={cardRef}

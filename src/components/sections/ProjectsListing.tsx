@@ -10,6 +10,7 @@ import { LangContext } from "../language";
 import { RetexViewer, RetexContext } from "../retex";
 import { getActiveBreakpoint, randomNumberBetween } from "../../utils";
 import { noDataMessages, sortOptions } from "../../assets/constants";
+import { ThemeContext } from "../theme/ThemeEngine";
 
 
 const ProjectsListing = () => {
@@ -17,6 +18,7 @@ const ProjectsListing = () => {
     const { currentLang } = useContext(LangContext);
     const [ displayedProjects, setDisplayedProjects ] = useState(projects);
     const { displayedRetexTitle } = useContext(RetexContext);
+    const {currentTheme} = useContext(ThemeContext);
 
     useEffect(() => {
         const matchingProjects: Retex[] = [];
@@ -55,7 +57,10 @@ const ProjectsListing = () => {
                     }
             }
         }))
-        setDisplayedProjects(matchingProjects);
+        setDisplayedProjects(
+            toMatch.includes("NEWEST") || toMatch.includes("OLDEST") ?
+            matchingProjects : matchingProjects.sort(() => randomNumberBetween(0,1) === 0 ? 1 : -1)
+        );
     }, [toMatch, currentLang]);
 
     useEffect(() => {
@@ -130,9 +135,7 @@ const ProjectsListing = () => {
                 perspective: '2000px',
             }}
         >   
-            {displayedProjects.length > 0 ? (toMatch.includes("NEWEST") || toMatch.includes("OLDEST") ?
-                displayedProjects : displayedProjects.sort(() => randomNumberBetween(0,1) === 0 ? 1 : -1))
-                .map((project) => (
+            {displayedProjects.length > 0 ? displayedProjects.map((project) => (
                     <ProjectPreview key={`project-${project.title}-preview`} {...project} />
                 ))
             : noDataMessages.find((message) => message.context === "projects")!.content[currentLang]}

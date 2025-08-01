@@ -1,7 +1,8 @@
 
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import styles from "../../style";
 import { menuIcons } from "../../assets";
+import { ThemeContext } from "../theme/ThemeEngine";
 
 type RetexGalleryViewerProps = {
     images: string[];
@@ -9,6 +10,7 @@ type RetexGalleryViewerProps = {
 }
 
 const RetexGalleryViewer = ({images, untoggler}: RetexGalleryViewerProps) => {
+    const {currentTheme} = useContext(ThemeContext);
     const [focusedImage, setFocusedImage] = useState<string>(images[0]);
     let index = useRef<number>(0);
     
@@ -43,8 +45,9 @@ const RetexGalleryViewer = ({images, untoggler}: RetexGalleryViewerProps) => {
                 relative
             `}
         >
-            <img src={menuIcons.close_menu_icon}
+            <img src={menuIcons.close_menu_icon.content[currentTheme]}
                 id='close-button'
+                alt={menuIcons.close_menu_icon.alt}
                 className=
                 {`
                     absolute
