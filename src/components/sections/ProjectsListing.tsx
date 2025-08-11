@@ -79,7 +79,7 @@ const ProjectsListing = () => {
     const getProjectsPreviews = () => {
         return (displayedProjects.length > 0 ? 
             displayedProjects.map((project) => (
-                <ProjectPreview key={`project-${project.title}-preview`} {...project} />
+                <ProjectPreview key={`project-${project.title[currentLang] || project.title[0]}-preview`} {...project} />
             ))
         : noDataMessages.find((message) => message.context === "projects")!.content[currentLang])
     }

@@ -149,27 +149,16 @@ const RetexHeader = (relatedProject: RetexHeaderProps) => {
                                     ${styles.sizeFull}
                                     ${styles.flexRow}
                                     ${styles.contentStartX}
-                                    space-x-[4%]
-                                    text-[--color-quinary]
-                                    hover:text-[--color-primary]
+                                    space-x-[3%]
+                                    ${currentTheme === 'dark' ? 'text-[--color-tertiary]' : 'text-[--color-primary]'}
+                                    hover:text-white
                                     hover:cursor-pointer
-                                    hover:underline
+                                    hover:translate-x-[2%]
                                     transition-all
                                     duration-400
                                     ease-in-out
                                 `}
-                            > 
-                                {/* <img src={menuIcons.download_icon}
-                                    alt='download icon'
-                                    className=
-                                    {`
-                                        ${styles.sizeFit}
-                                        w-[5%]
-                                        object-cover
-                                        object-center
-                                    `}
-                                /> */}
-                                
+                            >   
                                 <a target='_blank'
                                     href={resource.link}
                                 > → {resource.content[currentLang]} </a>

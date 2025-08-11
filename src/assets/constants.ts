@@ -572,6 +572,14 @@ export const placeholderMessages: Array<Message> = [
     },
   },
   {
+    context: "projectGalleryButtonEmpty",
+    content:
+    {
+      fr: "Aucune image disponible",
+      en: "No image available"
+    }
+  },
+  {
     context: "ErrorPageBackButton",
     content:
     {

@@ -5,6 +5,7 @@ import hero_figure_light from "./hero_figure_light.webp";
 import hero_figure_dark from "./hero_figure_dark.webp";
 import slider_figure_light from "./slider_figure_light.webp";
 import slider_figure_dark from "./slider_figure_dark.webp";
+import placeholder_retex_image from "./placeholder_retex_image.webp";
 
 const sysiphus: GraphicAsset = {
   label: "sysiphus",
@@ -28,7 +29,8 @@ export const coreImages = {
 
   portrait,
   sysiphus,
-  hephaistos
+  hephaistos,
+  placeholder_retex_image
 
 };
 

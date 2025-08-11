@@ -4,7 +4,7 @@ import DOMPurify from 'dompurify';
 import { adjustFontSize, isOverflowing } from '../../utils';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { LangContext } from '../language';
-import { menuIcons } from '../../assets';
+import { coreImages, menuIcons } from '../../assets';
 import { RetexContext } from './RetexDisplayEngine'
 import { placeholderMessages } from '../../assets/constants';
 import RetexHeader from './RetexHeader';
@@ -79,9 +79,9 @@ const RetexViewer = () => {
 
         if (!notionsContainer.current) return;
         if (isOverflowing(notionsContainer.current)) {
-            adjustFontSize(notionsContainer.current, "max");
+            adjustFontSize(notionsContainer.current, "min");
             if (!notionsList.current) return;
-            adjustFontSize(notionsList.current, "max");
+            adjustFontSize(notionsList.current, "min");
             /** If the content is still overflowing, remove the last notion */
             while (isOverflowing(notionsContainer.current)) {
                 notionsList.current.removeChild(notionsList.current.lastChild as Node);
@@ -89,7 +89,10 @@ const RetexViewer = () => {
         }
     }
 
-    const relatedProject = projects.find((project) => project.title === displayedRetexTitle);
+    const relatedProject = projects.find((project) => {
+        return (project.title[currentLang] === displayedRetexTitle
+        || project.title[0] === displayedRetexTitle);
+    });
     if (!displayedRetexTitle) return;
     if (!relatedProject) {console.warn(`No project found for '${displayedRetexTitle}'.`); return;}
 
@@ -210,7 +213,7 @@ const RetexViewer = () => {
                             {`
                                 relative
                                 ${styles.sizeFull}
-                                max-w-[45%]
+                                max-w-[44%]
                                 ${styles.flexCol}
                                 ${styles.contentCenter}
                                 rounded-lg
@@ -227,7 +230,7 @@ const RetexViewer = () => {
                                     grid-rows-2
                                     grid-flow-dense
                                     relative
-                                    gap-[1%]
+                                    gap-[2%]
                                     ${styles.flexCol}
                                     rounded-lg
                                     overflow-hidden
@@ -248,6 +251,21 @@ const RetexViewer = () => {
                                         />
                                     )
                                 })}
+                                {relatedProject.img && relatedProject.img.length > 0 && relatedProject.img.length < 4
+                                    ? Array.from({ length: 4 - relatedProject.img.length }, (_, i) => (
+                                        <img key={`placeholder-img-${i}`}
+                                            src={coreImages.placeholder_retex_image}
+                                            alt={`placeholder image ${i+1}`}
+                                            className=
+                                            {`
+                                                ${styles.sizeFull}
+                                                object-cover
+                                                object-center
+                                                blur-[2px]
+                                            `}
+                                        />
+                                    ))
+                                    : null}
 
                                 <button id='retex-gallery-button'
                                     ref={galleryButton}
@@ -260,9 +278,10 @@ const RetexViewer = () => {
                                         z-50
                                         bg-[--color-secondary]
                                         text-[--color-tertiary]
-                                        hover:scale-105
+                                        enabled:hover:scale-105
                                         font-semibold
-                                        hover:text-[--color-quinary]
+                                        enabled:hover:text-[--color-quinary]
+                                        disabled:text-wrap
                                         transition-all
                                         duration-300
                                         ease-in-out
@@ -270,7 +289,11 @@ const RetexViewer = () => {
                                         shadow-lg
                                     `}
                                     onClick={() => setToggleGallery(true)}
-                                > {placeholderMessages.find((message) => message.context === "projectGalleryButton")!.content[currentLang]} </button> 
+                                    disabled={relatedProject.img && relatedProject.img.length === 0}
+                                > {relatedProject.img && relatedProject.img.length > 0 ?
+                                    placeholderMessages.find((message) => message.context === "projectGalleryButton")!.content[currentLang]
+                                    : placeholderMessages.find((message) => message.context === "projectGalleryButtonEmpty")!.content[currentLang]
+                                } </button>
                             </span>
                         </div>
                     </div>

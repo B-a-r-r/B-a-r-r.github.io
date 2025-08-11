@@ -218,13 +218,13 @@ export const projects: Array<Retex> = [
     description: 
     {
       fr:
-      "GPGtool est un gestionnaire de clés PGP 100% Python, qui intègre une interface graphique accessible, et filite l'utilisation de la technologie GnuPG. Gérez vos propres paires de clés, et cryptez/décryptez des messages et fichiers.",
+      "GPGtool est un gestionnaire de clés PGP 100% Python. Il embarque une interface graphique accessible, et facilite l'utilisation de la technologie GnuPG. Gérez vos propres paires de clés, et utilisez les pour des messages et fichiers.",
       en:
       "GPGtool is a 100% Python PGP keys manager, which embeds an accessible graphic interface, facilitating the use of the GnuPG technology. Manage your own key pairs, and encrypt/decrypt messages and files.",
     },
     tags: 
     {
-      fr: ["Logiciel", "POO", "Cryptographie", "PE", "Programmation évenementielle", "Programmation orientée objet", "Personnel"],
+      fr: ["POO", "IU", "Cryptographie", "PE", "Programmation évenementielle", "Logiciel", "Programmation orientée objet", "Personnel"],
       en: ["Software", "OOP", "Cryptography", "EP", "Event-driven programming", "Object-oriented programming", "Personnal"],
       0: ["UI", "Python", "UX", "CustomTkinter", "CLI", "Test", "Tests", "Perso"], /* Common tags to every languages */
     },
@@ -237,23 +237,24 @@ export const projects: Array<Retex> = [
     specs: 
     {
       en:
-      "This PGP key manager aims to make GnuPG technology accessible. \
-      It offers different integration modes, including <strong>a CustomTK GUI</strong>. You can either encrypt/decrypt messages or files, or manage a multitude of keys. \
-      This personal <strong>pythonic</strong> project is designed to be easily <strong>maintainable and extensible</strong> thanks to its <strong>robust error handling</strong> and <strong>Model View Controller</strong> architecture. The development of the GUI was also a good opportunity to review <strong>event-driven programming</strong>.",
+      "This PGP key manager meets the fundamental need to make <strong>communication and data security accessible</strong>. \
+      The application can be used as an encapsulation of the GnuPG library in API mode, or as a complete graphical tool with its CustomTk interface. Two tabs are currently available: data encryption/decryption, and key management. \
+      The focus has been on <strong>maintainability and extensibility</strong> to make the development of the application as smooth as its use.",
       fr:
-      "Ce gestionnaire de clés PGP vise à rendre la technologie GnuPG accessible. \
-      Il propose différents modes d'intégration, dont <strong>une interface graphique</strong> CustomTK. Vous pouvez soit chiffrer/déchiffrer des messages ou des fichiers, soit gérer une multitude de clés. \
-      Ce projet personnel est <strong>100% Python</strong>, et conçu pour être facilement <strong>maintenable et extensible</strong> grâce à sa <strong>gestion d'erreurs robuste</strong> et son architecture <strong>Modèle Vue Contrôlleur</strong>. Le développement de l'IG, aura aussi été une bonne occasion de réviser la <strong>programmation événementielle</strong>.",
+      "Ce gestionnaire de clés PGP répond au besoin fondamental de rendre accessible la <strong>sécurisation des communications et données</strong>.\
+      L'application peut être utilisée comme une encapsulation de la bibliothèque GnuPG en mode API, ou comme un outil graphique complet avec\
+      son interface sous CustomTK. Deux onglets sont actuellement disponibles: le chiffrement/déchiffrement de données, et la gestion de clés.\
+      L'accent a été mis sur <strong>la maintenabilité et l'extensibilité</strong> pour rendre le développement de l'application aussi fluide que son utilisation.",
     },
     notions: 
     {
-      en: ["Errors handling and tests bench,", "Design following SOLID principles of OOP,", "Release and launch a software."],
-      fr: ["Gestion des erreurs et banc de tests,", "Conception d'après les principes SOLID,", "Lancement d'un logicielle en production."],
+      en: ["Error handling and log files,", "<strong>MVC</strong> and <strong>SOLID</strong> architecture,", "Event-driven programming,", "User-friendly <strong>client application</strong>."],
+      fr: ["Gestion d'erreurs et fichiers de logs,", "Architecture <strong>MVC</strong> et principes <strong>SOLID</strong>,", "Programmation événementielle,", "<strong>Application cliente</strong> ergonomique.",],
     },
     tools: [
       skills.find((skill) => skill.label === 'Python')!,
-      skills.find((skill) => skill.label === 'Git')!,
       skills.find((skill) => skill.label === 'GnuPG')!,
+      // skills.find((skill) => skill.label === 'CustomTkinter')!,
     ],
     additionalRessources: [
       {
