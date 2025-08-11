@@ -150,7 +150,6 @@ export const handleMouseEnter = (div: HTMLDivElement | null) => {
  */
 export const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, div: HTMLDivElement | null) => {
     if (!div) return;
-
     const { top, left, width, height } = div.getBoundingClientRect();
     const color1 = getComputedStyle(document.documentElement).getPropertyValue("--color-primary")
     const color2 = getComputedStyle(document.documentElement).getPropertyValue("--color-secondary")

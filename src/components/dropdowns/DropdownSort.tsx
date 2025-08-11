@@ -34,7 +34,6 @@ const DropdownSort = ({alreadyDisplayedItems}: DropdownSortProps) => {
             setSelectedItem(undefined);
             setPlaceholder(dropdownPlaceholder)
         }
-        console.log("Selected item:", selectedItem);
     }, [toMatch, currentLang])
 
     const displayedSortOptions = () => (

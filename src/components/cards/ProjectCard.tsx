@@ -4,7 +4,7 @@ import { Project } from "../../assets/dataTypes";
 import Card from "./Card";
 import { LangContext } from "../language";
 import { Link } from "react-router";
-import { handleMouseEnter, handleMouseLeave, handleMouseMove } from "../../utils";
+import { getRGBAThemeColor, handleMouseEnter, handleMouseLeave, handleMouseMove } from "../../utils";
 import { ThemeContext } from "../theme/ThemeEngine";
 
 type ProjectCardProps = {
@@ -20,14 +20,12 @@ const ProjectCard = ({project, additionalStyles, onanimationend}: ProjectCardPro
 
     useEffect(() => {
         if (!cardRef.current) return;
-        cardRef.current.classList.remove('color-scheme-primary');
-        cardRef.current.classList.add('color-scheme-primary');
-
-    }, [currentTheme]);
+        window.onload = () => cardRef.current!.style.backgroundColor = getRGBAThemeColor("--color-secondary", 1);
+    }, [currentTheme])
 
     return (
         <div ref={cardRef}
-            id={`card-${project.title}-container`}
+            id={`card-${project.title}-container`}  
             className={`
                 color-scheme-primary
                 ${styles.sizeFull}
@@ -52,7 +50,7 @@ const ProjectCard = ({project, additionalStyles, onanimationend}: ProjectCardPro
         >
             <Link to="/projects">
                 <Card key={`card-${project.title}`}
-                    title={project.title}
+                    title={project.title[currentLang] || project.title[0]}
                     content={project.description[currentLang]}
                     tags={
                         project.tags[currentLang] ? 
@@ -64,7 +62,7 @@ const ProjectCard = ({project, additionalStyles, onanimationend}: ProjectCardPro
                     `}
                     titleProps=
                     {`
-                        color-scheme-secondary
+                        bg-[--color-secondary]
                         xl:text-xl lg:text-lg
                         px-[8%]
                         xl:mb-[4%]

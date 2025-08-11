@@ -4,7 +4,7 @@ import {Retex} from "../../assets/dataTypes";
 import styles from '../../style';
 import { LangContext } from '../language';
 import Card from './Card';
-import { handleMouseLeave, handleMouseMove } from '../../utils';
+import { getRGBAThemeColor, handleMouseLeave, handleMouseMove } from '../../utils';
 import { RetexContext } from '../retex';
 import { ThemeContext } from '../theme/ThemeEngine';
 
@@ -13,13 +13,6 @@ const ProjectPreview = (project: Retex) => {
     const { setDisplayedRetex } = useContext(RetexContext);
     const { currentTheme } = useContext(ThemeContext);
     const cardRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        if (!cardRef.current) return;
-        cardRef.current.classList.remove('color-scheme-primary');
-        cardRef.current.classList.add('color-scheme-primary');
-
-    }, [currentTheme]);
 
     return (
         <div ref={cardRef}
@@ -45,9 +38,8 @@ const ProjectPreview = (project: Retex) => {
             }}
             onMouseLeave={() => handleMouseLeave(cardRef.current)}
             onMouseMove={(e) => handleMouseMove(e, cardRef.current)}
-            onClick={() => setDisplayedRetex(project.title)}
+            onClick={() => setDisplayedRetex(project.title[currentLang] || project.title[0])}
         >
-
             <div className=
                 {`
                     m-[6%]
@@ -68,7 +60,7 @@ const ProjectPreview = (project: Retex) => {
                 />
             </div>
             
-            <Card title={project.title} 
+            <Card title={project.title[currentLang] || project.title[0]} 
                 content={project.description[currentLang]} 
                 tags={project.tags[currentLang].concat(project.tags[0])} 
                 moreTopClasses=

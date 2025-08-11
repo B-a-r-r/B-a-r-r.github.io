@@ -41,7 +41,7 @@ const ProjectsListing = () => {
                         || sortOptions.find((option) => option.abreviation?.content[currentLang] === filter))
                         || sortOptions.find((option) => option.content[currentLang] === filter))
                     ) { 
-                        if (filter.length > 1 && (project.title.toUpperCase().includes(filter) 
+                        if (filter.length > 1 && (project.title[currentLang].toUpperCase().includes(filter) 
                         || project.description[currentLang].toUpperCase().includes(filter) 
                         || (Object(project.specs).length > 0 && project.specs[currentLang].toUpperCase().includes(filter))
                         || project.notions[currentLang]?.map((notion) => notion.toUpperCase()).includes(filter))
@@ -61,7 +61,7 @@ const ProjectsListing = () => {
             toMatch.includes("NEWEST") || toMatch.includes("OLDEST") ?
             matchingProjects : matchingProjects.sort(() => randomNumberBetween(0,1) === 0 ? 1 : -1)
         );
-    }, [toMatch, currentLang]);
+    }, [toMatch]);
 
     useEffect(() => {
         if (displayedRetexTitle != undefined) {
@@ -71,6 +71,18 @@ const ProjectsListing = () => {
             document.body.style.overflow = "scroll";
         }
     }, [displayedRetexTitle]);
+
+    useEffect(() => {
+        setDisplayedProjects(displayedProjects);
+    }, [currentLang, currentTheme]);
+    
+    const getProjectsPreviews = () => {
+        return (displayedProjects.length > 0 ? 
+            displayedProjects.map((project) => (
+                <ProjectPreview key={`project-${project.title}-preview`} {...project} />
+            ))
+        : noDataMessages.find((message) => message.context === "projects")!.content[currentLang])
+    }
 
     return (
     <section id='projects-listing'
@@ -135,10 +147,7 @@ const ProjectsListing = () => {
                 perspective: '2000px',
             }}
         >   
-            {displayedProjects.length > 0 ? displayedProjects.map((project) => (
-                    <ProjectPreview key={`project-${project.title}-preview`} {...project} />
-                ))
-            : noDataMessages.find((message) => message.context === "projects")!.content[currentLang]}
+            {getProjectsPreviews()}
         </div>
     </section>
     )

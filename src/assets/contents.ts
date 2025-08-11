@@ -211,7 +211,10 @@ export const skills: Array<Skill> = [
  * or the retex. */
 export const projects: Array<Retex> = [
   {
-    title: "GPGtool",
+    title: 
+    {
+      0: "GPGtool"
+    },
     description: 
     {
       fr:
@@ -264,7 +267,46 @@ export const projects: Array<Retex> = [
     ]
   },
   {
-    title: "MStar",
+    title: 
+    {
+      fr: "Application EEW",
+      en: "EEW application",
+    },
+    date: new Date(2025, 6),
+    tools: [
+      skills.find((skill) => skill.label === 'Python')!,
+      skills.find((skill) => skill.label === 'Matplotlib')!,
+      skills.find((skill) => skill.label === 'Transformers')!,
+      skills.find((skill) => skill.label === 'CUDA')!
+    ],
+    description:
+    {
+      fr:
+      "",
+    },
+    specs:
+    {
+      fr: 
+      "",
+    },
+    notions:
+    {
+      fr: [""],
+    },
+    tags:
+    {
+      fr: ["POO"],
+      en: ["OOP"],
+      0: ["LLM", "Data"]
+    },
+    img: [
+    ]
+  },
+  {
+    title: 
+    {
+      0: "MStar"
+    },
     description: 
     {
       fr:
@@ -305,7 +347,10 @@ export const projects: Array<Retex> = [
     ],
   },
   {
-    title: "Ecograph",
+    title: 
+    {
+      0: "Ecograph"
+    },
     description: 
     {
       fr:
@@ -356,7 +401,10 @@ export const projects: Array<Retex> = [
     ],
   },
   {
-    title: "MiniShell",
+    title: 
+    {
+      0: "MiniShell"
+    },
     description: 
     {
       fr:
@@ -394,7 +442,10 @@ export const projects: Array<Retex> = [
     ],
   },
   {
-    title: "clembarr.dev",
+    title: 
+    {
+      0: "clembarr.dev"
+    },
     description:
     {
       fr:
@@ -530,3 +581,39 @@ export const sharedLinks: Array<Hyperlink> = [
     link: "https://rodolphent.github.io/",
   }
 ];
+
+/**
+ * EMPTY RETEX TEMPLATE:
+ * ---------------------
+ * 
+  {
+    title: 
+    {
+      fr: "",
+      en: "",
+    },
+    date: new Date(2025, 6),
+    tools: [
+    ],
+    description:
+    {
+      fr:
+      "",
+    },
+    specs:
+    {
+      fr: 
+      "",
+    },
+    notions:
+    {
+      fr: [],
+    },
+    tags:
+    {
+      en: [],
+    },
+    img: [
+    ]
+  },
+ */

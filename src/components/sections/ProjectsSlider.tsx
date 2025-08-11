@@ -6,9 +6,11 @@ import { cloneElement, ReactElement, useContext, useEffect, useRef, useState } f
 import { randomNumberBetween } from "../../utils"
 import { ProjectCard } from "../cards"
 import { ThemeContext } from "../theme/ThemeEngine"
+import { LangContext } from "../language"
 
 const ProjectsSlider = () => {
   const { currentTheme } = useContext(ThemeContext);
+  const { currentLang } = useContext(LangContext);
 
   const assignRotation = (index: number, all: number) => {
     return(
@@ -61,7 +63,7 @@ const ProjectsSlider = () => {
       clearInterval(interval);
       setTimeout(() => apparitionEnded.current = true, 400*initialCards.length);
     };
-  }, []);
+  }, [currentLang, currentTheme]);
 
   // This funtion is called before updating the cards, to animate the cards according to their position
   const adjustAnimations = (cardsCopy: ReactElement[], from?: "prev" | "next") => {

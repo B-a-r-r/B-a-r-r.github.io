@@ -1,16 +1,16 @@
 import { GraphicAsset } from "../dataTypes";
 
 import portrait from "./about_portrait.jpg";
-import sysiphus_light from "./sysiphus_rotated_light.png";
-import sysiphus_dark from "./sysiphus_rotated_dark.webp";
-import hephaistos_light from "./hephaistos_nobg_light.png";
-import hephaistos_dark from "./hephaistos_nobg_dark.webp";
+import hero_figure_light from "./hero_figure_light.webp";
+import hero_figure_dark from "./hero_figure_dark.webp";
+import slider_figure_light from "./slider_figure_light.webp";
+import slider_figure_dark from "./slider_figure_dark.webp";
 
 const sysiphus: GraphicAsset = {
   label: "sysiphus",
   content: {
-    'light': sysiphus_light,
-    'dark': sysiphus_dark,
+    'light': hero_figure_light,
+    'dark': hero_figure_dark,
   },
   alt: "Sysiphus Sketch",
 };
@@ -18,8 +18,8 @@ const sysiphus: GraphicAsset = {
 const hephaistos: GraphicAsset = {
   label: "hephaistos",
   content: {
-    'light': hephaistos_light,
-    'dark': hephaistos_dark,
+    'light': slider_figure_light,
+    'dark': slider_figure_dark,
   },
   alt: "Hephaistos Sketch",
 };

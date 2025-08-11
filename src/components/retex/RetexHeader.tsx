@@ -6,7 +6,7 @@ import { Hyperlink, Skill } from "../../assets/dataTypes"
 import { ThemeContext } from "../theme/ThemeEngine"
 
 type RetexHeaderProps = {
-    title: string,
+    title: {[lang: string]: string},
     date: Date,
     tools: Skill[],
     additionalRessources?: Hyperlink[]
@@ -55,7 +55,7 @@ const RetexHeader = (relatedProject: RetexHeaderProps) => {
                             ${styles.contentStartX}
                             leading-8
                         `}
-                        dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(relatedProject.title)}}
+                        dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(relatedProject.title[currentLang] || relatedProject.title[0])}}
                     />
 
                     <hr className=

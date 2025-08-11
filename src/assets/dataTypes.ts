@@ -80,7 +80,7 @@ export interface Retex extends Project {
  * @param date - date of the project
  */
 export interface Project {
-  title: string;
+  title: {[lang: string]: string};
   description: {[lang: string]: string};
   tags: {[lang: string]: string[]};
   img?: string[];

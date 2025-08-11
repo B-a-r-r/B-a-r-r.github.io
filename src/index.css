@@ -26,7 +26,7 @@
   /* RGBA version of the primary color */
   --color-layout-bg: rgba(244, 244, 244, 0.8);
 
-  --background-image: url('./assets/illustrations/marble_texture.jpg');
+  --background-image: url('./assets/illustrations/background_landscape_light.webp');
 }
 
 .dark {
@@ -42,7 +42,7 @@
   /* RGBA version of the primary color */
   --color-layout-bg: rgba(47, 47, 47, 0.8);
 
-  --background-image: url('./assets/illustrations/background_landscape_dark.jpg');
+  --background-image: url('./assets/illustrations/background_landscape_dark.webp');
 }
 
 /* App global styles */
@@ -65,6 +65,7 @@ body {
   background-image: var(--background-image);
   background-repeat: repeat-y;
   background-size: cover;
+  background-position: center;
   opacity: 100%;
   
   font-size: var(--base-font-size);
