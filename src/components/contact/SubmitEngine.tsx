@@ -42,6 +42,9 @@ const SubmitEngine = ({ children }: { children: ReactNode }) => {
                 setCanSubmit(true);
             }, contactForm.submitCooldown);
         }
+        else {
+            setCanSubmit(true);
+        }
     }, [tentativesCount]);
 
     return (

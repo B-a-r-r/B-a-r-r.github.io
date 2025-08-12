@@ -271,19 +271,20 @@ export const projects: Array<Retex> = [
     title: 
     {
       fr: "Application EEW",
-      en: "EEW application",
+      en: "EEW app",
     },
     date: new Date(2025, 6),
     tools: [
       skills.find((skill) => skill.label === 'Python')!,
       skills.find((skill) => skill.label === 'Matplotlib')!,
-      skills.find((skill) => skill.label === 'Transformers')!,
+      skills.find((skill) => skill.label === 'Transformers')!,  
       skills.find((skill) => skill.label === 'CUDA')!
     ],
     description:
     {
       fr:
-      "",
+      "A travers la programmation orientée objet, les différents acteurs d'un model d'expérience en vie artificielle peuvent être modéliser distinctement.\
+      Evolutionary Ecology of Words implique des intéractions d'agents dans un environnement déffini. Cette application dédiée ",
     },
     specs:
     {
@@ -311,35 +312,41 @@ export const projects: Array<Retex> = [
     description: 
     {
       fr:
-      "MStar (M*) est un algorithme de pathfinding développé en Java, sur le modèle du Monte Carlo Tree Search, appliqué à un \"IA\" joueuse.",
+      "MStar (M*) est un algorithme de pathfinding développé en Java, sur le modèle du Monte Carlo Tree Search, appliqué à une \"IA\" joueuse.",
       en:
       "MStar (M*) is a pathfinding algorithm developed in Java, based on the Monte Carlo Tree Search, applied to an \"AI\" playing bot.",
     },
     tags:
     {
-      fr: ["PC", "Algorithmie", "IA", "POO", "Académique", "Universitaire", "PF", "Programmation concurrente", "Programmation fonctionnelle"],
-      en: ["CP", "Algorithmic", "AI", "OOP", "Academic", "University", "FP", "Parrallel programming", 'Functionnal programming'],
-      0: ["Java", "Algo", "Test", "Tests", "Monte Carlo", "Machine learning"],
+      fr: ["PC", "Machine learning", "POO", "IA", "Académique", "Universitaire", "PF", "Programmation concurrente", "Algorithmie", "Programmation fonctionnelle"],
+      en: ["CP", "Machine learning", "OOP", "Algorithmic", "AI", "Academic", "University", "FP", "Parrallel programming", 'Functionnal programming'],
+      0: ["Java", "Algo", "Test", "Tests", "Monte Carlo"],
     },
     date: new Date(2024, 11),
     specs: 
     {
       en:
-      "In pairs, <strong>research and development of a Java algorithm</strong> to determine the best move to make for a board game. The goal was to win <strong>the tournament</strong> of bots.<br/> \
-      <strong>Our pathfinder</strong> is inspired by <strong>A*</strong> and the <strong>Monte Carlo Tree Search</strong>, exploring possible outcomes from a given move. An inverse propagation phase allows to give more or less weight to each possible choice. The main difficulty was to find a <strong>balance</strong> between exploration and exploitation of the game tree. Knowing the size of the board and the limited execution time, we had to <strong>prune strategically</strong>.",
+      "In pairs, we <strong>researched and developed a Java algorithm</strong> to determine the best move to make in a board game.\
+      The goal was to win <strong>the tournament</strong> of bots. <strong>Our pathfinder</strong> is inspired by A* and the <strong>Monte Carlo Tree Search</strong>, \
+      exploring possible outcomes from a given move. A <strong>back propagation</strong> phase allows to give more or less <strong>weight</strong> to each possible choice. \
+      The main difficulty was to find a <strong>balance</strong> between exploration and exploitation of the game tree. Knowing the size of the board \
+      and the limited execution time, we had to <strong>prune strategically</strong>.",
       fr:
-      "En binôme, <strong>recherche et élaboration d'un algorithme en Java</strong> determinant le meilleur coup à jouer pour un jeu de plateau. Le but était de remporter <strong>le tournois</strong> des bots.<br/> \
-      <strong>Notre pathfinder</strong> s'inspire de <strong>A*</strong> et du <strong>Monte Carlo Tree Search</strong>, explorant les possibles issues à partir d'un coup donné. Une phase de propagation inverse permet de donner plus ou moins de poid à chaque choix possibles. La principale difficulté était de trouver <strong>un équilibre</strong> entre l'exploration et l'exploitation de l'arbre de jeu. Sachant la taille du plateau et le temps d'exécution limité, il nous aura fallu <strong>élaguer de manière stratégique</strong>.", 
+      "En binôme, <strong>recherche et élaboration d'un algorithme en Java</strong> determinant le meilleur coup à jouer pour un jeu de plateau.\
+      Le but était de remporter <strong>le tournois</strong> des bots. <strong>Notre pathfinder</strong> s'inspire de A* et du <strong>Monte Carlo\
+      Tree Search</strong>, explorant les possibles issues à partir d'un coup donné. Une phase de <strong>propagation inverse</strong> permet de donner plus ou moins\
+      de <strong>poids</strong> à chaque choix possibles. La principale difficulté était de trouver <strong>un équilibre</strong> entre l'exploration et l'exploitation\
+      de l'arbre de jeu. Sachant la taille du plateau et le temps d'exécution limité, il nous aura fallu <strong>élaguer de manière stratégique</strong>.", 
     },
     notions: 
     {
       en: ["Concurrent programming,", "Machine learning,", "Comparison of existing algorithms,", "Results analysis and adaptation."],
-      fr: ["Programmation concurente en Java,", "Machine learning,", "Comparaison d'algorithmes,", "Analyse de résultats et adaptation."],
+      fr: ["Programmation concurente,", "Machine learning,", "Comparaison d'algorithmes,", "Analyse de résultats et adaptation."],
     },
     tools: [
       skills.find((skill) => skill.label === 'Java')!,
       skills.find((skill) => skill.label === 'Git')!,
-      skills.find((skill) => skill.label === 'Git')!,
+      skills.find((skill) => skill.label === 'Bash')!,
     ],
     img: [
       projectsImages.mstar_tournament_results,
@@ -369,11 +376,14 @@ export const projects: Array<Retex> = [
     specs: 
     {
       en:
-      "The first step of this project was to search for the necessary <strong>csv datasets</strong> to create the visuals (graphs, maps ...). Then, my team and I were able to start developing the <strong>C# .NET graphic interface</strong> from our mockups. \
-      I was personally in charge of the database management. I discovered the <strong>SQLAlchemy ORM</strong> in Python, a whole new technology that I had to learn <strong>in a few days</strong>.",
+      "The first step of this project was to search for the necessary <strong>csv datasets</strong> to create the visuals (graphs, maps ...). Then, my team and \
+      I were able to start developing the <strong>C# .NET graphic interface</strong> from our mockups. I was personally in charge of the database management. \
+      I discovered the <strong>SQLAlchemy ORM</strong> in Python, a whole new technology that I had to learn <strong>in a few days</strong>.",
       fr:
-      "La première étape de ce projet aura été la recherche des <strong>datasets csv</strong> nécessaires à l'élaboration des visuels (graphiques, carte ...). Ensuite, mon équipe et moi même avons pu commencer à développer <strong>l'interface graphique en C# .NET</strong> à partir de nos maquettes. \
-      J'étais personnellement chargé de la gestion de la base de données. J'ai fait la découverte de l'<strong>ORM</strong> SQLAlchemy en Python, une toute nouvelle technologie qu'il m'a fallu apprendre <strong>en l'espace de quelques jours</strong>. ",
+      "Après une recherche de <strong>datasets csv</strong> nécessaires à l'élaboration des visuels (graphiques, carte ...). \
+      Ensuite, mon équipe et moi même avons pu commencer à développer <strong>l'interface graphique en C# .NET</strong> à partir de nos maquettes. \
+      J'étais personnellement chargé de la gestion de la base de données. J'ai fait la découverte de l'<strong>ORM</strong> SQLAlchemy en Python, \
+      une toute nouvelle technologie qu'il m'a fallu apprendre <strong>en l'espace de quelques jours</strong>. ",
     },
     notions: 
     {

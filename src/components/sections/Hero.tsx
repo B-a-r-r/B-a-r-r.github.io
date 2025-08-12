@@ -39,7 +39,7 @@ const Hero = () => {
         setDisplayText(text);
       }
     }, 50);
-    console.log(window.innerHeight - getNavbarOffset());
+    
     return () => clearInterval(interval);
   }, [currentMessage]);
 
