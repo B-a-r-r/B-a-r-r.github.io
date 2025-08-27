@@ -47,7 +47,7 @@ const ProjectPreview = (project: Retex) => {
                 `}
             >
                 <img id={`card-${project.title}-img`}
-                    src={project.img && project.img.length > 0 ? project.img[0] : coreImages.portrait}
+                    src={project.img && project.img.length > 0 ? project.img[0] : coreImages.placeholder_retex_image}
                     alt="project image"
                     className=
                     {`

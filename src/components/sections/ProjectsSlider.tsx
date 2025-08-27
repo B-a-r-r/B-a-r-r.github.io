@@ -26,7 +26,7 @@ const ProjectsSlider = () => {
   
     projects.slice(0,10).map((project: Project, index: number, all: Project[]) => {
       slides.push(
-        <ProjectCard key={`project-${project.title}-card`}
+        <ProjectCard key={`project-${index}-card`}
           project={project}
           additionalStyles={{
             rotate: `${assignRotation(index, all.length)}deg`,

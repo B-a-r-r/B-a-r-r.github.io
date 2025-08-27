@@ -26,12 +26,12 @@ const Home = () => {
         `}
       > <About /> </div>
 
-      <div id="skills-container"
+      {/* <div id="skills-container"
         className=
         {`
           ${styles.sectionContainer}
         `}
-      > <Skills /> </div>
+      > <Skills /> </div> */}
 
       <div id="projects-slider-container"
         className=

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   width="800px"
+   height="800px"
+   viewBox="0 0 32 32"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="cuda_icon_dark.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.57187261"
+     inkscape:cx="218.58015"
+     inkscape:cy="518.47211"
+     inkscape:window-width="1440"
+     inkscape:window-height="854"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <title
+     id="title1">file_type_cuda</title>
+  <path
+     d="M 12.109381,11.422566 V 9.3824041 c 0.180563,-0.014623 0.362234,-0.024373 0.547228,-0.031684 5.070172,-0.1742783 8.397853,4.7945069 8.397853,4.7945069 0,0 -3.59354,5.485528 -7.446296,5.485528 a 4.6525502,5.1186886 0 0 1 -1.498785,-0.264469 v -6.180208 c 1.97401,0.262028 2.370585,1.218735 3.558093,3.397834 l 2.639768,-2.448439 a 6.9921184,7.6926577 0 0 0 -5.175408,-2.779936 9.533297,10.488437 0 0 0 -1.022453,0.06702 m 0,-6.7383885 V 7.731007 c 0.181671,-0.015844 0.36445,-0.02925 0.547228,-0.036561 7.051938,-0.2608094 11.645777,6.363019 11.645777,6.363019 0,0 -5.277322,7.058912 -10.773978,7.058912 a 8.1973504,9.0186419 0 0 1 -1.419027,-0.136493 v 1.882947 a 9.4468925,10.393375 0 0 0 1.181969,0.08408 c 5.11559,0 8.815475,-2.873776 12.39794,-6.276486 0.592645,0.524056 3.025264,1.796415 3.52486,2.354595 -3.406331,3.137026 -11.344469,5.665902 -15.840826,5.665902 -0.434238,0 -0.85186,-0.02924 -1.26062,-0.07312 v 2.647094 H 31.553717 V 4.6841788 Z m 0,14.6869805 V 20.97988 C 7.3781797,20.051214 6.0643881,14.642465 6.0643881,14.642465 a 10.228964,11.253803 0 0 1 6.0449929,-3.21746 v 1.763509 h -0.0067 a 4.5417753,4.9968149 0 0 0 -3.5270765,1.77448 c 0,0 0.8662611,3.425864 3.5337235,4.411821 M 3.7059882,14.406031 A 11.715564,12.889345 0 0 1 12.109381,9.3824041 V 7.7310172 C 5.9070875,8.2782294 0.53671536,14.057474 0.53671536,14.057474 c 0,0 3.04188154,9.675539 11.57266564,10.560341 v -1.75498 C 5.8539156,21.996315 3.7059882,14.406031 3.7059882,14.406031 Z"
+     style="fill:#71cbb3;fill-opacity:1;stroke-width:1.16191"
+     id="path1" />
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>file_type_cuda</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

@@ -38,10 +38,10 @@ const ProjectsListing = () => {
                 default:
                     if (!(toMatch.length === 1 /** Does the filter comes from the sorting bar ? */
                         && (sortOptions.find((option) => option.context === filter)
-                        || sortOptions.find((option) => option.abreviation?.content[currentLang] === filter))
+                        || sortOptions.find((option) => (option.abreviation?.content[currentLang] || option.abreviation?.content[0]) === filter))
                         || sortOptions.find((option) => option.content[currentLang] === filter))
                     ) { 
-                        if (filter.length > 1 && (project.title[currentLang].toUpperCase().includes(filter) 
+                        if (filter.length > 1 && ((project.title[currentLang] || project.title[0]).toUpperCase().includes(filter) 
                         || project.description[currentLang].toUpperCase().includes(filter) 
                         || (Object(project.specs).length > 0 && project.specs[currentLang].toUpperCase().includes(filter))
                         || project.notions[currentLang]?.map((notion) => notion.toUpperCase()).includes(filter))

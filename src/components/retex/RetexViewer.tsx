@@ -73,18 +73,31 @@ const RetexViewer = () => {
     }, [currentLang, displayedRetexTitle, toggleGallery]);
 
     const handleTextOverflow = () => {
-        if (!specsContainer.current) return;
-        if (isOverflowing(specsContainer.current)) {adjustFontSize(specsContainer.current, "min");}
-        else {adjustFontSize(specsContainer.current, "max");}
+        console.log(isOverflowing(notionsContainer.current!), isOverflowing(specsContainer.current!));
 
-        if (!notionsContainer.current) return;
-        if (isOverflowing(notionsContainer.current)) {
-            adjustFontSize(notionsContainer.current, "min");
-            if (!notionsList.current) return;
-            adjustFontSize(notionsList.current, "min");
+        if (specsContainer.current) {
+            if (isOverflowing(specsContainer.current)) {adjustFontSize(specsContainer.current, "min");}
+            else {adjustFontSize(specsContainer.current, "max");}
+        }
+
+        if (notionsContainer.current) {
+            if (isOverflowing(notionsContainer.current)) {adjustFontSize(notionsContainer.current, "min");}
+            else {adjustFontSize(notionsContainer.current, "max");}
+        }
+
+        if (specsContainer.current && notionsContainer.current) {
+            if (getComputedStyle(specsContainer.current).fontSize <
+                getComputedStyle(notionsContainer.current).fontSize
+            ) {
+                notionsContainer.current.style.fontSize = getComputedStyle(specsContainer.current).fontSize;
+            }
+        }
+
+        if (notionsContainer.current && notionsList.current) {
             /** If the content is still overflowing, remove the last notion */
             while (isOverflowing(notionsContainer.current)) {
                 notionsList.current.removeChild(notionsList.current.lastChild as Node);
+                if (notionsList.current.childElementCount === 0) break;
             }
         }
     }
@@ -128,8 +141,8 @@ const RetexViewer = () => {
                 `}
             >
                 {toggleGallery && relatedProject.img && relatedProject.img.length > 0 
-                ? <RetexGalleryViewer images={relatedProject.img} untoggler={() => setToggleGallery(false)}/> : 
-                <>
+                ? <RetexGalleryViewer images={relatedProject.img} untoggler={() => setToggleGallery(false)}/>
+                : <>
                     <img src={menuIcons.close_menu_icon.content[currentTheme]}
                         id='close-button'
                         alt={menuIcons.close_menu_icon.alt}
@@ -150,15 +163,15 @@ const RetexViewer = () => {
                         className=
                         {`
                             ${styles.sizeFull}
+                            ${styles.flexCol}
                             overflow-hidden
-                            text-base
-                            text-wrap
+                            mb-[0.5%]
                         `}
                     >
                         <p className=
                             {`
                                 ${styles.sizeFull}
-                                text-base
+                                text-wrap
                             `}
                             dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(relatedProject.specs[currentLang])}}
                         />
@@ -169,7 +182,7 @@ const RetexViewer = () => {
                         {`
                             w-full
                             h-fit
-                            max-h-[45%]
+                            max-h-[40%]
                             ${styles.flexRow}
                             ${styles.contentCenter}
                             text-wrap
@@ -185,7 +198,6 @@ const RetexViewer = () => {
                                 ${styles.contentStartX}
                                 overflow-hidden
                                 relative
-                                text-xl
                             `}
                         >
                             <ul ref={notionsList}
@@ -236,8 +248,8 @@ const RetexViewer = () => {
                                     overflow-hidden
                                 `}
                             >
-                                {relatedProject.img && relatedProject.img.map((img, index) => {
-                                    if (index <= 4) return (
+                                {relatedProject.img && relatedProject.img.length > 1 && relatedProject.img.map((img, index) => {
+                                    if (index < 4) return (
                                         <img key={`retex-img-${index}`}
                                             src={img}
                                             alt={`retex image ${index + 1}`}
@@ -251,7 +263,7 @@ const RetexViewer = () => {
                                         />
                                     )
                                 })}
-                                {relatedProject.img && relatedProject.img.length > 0 && relatedProject.img.length < 4
+                                {relatedProject.img && relatedProject.img.length > 1 && relatedProject.img.length < 4
                                     ? Array.from({ length: 4 - relatedProject.img.length }, (_, i) => (
                                         <img key={`placeholder-img-${i}`}
                                             src={coreImages.placeholder_retex_image}
@@ -289,8 +301,8 @@ const RetexViewer = () => {
                                         shadow-lg
                                     `}
                                     onClick={() => setToggleGallery(true)}
-                                    disabled={relatedProject.img && relatedProject.img.length === 0}
-                                > {relatedProject.img && relatedProject.img.length > 0 ?
+                                    disabled={relatedProject.img && relatedProject.img.length <= 1}
+                                > {relatedProject.img && relatedProject.img.length > 1 ?
                                     placeholderMessages.find((message) => message.context === "projectGalleryButton")!.content[currentLang]
                                     : placeholderMessages.find((message) => message.context === "projectGalleryButtonEmpty")!.content[currentLang]
                                 } </button>
@@ -303,4 +315,4 @@ const RetexViewer = () => {
     )
 }
 
-export default RetexViewer
+export default RetexViewer;

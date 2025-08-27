@@ -125,21 +125,35 @@ export const sortOptions: Array<SortOption> = [
     },
   },
   {
-    context: AvailableSortOptions.PERSONNAL,
+    context: AvailableSortOptions.DATA,
     content: 
     {
-      fr: "Personnels",
-      en: "Personnal",
+      fr: "Données",
+      en: "Data",
     },
-  },
-  {
-    context: AvailableSortOptions.ALGORITHMIC,
-    content: 
+    abreviation:
     {
-      fr: "Algorithmie",
-      en: "Algorithmic",
+      content:
+      {
+        0: "Data",
+      },
     },
   },
+  // {
+  //   context: AvailableSortOptions.PERSONNAL,
+  //   content: 
+  //   {
+  //     fr: "Personnels",
+  //     en: "Personnal",
+  //   },
+  //   abreviation:
+  //   {
+  //     content:
+  //     {
+  //       0: "Perso",
+  //     },
+  //   },
+  // },
   {
     context: AvailableSortOptions.CP,
     content: 
@@ -173,6 +187,22 @@ export const sortOptions: Array<SortOption> = [
     },
   },
   {
+    context: AvailableSortOptions.FP,
+    content: 
+    {
+      fr: "Prog. fonctionnelle",
+      en: "Functional prog.",
+    },
+    abreviation:
+    {
+      content:
+      {
+        fr: "PF",
+        en: "FP",
+      },
+    },
+  },
+  {
     context: AvailableSortOptions.OOP,
     content: 
     {
@@ -188,20 +218,49 @@ export const sortOptions: Array<SortOption> = [
       },
     },
   },
+  // {
+  //   context: AvailableSortOptions.ACADEMIC,
+  //   content: 
+  //   {
+  //     fr: "Académiques",
+  //     en: "Academic",
+  //   },
+  //   abreviation:
+  //   {
+  //     content:
+  //     {
+  //       0: "Acad",
+  //     },
+  //   },
+  // },
+  // {
+  //   context: AvailableSortOptions.PROFESSIONAL,
+  //   content: 
+  //   {
+  //     fr: "Professionnels",
+  //     en: "Professional",
+  //   },
+  //   abreviation:
+  //   {
+  //     content:
+  //     {
+  //       0: "Pro",
+  //     },
+  //   },
+  // },
   {
-    context: AvailableSortOptions.ACADEMIC,
+    context: AvailableSortOptions.ALGORITHMIC,
     content: 
     {
-      fr: "Académiques",
-      en: "Academic",
+      fr: "Algorithmie",
+      en: "Algorithmic",
     },
   },
   {
-    context: AvailableSortOptions.PROFESSIONAL,
+    context: AvailableSortOptions.WEB,
     content: 
     {
-      fr: "Professionnels",
-      en: "Professional",
+      0: "Web",
     },
   },
 ];

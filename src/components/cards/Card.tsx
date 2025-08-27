@@ -4,7 +4,6 @@ import DOMPurify from 'dompurify';
 import { isOverflowing, truncateTextIfOverflow } from '../../utils';
 import { ThemeContext } from '../theme/ThemeEngine';
 
-
 type CardProps = {
     title: string;
     content: string;

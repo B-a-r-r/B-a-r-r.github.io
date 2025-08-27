@@ -151,8 +151,8 @@ export const handleMouseEnter = (div: HTMLDivElement | null) => {
 export const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, div: HTMLDivElement | null) => {
     if (!div) return;
     const { top, left, width, height } = div.getBoundingClientRect();
-    const color1 = getComputedStyle(document.documentElement).getPropertyValue("--color-primary")
-    const color2 = getComputedStyle(document.documentElement).getPropertyValue("--color-secondary")
+    const color1 = getComputedStyle(div).getPropertyValue("--color-primary")
+    const color2 = getComputedStyle(div).getPropertyValue("--color-secondary")
     const cursorX = e.clientX - left - width / 2;
     const cursorY = e.clientY - top - height / 2;
 
@@ -170,7 +170,7 @@ export const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, div: HTMLDi
 export const handleMouseLeave = (div: HTMLDivElement | null) => {
     if (!div) return;
     div.style.transform = `rotateX(0deg) rotateY(0deg)`;
-    div.style.backgroundColor = getRGBAThemeColor("--color-secondary", 1);
+    div.style.backgroundColor = `var(--color-secondary)`;
     injectCursorPosition(0, 0);
 }
 
@@ -323,10 +323,10 @@ export const minimizeFontSize = (
     simulatedHeight: (fontSize: number) => number,
 ) => {
     
-    while (simulatedHeight(fontSize) > container.offsetHeight && fontSize > 8) {
-        fontSize -= 1;
+    while (simulatedHeight(fontSize) > container.offsetHeight) {
+        fontSize -= 0.2;
     }
-    container.style.fontSize = `${fontSize+0.5}px`;
+    container.style.fontSize = `${fontSize}px`;
 }
 
 /**
@@ -342,10 +342,10 @@ export const maximizeFontSize = (
     simulatedHeight: (fontSize: number) => number,
 ) => {
     
-    while (simulatedHeight(fontSize) < container.offsetHeight && fontSize < 64) {
-        fontSize += 1;
+    while (simulatedHeight(fontSize) < container.offsetHeight) {
+        fontSize += 0.2;
     }
-    container.style.fontSize = `${fontSize-0.5}px`;
+    container.style.fontSize = `${fontSize}px`;
 }
 
 /**
@@ -357,7 +357,7 @@ export const adjustFontSize = (container: HTMLElement, expect: "min" | "max") =>
     if (!container) {console.warn("Can't adjust font size: container is null."); return;}
 
     const initFontSize = parseFloat(getComputedStyle(container).fontSize);
-    const textContentLenght = container.innerText?.length || 0; 
+    const textContentLenght = container.innerText.length || 0;
     const lines = (fontSize: number) => Math.ceil(textContentLenght / charsPerLine(container, fontSize)); 
     const simulatedHeight = (fontSize: number) => lines(fontSize) * fontSize;
 
@@ -366,4 +366,28 @@ export const adjustFontSize = (container: HTMLElement, expect: "min" | "max") =>
     } else {
         maximizeFontSize(container, initFontSize, simulatedHeight);
     }    
+}
+
+/**
+ * @function uniformizeFontSize Uniformize the font size of two containers according to the expected behavior
+ * @param container1 the first container
+ * @param container2 the second container
+ * @param expect the expected behavior: 'min' to minimize or 'max' to maximize
+ * @returns void
+ */
+export const uniformizeFontSize = (container1: HTMLElement, container2: HTMLElement, expect: "min" | "max") => {
+    if (!container1 || !container2) return;
+
+    const fontSize1 = parseFloat(getComputedStyle(container1).fontSize);
+    const fontSize2 = parseFloat(getComputedStyle(container2).fontSize);
+
+    if (expect === "min") {
+        const newSize = Math.min(fontSize1, fontSize2);
+        container1.style.fontSize = `${newSize}px`;
+        container2.style.fontSize = `${newSize}px`;
+    } else {
+        const newSize = Math.max(fontSize1, fontSize2);
+        container1.style.fontSize = `${newSize}px`;
+        container2.style.fontSize = `${newSize}px`;
+    }
 }

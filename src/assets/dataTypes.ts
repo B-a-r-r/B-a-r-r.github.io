@@ -35,6 +35,9 @@ export enum AvailableSortOptions {
   ACADEMIC = "ACADEMIC",
   PERSONNAL = "PERSONNAL",
   PROFESSIONAL = "PROFESSIONAL",
+  DATA = "DATA",
+  WEB = "WEB",
+  FP = "FP",
 }
 export interface SortOption extends Omit<Message, "context"> {
   context: AvailableSortOptions;

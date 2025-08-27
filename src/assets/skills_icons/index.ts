@@ -53,7 +53,99 @@ import js_dark from "./js_icon_dark.svg";
 import gnupg_light from "./gnupg_icon_light.svg";
 import gnupg_dark from "./gnupg_icon_dark.svg";
 import csharp_light from "./csharp_icon_light.svg";
-import csharp_dark from "./csharp_icon_dark.svg";  
+import csharp_dark from "./csharp_icon_dark.svg";
+import customtkinter_dark from "./customtkinter_icon_dark.svg"
+import customtkinter_light from "./customtkinter_icon_light.svg"
+import matplotlib_light from "./matplotlib_icon_light.svg"
+import matplotlib_dark from "./matplotlib_icon_dark.svg"
+import cuda_light from "./cuda_icon_light.svg"
+import cuda_dark from "./cuda_icon_dark.svg"
+import pytorch_light from "./pytorch_icon_light.svg"
+import pytorch_dark from "./pytorch_icon_dark.svg"
+import hugging_face_light from "./hugging_face_icon_light.svg"
+import hugging_face_dark from "./hugging_face_icon_dark.svg"
+import junit_light from "./junit_icon_light.svg"
+import junit_dark from "./junit_icon_dark.svg"
+import sqlserver_light from "./sqlserver_icon_light.svg"
+import sqlserver_dark from "./sqlserver_icon_dark.svg"
+import twig_light from "./twig_icon_light.svg"
+import twig_dark from "./twig_icon_dark.svg"
+import axios_light from "./axios_icon_light.svg"
+import axios_dark from "./axios_icon_dark.svg"
+import unittest_light from "./unittest_icon_light.svg"
+import unittest_dark from "./unittest_icon_dark.svg"
+
+export const unittest_icon: GraphicAsset = {
+  label: "unittest_icon",
+  content: {
+    'light': unittest_light,
+    'dark': unittest_dark,
+  },
+  alt: "Unit Test Icon"
+}
+
+export const axios_icon: GraphicAsset = {
+  label: "axios_icon",
+  content: {
+    'light': axios_light,
+    'dark': axios_dark,
+  },
+  alt: "Axios Icon"
+}
+
+export const twig_icon: GraphicAsset = {
+  label: "twig_icon",
+  content: {
+    'light': twig_light,
+    'dark': twig_dark,
+  },
+  alt: "Twig Icon"
+}
+
+export const sqlserver_icon: GraphicAsset = {
+  label: "sqlserver_icon",
+  content: {
+    'light': sqlserver_light,
+    'dark': sqlserver_dark,
+  },
+  alt: "SQL Server Icon"
+}
+
+export const junit_icon: GraphicAsset = {
+  label: "junit_icon",
+  content: {
+    'light': junit_light,
+    'dark': junit_dark,
+  },
+  alt: "JUnit Icon"
+}
+
+export const hugging_face_icon: GraphicAsset = {
+  label: "hugging_face_icon",
+  content: {
+    'light': hugging_face_light,
+    'dark': hugging_face_dark,
+  },
+  alt: "Hugging Face Icon"
+}
+
+export const pytorch_icon: GraphicAsset = {
+  label: "pytorch_icon",
+  content: {
+    'light': pytorch_light,
+    'dark': pytorch_dark,
+  },
+  alt: "PyTorch Icon"
+}
+
+export const cuda_icon: GraphicAsset = {
+  label: "cuda_icon",
+  content: {
+    'light': cuda_light,
+    'dark': cuda_dark,
+  },
+  alt: "CUDA Icon"
+};
 
 export const docker_icon: GraphicAsset = {
   label: "docker_icon",
@@ -298,8 +390,35 @@ export const csharp_icon: GraphicAsset = {
   alt: "C# Icon",
 };
 
+export const customtkinter_icon: GraphicAsset = {
+  label: "customtkinter_icon",
+  content: {
+    'light': customtkinter_light,
+    'dark': customtkinter_dark,
+  },
+  alt: "CustomTkinter Icon",
+};
+
+export const matplotlib_icon: GraphicAsset = {
+  label: "matplotlib_icon",
+  content: {
+    'light': matplotlib_light,
+    'dark': matplotlib_dark,
+  },
+  alt: "Matplotlib Icon",
+};
+
 export const skillsIcons = {
 
+  unittest_icon,
+  axios_icon,
+  twig_icon,
+  sqlserver_icon,
+  junit_icon,
+  hugging_face_icon,
+  pytorch_icon,
+  cuda_icon,
+  matplotlib_icon,
   docker_icon,
   git_icon,
   go_icon,
@@ -327,5 +446,6 @@ export const skillsIcons = {
   js_icon,
   gnupg_icon,
   csharp_icon,
+  customtkinter_icon
 
 };

@@ -24,7 +24,7 @@
   --color-mobile-navbar: rgba(244, 244, 244, 0.9);
 
   /* RGBA version of the primary color */
-  --color-layout-bg: rgba(244, 244, 244, 0.8);
+  --color-layout-bg: rgba(244, 244, 244, 0.9);
 
   --background-image: url('./assets/illustrations/background_landscape_light.webp');
 }
@@ -40,7 +40,7 @@
   --color-mobile-navbar: rgba(47, 47, 47, 0.9);
 
   /* RGBA version of the primary color */
-  --color-layout-bg: rgba(47, 47, 47, 0.8);
+  --color-layout-bg: rgba(47, 47, 47, 0.9);
 
   --background-image: url('./assets/illustrations/background_landscape_dark.webp');
 }

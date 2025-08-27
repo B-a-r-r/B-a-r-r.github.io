@@ -5,7 +5,7 @@ import hero_figure_light from "./hero_figure_light.webp";
 import hero_figure_dark from "./hero_figure_dark.webp";
 import slider_figure_light from "./slider_figure_light.webp";
 import slider_figure_dark from "./slider_figure_dark.webp";
-import placeholder_retex_image from "./placeholder_retex_image.webp";
+import placeholder_retex_image from "./placeholder_retex_image.png";
 
 const sysiphus: GraphicAsset = {
   label: "sysiphus",
