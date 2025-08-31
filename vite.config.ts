@@ -9,7 +9,7 @@ export default defineConfig({
     }
   },
   plugins: [react()],
-  base: "/B-a-r-r.github.io",
+  base: "/b-a-r-r.github.io/",
 })
 
   
