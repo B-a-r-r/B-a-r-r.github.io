@@ -1,0 +1,402 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@300;400;600&family=Montserrat:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* App global style variables */
+:root {
+   /* App font families */
+   --font-primary: "Montserrat", sans-serif;
+   --font-secondary: "Hind Vadodara", sans-serif;
+   --font-tertiary: "Kanit", sans-serif;
+   --base-font-size: 20px;
+}
+
+.light {
+  /* App light theme colors */
+  --color-primary: #f4f4f4;
+  --color-secondary: #f1f1f1;
+  --color-tertiary: #479561;
+  --color-quaternary: #3D3E3C;
+  --color-quinary: #4F4F4F;
+  --color-mobile-navbar: rgba(244, 244, 244, 0.9);
+
+  /* RGBA version of the primary color */
+  --color-layout-bg: rgba(244, 244, 244, 0.9);
+
+  --background-image: url('./assets/illustrations/background_landscape_light.webp');
+}
+
+.dark {
+  /* App dark theme colors */
+  --color-primary: #2F2F2F;
+  --color-secondary: #282929;
+  --color-tertiary: #7CFFC4;
+  --color-quaternary: #71cbb3;
+  --color-quinary: #3c3c3c;
+
+  --color-mobile-navbar: rgba(47, 47, 47, 0.9);
+
+  /* RGBA version of the primary color */
+  --color-layout-bg: rgba(47, 47, 47, 0.9);
+
+  --background-image: url('./assets/illustrations/background_landscape_dark.webp');
+}
+
+/* App global styles */
+* {
+  scroll-behavior: smooth;
+  border-color: var(--color-quinary);
+}
+
+/* sauf body */
+.root, #root {
+  width: 100%;
+  height: fit-content;
+}
+
+html {
+  background-color: var(--color-secondary);
+}
+
+body {
+  background-image: var(--background-image);
+  background-repeat: repeat-y;
+  background-size: cover;
+  background-position: center;
+  opacity: 100%;
+  
+  font-size: var(--base-font-size);
+  color: var(--color-quaternary);
+  font-family: var(--font-primary);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+strong {
+  margin: 0;
+  padding: 0;
+  color: var(--color-tertiary); 
+}
+
+button {
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 1% 3.5%;
+}
+
+input:focus, textarea:focus {
+  transition: all 0.1s ease-in-out;
+  border: 2px solid var(--color-tertiary);
+  outline: none;
+}
+
+/* App primary font */
+.font-primary-extralight {
+  font-family: var(--font-primary);
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.font-primary-light {
+  font-family: var(--font-primary);
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.font-primary-regular {
+  font-family: var(--font-primary);
+  font-weight: 350;
+  font-style: normal;
+}
+
+.font-primary-semibold {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-style: normal;
+}
+
+.font-primary-bold {
+  font-family: var(--font-primary);
+  font-weight: 800;
+  font-style: normal;
+}
+
+/* App secondary font */ 
+.font-secondary-light {
+  font-family: var(--font-secondary);
+  font-weight: 300;
+  font-style: normal;
+}
+
+.font-secondary-regular {
+  font-family: var(--font-secondary);
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-secondary-semibold {
+  font-family: var(--font-secondary);
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* App tertiary font */
+.font-tertiary-light {
+  font-family: var(--font-tertiary);
+  font-weight: 200;
+  font-style: normal;
+}
+
+.font-tertiary-regular {
+  font-family: var(--font-tertiary);
+  font-weight: 300;
+  font-style: normal;
+}
+
+.font-tertiary-semibold {
+  font-family: var(--font-tertiary);
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* App color schemes */
+.color-scheme-primary {
+  background: var(--color-primary);
+  color: var(--color-quaternary);
+}
+
+.color-scheme-secondary {
+  background: var(--color-secondary);
+  color: var(--color-quaternary);
+}
+
+.color-scheme-quaternary {
+  background: var(--color-quaternary);
+  color: var(--color-primary);
+}
+
+.color-scheme-quinary {
+  background: var(--color-quinary);
+  color: var(--color-secondary);
+}
+
+/* App animations */
+
+@keyframes lang-dropdown-menu {
+  0% {
+    visibility: hidden;
+    transform: translateY(-75%);
+  }
+  
+  1% {
+    visibility: visible;
+    opacity: 100;
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes phone-dropdown-menu {
+}
+
+@keyframes sort-dropdown-menu {
+  0% {
+    visibility: hidden;
+    transform: translateY(-50%);
+  }
+  
+  1% {
+    visibility: visible;
+    opacity: 100;
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes hr-apparition {
+  from {
+    width: 0;
+  }
+  to {
+    width: 66;
+  }
+}
+
+@keyframes card-apparition {
+  from {
+    opacity: 0;
+  }
+
+  33% {
+    opacity: 80;
+    transform: rotate(2deg);
+  }
+
+  66% {
+    opacity: 90;
+    transform: rotate(calc(-2deg));
+  }
+
+  to {
+    opacity: 100;
+    transform: rotate(0deg);
+  }
+  
+}
+
+@keyframes card-top-to-bottom {
+  0% {
+    z-index: 10;
+    opacity: 100;
+    rotate: 0deg;
+    transform: translate3d(0, 0, 0);
+  }
+
+  20% {
+    z-index: 10;
+    opacity: 25%;
+    rotate: 8deg;
+    transform: translate3d(80%, -15%, 0);
+  }
+
+  40% {
+    z-index: 10;
+    opacity: 0;
+    rotate: 10deg;
+    transform: translate3d(200%, -30%, 0);
+  }
+
+  45% {
+    z-index: 10;
+    opacity: 0;
+    rotate: -10deg;
+    transform: translate3d(-25%, -15%, 0);
+  }
+
+  60% {
+    opacity: 0;
+    z-index: 10;
+    transform: translate3d(0, 0);
+  }
+
+  70% {
+    opacity: 0;
+  }
+
+  80% {
+    opacity: 80;
+    transform: rotate(2deg);
+  }
+
+  90% {
+    opacity: 90;
+    transform: rotate(calc(-2deg));
+  }
+
+  100% {
+    opacity: 100;
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes card-bottom-to-top {
+  0% {
+    z-index: 1;
+    opacity: 100;
+    rotate: 0deg;
+    transform: translate3d(0, 0, 0);
+  }
+
+  10% {
+    opacity: 0;
+  }
+
+  30% {
+      z-index: 10;
+      opacity: 0;
+      rotate: 10deg;
+      transform: translate3d(100%, -30%, 0);
+    }
+
+  50% {
+    z-index: 10;
+    opacity: 10%;
+    rotate: 8deg;
+    transform: translate3d(80%, -15%, 0);
+  }
+
+  100% {
+    opacity: 100;
+    z-index: 10;
+    transform: translate3d(0, 0);
+  }
+}
+
+@keyframes card-top-to-second {
+  from {
+    z-index: 10;
+    opacity: 100;
+    rotate: 0deg;
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    z-index: 9;
+    opacity: 100;
+    transform: translate3d(0, 0, 0, 0);
+  }
+}
+
+@keyframes card-reach-top {
+  from {
+    z-index: 9;
+  }
+
+  to {
+    z-index: 10;
+    rotate: 0deg;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 100;
+  }
+} 
+
+@keyframes fade-out {
+  0% {
+    opacity: 100;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes burger-menu-apparition {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
