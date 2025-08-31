@@ -1,7 +1,7 @@
 import { projects } from "../../assets/contents";
 import styles from '../../style';
 import DOMPurify from 'dompurify';
-import { adjustFontSize, isOverflowing } from '../../utils';
+import { adjustFontSize, getActiveBreakpoint, isOverflowing } from '../../utils';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { LangContext } from '../language';
 import { coreImages, menuIcons } from '../../assets';
@@ -113,10 +113,12 @@ const RetexViewer = () => {
         <div id={`retex-${displayedRetexTitle}`}
             className=
             {`
-                ${styles.sizeFull}
-                ${styles.flexRow}
+                ${getActiveBreakpoint('number') as number < 2 ? "" : styles.sizeFull}
+                ${getActiveBreakpoint('number') as number < 2 ? styles.flexCol : styles.flexRow}
                 p-[6%]
                 relative
+                md:space-y-0 space-y-[20px]
+                md:overflow-hidden overflow-scroll
             `}
         > 
             <RetexHeader {...relatedProject} />
@@ -127,17 +129,19 @@ const RetexViewer = () => {
                     ${styles.sizeFull}
                     ${styles.flexCol}
                     color-scheme-secondary
-                    py-[3%]
-                    px-[3%]
+                    md:py-[3%] py-[6%]
+                    md:px-[3%] px-[8%]
                     rounded-lg
                     shadow-lg
-                    overflow-hidden
+                    overflow-x-hidden
+                    md:overflow-hidden overflow-y-scroll
                     z-[22]
-                    ml-[2%]
+                    md:ml-[2%]
                     relative
                     transition-all
                     duration-200
                     ease-in-out
+                    md:space-y-0 space-y-[20px]
                 `}
             >
                 {toggleGallery && relatedProject.img && relatedProject.img.length > 0 
@@ -149,6 +153,7 @@ const RetexViewer = () => {
                         className=
                         {`
                             absolute
+                            ${getActiveBreakpoint('number') as number < 2 ? "hidden" : ""}
                             top-[2%]
                             right-[1%]
                             z-[23]
@@ -172,6 +177,7 @@ const RetexViewer = () => {
                             {`
                                 ${styles.sizeFull}
                                 text-wrap
+                                ${getActiveBreakpoint('number') as number < 2 ? "text-xs" : ""}
                             `}
                             dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(relatedProject.specs[currentLang])}}
                         />
@@ -181,12 +187,13 @@ const RetexViewer = () => {
                         className=
                         {`
                             w-full
-                            h-fit
-                            max-h-[40%]
-                            ${styles.flexRow}
+                            md:h-fit h-full 
+                            md:max-h-[40%]
+                            ${getActiveBreakpoint('number') as number < 2 ? styles.flexCol : styles.flexRow}
                             ${styles.contentCenter}
                             text-wrap
-                            space-x-[3%]
+                            md:space-x-[3%] space-x-0
+                            md:space-y-0 space-y-[30px]
                         `}
                     >
                         <span id='notions'
@@ -209,11 +216,12 @@ const RetexViewer = () => {
                                     list-disc
                                     list-inside
                                     space-y-[5%]
+                                    ${getActiveBreakpoint('number') as number < 2 ? "text-2xs" : ""}
                                 `}
                             >
                                 {relatedProject.notions[currentLang].map((notion, index) => (
                                     <li key={`notion-${index}`}
-                                        className={`notion-${index}`}
+                                        className={``}
                                         dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(notion)}}
                                     />
                                 ))}
@@ -225,7 +233,7 @@ const RetexViewer = () => {
                             {`
                                 relative
                                 ${styles.sizeFull}
-                                max-w-[44%]
+                                md:max-w-[44%]
                                 ${styles.flexCol}
                                 ${styles.contentCenter}
                                 rounded-lg
@@ -290,6 +298,7 @@ const RetexViewer = () => {
                                         z-50
                                         bg-[--color-secondary]
                                         text-[--color-tertiary]
+                                        text-xs
                                         enabled:hover:scale-105
                                         font-semibold
                                         enabled:hover:text-[--color-quinary]
@@ -310,6 +319,47 @@ const RetexViewer = () => {
                         </div>
                     </div>
                 </>}
+            </div>
+
+            <div id='retex-mobile-additional'
+                className=
+                {`
+                    ${styles.flexCol}
+                `}
+            >
+                <ul id='retex-header-additional-ressources'
+                    className=
+                    {`
+                        ${styles.sizeFull}
+                        ${styles.flexCol}
+                        list-none
+                        text-wrap
+                        ml-[6%]
+                        text-xs
+                    `}
+                >
+                    {relatedProject.additionalRessources ? 
+                        relatedProject.additionalRessources.map((resource, index) => (
+                            <li key={`retex-resource-${index}`}
+                                className=
+                                {`
+                                    ${styles.sizeFull}
+                                    ${getActiveBreakpoint('number') as number < 2 ? styles.flexRow : "hidden"}
+                                    ${styles.contentStartX}
+                                    space-x-[3%]
+                                    ${currentTheme === 'dark' ? 'text-[--color-tertiary]' : 'text-[--color-primary]'}
+                                    transition-all
+                                    duration-400
+                                    ease-in-out
+                                `}
+                            >   
+                                <a target='_blank'
+                                    href={resource.link}
+                                > → {resource.content[currentLang]} </a>
+                            </li>
+                        ))
+                    : null}
+                </ul>
             </div>
         </div>
     )

@@ -4,6 +4,9 @@ import DOMPurify from "dompurify"
 import { LangContext } from "../language"
 import { Hyperlink, Skill } from "../../assets/dataTypes"
 import { ThemeContext } from "../theme/ThemeEngine"
+import { getActiveBreakpoint } from "../../utils"
+import { menuIcons } from "../../assets"
+import { RetexContext } from "./RetexDisplayEngine"
 
 type RetexHeaderProps = {
     title: {[lang: string]: string},
@@ -13,20 +16,37 @@ type RetexHeaderProps = {
 }
 
 const RetexHeader = (relatedProject: RetexHeaderProps) => {
-    const { currentLang } = useContext(LangContext)
+    const { currentLang } = useContext(LangContext);
     const { currentTheme } = useContext(ThemeContext);
+    const { setDisplayedRetex } = useContext(RetexContext);
 
     return (
         <header id='retex-header'
             className=
             {`
                 h-fit
-                w-3/12
+                md:w-3/12 w-full
                 ${styles.flexCol}
                 z-[21]
                 overflow-hidden
             `}
         >
+            <img src={menuIcons.close_menu_icon.content[currentTheme]}
+                id='close-button'
+                alt={menuIcons.close_menu_icon.alt}
+                className=
+                {`
+                    absolute
+                    ${getActiveBreakpoint('number') as number < 2 ? "" : "hidden"}
+                    top-[30px]
+                    right-[30px]
+                    z-[23]
+                    ${styles.sizeFit}
+                    cursor-pointer
+                `}
+                onClick={() => setDisplayedRetex(undefined)}
+            />
+
             <div id='retex-header-main'
                 className=
                 {`
@@ -40,13 +60,14 @@ const RetexHeader = (relatedProject: RetexHeaderProps) => {
                     {`
                         w-full
                         font-primary-bold
-                        2xl:text-4xl text-3xl
+                        md:text-3xl text-xl
                         tracking-wide
-                        py-[6%]
+                        md:py-[6%] 
+                        md:pt-[6%]
                         px-[10%]
                         border-dashed
-                        space-y-[6%]
-                        mb-[3%]
+                        md:space-y-[6%] space-y-[2%]
+                        md:mb-[3%]
                     `}
                 > 
                     <p className=
@@ -54,6 +75,7 @@ const RetexHeader = (relatedProject: RetexHeaderProps) => {
                             ${styles.flexWrap}
                             ${styles.contentStartX}
                             leading-8
+                            md:mr-0 mr-4
                         `}
                         dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(relatedProject.title[currentLang] || relatedProject.title[0])}}
                     />
@@ -61,7 +83,8 @@ const RetexHeader = (relatedProject: RetexHeaderProps) => {
                     <hr className=
                         {`
                             ${styles.line}
-                            w-[50%]
+                            md:w-[50%] w-[25%]
+
                         `}
                     />
 
@@ -81,23 +104,24 @@ const RetexHeader = (relatedProject: RetexHeaderProps) => {
                 <div id='retex-skills'
                     className=
                     {`
-                        ${styles.flexCol}
+                        ${getActiveBreakpoint('number') as number < 2 ? styles.flexRow : styles.flexCol}
                         ${styles.sizeFull}
                         ${styles.contentStartX}
                         px-[10%]
                         py-[8%]
                         pt-[6%]
-                        space-y-[6%]
-                        overflow-hidden
+                        md:space-y-[6%]
+                        md:overflow-hidden overflow-x-scroll
+                        overflow-y-hidden
                     `}
                 >
                     {relatedProject.tools.slice(0, 6).map((tool, index) => (
                         <span key={`retex-skill-${index}`}
                             className=
                             {`
-                                ${styles.flexRow}
+                                ${getActiveBreakpoint('number') as number < 2 ? styles.flexCol : styles.flexRow}
                                 ${styles.sizeFull}
-                                ${styles.contentStartX}
+                                ${getActiveBreakpoint('number') as number < 2 ? styles.contentStartY : styles.contentStartX}
                                 space-x-[8%]
                             `}
                         >   
@@ -108,14 +132,16 @@ const RetexHeader = (relatedProject: RetexHeaderProps) => {
                                     object-cover
                                     object-center
                                     aspect-square
-                                    w-[25%]
+                                    md:w-[25%] w-[80%]
+                                    max-w-[50px]
                                 `}
                             />
 
                             <label className=
                                 {`
+                                    ${getActiveBreakpoint('number') as number < 2 ? "hidden" : ""}
                                     font-primary-regular
-                                    2xl:text-lg base:text-sm
+                                    2xl:text-lg md:text-sm
                                 `}
                             > {tool.label} </label>
                         </span>
@@ -126,7 +152,7 @@ const RetexHeader = (relatedProject: RetexHeaderProps) => {
             <div id='retex-header-additional'
                 className=
                 {`
-                    ${styles.flexCol}
+                    ${getActiveBreakpoint('number') as number < 2 ? "hidden" : styles.flexCol}
                 `}
             >
                 <ul id='retex-header-additional-ressources'
@@ -139,6 +165,7 @@ const RetexHeader = (relatedProject: RetexHeaderProps) => {
                         ml-[6%]
                         mt-[8%]
                         text-[90%]
+                        space-y-[3%]
                     `}
                 >
                     {relatedProject.additionalRessources ? 

@@ -66,7 +66,7 @@ const Dropdown = ({items, animationStyle, menuState, itemState, additionalStyles
                     className=
                     {`
                         object-cover 
-                        w-4
+                        w-3
                         rounded-full
                     `}
                 />
@@ -80,7 +80,8 @@ const Dropdown = ({items, animationStyle, menuState, itemState, additionalStyles
                     z-[10]
                     absolute
                     px-4
-                    pt-1
+                    2xl:pb-1       
+                    2xl:pt-2 pt-1
                     bg-[--color-secondary]
                     rounded-md
                     shadow-md
@@ -96,7 +97,8 @@ const Dropdown = ({items, animationStyle, menuState, itemState, additionalStyles
                     {`
                         list-none
                         flex-col
-                        2xl:leading-8 lg:leading-9 
+                        2xl:leading-8 leading-8
+                        2xl:text-xs
                     `}
                 > {items} </ul>
             </div>

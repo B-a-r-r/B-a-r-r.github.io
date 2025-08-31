@@ -99,6 +99,7 @@ const ContactForm = () => {
       {`
         ${styles.sizeFull}
         md:max-h-[75%] 
+        lg:max-w-[500px]
         ${styles.flexCol}
         ${styles.contentCenter}
         font-primary-regular
@@ -117,10 +118,10 @@ const ContactForm = () => {
           h-1/5
           ${styles.contentStartAll}
           font-primary-bold
-          2xl:text-[180%] base:text-base
+          base:text-base
           ${styles.heading2}
           tracking-wider
-          xl:leading-[125%] md:leading-10
+          
           xl:mb-[5%] base:mb-[8%]
         `}
         dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(contactForm.title[currentLang])}}

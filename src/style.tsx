@@ -3,21 +3,21 @@ import { getRandomTailwindColor } from "./utils";
 const styles = {
 
   page: "w-full h-full text-[--color-quaternary] bg-transparent",
-  sectionContainer: `w-screen md:h-screen px-[12%] text-[--color-quaternary] bg-transparent`,
+  sectionContainer: `w-screen px-[12%] text-[--color-quaternary] bg-transparent`,
 
   heading2: " \
     font-primary-bold \
-    2xl:text-4xl xl:text-3xl lg:text-2xl  \
-    xl:leading-10 base:leading-8 \
+    2xl:text-3xl xl:text-2xl lg:text-xl md:text-xl text-md \
+    xl:leading-8 base:leading-6 \
     w-full  \
     tracking-wider  \
-    xl:mb-9 base:mb-8",
+    xl:mb-9 lg:mb-6 mb-4",
   
   line: " \
     block \
     bg-[--color-tertiary] \
     w-2/3 \
-    h-[3px] \
+    2xl:h-[5px] h-[3px] \
     border-none ",
   
   subtitle: " \
@@ -28,8 +28,8 @@ const styles = {
   
   paragraph: " \
     font-primary-regular \
-    2xl:text-2xl xl:text-xl lg:text-lg base:text-xs \
-    leading-[145%]  \
+    2xl:text-xl xl:text-lg md:text-md base:text-2xs \
+    leading-[145%] base:leading-[140%]  \
     tracking-wide \
     text-wrap  \
     whitespace-pre-line",

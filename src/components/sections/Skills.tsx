@@ -1,10 +1,10 @@
 import { useContext, useEffect, useRef, useState } from "react"
 import { skills } from "../../assets/contents"
-import { AvailableSkillCategories, AvailableSkillSubcategories, SkillCategorie, SkillSubcategorie } from "../../assets/dataTypes"
+import { AvailableSkillCategories, SkillCategorie} from "../../assets/dataTypes"
 import styles from "../../style"
-import { ForceGraph2D, ForceGraph3D, ForceGraphMethods$1 } from "react-force-graph"
+import { ForceGraph2D, ForceGraphMethods$1 } from "react-force-graph"
 import {TextureLoader, SRGBColorSpace, SpriteMaterial, Sprite} from "three"
-import { skillCategories, skillSubcategories } from "../../assets/constants"
+import { skillCategories } from "../../assets/constants"
 import { ThemeContext } from "../theme/ThemeEngine"
 
 type GraphData = {
@@ -25,7 +25,7 @@ const Skills = () => {
     skills//.filter((skill) => skill.category.context === selectedCategory)
     .sort((a) => a.framework ? -1 : 1)
     .sort((a,b) => a.framework === b.framework ? -1 : 1)
-    .map((skill, index, all) => {
+    .map((skill, _index, all) => {
       initGraphData.nodes.push({
         id: skill.label,
         name: skill.label,

@@ -3,7 +3,7 @@ import { projects } from "../../assets/contents"
 import styles from "../../style"
 import { coreImages, menuIcons } from "../../assets"
 import { cloneElement, ReactElement, useContext, useEffect, useRef, useState } from "react"
-import { randomNumberBetween } from "../../utils"
+import { getActiveBreakpoint, randomNumberBetween } from "../../utils"
 import { ProjectCard } from "../cards"
 import { ThemeContext } from "../theme/ThemeEngine"
 import { LangContext } from "../language"
@@ -149,9 +149,10 @@ const ProjectsSlider = () => {
       className={`
         relative
         ${styles.sizeScreen}
+        max-h-[70vh]
         ${styles.flexRow}
         ${styles.contentCenter}
-        space-x-[5%]
+        lg:space-x-[10%]
       `}
     >
 
@@ -170,11 +171,22 @@ const ProjectsSlider = () => {
           card
         ))}
 
+        <hr className={`
+          md:hidden
+          absolute
+          ${styles.line}
+          top-[82%]
+          w-6
+          h-[5px]
+          opacity-25
+          rounded-full
+        `} />
+
         <button id="prev-button"
           className={`
             absolute
-            left-0
-            top-1/2
+            2xl:left-6 xl:-left-6 lg:-left-8 md:-left-3 left-[20%]
+            md:top-1/2 top-[80%]
             z-10
             hover:scale-105
             transition-all
@@ -189,6 +201,7 @@ const ProjectsSlider = () => {
             className={`
               object-cover
               -rotate-90
+              lg:w-[30px] md:w-[40px] w-[35px]
             `}
           /> 
         </button>
@@ -196,8 +209,8 @@ const ProjectsSlider = () => {
         <button id="next-button"
           className={`
             absolute
-            right-0
-            top-1/2
+            2xl:right-6 xl:-right-6 lg:-right-8 md:-right-3 right-[20%]
+            md:top-1/2 top-[80%]
             z-10
             rounded-full
             hover:scale-105
@@ -213,16 +226,18 @@ const ProjectsSlider = () => {
             className={`
               object-cover
               rotate-90
+              lg:w-[30px] md:w-[40px] w-[35px]
             `}
           /> 
         </button>
+
       </div>
 
       <div id="image-container"
         className=
         {`
           ${styles.sizeFull}
-          ${styles.flexCol}
+          ${getActiveBreakpoint('number') as number <= 2 ? "hidden" : styles.flexCol}
           ${styles.contentCenter}
           relative
           overflow-y-visible

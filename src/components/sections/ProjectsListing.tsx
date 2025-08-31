@@ -102,7 +102,8 @@ const ProjectsListing = () => {
                 ${getActiveBreakpoint("number") as number > 1 ? styles.flexRow : styles.flexCol}
                 ${styles.contentCenter}
                 md:space-x-[3%] base:space-x-[0]
-                md:space-y-[0] base:space-y-[15%]
+                md:space-y-[0] space-y-[20px]
+                mt-[5%]
             `}
         >
             <Searchbar />
@@ -122,6 +123,7 @@ const ProjectsListing = () => {
                 backdrop-blur-md
                 bg-black
                 bg-opacity-30
+                ${getActiveBreakpoint('number') as number < 2 ? "overflow-scroll" : ""}
             `}
             style={{
                 animation: "fade-in 0.3s ease-in-out",
@@ -139,7 +141,7 @@ const ProjectsListing = () => {
                 w-full
                 h-fit
                 ${displayedProjects.length > 0 ? "" : "min-h-[50vh]"}
-                ${displayedProjects.length > 0 ? styles.contentStartAll : styles.contentCenter}
+                ${displayedProjects.length > 0 ? styles.contentStartAll : `${styles.contentCenter} text-center`}
                 my-[3%]
                 ml-[4%]
             `}

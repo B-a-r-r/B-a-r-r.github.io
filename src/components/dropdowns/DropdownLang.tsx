@@ -42,6 +42,9 @@ const DropdownLang = () => {
             animationStyle={dropdownAnimation} 
             menuState={[toggleLang, setToggleLang]}
             itemState={[selectedLang, setSelectedLang]}
+            additionalButtonStyles={`
+                text-md
+            `}
         />
     )
 }

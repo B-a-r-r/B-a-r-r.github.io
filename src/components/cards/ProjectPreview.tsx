@@ -1,17 +1,15 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { coreImages } from '../../assets';
 import {Retex} from "../../assets/dataTypes";
 import styles from '../../style';
 import { LangContext } from '../language';
 import Card from './Card';
-import { getRGBAThemeColor, handleMouseLeave, handleMouseMove } from '../../utils';
+import { handleMouseLeave, handleMouseMove } from '../../utils';
 import { RetexContext } from '../retex';
-import { ThemeContext } from '../theme/ThemeEngine';
 
 const ProjectPreview = (project: Retex) => {
     const { currentLang } = useContext(LangContext);
     const { setDisplayedRetex } = useContext(RetexContext);
-    const { currentTheme } = useContext(ThemeContext);
     const cardRef = useRef<HTMLDivElement>(null);
 
     return (

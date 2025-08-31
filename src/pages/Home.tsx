@@ -1,5 +1,5 @@
 import styles from "../style";
-import { Hero, About, ProjectsSlider, Skills, Contact } from "../components/sections";
+import { Hero, About, ProjectsSlider, Contact } from "../components/sections";
 
 const Home = () => {
 
@@ -9,13 +9,18 @@ const Home = () => {
       {`
         ${styles.page}
         ${styles.flexCol}
+        2xl:space-y-[10%] xl:space-y-[18%] lg:space-y-[18%]
+        lg:pb-[100px]
       `}
     >
       <div id="hero-container"
         className=
         {`
-          ${styles.sectionContainer}
-          h-[40vh]
+          w-screen
+          2xl:h-[75vh] lg:h-[62vh] md:h-[40vh] h-[35vh]
+          px-[12%]
+          text-[--color-quaternary]
+          bg-transparent
         `}
       > <Hero /> </div>
 

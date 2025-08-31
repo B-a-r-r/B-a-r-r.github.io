@@ -5,6 +5,7 @@ import { SearchContext } from '../search';
 import { placeholderMessages, sortOptions } from '../../assets/constants';
 import { LangContext } from '../language';
 import { SortOption } from '../../assets/dataTypes';
+import { getActiveBreakpoint } from '../../utils';
 
 type DropdownSortProps = {
     alreadyDisplayedItems?: string[]
@@ -14,22 +15,25 @@ const DropdownSort = ({alreadyDisplayedItems}: DropdownSortProps) => {
     const { toMatch, setToMatch } = useContext(SearchContext);
     const { currentLang } = useContext(LangContext);
     const [toggleMenu, setToggleMenu] = useState(false);
-    let dropdownPlaceholder = placeholderMessages.find((message) => message.context === 'dropdownSort')!.content[currentLang];
+    let dropdownPlaceholder = (
+        getActiveBreakpoint('number') as number < 2 ? "Filters"
+        : placeholderMessages.find((message) => message.context === 'dropdownSort')!.content[currentLang]
+    );
     const [selectedItem, setSelectedItem] = useState<SortOption>();
     const [placeholder, setPlaceholder] = useState(dropdownPlaceholder);
 
     useEffect(() => {
         if (selectedItem !== undefined) {
             setToMatch([
-                selectedItem.abreviation ? selectedItem.abreviation.content[currentLang].toUpperCase()
-                : selectedItem.content[currentLang].toUpperCase()
+                selectedItem.abreviation ? (selectedItem.abreviation.content[currentLang] || selectedItem.abreviation.content[0]).toUpperCase()
+                : (selectedItem.content[currentLang] || selectedItem.content[0]).toUpperCase()
             ])
         }
     }, [selectedItem, dropdownPlaceholder, currentLang])
 
     useEffect(() => {
-        if (!(selectedItem?.abreviation && toMatch.includes(selectedItem.abreviation.content[currentLang].toUpperCase()))
-            && !(selectedItem?.content && toMatch.includes(selectedItem.content[currentLang].toUpperCase()))
+        if (!(selectedItem?.abreviation && toMatch.includes((selectedItem.abreviation.content[currentLang] || selectedItem.abreviation.content[0]).toUpperCase()))
+            && !(selectedItem?.content && toMatch.includes((selectedItem.content[currentLang] || selectedItem.content[0]).toUpperCase()))
         ) {
             setSelectedItem(undefined);
             setPlaceholder(dropdownPlaceholder)
@@ -51,8 +55,8 @@ const DropdownSort = ({alreadyDisplayedItems}: DropdownSortProps) => {
                     onClick={() => {
                         setSelectedItem(option); 
                         setPlaceholder(
-                            option.abreviation ? option.abreviation.content[currentLang] 
-                            : option.content[currentLang]
+                            option.abreviation ? (option.abreviation.content[currentLang] || option.abreviation.content[0]) 
+                            : (option.content[currentLang] || option.content[0])
                         );
                     }}
                 > { option.content[currentLang] } </li>
@@ -73,7 +77,7 @@ const DropdownSort = ({alreadyDisplayedItems}: DropdownSortProps) => {
             additionalStyles=
             {`
                 font-primary-regular 
-                text-[110%] 
+                text-md
                 text-nowrap
                 ${styles.contentEndX}
             `}

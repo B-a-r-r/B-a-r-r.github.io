@@ -29,8 +29,8 @@ const ProjectCard = ({project, additionalStyles, onanimationend}: ProjectCardPro
             className={`
                 color-scheme-primary
                 ${styles.sizeFull}
-                2xl:max-h-[55%] xl:max-h-[60%] lg:max-h-[55%] md:max-h-[55%]
-                2xl:max-w-[70%] xl:max-w-[75%] lg:max-w-[70%] md:max-w-[70%]
+                xl:max-h-[75%] lg:max-h-[65%] md:max-h-[55%] sm:max-h-[55%] ss:max-h-[50%] xs:max-h-[40%] max-h-[35%]
+                2xl:max-w-[380px] xl:max-w-[350px] lg:max-w-[300px] md:max-w-[400px] sm:max-w-[75%] ss:max-w-[75%] max-w-[80%]
                 aspect-square
                 absolute
                 rounded-md
@@ -63,19 +63,22 @@ const ProjectCard = ({project, additionalStyles, onanimationend}: ProjectCardPro
                     titleProps=
                     {`
                         bg-[--color-secondary]
-                        xl:text-xl lg:text-lg
-                        px-[8%]
-                        xl:mb-[4%]
+                        lg:text-xl md:text-2xl sm:text-xl ss:text-md text-sm
+                        md:px-[8%] px-[10%]
+                        mb-[4%]
                     `}
                     contentProps=
                     {`
-                        lg:text-xl
-                        px-[8%]
+                        2xl:text-xl lg:text-lg md:text-xl sm:text-lg ss:text-base text-xs
+                        md:px-[8%] px-[10%]
+                        md:mt-0 mt-2
+                        mb-[4%]
+                        break-words
                     `}
                     tagsProps=
                     {`
-                        lg:text-md
-                        px-[8%]
+                        2xl:text-lg lg:text-md md:text-lg sm:text-md ss:text-sm text-2xs
+                        md:px-[8%] px-[10%]
                     `}
                 />
             </Link>

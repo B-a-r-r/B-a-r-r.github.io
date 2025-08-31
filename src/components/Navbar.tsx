@@ -3,7 +3,7 @@ import { navLinks } from "../assets/constants";
 import DropdownLang from "./dropdowns/DropdownLang";
 import SwitchButton from "./theme/SwitchButton";
 import styles from "../style";
-import { getActiveBreakpoint, getCurrentNavigation, getRGBAThemeColor } from "../utils";
+import { getActiveBreakpoint, getCurrentNavigation } from "../utils";
 import { Link } from "react-router";
 import { LangContext } from "./language";
 import { menuIcons } from "../assets";
@@ -34,11 +34,21 @@ const Navbar = () => {
   }, [window.location.pathname, window.location.hash]);
 
   useEffect(() => {
+    window.addEventListener('touchstart', (e) => {
+        if (!(e.target as HTMLElement).closest('#burger-container')) {
+            setToggleBurger(true);
+        }
+    });
+
     window.addEventListener('scroll', () => {
       handleScroll();
     });
 
-    return () => {window.removeEventListener('scroll', () => handleScroll());}
+    return () => {
+      window.removeEventListener('scroll', () => handleScroll());
+      window.removeEventListener('keydown', () => {});
+      window.removeEventListener('touchstart', () => {});
+    }
   }, []);
 
   useEffect(() => {
@@ -64,17 +74,14 @@ const Navbar = () => {
       {`
         fixed
         top-0
-        w-full
+        w-screen
         items-center
         px-[5%]
-        2xl:py-[0.8%] py-[1%]
+        xl:py-[1%] lg:py-[1%] py-1
         ${styles.flexRow}
         ${styles.contentStartX}
-        bg-[${getActiveBreakpoint('number') as number <= 1 ? 
-          getRGBAThemeColor("--color-primary", 0.9)
-          : "--color-secondary"
-        }]
-        2xl:text-lg  xl:text-md  base:text-base
+        bg-[--color-secondary]
+        2xl:text-lg  xl:text-md  text-base
         transition-transform
         duration-300
         ease-in-out
@@ -84,7 +91,7 @@ const Navbar = () => {
         className="
           space-x-10
           list-none 
-          lg:flex base:hidden"
+          lg:flex hidden"
       >
         {/**Map the navigation links from the data file according to the current URL.*/
         navLinks.find(
@@ -129,10 +136,9 @@ const Navbar = () => {
         {`
           ${styles.sizeFull}
           ${styles.flexRow}
-          ${styles.contentEndX}
+          ${getActiveBreakpoint('number') as number < 3 ? styles.contentStartX : styles.contentEndX}
           font-primary-regular
-          space-x-[3%]
-          lg:flex base:hidden
+          lg:space-x-[3%] space-x-[10%] 
         `}
       >
 
@@ -152,6 +158,7 @@ const Navbar = () => {
             `${styles.flexRow}` : `hidden`
           }
           relative
+          mr-[3%]
         `}
       >
         <button id="burger"
@@ -162,10 +169,11 @@ const Navbar = () => {
             ${styles.contentEndX}
             absolute
             top-0
-            -right-${toggleBurger ? "0" : "5"}
+            -right-${toggleBurger ? "5" : "5"}
             transition-all
             duration-300
             ease-in-out
+            lg:pr-0 md:pr-[5%] pr-[8%]
           `}
           style={{
             zIndex: 1000,
@@ -180,7 +188,10 @@ const Navbar = () => {
             {`
               object-cover
               object-center
-              w-[${toggleBurger ? "15%" : "12%"}] 
+              ${toggleBurger ? 
+                "sm:w-[26px] w-[24px]" 
+                : "sm:w-[24px] w-[22px]"
+              } 
               transition-all
               duration-300
               ease-in-out
@@ -197,6 +208,9 @@ const Navbar = () => {
             ${styles.contentEndY}
             lg:hidden
             relative
+            transition-all
+            duration-300
+            ease-in-out
           `}
           style={{
             zIndex: 999,
@@ -208,48 +222,52 @@ const Navbar = () => {
               list-none
               absolute
               color-scheme-secondary
-              -top-10
+              -top-5
               -right-5
-              px-[8%]
-              pt-[25%]
-              pb-[5%]
+              px-[20px]
+              pt-[45px]
+              pb-[15px]
               space-y-[10%]
               shadow-md
               rounded-md
             `}
           >
-            {navLinks
-            .find(
+            {/**Map the navigation links from the data file according to the current URL.*/
+            navLinks.find(
               (nav) => nav.route.includes(window.location.pathname.split('/')[1])
-            )?.links.map((nav, index) => (
-              <li key={`navlink-mobile-${index}`}
-                className=
-                {`
-                  font-secondary-regular
-                  tracking-widest
-                  cursor-pointer
-                  hover:text-[--color-tertiary]
-                  text-nowrap
-                  transition-all
-                  duration-300
-                  ease-in-out
-                  ${(nav.content[currentLang] ? nav.content[currentLang].toLowerCase()
-                    : nav.content[0].toLowerCase()) === currentNavigation ? 'text-[--color-tertiary]' : ""}
-                `}
-              >
-                {nav.link.includes('#') ?
-                  <a key={`${index}-a`}
-                    href={nav.link}
-                    onClick={() => setCurrentNavigation(nav.content[currentLang].toLowerCase())}
-                  > {nav.content[currentLang] ? nav.content[currentLang] : nav.content[0]} </a> 
-                  :
-                  <Link key={`${index}-link`}
-                    to={nav.link}
-                    onClick={() => setCurrentNavigation(nav.content[currentLang].toLowerCase())}
-                  > {nav.content[currentLang] ? nav.content[currentLang] : nav.content[0]} </Link>
-                }
-              </li>
-            ))}
+            )?.links.map((nav, index) => {
+              let thisNav = nav.content[currentLang] ? nav.content[currentLang] : nav.content[0];
+              return (
+                <>
+                  <li key={`navlink-${index}`}
+                    className=
+                    {`
+                        font-secondary-regular
+                        tracking-widest
+                        cursor-pointer
+                        hover:text-[--color-tertiary]
+                        transition-all
+                        duration-300
+                        ease-in-out
+                        text-nowrap
+                        ${(nav.link).toLowerCase() === currentNavigation ? 'text-[--color-tertiary]' : ""}
+                    `}
+                  >
+                    {/** If the navigation link is an anchor on the page, it become an <a>. Else if it
+                     * is supposed to redirect on another page, it become a React <Link>. */
+                    nav.link.includes('#') ?
+                      <a href={nav.link}
+                        onClick={() => setCurrentNavigation((nav.link).toLowerCase())}
+                      > {thisNav} </a>
+                      :
+                      <Link to={nav.link}
+                        onClick={() => setCurrentNavigation((nav.link).toLowerCase())}
+                      > {thisNav} </Link>
+                    }
+                  </li>
+                </>
+              )
+            })}
           </ul>
         </div>
       </div>

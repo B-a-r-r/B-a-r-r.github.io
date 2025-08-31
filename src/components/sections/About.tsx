@@ -1,5 +1,5 @@
 import styles from "../../style"
-import { coreImages } from "../../assets"
+import { coreImages, documents } from "../../assets"
 import { bioText } from "../../assets/contents"
 import DOMPurify from "dompurify"
 import { useContext } from "react"
@@ -16,44 +16,43 @@ const About = () => {
       {`
         ${styles.sizeFull}
         ${getActiveBreakpoint('number') as number <= 1 ? styles.flexCol : styles.flexRow}
-        ${styles.contentCenter}
-        md:space-x-[6%]
-        md:space-y-0 base:space-y-[10%]
+        ${styles.contentStartY}
+        2xl:space-x-[20px] lg:space-x-[60px]
+        lg:space-y-0 base:space-y-[10%]
         overflow-hidden
+        lg:pt-0 md:pt-[28%] sm:pt-[25%] ss:pt-[25%] xs:pt-[20%] pt-[10%]
       `}
     >
       <span id="portrait-container-desktop"
         className=
         {`
-          ${getActiveBreakpoint('number') as number <= 1 ? "hidden" : styles.flexRow}
+          ${getActiveBreakpoint('number') as number <= 2 ? "hidden" : styles.flexCol}
           w-5/12
-          h-full
+          h-fit
           relative
+          space-y-[6%]
         `}
       >
         <img src={coreImages.portrait}
           alt="author-portrait"
           className=
           {`
-            absolute
             object-cover
             object-center
             aspect-square
             rounded-[5px]
-            2xl:w-[93%] xl:w-[100%] base:w-[100%]
-            2xl:top-[17%] xl:top-[11%] base:top-0 
+            2xl:w-[93%] xl:w-[100%] w-[100%]
+            max-w-[280px]
             right-0
             shadow-xl
           `}
         />
 
         <a id="additional-link"
+          href={documents.cv}
           className=
           {`
-            absolute  
-            text-base
-            top-[55%]
-            left-2
+            xl:text-lg lg:text-base
             text-[--color-tertiary]
             cursor-pointer
             hover:translate-x-1.5
@@ -64,15 +63,55 @@ const About = () => {
           `}
         > {placeholderMessages.find(message => message.context === "aboutAdditionalLink")!.content[currentLang]} </a>
       </span>
-      
+
+      <div id="about-text"
+        className=
+        {`
+          ${styles.sizeFit}
+          ${styles.flexCol}
+          ${styles.contentStartAll}
+          lg:space-y-0 md:space-y-[2%] space-y-[1%]
+        `}
+      >
+        <h2 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(bioText.find((e) => e.active)!.title[currentLang])}}
+          className=
+          {`
+            ${styles.heading2}
+          `}
+        />
+
+        <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(bioText.find((e) => e.active)!.content[currentLang])}}
+          className=
+          {`
+            ${styles.sizeFull}
+            ${styles.paragraph}
+            2xl:pr-[3.5%]
+          `}
+        />
+
+        <a id="additional-link"
+          href={documents.cv}
+          className=
+          {`
+            lg:hidden
+            pt-[20px]
+            sm:text-md ss:text-md xs:text-sm text-2xs
+            text-[--color-tertiary]
+            overflow-x-visible
+          `}
+        > {placeholderMessages.find(message => message.context === "aboutAdditionalLink")!.content[currentLang]} </a>
+      </div>
+
       <span id="portrait-container-mobile"
         className=
         {`
-          md:hidden ${styles.flexRow}
+          ${getActiveBreakpoint('number') as number < 1 ? styles.flexCol : "hidden"}
+          sm:ss:hidden
           w-full
           h-fit
+          ${styles.contentCenter}
           relative
-          space-x-[3%]
+          sm:pt-[10%] xs:pt-[10%] pt-[2%]
         `}
       >
         <img src={coreImages.portrait}
@@ -83,48 +122,11 @@ const About = () => {
             object-center
             aspect-square
             rounded-[5px]
-            w-[60%]
+            xs:w-[200px] w-[175px]
             shadow-xl
           `}
         />
-
-        <h2 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(bioText.find((e) => e.active)!.title[currentLang])}}
-          className=
-          {`
-            ${styles.heading2}
-            flex
-            mb-[0]
-            pb-[0]
-            ${styles.contentEndY}
-          `}
-        />
       </span>
-
-      <div id="about-text"
-        className=
-        {`
-          ${styles.sizeFit}
-          ${styles.flexCol}
-          ${styles.contentStartAll}
-          overflow-hidden
-        `}
-      >
-        <h2 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(bioText.find((e) => e.active)!.title[currentLang])}}
-          className=
-          {`
-            md:visible base:hidden
-            ${styles.heading2}
-          `}
-        />
-
-        <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(bioText.find((e) => e.active)!.content[currentLang])}}
-          className=
-          {`
-            ${styles.paragraph}
-            2xl:pr-[3.5%]
-          `}
-        />
-      </div>
     </section>
   )
 }

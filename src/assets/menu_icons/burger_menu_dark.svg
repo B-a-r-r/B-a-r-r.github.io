@@ -1,1 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#71cbb3" viewBox="0 0 24 24" transform="" id="injected-svg"><!--Boxicons v3.0 https://boxicons.com | License  https://docs.boxicons.com/free--><path d="M8 11h12v2H8zM12 18h8v-2h-8zM4 6h16v2H4z"></path></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.2"
+   viewBox="0 0 18 14"
+   width="24"
+   height="24"
+   fill="#161616"
+   id="svg1"
+   sodipodi:docname="burger_menu_dark.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="28.875"
+     inkscape:cx="11.982684"
+     inkscape:cy="12"
+     inkscape:window-width="1440"
+     inkscape:window-height="878"
+     inkscape:window-x="816"
+     inkscape:window-y="1073"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <style
+     id="style1" />
+  <path
+     d="m1 1h16v2h-16zm4 5h12v2h-12zm5 5h7v2h-7z"
+     id="path1"
+     style="fill:#71cbb3;fill-opacity:1" />
+</svg>

@@ -115,6 +115,13 @@ export const sortOptions: Array<SortOption> = [
       fr: "Récents",
       en: "Newest",
     },
+    abreviation:
+    {
+      content:
+      {
+        0: "Newest",
+      },
+    },
   },
   {
     context: AvailableSortOptions.OLDEST,
@@ -122,6 +129,13 @@ export const sortOptions: Array<SortOption> = [
     {
       fr: "Anciens",
       en: "Oldest",
+    },
+    abreviation:
+    {
+      content:
+      {
+        0: "Oldest",
+      },
     },
   },
   {

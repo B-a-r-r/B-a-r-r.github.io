@@ -18,7 +18,7 @@ const Contact = () => {
           `${styles.flexCol}` : `${styles.flexRow}`
         }
         ${styles.contentCenter}
-        md:space-x-[13%]
+        xl:space-x-[200px] lg:space-x-[150px] 
       `}
     >
         <div id='form-container'
@@ -45,7 +45,7 @@ const Contact = () => {
               h-full
               ${styles.flexCol}
               ${styles.contentCenter}
-              xl:space-y-[40%] md:space-y-[50%] base:space-y-[15%]
+              lg:space-y-[35%] md:space-y-[50%] base:space-y-[15%]
             `}
         >
           {socialMedia.map((social: SocialMedia) => (

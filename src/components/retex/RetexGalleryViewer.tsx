@@ -3,6 +3,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import styles from "../../style";
 import { menuIcons } from "../../assets";
 import { ThemeContext } from "../theme/ThemeEngine";
+import { getActiveBreakpoint } from "../../utils";
 
 type RetexGalleryViewerProps = {
     images: string[];
@@ -51,8 +52,8 @@ const RetexGalleryViewer = ({images, untoggler}: RetexGalleryViewerProps) => {
                 className=
                 {`
                     absolute
-                    -top-[5%]
-                    -right-[3%]
+                    md:-top-[5%] -top-[10px]
+                    md:-right-[3%] -right-[15px]
                     z-[23]
                     ${styles.sizeFit}
                     cursor-pointer
@@ -64,7 +65,7 @@ const RetexGalleryViewer = ({images, untoggler}: RetexGalleryViewerProps) => {
                 className=
                 {`
                     ${styles.sizeFull}
-                    ${styles.flexCol}
+                    ${getActiveBreakpoint('number') as number < 2 ? "hidden" : styles.flexCol}
                     ${styles.contentCenter}
                     transition-all
                     duration-300
@@ -88,7 +89,7 @@ const RetexGalleryViewer = ({images, untoggler}: RetexGalleryViewerProps) => {
                 className=
                 {`
                     absolute
-                    ${styles.flexCol}
+                    ${getActiveBreakpoint('number') as number < 2 ? "hidden" : styles.flexCol}
                     ${styles.contentCenter}
                     overflow-x-scroll
                     overflow-y-hidden
@@ -155,6 +156,28 @@ const RetexGalleryViewer = ({images, untoggler}: RetexGalleryViewerProps) => {
                     />
                 </div>
             </nav>
+
+            <div id="gallery-mobile"
+                className={`
+                    ${styles.sizeFull}
+                    ${getActiveBreakpoint('number') as number < 2 ? styles.flexCol : "hidden"}
+                    space-y-[5%]
+                    pt-[25px]
+                `}
+            >
+                {images.map((image, idx) => (
+                    <img key={`retex-gallery-mobile-image-${idx}`}
+                        src={image}
+                        alt={`Retex Gallery Mobile Image ${idx + 1}`}
+                        className={`
+                            object-contain
+                            object-center
+                            rounded-lg
+                            shadow-lg
+                        `}
+                    />
+                ))}
+            </div>
         </div>
     )
 }

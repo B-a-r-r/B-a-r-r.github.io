@@ -1,6 +1,6 @@
 import styles from "../style"
 import { copyrigthText, creditsMentions, navLinks } from "../assets/constants"
-import { getCurrentNavigation, shuffle } from "../utils"
+import { getActiveBreakpoint, getCurrentNavigation, shuffle } from "../utils"
 import { useContext, useEffect, useState } from "react"
 import { sharedLinks } from "../assets/contents"
 import DOMPurify from "dompurify"
@@ -21,11 +21,13 @@ const Footer = () => {
     <footer id="footer"
       className=
       {`
-        ${styles.sizeFull}
+        w-screen
+        h-full
         px-[5%]
-        2xl:pt-[2%] pt-[4%]
-        pb-[2%]
-        ${styles.flexRow}
+        2xl:pt-[2%] lg:pt-[4%] pt-[10%]
+        lg:pb-[2%] pb-[5%]
+        ${getActiveBreakpoint('number') as number <= 2 ? styles.flexCol : styles.flexRow}
+        lg:space-y-0 space-y-[8%]
         color-scheme-secondary
         relative
         shadow-md
@@ -35,11 +37,12 @@ const Footer = () => {
         className=
         {`
           h-full
-          w-[200%]
+          w-full
           ${styles.contentStartAll}
-          ${styles.flexRow}
-          lg:text-2xs
-          space-x-[15%]
+          ${getActiveBreakpoint('number') as number <= 2 ? styles.flexCol : styles.flexRow}
+          text-2xs
+          xl:space-x-[100px] lg:space-x-[50px]
+          lg:space-y-0 space-y-[3%]
         `}
       >
         <div id="nav-links-container"
@@ -162,7 +165,7 @@ const Footer = () => {
         className=
         {`
           ${styles.flexRow}
-          ${styles.contentEndAll}
+          ${getActiveBreakpoint('number') as number <= 2 ? styles.contentStartX : styles.contentEndAll}
           ${styles.sizeFull}
           self-end
           text-3xs
@@ -173,7 +176,7 @@ const Footer = () => {
             href={copyrigthText.link}
             className=
             {`
-              text-right
+              ${getActiveBreakpoint('number') as number <= 2 ? "text-left" : "text-right"}
               ${styles.hyperlink}
             `}
             target="_blank" 
