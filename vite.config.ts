@@ -9,5 +9,7 @@ export default defineConfig({
     }
   },
   plugins: [react()],
+  base: "/B-a-r-r.github.io",
 })
 
+  
