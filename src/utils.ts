@@ -3,7 +3,6 @@ import { navLinks } from "./assets/constants";
 import resolveConfig from 'tailwindcss/resolveConfig'
 import config from '../tailwind.config.d'
 import { Config } from "tailwindcss";
-import { p } from "framer-motion/client";
 
 const TAILWIND_CONFIG = resolveConfig(config as Config);
 

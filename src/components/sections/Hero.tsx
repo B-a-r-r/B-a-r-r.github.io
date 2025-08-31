@@ -6,7 +6,7 @@ import { useContext, useEffect, useState } from "react"
 import DOMPurify from "dompurify"
 import { ThemeContext } from "../theme/ThemeEngine"
 import { LangContext } from "../language"
-import { getActiveBreakpoint, isFullScreen } from "../../utils"
+import { getActiveBreakpoint } from "../../utils"
 
 const Hero = () => {
 const { currentTheme } = useContext(ThemeContext);
